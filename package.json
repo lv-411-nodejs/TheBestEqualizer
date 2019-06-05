@@ -1,13 +1,13 @@
 {
-  "name": "simple-react-full-stack",
+  "name": "equalizer",
   "version": "1.0.0",
-  "description": "Boilerplate to build a full stack web application using React, Node.js, Express and Webpack.",
-  "main": "src/server/index.js",
+  "description": "The Best Equalizer ever You seen",
+  "main": "src/server/app.js",
   "scripts": {
     "build": "webpack --mode production",
-    "start": "npm run build && node src/server/index.js",
+    "start": "npm run build && node src/server/app.js",
     "client": "webpack-dev-server --mode development --devtool inline-source-map --hot",
-    "server": "nodemon src/server/index.js",
+    "server": "nodemon src/server/app.js",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "Lv 411",
