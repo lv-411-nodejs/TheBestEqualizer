@@ -12,16 +12,12 @@ class App extends Component {
     let routes = (
       <Switch>
         <Route path="/" exact component={Main} />
-        <Route path="/auth" component={Login} />
-        <Route path="/regist" component={Registration} />
+        <Route path="/login" component={Login} />
+        <Route path="/registration" component={Registration} />
         <Redirect to="/" />
       </Switch>
     );
-    return (
-      <div>
-        {routes}
-      </div>
-    );
+    return routes;
   }
 }
 
