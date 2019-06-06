@@ -6,18 +6,21 @@
   "scripts": {
     "build": "webpack --mode production",
     "start": "npm run build && node src/server/app.js",
-    "client": "webpack-dev-server --mode development --devtool inline-source-map --hot",
+    "client": "webpack-dev-server --mode development --devtool inline-source-map",
     "server": "nodemon src/server/app.js",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "Lv 411",
   "license": "ISC",
   "dependencies": {
+    "@material-ui/core": "^4.0.2",
     "babel-polyfill": "^6.26.0",
     "express": "^4.16.3",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
     "react-redux": "^7.0.3",
+    "react-router": "^5.0.1",
+    "react-router-dom": "^5.0.1",
     "redux": "^4.0.1"
   },
   "devDependencies": {
