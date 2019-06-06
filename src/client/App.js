@@ -3,7 +3,7 @@ import './app.css';
 import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
 
 import Main from './containers/Main/Main';
-import Registration from './containers/Registration/Registration';
+import Registration from './containers/Registration';
 import Login from './containers/Login/Login';
 
 class App extends Component {

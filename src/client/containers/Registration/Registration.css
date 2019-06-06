@@ -1,0 +1,30 @@
+.root {
+    height: 100vh;
+}
+  
+.image {
+  background-image: url('../../assets/images/equalizer.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.paper {
+  margin: 6rem 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.avatar {
+  margin: 1rem;
+}
+
+.form {
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.link {
+    text-decoration: none;
+}
