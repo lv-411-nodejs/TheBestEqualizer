@@ -9,10 +9,7 @@ cache:
 
 install:
   - nvm install stable
-  - npm install -g eslint-cli
   - npm install
 
 script:
-  - eslint --config src/client/.eslintrc.js src/client
-  - eslint --config src/server/.eslintrc.js src/server
   - npm run build
