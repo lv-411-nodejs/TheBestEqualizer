@@ -22,10 +22,10 @@ class AdditionalConfigs extends Component {
           </label>
           Modes
         </div>
-        <di className='settings'>
+        <div className='settings'>
           { cogIcon }
           Settings
-        </di>
+        </div>
       </section>
     )
   }

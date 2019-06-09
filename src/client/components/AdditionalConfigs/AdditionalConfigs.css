@@ -29,11 +29,11 @@ body, html {
 }
 
 .additionalSettings-container > div:hover {
-    -webkit-transition: .7s;
-      -moz-transition: .7s;
-      -ms-transition: .7s;
-      -o-transition: .7s;
-          transition: .7s;
+  transition: color .7s ease-in-out;
+    -webkit-transition: color .7s ease-in-out;
+    -moz-transition: color .7s ease-in-out;
+    -ms-transition: color .7s ease-in-out;
+    -o-transition: color .7s ease-in-out;
   color: #cacaca;
 }
 
