@@ -1,0 +1,8 @@
+@import url('https://fonts.googleapis.com/css?family=Bitter&display=swap');
+
+.MainFooter{
+  font-family: 'Bitter', serif;
+  background-color: #242625;
+  text-align: center;
+  color: #A0A0A0;
+}
