@@ -8,6 +8,7 @@ module.exports = {
     'Atomics': 'readonly',
     'SharedArrayBuffer': 'readonly'
   },
+  "parser": "babel-eslint",
   'parserOptions': {
     'ecmaFeatures': {
       'jsx': true
@@ -19,5 +20,6 @@ module.exports = {
     'react'
   ],
   'rules': {
+      semi: [2, "always", { "omitLastInOneLineBlock": true}],
   }
-}
+};

@@ -1,17 +1,17 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import './app.css';
 import ReactImage from './react.png';
 
 export default class App extends Component {
   state = { username: null };
 
-  componentDidMount() {
+  componentDidMount () {
     fetch('/api/first')
       .then(res => res.json())
       .then(user => this.setState({ username: user.username }));
   }
 
-  render() {
+  render () {
     const { username } = this.state;
     return (
       <div>
