@@ -2,28 +2,24 @@
 
 body, html {
   font-family: Bitter, serif;
-  color: #A0A0A0;
+  color: #a0a0a0;
 }
 
 .additionalSettings-container {
-  transition: all 1s ease;
+  background-color: #242625;
+  margin: 0 auto;
   display: flex;
   padding: 15px;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
-  background-color: #242625;
   align-items: center;
-  -ms-border-radius: 5px;
-  -o-border-radius: 5px;
-  -webkit-transition: all 1s ease;
-  -moz-transition: all 1s ease;
-  -ms-transition: all 1s ease;
-  -o-transition: all 1s ease;
 }
 
 .additionalSettings-container > div:hover {
+  transition: .5s ease-in-out;
   color: #B0B0B0;
+  -webkit-transition: .5s ease-in-out;
+  -moz-transition: .5s ease-in-out;
+  -ms-transition: .5s ease-in-out;
+  -o-transition: .5s ease-in-out;
 }
 
 .volumeElement {

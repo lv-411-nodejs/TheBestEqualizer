@@ -1,16 +1,16 @@
-import React from './node_modules/react'
+import React from 'react';
 
-import './MainFooter.css'
+import './mainFooter.css';
 
 class MainFooter extends React.Component {
   render () {
     return (
       <footer className='MainFooter-container'>
-        <h3>Soft Serve IT Academy</h3>
+        <h4>Soft Serve IT Academy</h4>
         <p>Group - Node.js 411</p>
       </footer>
-    )
+    );
   }
 }
 
-export default MainFooter
+export default MainFooter;
