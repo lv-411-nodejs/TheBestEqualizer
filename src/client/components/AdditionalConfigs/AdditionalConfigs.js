@@ -1,12 +1,12 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faVolumeUp, faCog } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faVolumeUp, faCog } from '@fortawesome/free-solid-svg-icons';
 
-import './AdditionalConfigs.css'
+import './AdditionalConfigs.css';
 
-const volumeIcon = <FontAwesomeIcon icon={faVolumeUp} />
-const cogIcon = <FontAwesomeIcon icon={faCog} />
+const volumeIcon = <FontAwesomeIcon icon={faVolumeUp} />;
+const cogIcon = <FontAwesomeIcon icon={faCog} />;
 
 class AdditionalConfigs extends Component {
   render () {
@@ -27,8 +27,8 @@ class AdditionalConfigs extends Component {
           Settings
         </div>
       </section>
-    )
+    );
   }
 }
 
-export default AdditionalConfigs
+export default AdditionalConfigs;
