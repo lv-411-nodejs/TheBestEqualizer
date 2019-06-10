@@ -1,9 +1,10 @@
+/* eslint-disable no-unused-vars */
 import React, { Component } from 'react';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faVolumeUp, faCog } from '@fortawesome/free-solid-svg-icons';
 
-import './AdditionalConfigs.css';
+import './additionalConfigs.css';
 
 const volumeIcon = <FontAwesomeIcon icon={faVolumeUp} />;
 const cogIcon = <FontAwesomeIcon icon={faCog} />;

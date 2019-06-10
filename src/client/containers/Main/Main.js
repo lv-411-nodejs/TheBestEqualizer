@@ -1,6 +1,6 @@
-import React, {Component} from 'react'
-import { Link } from 'react-router-dom'
-import AdditionalConfigs from '../../components/AdditionalConfigs/AdditionalConfigs'
+import React, {Component} from 'react';
+import { Link } from 'react-router-dom';
+import AdditionalConfigs from '../../components/additionalConfigs/additionalConfigs';
 
 class Main extends Component {
   render () {
@@ -10,8 +10,8 @@ class Main extends Component {
         <Link to="/login">Login</Link>
         <Link to="/registration">Registration</Link>
       </React.Fragment>
-    )
+    );
   }
 }
 
-export default Main
+export default Main;
