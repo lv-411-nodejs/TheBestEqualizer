@@ -21,5 +21,6 @@ module.exports = {
   ],
   'rules': {
       semi: [2, "always", { "omitLastInOneLineBlock": true}],
+      'react/jsx-uses-react':true
   }
 };

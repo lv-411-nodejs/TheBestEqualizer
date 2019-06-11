@@ -1,10 +1,9 @@
-// eslint-disable-next-line no-unused-vars
 import React, { Component } from 'react';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faVolumeUp, faCog } from '@fortawesome/free-solid-svg-icons';
 
-import './additionalConfigs.css';
+import classes from './additionalConfigs.css';
 
 const volumeIcon = <FontAwesomeIcon icon={faVolumeUp} />;
 const cogIcon = <FontAwesomeIcon icon={faCog} />;
@@ -12,18 +11,18 @@ const cogIcon = <FontAwesomeIcon icon={faCog} />;
 class AdditionalConfigs extends Component {
   render () {
     return (
-      <section className='additionalSettings-container flex'>
-        <div className='volumeElement'>
+      <section className={ classes.additionalSettingsContainer }>
+        <div className={ classes.volumeElement }>
           { volumeIcon }
           <input type='range' /> Volume
         </div>
-        <div className='modesElement'>
-          <label className='switch'>
-            <input type="checkbox"/><span className='slider'></span>
+        <div className={ classes.modesElement }>
+          <label className={ classes.switch }>
+            <input type="checkbox"/><span className={ classes.slider }></span>
           </label>
           Modes
         </div>
-        <div className='settings'>
+        <div className={ classes.settings }>
           { cogIcon }
           Settings
         </div>

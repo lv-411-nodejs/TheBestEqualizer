@@ -5,15 +5,15 @@ body, html {
   color: #a0a0a0;
 }
 
-.additionalSettings-container {
-  background-color: #242625;
+.additionalSettingsContainer {
+  background: #2A2A2A;
   margin: 0 auto;
   display: flex;
   padding: 15px;
   align-items: center;
 }
 
-.additionalSettings-container > div:hover {
+.additionalSettingsContainer > div:hover {
   transition: .5s ease-in-out;
   color: #B0B0B0;
   -webkit-transition: .5s ease-in-out;
@@ -62,7 +62,8 @@ input[type=range]::-webkit-slider-runnable-track {
   -webkit-border-radius: 15px;
     -moz-border-radius: 15px;
         border-radius: 15px;
-  background: #008f83;
+  /* background: #008f83; */
+  background: #2ECC71;
       -ms-border-radius: 15px;
       -o-border-radius: 15px;
 }
@@ -80,7 +81,7 @@ input[type=range]::-webkit-slider-thumb {
     -webkit-border-radius: 50%;
       -moz-border-radius: 50%;
         border-radius: 50%;
-  background: #008f83;
+  background: #2ECC71;
     -ms-border-radius: 50%;
      -o-border-radius: 50%;
 }
