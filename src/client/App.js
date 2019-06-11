@@ -1,23 +1,10 @@
-import { Component } from 'react';
-import './app.css';
-import ReactImage from './react.png';
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-export default class App extends Component {
-  state = { username: null };
+import Routers from './routers';
 
-  componentDidMount () {
-    fetch('/api/first')
-      .then(res => res.json())
-      .then(user => this.setState({ username: user.username }));
-  }
+const app = (
+  <Routers />
+);
 
-  render () {
-    const { username } = this.state;
-    return (
-      <div>
-        {username ? <h1>{`Hello ${username}`}</h1> : <h1>Loading.. please wait!</h1>}
-        <img src={ReactImage} alt="react" />
-      </div>
-    );
-  }
-}
+ReactDOM.render(app, document.getElementById('root'));
