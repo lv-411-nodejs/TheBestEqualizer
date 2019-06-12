@@ -4,6 +4,7 @@ import ModesItem from '../ModesItems/modesItem';
 import { Image3d, ImageHeadSet, ImageSpeaker, ImageExtra } from 'src/images';
 
 class Modes extends Component {
+
   render() {
     return (
       <div className="modes-container">
@@ -19,4 +20,4 @@ class Modes extends Component {
   }
 }
 
-export default Modes
+export default Modes;

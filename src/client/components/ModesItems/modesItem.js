@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 class ModesItem extends Component {
+
   render() {
     const { iconUrl, text } = this.props;
     return (
@@ -10,7 +11,7 @@ class ModesItem extends Component {
           {text}
         </button>
       </div>
-    )
+    );
   }
 };
 
