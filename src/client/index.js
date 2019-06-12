@@ -1,4 +1,5 @@
+import React from 'react';
 import ReactDOM from 'react-dom';
-import Modes from './components/Modes/Modes';
+import App from './app.js';
 
-ReactDOM.render(<Modes />, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById('root'));

@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 import '../../styles/common.css';
 import ModesItem from '../ModesItems/modesItem';
-import Image3d from '../../images/baseline-3d_rotation-24px.svg';
-import ImageHeadSet from '../../images/headphones-alt-solid.svg';
-import ImageSpeaker from '../../images/broadcast.svg';
-import ImageExtra from '../../images/iconfinder_46_111100.svg'
+import {Image3d, ImageHeadSet, ImageSpeaker, ImageExtra} from 'src/images';
 
 class Modes extends Component {
 

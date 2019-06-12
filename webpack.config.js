@@ -3,7 +3,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 const outputDirectory = 'dist';
-
+const srcClientPath = path.resolve('./', 'src/client');
+console.log(srcClientPath);
 module.exports = {
   entry: ['babel-polyfill', './src/client/index.js'],
   output: {
@@ -29,6 +30,9 @@ module.exports = {
     ]
   },
   resolve: {
+    alias: {
+      src: srcClientPath
+    },
     extensions: ['*', '.js', '.jsx']
   },
   devServer: {
