@@ -1,5 +1,5 @@
-module.exports = {
-  index: (req, res) => {
-    res.send({ 'worked': true });
+export default class ApiController {
+  static index (req, res) {
+    res.json({ version: '0.0.1' });
   }
-};
+}

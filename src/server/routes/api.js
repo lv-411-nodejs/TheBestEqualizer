@@ -1,5 +1,5 @@
-const ApiController = require('../controllers/ApiController');
+import ApiController from '../controllers/ApiController';
 
-module.exports = (app) => {
-  app.get('/', ApiController.index);
+export default (app) => {
+  app.get('/api', ApiController.index);
 };
