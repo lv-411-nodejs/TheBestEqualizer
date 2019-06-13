@@ -1,7 +1,7 @@
 import React from 'react';
 
-const ModesItem = (props) => {
-  const { iconUrl, text } = props;
+const ModesItem = (items) => {
+  const { iconUrl, text } = items;
   return (
     <div>
       <button>
