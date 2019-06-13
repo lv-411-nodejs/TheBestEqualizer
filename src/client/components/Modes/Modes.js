@@ -1,6 +1,6 @@
 import React from 'react';
 import './modes.css';
-import ModesItem from '../modesItems/modesItem.js';
+import ModesItem from '../modesItems/modesItem';
 import { Image3d, ImageHeadSet, ImageSpeaker, ImageExtra } from 'src/images';
 
 const Modes = () => {
