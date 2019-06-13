@@ -10,18 +10,23 @@
     "start": "npm run build:client && npm run build:server && node src/server/app.js",
     "dev:client": "webpack-dev-server --mode development --devtool inline-source-map --hot --open",
     "dev:server": "nodemon --exec babel-node ./src/server/app.js",
-    "lint:client": "eslint ./src/client"
+    "lint:client": "./node_modules/.bin/eslint ./src/client"
   },
   "author": "Lv 411",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.19.0",
+    "@fortawesome/fontawesome-svg-core": "^1.2.19",
+    "@fortawesome/free-solid-svg-icons": "^5.9.0",
+    "@fortawesome/react-fontawesome": "^0.1.4",
     "babel-polyfill": "^6.26.0",
     "cors": "^2.8.5",
     "express": "^4.16.3",
+    "mongoose": "^5.5.13",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
-    "react-redux": "^7.0.3",
+    "react-redux": "^7.1.0",
+    "react-router-dom": "^5.0.1",
     "redux": "^4.0.1"
   },
   "devDependencies": {
