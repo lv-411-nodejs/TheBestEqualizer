@@ -3,25 +3,25 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faVolumeUp, faCog } from '@fortawesome/free-solid-svg-icons';
 
-import classes from './additionalConfigs.css';
+import './additionalConfigs.css';
 
 const volumeIcon = <FontAwesomeIcon icon={faVolumeUp} />;
 const cogIcon = <FontAwesomeIcon icon={faCog} />;
 
 const AdditionalConfigs = () => {
   return (
-    <section className={ classes.additionalSettingsContainer }>
-      <div className={ classes.volumeElement }>
+    <section className='additionalSettingsContainer'>
+      <div className='volumeElement'>
         { volumeIcon }
-        <input type='range' /> Volume
+        <input type='range' className='range'/> Volume
       </div>
-      <div className={ classes.modesElement }>
-        <label className={ classes.switch }>
-          <input type="checkbox"/><span className={ classes.slider }></span>
+      <div className='modesElement'>
+        <label className='switch'>
+          <input type="checkbox"/><span className='slider'></span>
         </label>
         Modes
       </div>
-      <div className={ classes.settings }>
+      <div className='settings'>
         { cogIcon }
         Settings
       </div>
