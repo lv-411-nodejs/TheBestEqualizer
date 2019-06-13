@@ -1,9 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class ModesItem extends Component {
-
-  render() {
-    const { iconUrl, text } = this.props;
+const ModesItem = (props) => {
+    const { iconUrl, text } = props;
     return (
       <div>
         <button>
@@ -12,7 +10,6 @@ class ModesItem extends Component {
         </button>
       </div>
     );
-  }
 };
 
 export default ModesItem;
