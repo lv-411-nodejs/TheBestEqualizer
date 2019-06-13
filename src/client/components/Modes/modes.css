@@ -3,6 +3,10 @@
     margin: auto;
 }
 
+.modes-container {
+    background: #2A2A2A;
+}
+
 div .modes {
     display: flex;
     flex-direction: row;
