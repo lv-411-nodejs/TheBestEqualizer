@@ -1,8 +1,12 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
+<<<<<<< HEAD
 const outputDirectory = 'dist';
 const srcClientPath = path.resolve('./', 'src/client');
+=======
+const outputDirectory = 'dist'
+>>>>>>> 5d5cd5692fe56d04c7d09a99fe0639e44742ea8f
 
 module.exports = {
   entry: ['babel-polyfill', './src/client/app.js'],
@@ -24,7 +28,11 @@ module.exports = {
         use: [
           'style-loader',
           {
+<<<<<<< HEAD
             loader: require.resolve('css-loader'),
+=======
+            loader: require.resolve('css-loader')
+>>>>>>> 5d5cd5692fe56d04c7d09a99fe0639e44742ea8f
           }
         ]
       },
