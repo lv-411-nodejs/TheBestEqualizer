@@ -2,8 +2,11 @@
     background: #2A2A2A;
     margin: 0 auto 10px auto;
     display: flex;
-    padding: 15px;
+    padding: 10px 15px 10px 15px;
     align-items: center;
     justify-content: space-between;
 }
-
+.AppLogo img{
+    height: 31px;
+    width: 34px;
+}
