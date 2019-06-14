@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import AdditionalConfigs from '../../components/additionalConfigs/additionalConfigs';
 
-import ComponentWithSliders from '../../components/componentWithSliders/componentWithSliders'
+import ComponentWithSliders from '../../components/componentWithSliders/componentWithSliders';
 
 const Main = () => {
   return (

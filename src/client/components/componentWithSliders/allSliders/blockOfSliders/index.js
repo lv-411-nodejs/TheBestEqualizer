@@ -1,1 +1,1 @@
-export { default } from './blockOfSliders'
+export { default } from './blockOfSliders';
