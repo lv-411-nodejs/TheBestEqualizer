@@ -1,0 +1,9 @@
+.AppHeaderContainer{
+    background: #2A2A2A;
+    margin: 0 auto 10px auto;
+    display: flex;
+    padding: 15px;
+    align-items: center;
+    justify-content: space-between;
+}
+
