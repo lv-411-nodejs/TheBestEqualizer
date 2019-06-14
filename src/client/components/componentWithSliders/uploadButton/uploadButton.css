@@ -1,0 +1,30 @@
+.UploadButton--wrapper{
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+}
+
+.UploadButton--wrapper .UploadInput {
+    font-size: 100px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.UploadButton {
+    border-radius: 4px;
+    width: 200px;
+    height: 30px;
+    background-color: #6080ce;
+    color: #ffffff;
+    border: 1px solid #6080ce;
+}
+
+.UploadButton:hover {
+    background-color: #ffffff;
+    color: #000000;
+    cursor: pointer;
+    transition: 0.3s ease all;
+}
