@@ -39,7 +39,7 @@ module.exports = {
       src: srcClientPath
     },
     modulesDirectories: ['node_modules', 'src'],
-    extensions: ['', '.js', '.jsx']
+    extensions: ['*', '.js', '.jsx']
   },
   devServer: {
     port: 3000,
