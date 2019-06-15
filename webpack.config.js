@@ -24,7 +24,7 @@ module.exports = {
         use: [
           'style-loader',
           {
-            loader: require.resolve('css-loader'),
+            loader: require.resolve('css-loader')
           }
         ]
       },
@@ -38,7 +38,6 @@ module.exports = {
     alias: {
       src: srcClientPath
     },
-    modulesDirectories: ['node_modules', 'src'],
     extensions: ['*', '.js', '.jsx']
   },
   devServer: {
