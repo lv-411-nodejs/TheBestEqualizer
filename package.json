@@ -4,7 +4,6 @@
   "description": "The Best Equalizer ever You seen",
   "main": "src/server/app.js",
   "scripts": {
-    "FIXFIX": "webpack --progress --profile --colors --display-error-details --display-cached",
     "build": "webpack --mode production",
     "start": "npm run build && node src/server/app.js",
     "client": "webpack-dev-server --mode development --devtool inline-source-map --hot",
