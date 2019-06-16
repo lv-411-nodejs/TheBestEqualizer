@@ -6,10 +6,8 @@ import { faSave } from '@fortawesome/free-solid-svg-icons';
 
 const saveIcon = <FontAwesomeIcon icon={faSave}/>;
 
-const SaveButton = () => {
-  return (
-    <button className="SaveButton"> {saveIcon} Save</button>
-  );
-};
+const SaveButton = () => (
+  <button className="SaveButton"> {saveIcon} Save</button>
+);
 
 export default SaveButton;

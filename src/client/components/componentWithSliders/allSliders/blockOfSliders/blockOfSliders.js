@@ -3,21 +3,22 @@ import PropTypes from 'prop-types';
 import './blockOfSliders.css';
 import OneSlider from '../slider/slider';
 
-const BlockOfSliders = (props) => {
+const renderSliders = (numOfSliders) => {
   const sliders = [];
-  for (let i = 0; i < props.numOfSliders; i++) {
+  for (let i = 0; i < numOfSliders; i++) {
     sliders.push(<OneSlider key={i}/>);
   }
-
-  return (
-    <div className="Sliders__block">
-      <p className="Sliders__block--title">{props.name}</p>
-      <div className="Sliders__block--sliders">
-        {sliders}
-      </div>
-    </div>
-  );
+  return sliders;
 };
+
+const BlockOfSliders = (props) => (
+  <div className="Sliders__block">
+    <p className="Sliders__block--title">{props.name}</p>
+    <div className="Sliders__block--sliders">
+      {renderSliders(props.numOfSliders)}
+    </div>
+  </div>
+);
 
 BlockOfSliders.propTypes = {
   numOfSliders: PropTypes.number,

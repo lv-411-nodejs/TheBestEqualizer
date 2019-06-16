@@ -11,20 +11,16 @@ const BLOCKS = [
   { name: 'Tremble', numOfSliders: 1 }
 ];
 
-const AllSliders = () => {
-  const blocks = [];
-  for (let i = 0; i < BLOCKS.length; i++) {
-    blocks.push(<BlockOfSliders
-      name={BLOCKS[i].name}
-      numOfSliders={BLOCKS[i].numOfSliders}
-      key={i}/>);
-  }
-
-  return (
-    <div className="Sliders">
-      {blocks}
-    </div>
-  );
-};
+const AllSliders = () => (
+  <div className="Sliders">
+    {BLOCKS.map((block, i) => {
+      return <BlockOfSliders
+        name={block.name}
+        numOfSliders={block.numOfSliders}
+        key={i}
+      />;
+    })}
+  </div>
+);
 
 export default AllSliders;

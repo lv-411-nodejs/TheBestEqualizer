@@ -6,9 +6,8 @@ const SelectItem = () => {
 
   return (
     <select className="SlidersComponent__header--selector">
-      {values.map((value, i) => {
-        return <option className="option" key={i} value={value}>{value}</option>;
-      })}
+      {values.map((value, i) =>
+        <option className="option" key={i} value={value}>{value}</option>)}
     </select>
   );
 };
