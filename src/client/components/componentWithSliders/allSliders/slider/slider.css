@@ -8,6 +8,7 @@
 }
 
 .Sliders--slider .rangeslider__handle {
+    outline: none;
     border-radius: 50%;
     height: 17px;
     width: 17px;
