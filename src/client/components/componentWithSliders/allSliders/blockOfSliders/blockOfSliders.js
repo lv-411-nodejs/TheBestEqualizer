@@ -11,17 +11,18 @@ const renderSliders = (numOfSliders) => {
   return sliders;
 };
 
-const BlockOfSliders = (props) => (
+const BlockOfSliders = ({ name, numOfSliders }) => (
   <div className="Sliders__block">
-    <p className="Sliders__block--title">{props.block.name}</p>
+    <p className="Sliders__block--title">{name}</p>
     <div className="Sliders__block--sliders">
-      {renderSliders(props.block.numOfSliders)}
+      {renderSliders(numOfSliders)}
     </div>
   </div>
 );
 
 BlockOfSliders.propTypes = {
-  block: PropTypes.object
+  name: PropTypes.string,
+  numOfSliders: PropTypes.number
 };
 
 export default BlockOfSliders;
