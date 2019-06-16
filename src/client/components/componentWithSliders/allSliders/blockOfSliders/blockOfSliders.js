@@ -13,7 +13,9 @@ const renderSliders = (numOfSliders) => {
 
 const BlockOfSliders = ({ name, numOfSliders }) => (
   <div className="Sliders__block">
-    <p className="Sliders__block--title">{name}</p>
+    <p className="Sliders__block--title">
+      {name}
+    </p>
     <div className="Sliders__block--sliders">
       {renderSliders(numOfSliders)}
     </div>

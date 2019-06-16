@@ -13,12 +13,12 @@ const BLOCKS = [
 
 const AllSliders = () => (
   <div className="Sliders">
-    {BLOCKS.map((block, i) => <BlockOfSliders
-      name={block.name}
-      numOfSliders={block.numOfSliders}
-      key={i}
-    />
-    )}
+    {BLOCKS.map(({ name, numOfSliders }, i) => (
+      <BlockOfSliders
+        name={name}
+        numOfSliders={numOfSliders}
+        key={i}
+      />))}
   </div>
 );
 
