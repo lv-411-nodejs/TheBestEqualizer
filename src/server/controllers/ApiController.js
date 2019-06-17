@@ -6,10 +6,7 @@ export default class ApiController {
   }
 
   static postAddUser (req, res, next) {
-    const firstname = req.body.firstname;
-    const email = req.body.email;
-    const lastname = req.body.lastname;
-    const password = req.body.password;
+    const { firstname, email, lastname, password } = req.body;
     const user = new User({ firstname, lastname, email, password });
     user
       .save()
