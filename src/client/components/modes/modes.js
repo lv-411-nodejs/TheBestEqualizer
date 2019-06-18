@@ -1,19 +1,9 @@
 import React from 'react';
 import './modes.css';
 import ModesItem from '../modesItems/modesItem';
-import { Image3d, ImageHeadSet, ImageSpeaker, ImageExtra } from 'src/images';
+import imageArray from '../../helpers/constants';
 
 const Modes = () => {
-  const imageArray = [{
-    img: Image3d,
-    text: '3D' }, {
-    img: ImageHeadSet,
-    text: 'HeadSet' }, {
-    img: ImageSpeaker,
-    text: 'Speaker' }, {
-    img: ImageExtra,
-    text: 'Extra'
-  }];
   const fullModesItem = imageArray.map((item, index) => <ModesItem key={index} iconUrl={item.img} text={item.text} />);
 
   return (
