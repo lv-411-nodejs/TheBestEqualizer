@@ -1,0 +1,17 @@
+.Sliders__block{
+    margin: 20px;
+    text-align: center;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    padding: 15px;
+}
+
+.Sliders__block--title{
+    color: #000000;
+
+}
+
+.Sliders__block--sliders{
+    display: flex;
+    justify-content: space-around;
+}
