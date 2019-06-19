@@ -24,7 +24,6 @@ class FormComponent extends Component {
         if(this.props.user.password!==this.props.user.passwordConfirmation){
             return 'Please check password confirmation';
         }
-        console.log('Registration');
         const newUser = {
             username: this.state.username,
             email: this.state.email,
@@ -35,7 +34,6 @@ class FormComponent extends Component {
 
     onLoginSubmit = (e) => {
         e.preventDefault();
-        console.log('Login');
         this.props.getUserData();
     }
 
