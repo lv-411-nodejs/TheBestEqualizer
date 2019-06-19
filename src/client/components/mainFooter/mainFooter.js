@@ -1,11 +1,10 @@
 import React from 'react';
 
-// import './mainFooter.css';
-import classes from './mainFooter.css';
+import './mainFooter.css';
 
 const MainFooter = () => {
   return (
-    <footer className={classes.MainFooterContainer}>
+    <footer className='MainFooterContainer'>
       <h4>Soft Serve IT Academy</h4>
       <p>Group - Node.js 411</p>
     </footer>
