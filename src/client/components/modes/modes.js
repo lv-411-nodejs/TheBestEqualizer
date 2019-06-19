@@ -1,7 +1,7 @@
 import React from 'react';
 import './modes.css';
 import ModesItem from '../modesItems/modesItem';
-import imageArray from '../../helpers/constants';
+import { imageArray } from '../../helpers/constants';
 
 const Modes = () => {
   const fullModesItem = imageArray.map((item, index) => <ModesItem key={index} iconUrl={item.img} text={item.text} />);

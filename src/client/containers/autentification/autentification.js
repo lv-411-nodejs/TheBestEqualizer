@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import FormComponent from '../formComponent/formComponent';
-import { filds } from '../formComponent/fildsInfo';
+import { formFieldsInfo } from '../../helpers/constants';
 import './autentification.css';
 
 class Autentification extends Component {
@@ -26,7 +26,7 @@ class Autentification extends Component {
     
     render() {
         const {isMember} = this.state;
-        const fildsToRender = this.filterFilds(filds, isMember);
+        const fildsToRender = this.filterFilds(formFieldsInfo, isMember);
         const formTitle = isMember?'Login':'Registration';
         const message = isMember?'Dont have an account? Registration.':'Already a user? Login.';
         return (
