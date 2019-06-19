@@ -1,0 +1,40 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.autentification-page {
+    background-image: url(../../../../public/equalizer_img.jpg);
+    background-size: cover;
+}
+
+.form-container {
+    margin: 0 auto;
+    height: 100vh;
+    width: 30rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: rgb(0, 255, 255);
+}
+
+.form-area{
+    width: 17rem;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 2rem;
+    border-radius: 1rem;
+}
+
+.message {
+    color: rgb(0, 255, 255);
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    outline: none;
+}
+
+.message:hover {
+    text-decoration: underline;
+}
