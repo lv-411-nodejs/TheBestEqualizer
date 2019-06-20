@@ -1,6 +1,6 @@
 import React from 'react';
 import Hark from 'hark'
-import Graphicequaliser from './canvasequalizer/equalizer'
+import Graphicequaliser from './canvasequalizer/canvasequalizer'
 import PlayButton from './playbutton/playbutton'
 import Uploadbutton from './upload/uploadbutton'
 import Infoabouttrack from './upload/infoaboutfile/infoaboutuploadfile'
@@ -10,7 +10,7 @@ import {connect} from 'react-redux'
 
 class Equalizer extends React.Component {  
    componentDidMount(){ 
-      this.detectstreamsoundfrommicrophon();
+      this.detectStreamSoundFrommicrophon();
     }
     
   // createbaseaudiocontextandanaliser=()=>{
@@ -19,7 +19,7 @@ class Equalizer extends React.Component {
   //   this.props.baseaudiocontextandanaliser({context,analyser})
   // }
   
-  detectstreamsoundfrommicrophon=()=>{    
+  detectStreamSoundFrommicrophon=()=>{    
     var context = this.props.audiocontext;          
     var audiolinein = new Audio();   
     if (navigator.mediaDevices) {      
@@ -54,18 +54,18 @@ class Equalizer extends React.Component {
     this.props.mergecanvaswidth(e)
   }     
 
-  playsoundfromfile=(e)=>{
+  playSoundFromFile=(e)=>{
     var soundfromfile=this.props.audionodefromfile    
     if (this.props.playpausestate===false) {     
       soundfromfile.play();
-      this.equaliserrun()
+      this.equaliserRun()
       this.props.playpausesoundfromfile()
     } else {      
       soundfromfile.pause();
       this.props.playpausesoundfromfile();
   }}
 
-  startmutestream =()=>{    
+  startMuteStream =()=>{    
     var audionstream=this.props.audiostream; 
     var context=this.props.audiocontext;
     var analyser=this.props.analyser  
@@ -76,7 +76,7 @@ class Equalizer extends React.Component {
       analyser.connect(context.destination); 
       //play/pause function doesn't work 
       audionstream.play();
-      this.equaliserrun()
+      this.equaliserRun()
       this.props.startmutestreamaudio()
     } else { 
       sourcestream.disconnect(analyser);
@@ -85,7 +85,7 @@ class Equalizer extends React.Component {
   }
   }
 
-  equaliserrun=(e)=>{   
+  equaliserRun=(e)=>{   
     var ctx = document.querySelector("canvas").getContext("2d");
     // var ctx=this.props.graphiccontext;
     var flagColorColumn=true;
@@ -131,7 +131,7 @@ class Equalizer extends React.Component {
     
   } 
 
-  uploadsoundinfofromfile=(e)=>{  
+  uploadSoundInfoFromFile=(e)=>{  
     const file=e.target.files[0]
     var context=this.props.audiocontext;
     var analyser=this.props.analyser;    
@@ -157,10 +157,10 @@ class Equalizer extends React.Component {
   render(){   
   return (    
     <div className="App">      
-      <Streambutton onclickhandler={this.startmutestream} /><span id="stream_detecting"></span>
-      <PlayButton hadlesound={this.playsoundfromfile}/>
+      <Streambutton onclickhandler={this.startMuteStream} /><span id="stream_detecting"></span>
+      <PlayButton hadlesound={this.playSoundFromFile}/>
       <Graphicequaliser width={this.props.widthCanvas} height="200" onchange={this.widthMerge}/>
-      <Uploadbutton handleinfofromsound={this.uploadsoundinfofromfile}/>
+      <Uploadbutton handleinfofromsound={this.uploadSoundInfoFromFile}/>
       <Infoabouttrack trackname={this.props.trackname} tracksize={this.props.tracksize} tracktype={this.props.tracktype} />
     </div>
   );
@@ -169,7 +169,7 @@ class Equalizer extends React.Component {
 function mapstate(state){
   return state
 }
-function storedispatch(dispatch){
+function storeDispatch(dispatch){
   return {
       baseaudiocontextandanaliser: (data)=>dispatch({type: 'baseaudiocontextandanaliser', payload: data}),
       createaudiodata: (data)=>dispatch({type: 'createaudiodata', payload: data}),  
@@ -180,4 +180,4 @@ function storedispatch(dispatch){
   }
 }  
 
-export default connect(mapstate, storedispatch)(Equalizer)
+export default connect(mapstate, storeDispatch)(Equalizer)

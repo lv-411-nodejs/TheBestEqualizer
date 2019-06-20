@@ -1,0 +1,29 @@
+.modes-title {
+    text-align: center;
+    margin: auto;
+}
+
+.modes-container {
+    background: #2A2A2A;
+}
+
+div .modes {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.modes > div button {
+    padding: 0;
+    border: none;
+    font: inherit;
+    color: inherit;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.modes > div button:hover {
+    -webkit-transform: scale(1.2);
+    -ms-transform: scale(1.2);
+    transform: scale(1.2);
+}

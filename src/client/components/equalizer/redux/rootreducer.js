@@ -6,18 +6,17 @@ const initialState={
     //graphic canvas 
     widthCanvas: 400, 
     //audiostates
-     trackname: "",     
-     tracktype: "",
-     tracksize: "",     
+     trackname: undefined,     
+     tracktype: undefined,
+     tracksize: undefined,     
      audiocontext: context,
      analyser: analyser,
-     audiofromfile: "",
-     audiostream: "",
-     sourcestream: "",
-     audionodefromfile: "",
+     audiofromfile: undefined,
+     audiostream: undefined,
+     sourcestream: undefined,
+     audionodefromfile: undefined,
      playpausestate: false,
      startmutesstate: false
-
 }
 
 
@@ -29,8 +28,7 @@ export default function rootReducer(state=initialState, action){
             return {
                 ...state,
                 audiocontext: action.payload.context,
-                analyser: action.payload.analyser,
-                trackname: "sound track"
+                analyser: action.payload.analyser,               
                     } 
         case 'createaudiodata':                         
             return {
