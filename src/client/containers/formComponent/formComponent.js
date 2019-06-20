@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';  
 import FormFild from '../../components/formFild/formFild';
 import {connect} from 'react-redux';
 import {postUserData} from '../../actions/postUserDataAction';
@@ -12,7 +13,6 @@ class FormComponent extends Component {
         email: '',
         password: '',
         passwordConfirmation: '',
-        gotothemain: false
     }
 
     onInputChange = (e) => {
@@ -21,20 +21,19 @@ class FormComponent extends Component {
 
     onRegistratuinSubmit = (e) => {
         e.preventDefault();
-        if(this.props.user.password!==this.props.user.passwordConfirmation){
-            return 'Please check password confirmation';
-        }
         const newUser = {
             username: this.state.username,
             email: this.state.email,
             password: this.state.password,
         }
         this.props.postUserData(newUser);
+        this.props.history.push('/main'); 
     }
 
     onLoginSubmit = (e) => {
         e.preventDefault();
-        this.props.getUserData();
+        this.props.getUserData(); 
+        this.props.history.push('/main'); 
     }
 
 
@@ -51,7 +50,7 @@ class FormComponent extends Component {
         })
     return (
         <div>
-            <form onSubmit={onSubmit} className='form-body'>
+            <form onSubmit={onSubmit} className='form-body' autoComplete='off'>
                 {formFilds}
                 <div className="field">
                     <button className="submit">Submit</button>
@@ -74,4 +73,4 @@ const mapStateToProps = state => ({
     getuser: state.getUser.getuser
 })
 
-export default connect(mapStateToProps, {postUserData, getUserData})(FormComponent);
+export default connect(mapStateToProps, {postUserData, getUserData})(withRouter(FormComponent));
