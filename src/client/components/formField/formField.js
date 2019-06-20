@@ -13,7 +13,7 @@ const FormField = ({el: {name, label, type}, onInputChange}) => {
     );
 };
 
-FormComponent.propTypes = {
+FormField.propTypes = {
     onInputChange: PropTypes.func.isRequired,
     el: PropTypes.object.isRequired
 };
