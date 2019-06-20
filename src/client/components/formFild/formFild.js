@@ -9,6 +9,6 @@ const FormFild = ({el: {name, label, type}, onInputChange}) => {
                 <input onChange={onInputChange} name={name} type={type}/>
             </div>
         </div>
-    )
-}
+    );
+};
 export default FormFild;

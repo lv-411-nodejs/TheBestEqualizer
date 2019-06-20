@@ -16,7 +16,7 @@ class FormComponent extends Component {
     }
 
     onInputChange = (e) => {
-        this.setState({[e.target.name]: e.target.value})
+        this.setState({[e.target.name]: e.target.value});
     }
 
     onRegistratuinSubmit = (e) => {
@@ -25,7 +25,7 @@ class FormComponent extends Component {
             username: this.state.username,
             email: this.state.email,
             password: this.state.password,
-        }
+        };
         this.props.postUserData(newUser);
         this.props.history.push('/main'); 
     }
@@ -46,8 +46,8 @@ class FormComponent extends Component {
                 key={i+3}
                 onInputChange={this.onInputChange}
                 el={el}/>
-            )
-        })
+            );
+        });
     return (
         <div>
             <form onSubmit={onSubmit} className='form-body' autoComplete='off'>
@@ -57,7 +57,7 @@ class FormComponent extends Component {
                 </div>
             </form>
         </div>
-    )
+    );
     }
 }
 
@@ -66,11 +66,11 @@ FormComponent.propTypes = {
     postUserData: PropTypes.func.isRequired,
     postuser: PropTypes.object.isRequired,
     getuser: PropTypes.object.isRequired
-}
+};
 
 const mapStateToProps = state => ({
     postuser: state.postUser.postuser,
     getuser: state.getUser.getuser
-})
+});
 
 export default connect(mapStateToProps, {postUserData, getUserData})(withRouter(FormComponent));

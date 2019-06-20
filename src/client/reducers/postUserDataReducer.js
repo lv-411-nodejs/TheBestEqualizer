@@ -2,7 +2,7 @@ import {POST_USER_DATA} from '../actions/types';
 
 const initialState = {
     postuser: {}
-}
+};
 
 export default function(state = initialState, action){
     switch(action.type){
@@ -10,7 +10,7 @@ export default function(state = initialState, action){
             return {
                 ...state,
                 postuser: action.result
-            }
+            };
         default:
             return state;
     }

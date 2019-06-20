@@ -8,6 +8,6 @@ export const getUserData = () => dispatch => {
             dispatch({
             type: GET_USER_DATA,
             result: user
-        })
-    })
-}
+        });
+    });
+};

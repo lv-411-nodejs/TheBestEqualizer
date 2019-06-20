@@ -12,15 +12,15 @@ class Autentification extends Component {
         this.setState(()=>{
             return {
                 isMember: !this.state.isMember
-            }
-        })
+            };
+        });
     }
 
     filterFilds = (arr, status) => {
         if(status){
           return arr.filter((el)=>status === el.isMember);
         }else{
-          return arr
+          return arr;
         }
     }
     
@@ -45,7 +45,7 @@ class Autentification extends Component {
                     </div> 
                 </div> 
             </div>
-        )
+        );
     }
 }
 

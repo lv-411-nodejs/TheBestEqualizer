@@ -5,4 +5,4 @@ import getUserDataReducer from './getUserDataReducer';
 export default combineReducers({
     postUser: postUserDataReducer,
     getUser: getUserDataReducer
-})
+});

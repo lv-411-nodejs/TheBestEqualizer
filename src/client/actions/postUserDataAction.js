@@ -8,6 +8,6 @@ export const postUserData = (newUser) => dispatch => {
         dispatch({
         type: POST_USER_DATA,
         result: user
-        })
-    })
-}
+        });
+    });
+};
