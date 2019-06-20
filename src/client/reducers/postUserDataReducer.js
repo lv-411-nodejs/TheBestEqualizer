@@ -1,7 +1,7 @@
 import {POST_USER_DATA} from '../actions/types';
 
 const initialState = {
-    user: {}
+    postuser: {}
 }
 
 export default function(state = initialState, action){
@@ -9,7 +9,7 @@ export default function(state = initialState, action){
         case POST_USER_DATA:
             return {
                 ...state,
-                user: action.result
+                postuser: action.result
             }
         default:
             return state;

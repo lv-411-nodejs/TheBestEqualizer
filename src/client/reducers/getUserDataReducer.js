@@ -1,7 +1,7 @@
 import {GET_USER_DATA} from '../actions/types';
 
 const initialState = {
-    users: []
+    getuser: {}
 }
 
 export default function(state = initialState, action){
@@ -9,7 +9,7 @@ export default function(state = initialState, action){
         case GET_USER_DATA:
             return {
                 ...state,
-                users: action.result
+                getuser: action.result
             }
         default:
             return state;

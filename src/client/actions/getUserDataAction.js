@@ -1,14 +1,13 @@
 import {GET_USER_DATA} from './types';
+import Axios from 'axios';
 
 export const getUserData = () => dispatch => {
-  console.log('Login');
-    fetch('http://localhost:8080/login')
-        .then(res=>res.json())
-        .then((users) => {
-            console.log(users); 
+    Axios.get('http://localhost:8080/login')
+        .then((resp) => {
+            const user = resp.data;
             dispatch({
             type: GET_USER_DATA,
-            result: users
+            result: user
         })
     })
 }

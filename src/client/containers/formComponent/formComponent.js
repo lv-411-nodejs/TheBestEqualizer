@@ -65,13 +65,13 @@ class FormComponent extends Component {
 FormComponent.propTypes = {
     getUserData: PropTypes.func.isRequired,
     postUserData: PropTypes.func.isRequired,
-    user: PropTypes.object.isRequired,
-    users: PropTypes.array.isRequired
+    postuser: PropTypes.object.isRequired,
+    getuser: PropTypes.object.isRequired
 }
 
 const mapStateToProps = state => ({
-    user: state.postUser.user,
-    users: state.getUser.users
+    postuser: state.postUser.postuser,
+    getuser: state.getUser.getuser
 })
 
 export default connect(mapStateToProps, {postUserData, getUserData})(FormComponent);
