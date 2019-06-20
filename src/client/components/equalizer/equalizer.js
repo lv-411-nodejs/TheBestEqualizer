@@ -55,7 +55,7 @@ class Equalizer extends React.Component {
   }     
 
   playSoundFromFile=(e)=>{
-    var soundfromfile=this.props.audionodefromfile    
+    const soundfromfile=this.props.audionodefromfile    
     if (this.props.playpausestate===false) {     
       soundfromfile.play();
       this.equaliserRun()
@@ -66,10 +66,10 @@ class Equalizer extends React.Component {
   }}
 
   startMuteStream =()=>{    
-    var audionstream=this.props.audiostream; 
-    var context=this.props.audiocontext;
-    var analyser=this.props.analyser  
-    var sourcestream=this.props.sourcestream
+    const audionstream=this.props.audiostream; 
+    const context=this.props.audiocontext;
+    const analyser=this.props.analyser  
+    const sourcestream=this.props.sourcestream
           
     if (this.props.startmutesstate===false) { 
       sourcestream.connect(analyser);
@@ -77,35 +77,35 @@ class Equalizer extends React.Component {
       //play/pause function doesn't work 
       audionstream.play();
       this.equaliserRun()
-      this.props.startmutestreamaudio()
+      this.props.startMuteStreamAudio()
     } else { 
       sourcestream.disconnect(analyser);
       audionstream.pause();
-      this.props.startmutestreamaudio();
+      this.props.startMuteStreamAudio();
   }
   }
 
   equaliserRun=(e)=>{   
-    var ctx = document.querySelector("canvas").getContext("2d");
+    const ctx = document.querySelector("canvas").getContext("2d");
     // var ctx=this.props.graphiccontext;
-    var flagColorColumn=true;
-    var analyser=this.props.analyser
+    let flagColorColumn=true;
+    const analyser=this.props.analyser
     
-    var numPoints = analyser.frequencyBinCount-80;
-    var heightArray = new Uint8Array(numPoints);
+    const numPoints = analyser.frequencyBinCount-80;
+    const heightArray = new Uint8Array(numPoints);
     function render() {
       analyser.getByteFrequencyData(heightArray);
       
-      var width = ctx.canvas.width;
-      var height = ctx.canvas.height;
-      var countcolumns=Math.floor(ctx.canvas.width/52);
-      var columnwidth=Math.floor(5/6*ctx.canvas.width/52);
+      const width = ctx.canvas.width;
+      const height = ctx.canvas.height;
+      const countcolumns=Math.floor(ctx.canvas.width/52);
+      const columnwidth=Math.floor(5/6*ctx.canvas.width/52);
       
       ctx.clearRect(0, 0, width, height);
-      for (var x =0; x < width; x += countcolumns) {
-         var ndx = x * numPoints / width | 0;
-         var vol = heightArray[ndx];
-         var y = vol * height / 512;            
+      for (let x =0; x < width; x += countcolumns) {
+        const ndx = x * numPoints / width | 0;
+        const vol = heightArray[ndx];
+        const y = vol * height / 512;            
          roundedRect(ctx, x, height/2, columnwidth, y, 2)          
       }    
       requestAnimationFrame(render);
@@ -127,15 +127,14 @@ class Equalizer extends React.Component {
       ctx.fillStyle =flagColorColumn ? '#1ecea8' : '#93969f';
       flagColorColumn =!flagColorColumn;
       ctx.fill();      
-    } 
-    
+    }     
   } 
 
   uploadSoundInfoFromFile=(e)=>{  
     const file=e.target.files[0]
-    var context=this.props.audiocontext;
-    var analyser=this.props.analyser;    
-    var audio = new Audio();   
+    const context=this.props.audiocontext;
+    const analyser=this.props.analyser;    
+    const audio = new Audio();   
         audio.loop = true;       
         audio.crossOrigin = "anonymous";
         audio.addEventListener('canplay', function() {
@@ -151,7 +150,7 @@ class Equalizer extends React.Component {
           console.log(e.toString(),'ERORA');
         });
         audio.src = URL.createObjectURL(file)
-        this.props.createaudiodata({audio,file,name:file.name,size: file.size, type:file.type})   
+        this.props.createAudioData({audio,file,source,name:file.name,size: file.size, type:file.type})   
       }  
 
   render(){   
@@ -172,10 +171,10 @@ function mapstate(state){
 function storeDispatch(dispatch){
   return {
       baseaudiocontextandanaliser: (data)=>dispatch({type: 'baseaudiocontextandanaliser', payload: data}),
-      createaudiodata: (data)=>dispatch({type: 'createaudiodata', payload: data}),  
+      createAudioData: (data)=>dispatch({type: 'createaudiodata', payload: data}),  
       playpausesoundfromfile: ()=>dispatch({type: 'playpausesoundfromfile'}),
       createstreamdata: (data)=>dispatch({type: 'createstreamdata', payload: data}),
-      startmutestreamaudio: ()=>dispatch({type: 'startmutestteam'}),
+      startMuteStreamAudio: ()=>dispatch({type: 'startMuteStreamAudio'}),
       mergecanvaswidth: (e)=>dispatch({type:'mergecanvaswidth', payload: e.target.value})   
   }
 }  

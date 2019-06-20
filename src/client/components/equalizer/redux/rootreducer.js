@@ -4,17 +4,20 @@ var analyser = context.createAnalyser();
 
 const initialState={  
     //graphic canvas 
-    widthCanvas: 400, 
-    //audiostates
+     widthCanvas: 400, 
+    //audio from file
      trackname: undefined,     
      tracktype: undefined,
      tracksize: undefined,     
      audiocontext: context,
      analyser: analyser,
-     audiofromfile: undefined,
-     audiostream: undefined,
-     sourcestream: undefined,
-     audionodefromfile: undefined,
+     audioFile: undefined,
+     audioFromFile: undefined,
+     audioFromFileSource: undefined,
+    //from stream
+     audioStream: undefined,
+     streamSource: undefined,
+     
      playpausestate: false,
      startmutesstate: false
 }
@@ -36,8 +39,9 @@ export default function rootReducer(state=initialState, action){
                 trackname: action.payload.name,
                 tracktype: action.payload.type,
                 tracksize: action.payload.size,                
-                audiofromfile: action.payload.file,
-                audionodefromfile: action.payload.audio
+                audioFile: action.payload.file,
+                audioFromFile: action.payload.audio,
+                audioFromFileSource: action.payload.source
                     } 
         case 'playpausesoundfromfile':
             return {
@@ -47,10 +51,10 @@ export default function rootReducer(state=initialState, action){
         case 'createstreamdata':
             return {
                 ...state,
-                audiostream: action.payload.audiolinein,
-                sourcestream: action.payload.sourcestream
+                audioStream: action.payload.audiolinein,
+                streamSource: action.payload.sourcestream
                 }      
-        case 'startmutestteam':
+        case 'startMuteStreamAudio':
                 return {
                     ...state,
                     startmutesstate: !(state.startmutesstate)
