@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';  
-import FormFild from '../../components/formField/formField';
+import FormField from '../../components/formField/formField';
 import {connect} from 'react-redux';
 import {postUserData} from '../../actions/postUserDataAction';
 import {getUserData} from '../../actions/getUserDataAction';
@@ -42,7 +42,7 @@ class FormComponent extends Component {
         const onSubmit = isMember?this.onLoginSubmit:this.onRegistratuinSubmit;
         const formFilds = fildsToRender.map((el,i)=>{
             return (
-                <FormFild 
+                <FormField 
                 key={i+3}
                 onInputChange={this.onInputChange}
                 el={el}/>

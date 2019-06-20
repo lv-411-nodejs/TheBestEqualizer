@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import './formField.css';
 
 const FormField = ({el: {name, label, type}, onInputChange}) => {
@@ -10,6 +11,11 @@ const FormField = ({el: {name, label, type}, onInputChange}) => {
             </div>
         </div>
     );
+};
+
+FormComponent.propTypes = {
+    onInputChange: PropTypes.func.isRequired,
+    el: PropTypes.object.isRequired
 };
 
 export default FormFild;
