@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';  
-import FormFild from '../../components/formFild/formFild';
+import FormFild from '../../components/formField/formField';
 import {connect} from 'react-redux';
 import {postUserData} from '../../actions/postUserDataAction';
 import {getUserData} from '../../actions/getUserDataAction';
@@ -65,7 +65,10 @@ FormComponent.propTypes = {
     getUserData: PropTypes.func.isRequired,
     postUserData: PropTypes.func.isRequired,
     postuser: PropTypes.object.isRequired,
-    getuser: PropTypes.object.isRequired
+    getuser: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired,
+    fildsToRender: PropTypes.array.isRequired,
+    isMember: PropTypes.boolean.isRequired
 };
 
 const mapStateToProps = state => ({

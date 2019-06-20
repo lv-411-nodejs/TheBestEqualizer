@@ -1,7 +1,7 @@
 import React from 'react';
-import './formFild.css';
+import './formField.css';
 
-const FormFild = ({el: {name, label, type}, onInputChange}) => {
+const FormField = ({el: {name, label, type}, onInputChange}) => {
     return (
         <div>
             <label className='label'>{label}</label>
@@ -11,4 +11,5 @@ const FormFild = ({el: {name, label, type}, onInputChange}) => {
         </div>
     );
 };
+
 export default FormFild;
