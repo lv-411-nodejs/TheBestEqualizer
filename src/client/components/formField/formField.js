@@ -18,4 +18,4 @@ FormComponent.propTypes = {
     el: PropTypes.object.isRequired
 };
 
-export default FormFild;
+export default FormField;
