@@ -26,14 +26,14 @@ const initialState={
 export default function rootReducer(state=initialState, action){
     
     switch(action.type){
-        case 'baseaudiocontextandanaliser':
+        case 'baseAudioContextAnanaliser':
                          
             return {
                 ...state,
                 audiocontext: action.payload.context,
                 analyser: action.payload.analyser,               
                     } 
-        case 'createaudiodata':                         
+        case 'createAudiodata':                         
             return {
                 ...state,
                 trackname: action.payload.name,
@@ -43,12 +43,12 @@ export default function rootReducer(state=initialState, action){
                 audioFromFile: action.payload.audio,
                 audioFromFileSource: action.payload.source
                     } 
-        case 'playpausesoundfromfile':
+        case 'playPauseSoundFromFile':
             return {
                 ...state,
                 playpausestate: !(state.playpausestate)
             }
-        case 'createstreamdata':
+        case 'createStreamData':
             return {
                 ...state,
                 audioStream: action.payload.audiolinein,
@@ -59,7 +59,7 @@ export default function rootReducer(state=initialState, action){
                     ...state,
                     startmutesstate: !(state.startmutesstate)
                 }    
-        case 'mergecanvaswidth':
+        case 'mergeCanvasWidth':
             return {
                 ...state,
                 widthCanvas: action.payload

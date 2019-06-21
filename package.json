@@ -9,7 +9,8 @@
     "start": "npm run build:client && npm run build:server && node src/server/app.js",
     "dev:client": "webpack-dev-server --mode development --devtool inline-source-map --hot --open",
     "dev:server": "nodemon --exec babel-node ./src/server/app.js",
-    "lint:client": "./node_modules/.bin/eslint ./src/client"
+    "lint:client": "./node_modules/.bin/eslint ./src/client",
+    "heroku-prebuild": "npm install --dev"
   },
   "author": "Lv 411",
   "license": "ISC",

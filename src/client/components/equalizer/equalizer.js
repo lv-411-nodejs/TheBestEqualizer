@@ -40,7 +40,7 @@ class Equalizer extends React.Component {
             htmlinfo.innerHTML=`no stream detekting`
           });
           var sourcestream = context.createMediaStreamSource(stream);                           
-          this.props.createstreamdata({audiolinein,sourcestream})          
+          this.props.createStreamData({audiolinein,sourcestream})          
       })
       .catch(function(err) {
           console.log('The following gUM error occured: ' + err);
@@ -51,7 +51,7 @@ class Equalizer extends React.Component {
   }  
 
   widthMerge=(e)=>{   
-    this.props.mergecanvaswidth(e)
+    this.props.mergeCanvasWidth(e)
   }     
 
   playSoundFromFile=(e)=>{
@@ -59,10 +59,10 @@ class Equalizer extends React.Component {
     if (this.props.playpausestate===false) {     
       soundfromfile.play();
       this.equaliserRun()
-      this.props.playpausesoundfromfile()
+      this.props.playPauseSoundFromFile()
     } else {      
       soundfromfile.pause();
-      this.props.playpausesoundfromfile();
+      this.props.playPauseSoundFromFile();
   }}
 
   startMuteStream =()=>{    
@@ -170,12 +170,12 @@ function mapstate(state){
 }
 function storeDispatch(dispatch){
   return {
-      baseaudiocontextandanaliser: (data)=>dispatch({type: 'baseaudiocontextandanaliser', payload: data}),
-      createAudioData: (data)=>dispatch({type: 'createaudiodata', payload: data}),  
-      playpausesoundfromfile: ()=>dispatch({type: 'playpausesoundfromfile'}),
-      createstreamdata: (data)=>dispatch({type: 'createstreamdata', payload: data}),
+      baseaudiocontextandanaliser: (data)=>dispatch({type: 'baseAudioContextAnanaliser', payload: data}),
+      createAudioData: (data)=>dispatch({type: 'createAudiodata', payload: data}),  
+      playPauseSoundFromFile: ()=>dispatch({type: 'playPauseSoundFromFile'}),
+      createStreamData: (data)=>dispatch({type: 'createStreamData', payload: data}),
       startMuteStreamAudio: ()=>dispatch({type: 'startMuteStreamAudio'}),
-      mergecanvaswidth: (e)=>dispatch({type:'mergecanvaswidth', payload: e.target.value})   
+      mergeCanvasWidth: (e)=>dispatch({type:'mergeCanvasWidth', payload: e.target.value})   
   }
 }  
 
