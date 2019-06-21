@@ -42,8 +42,10 @@ module.exports = {
     extensions: ['*', '.js', '.jsx']
   },
   devServer: {
-    port: 3000,
-    historyApiFallback: true
+    port: process.env.PORT || 3000,
+    historyApiFallback: true,
+    compress: true,
+    disableHostCheck: true
   },
   plugins: [
     new HtmlWebpackPlugin({
