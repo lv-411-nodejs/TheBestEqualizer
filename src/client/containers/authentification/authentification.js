@@ -5,7 +5,7 @@ import './authentification.css';
 
 class Authentification extends Component {
     state = {
-        isMember: false
+        isMember: true
     }
     
     onLinkClick = () => {
