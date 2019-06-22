@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import FormComponent from '../formComponent/formComponent';
 import { formFieldsInfo } from '../../helpers/constants';
-import './autentification.css';
+import './authentification.css';
 
-class Autentification extends Component {
+class Authentification extends Component {
     state = {
         isMember: false
     }
@@ -43,4 +43,4 @@ class Autentification extends Component {
     }
 }
 
-export default Autentification;
+export default Authentification;
