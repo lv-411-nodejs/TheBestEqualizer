@@ -5,7 +5,7 @@ import './autentification.css';
 
 class Autentification extends Component {
     state = {
-        isMember: true
+        isMember: false
     }
     
     onLinkClick = () => {
@@ -16,19 +16,13 @@ class Autentification extends Component {
         });
     }
 
-    filterFilds = (arr, status) => {
-        if(status){
-          return arr.filter((el)=>status === el.isMember);
-        }else{
-          return arr;
-        }
-    }
+    filterFilds = (arr, status) => { return status ? arr.filter((el)=>status === el.isMember) : arr }
     
     render() {
         const {isMember} = this.state;
         const fildsToRender = this.filterFilds(formFieldsInfo, isMember);
-        const formTitle = isMember?'Login':'Registration';
-        const message = isMember?'Dont have an account? Registration.':'Already a user? Login.';
+        const formTitle = isMember ? 'Login' : 'Registration';
+        const message = isMember ? 'Dont have an account? Registration.' : 'Already a user? Login.';
         return (
             <div>
                 <div className='autentification-page'>

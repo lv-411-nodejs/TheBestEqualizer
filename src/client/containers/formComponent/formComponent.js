@@ -15,8 +15,8 @@ class FormComponent extends Component {
         passwordConfirmation: '',
     }
 
-    onInputChange = (e) => {
-        this.setState({[e.target.name]: e.target.value});
+    onInputChange = ({target: {name, value}}) => {
+        this.setState({[name]: value});
     }
 
     onRegistratuinSubmit = (e) => {
@@ -27,7 +27,7 @@ class FormComponent extends Component {
             password: this.state.password,
         };
         this.props.postUserData(newUser);
-        this.props.history.push('/main'); 
+        // this.props.history.push('/main');
     }
 
     onLoginSubmit = (e) => {
@@ -39,7 +39,7 @@ class FormComponent extends Component {
 
     render() {
         const {fildsToRender, isMember} = this.props;
-        const onSubmit = isMember?this.onLoginSubmit:this.onRegistratuinSubmit;
+        const onSubmit = isMember ? this.onLoginSubmit : this.onRegistratuinSubmit;
         const formFilds = fildsToRender.map((el,i)=>{
             return (
                 <FormField 
@@ -68,7 +68,7 @@ FormComponent.propTypes = {
     getuser: PropTypes.object.isRequired,
     history: PropTypes.object.isRequired,
     fildsToRender: PropTypes.array.isRequired,
-    isMember: PropTypes.boolean.isRequired
+    isMember: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = state => ({
