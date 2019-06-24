@@ -1,12 +1,17 @@
-import React from 'react'
-import {connect} from 'react-redux'
+import React from 'react';
+import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
 
 const PlayButton=(props)=>{
     return(
         <button onClick={props.hadlesound}>
              Play
         </button>
-    )
-}
+    );
+};
 
-export default connect()(PlayButton)
+PlayButton.propTypes = {
+    hadlesound: PropTypes.func.isRequired
+  };
+
+export default connect()(PlayButton);

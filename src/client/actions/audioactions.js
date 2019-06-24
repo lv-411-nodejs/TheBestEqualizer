@@ -5,4 +5,4 @@ export const createAudioData = (data)=> dispatch => dispatch({type: CREATE_AUDIO
 export const playPauseSoundFromFile = () => dispatch => dispatch({type: PLAY_PAUSE_SOUND_FROM_FILE});
 export const createStreamData = (data) => dispatch => dispatch({type: CREATE_STREAME_DATA, payload: data});
 export const startMuteStreamAudio = () => dispatch => dispatch({type: START_MUTE_STREAME_AUDIO});
-export const mergeCanvasWidth = (e) => dispatch => dispatch({type: MERGE_CANVAS_WIDTH, payload: e.target.value})
+export const mergeCanvasWidth = (e) => dispatch => dispatch({type: MERGE_CANVAS_WIDTH, payload: e.target.value});

@@ -26,36 +26,35 @@ class Equalizer extends React.Component {
           //hark
           const options = {};
           const speechEvents = Hark(stream, options);
-          const htmlinfo=document.getElementById("stream_detecting")
-      
+          const htmlinfo=document.getElementById("stream_detecting");      
           speechEvents.on('speaking', ()=>{           
-            htmlinfo.innerHTML=`speaking`
+            htmlinfo.innerHTML=`speaking`;
           });
        
           speechEvents.on('stopped_speaking', ()=>{
-            htmlinfo.innerHTML=`no stream detekting`
+            htmlinfo.innerHTML=`no stream detekting`;
           });
           const sourceStream = context.createMediaStreamSource(stream);                           
-          this.props.createStreamData({audioLineIn: audioLineIn, sourceStream})          
+          this.props.createStreamData({audioLineIn: audioLineIn, sourceStream});          
       })
-      .catch(function(err) {
-          console.log('The following gUM error occured: ' + err);
+      .catch(function(e) {
+        throw new Error(e);
       });
   } else {
-     console.log('getUserMedia not supported on your browser!');
+    throw new Error('browser doesnt support audio API');
   }  
   }  
 
   widthMerge=(e)=>{   
-    this.props.mergeCanvasWidth(e)
+    this.props.mergeCanvasWidth(e);
   }     
 
   playSoundFromFile=(e)=>{
-    const soundfromfile=this.props.audioData.audioFromFile    
+    const soundfromfile=this.props.audioData.audioFromFile;    
     if (this.props.audioData.playpausestate===false) {     
       soundfromfile.play();
-      this.equaliserRun()
-      this.props.playPauseSoundFromFile()
+      this.equaliserRun();
+      this.props.playPauseSoundFromFile();
     } else {      
       soundfromfile.pause();
       this.props.playPauseSoundFromFile();
@@ -64,16 +63,16 @@ class Equalizer extends React.Component {
   startMuteStream =()=>{    
     const audionstream=this.props.audioData.audioStream; 
     const context=this.props.audioData.audiocontext;
-    const analyser=this.props.audioData.analyser  
-    const sourcestream=this.props.audioData.streamSource
+    const analyser=this.props.audioData.analyser;  
+    const sourcestream=this.props.audioData.streamSource;
               
     if (this.props.audioData.startMuteState === false) { 
       sourcestream.connect(analyser);
       analyser.connect(context.destination); 
       //play/pause function doesn't work 
       audionstream.play();
-      this.equaliserRun()
-      this.props.startMuteStreamAudio()
+      this.equaliserRun();
+      this.props.startMuteStreamAudio();
     } else { 
       sourcestream.disconnect(analyser);
       audionstream.pause();
@@ -84,7 +83,7 @@ class Equalizer extends React.Component {
   equaliserRun=(e)=>{   
     const ctx = document.querySelector("canvas").getContext("2d");   
     let flagColorColumn=true;
-    const analyser=this.props.audioData.analyser    
+    const analyser=this.props.audioData.analyser;    
     const numPoints = analyser.frequencyBinCount-80;
     const heightArray = new Uint8Array(numPoints);
     function render() {
@@ -98,7 +97,7 @@ class Equalizer extends React.Component {
         const ndx = x * numPoints / width | 0;
         const vol = heightArray[ndx];
         const y = vol * height / 512;            
-         roundedRect(ctx, x, height/2, columnwidth, y, 2)          
+         roundedRect(ctx, x, height/2, columnwidth, y, 2);          
       }    
       requestAnimationFrame(render);
     }
@@ -122,27 +121,27 @@ class Equalizer extends React.Component {
   } 
 
   uploadSoundInfoFromFile=(e)=>{  
-    const file=e.target.files[0]
+    const file=e.target.files[0];
     const context=this.props.audioData.audiocontext;
     
     const analyser=this.props.audioData.analyser;    
     const audio = new Audio();   
         audio.loop = true;       
         audio.crossOrigin = "anonymous";
-        audio.src = URL.createObjectURL(file)
+        audio.src = URL.createObjectURL(file);
         audio.addEventListener('canplay', ()=> {
           try {
             const source = context.createMediaElementSource(audio);
             
-            this.props.createAudioData({audio, file, source, name:file.name, size: file.size, type:file.type})
+            this.props.createAudioData({audio, file, source, name:file.name, size: file.size, type:file.type});
             source.connect(analyser);
             analyser.connect(context.destination);
           } catch (e) {
-            console.log(e.toString());
+            throw new Error(e);
           }
         });
         audio.addEventListener('error', function(e) {
-          console.log(e.toString(),'EROR_upload_sound_info');
+          throw new Error(e);
         });
       }  
 
@@ -166,10 +165,10 @@ Equalizer.propTypes = {
   startMuteStreamAudio: PropTypes.func.isRequired,
   mergeCanvasWidth: PropTypes.func.isRequired,
   audioData: PropTypes.object.isRequired
-}
+};
 
 const mapStateToProps = state => ({  
   audioData: state.audioData  
-})
+});
 
-export default connect(mapStateToProps, { createAudioData, playPauseSoundFromFile, createStreamData, startMuteStreamAudio, mergeCanvasWidth })(Equalizer)
+export default connect(mapStateToProps, { createAudioData, playPauseSoundFromFile, createStreamData, startMuteStreamAudio, mergeCanvasWidth })(Equalizer);

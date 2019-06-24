@@ -1,15 +1,21 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-const Equlizer=(props)=>{
+const Graphicequaliser=(props)=>{
     return(
         <div>
-            <canvas id="graphicequalizer" width={props.width} height={props.height} src={props.src}> 
+            <canvas id="graphicequalizer" width={props.width} height={props.height}> 
             </canvas> 
             <br />
             <input type="range" min="100" max="1000" step="10" 
-                    defaultValue="400" name="rangecanvas" id="range" onChange={props.onchange} />
-        </div>    
-    )
-}
+                    defaultValue={props.width} name="rangecanvas" id="range" onChange={props.onchange}/>
+        </div>);
+    };
 
-export default Equlizer;
+Graphicequaliser.propTypes = {
+    width: PropTypes.number.isRequired,
+    height: PropTypes.number.isRequired,
+    onchange: PropTypes.func.isRequired   
+  };
+
+export default Graphicequaliser;

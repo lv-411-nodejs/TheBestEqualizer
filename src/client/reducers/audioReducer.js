@@ -21,7 +21,7 @@ const initialState={
      streamSource: undefined,     
      playpausestate: false,
      startMuteState: false
-}
+};
 
 
 export default function (state=initialState, action){
@@ -36,28 +36,28 @@ export default function (state=initialState, action){
                 audioFile: action.payload.file,
                 audioFromFile: action.payload.audio,
                 audioFromFileSource: action.payload.source
-                    } 
+                    }; 
         case PLAY_PAUSE_SOUND_FROM_FILE:
             return {
                 ...state,
                 playpausestate: !(state.playpausestate)
-            }
+            };
         case CREATE_STREAME_DATA:
             return {
                 ...state,
                 audioStream: action.payload.audioLineIn,
                 streamSource: action.payload.sourceStream
-                }      
+                };     
         case START_MUTE_STREAME_AUDIO:
                 return {
                     ...state,
                     startMuteState: !(state.startMuteState)
-                }    
+                };    
         case MERGE_CANVAS_WIDTH:
             return {
                 ...state,
                 widthCanvas: action.payload
-            }          
-        default: return state
+            };          
+        default: return state;
     }  
 }
