@@ -40,14 +40,12 @@ class FormComponent extends Component {
     render() {
         const {fildsToRender, isMember} = this.props;
         const onSubmit = isMember ? this.onLoginSubmit : this.onRegistratuinSubmit;
-        const formFilds = fildsToRender.map((el,i)=>{
-            return (
+        const formFilds = fildsToRender.map((el,i)=>(
                 <FormField 
                 key={i+3}
                 onInputChange={this.onInputChange}
                 el={el}/>
-            );
-        });
+            ));
     return (
         <div>
             <form onSubmit={onSubmit} className='form-body' autoComplete='off'>
