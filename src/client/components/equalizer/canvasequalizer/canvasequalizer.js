@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-function equlizer(props){
+const Equlizer=(props)=>{
     return(
         <div>
             <canvas id="graphicequalizer" width={props.width} height={props.height} src={props.src}
@@ -14,4 +14,4 @@ function equlizer(props){
     )
 }
 
-export default equlizer;
+export default Equlizer;

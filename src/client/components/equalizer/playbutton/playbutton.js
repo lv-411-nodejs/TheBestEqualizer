@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-function PlayButton(props){
+const PlayButton=(props)=>{
     return(
         <button onClick={props.hadlesound}>
              Play
@@ -9,8 +9,4 @@ function PlayButton(props){
     )
 }
 
-function mapstate(state){
-    return state
-  }
-
-export default connect(mapstate)(PlayButton)
+export default connect()(PlayButton)

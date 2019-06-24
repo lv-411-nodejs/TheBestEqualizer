@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 
 
-function Uploadbutton (props){
+const Uploadbutton=(props)=>{
     
     return(
         <label > Виберіть трек для завантаження 
@@ -11,14 +11,10 @@ function Uploadbutton (props){
     )
 }
 
-function mapstate(state){
-    return state
-  }
-
 function storedispatch(dispatch){
     return {
         uploadsoundinfo: (e)=>dispatch({type: 'uploadsoundinfo', payload: e.target.files[0]})
     }
   }  
 
-export default connect(mapstate, storedispatch)(Uploadbutton);
+export default connect(null, storedispatch)(Uploadbutton);

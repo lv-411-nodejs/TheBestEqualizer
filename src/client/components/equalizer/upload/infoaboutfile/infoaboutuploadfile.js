@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Infoabouttrack(props) {
+const Infoabouttrack=(props)=>{
     return(
         <details id="detailstrack">
             <summary>Tack name {props.trackname}</summary>

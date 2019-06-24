@@ -6,20 +6,15 @@ import Uploadbutton from './upload/uploadbutton'
 import Infoabouttrack from './upload/infoaboutfile/infoaboutuploadfile'
 import Streambutton from './streambutton/streambutton'
 import {connect} from 'react-redux'
+import {createAudioData, playPauseSoundFromFile, createStreamData, startMuteStreamAudio, mergeCanvasWidth } from './redux/actions'
 
 
 class Equalizer extends React.Component {  
    componentDidMount(){ 
-      this.detectStreamSoundFrommicrophon();
+      this.detectStreamSoundFromMicrophon();
     }
-    
-  // createbaseaudiocontextandanaliser=()=>{
-  //   var context = new (window.AudioContext || window.webkitAudioContext)();    
-  //   var analyser = context.createAnalyser();
-  //   this.props.baseaudiocontextandanaliser({context,analyser})
-  // }
-  
-  detectStreamSoundFrommicrophon=()=>{    
+   
+  detectStreamSoundFromMicrophon=()=>{    
     var context = this.props.audiocontext;          
     var audiolinein = new Audio();   
     if (navigator.mediaDevices) {      
@@ -86,21 +81,17 @@ class Equalizer extends React.Component {
   }
 
   equaliserRun=(e)=>{   
-    const ctx = document.querySelector("canvas").getContext("2d");
-    // var ctx=this.props.graphiccontext;
+    const ctx = document.querySelector("canvas").getContext("2d");   
     let flagColorColumn=true;
-    const analyser=this.props.analyser
-    
+    const analyser=this.props.analyser    
     const numPoints = analyser.frequencyBinCount-80;
     const heightArray = new Uint8Array(numPoints);
     function render() {
-      analyser.getByteFrequencyData(heightArray);
-      
+      analyser.getByteFrequencyData(heightArray);      
       const width = ctx.canvas.width;
       const height = ctx.canvas.height;
       const countcolumns=Math.floor(ctx.canvas.width/52);
-      const columnwidth=Math.floor(5/6*ctx.canvas.width/52);
-      
+      const columnwidth=Math.floor(5/6*ctx.canvas.width/52);      
       ctx.clearRect(0, 0, width, height);
       for (let x =0; x < width; x += countcolumns) {
         const ndx = x * numPoints / width | 0;
@@ -165,18 +156,9 @@ class Equalizer extends React.Component {
   );
   }
 }
-function mapstate(state){
-  return state
-}
-function storeDispatch(dispatch){
-  return {
-      baseaudiocontextandanaliser: (data)=>dispatch({type: 'baseAudioContextAnanaliser', payload: data}),
-      createAudioData: (data)=>dispatch({type: 'createAudiodata', payload: data}),  
-      playPauseSoundFromFile: ()=>dispatch({type: 'playPauseSoundFromFile'}),
-      createStreamData: (data)=>dispatch({type: 'createStreamData', payload: data}),
-      startMuteStreamAudio: ()=>dispatch({type: 'startMuteStreamAudio'}),
-      mergeCanvasWidth: (e)=>dispatch({type:'mergeCanvasWidth', payload: e.target.value})   
-  }
-}  
 
-export default connect(mapstate, storeDispatch)(Equalizer)
+const mapStateToProps = state => ({
+  audioData: state.audioData  
+})
+
+export default connect(mapStateToProps, {createAudioData, playPauseSoundFromFile, createStreamData, startMuteStreamAudio, mergeCanvasWidth })(Equalizer)

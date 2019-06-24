@@ -1,3 +1,5 @@
+import {createAudioData,playPauseSoundFromFile, createStreamData, startMuteStreamAudio, mergeCanvasWidth} from './types'
+
 var context = new (window.AudioContext || window.webkitAudioContext)();    
 var analyser = context.createAnalyser();
 
@@ -16,8 +18,7 @@ const initialState={
      audioFromFileSource: undefined,
     //from stream
      audioStream: undefined,
-     streamSource: undefined,
-     
+     streamSource: undefined,     
      playpausestate: false,
      startmutesstate: false
 }
@@ -26,14 +27,7 @@ const initialState={
 export default function rootReducer(state=initialState, action){
     
     switch(action.type){
-        case 'baseAudioContextAnanaliser':
-                         
-            return {
-                ...state,
-                audiocontext: action.payload.context,
-                analyser: action.payload.analyser,               
-                    } 
-        case 'createAudiodata':                         
+        case createAudioData:                         
             return {
                 ...state,
                 trackname: action.payload.name,
@@ -43,23 +37,23 @@ export default function rootReducer(state=initialState, action){
                 audioFromFile: action.payload.audio,
                 audioFromFileSource: action.payload.source
                     } 
-        case 'playPauseSoundFromFile':
+        case playPauseSoundFromFile:
             return {
                 ...state,
                 playpausestate: !(state.playpausestate)
             }
-        case 'createStreamData':
+        case createStreamData:
             return {
                 ...state,
                 audioStream: action.payload.audiolinein,
                 streamSource: action.payload.sourcestream
                 }      
-        case 'startMuteStreamAudio':
+        case startMuteStreamAudio:
                 return {
                     ...state,
                     startmutesstate: !(state.startmutesstate)
                 }    
-        case 'mergeCanvasWidth':
+        case mergeCanvasWidth:
             return {
                 ...state,
                 widthCanvas: action.payload
