@@ -9,7 +9,7 @@ class Authentification extends Component {
     }
     
     onLinkClick = () => {
-        this.setState((state)=>({isMember: !state.isMember}));
+        this.setState({isMember: !this.state.isMember});
     }
 
     filterFilds = (arr, status) => status ? arr.filter((el)=>status === el.isMember) : arr;
