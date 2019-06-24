@@ -6,7 +6,7 @@ var analyser = context.createAnalyser();
 
 const initialState={  
     //graphic canvas 
-     widthCanvas: 400, 
+     widthCanvas: 500, 
     //audio from file
      trackname: undefined,     
      tracktype: undefined,
@@ -20,11 +20,11 @@ const initialState={
      audioStream: undefined,
      streamSource: undefined,     
      playpausestate: false,
-     startmutesstate: false
+     startMuteState: false
 }
 
 
-export default function audioReducer(state=initialState, action){
+export default function (state=initialState, action){
     
     switch(action.type){
         case CREATE_AUDIO_DATA:                         
@@ -45,13 +45,13 @@ export default function audioReducer(state=initialState, action){
         case CREATE_STREAME_DATA:
             return {
                 ...state,
-                audioStream: action.payload.audiolinein,
-                streamSource: action.payload.sourcestream
+                audioStream: action.payload.audioLineIn,
+                streamSource: action.payload.sourceStream
                 }      
         case START_MUTE_STREAME_AUDIO:
                 return {
                     ...state,
-                    startmutesstate: !(state.startmutesstate)
+                    startMuteState: !(state.startMuteState)
                 }    
         case MERGE_CANVAS_WIDTH:
             return {

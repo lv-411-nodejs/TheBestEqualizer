@@ -6,8 +6,8 @@ import PlayButton from './playbutton/playbutton';
 import Uploadbutton from './upload/uploadbutton';
 import Infoabouttrack from './upload/infoaboutfile/infoaboutuploadfile';
 import Streambutton from './streambutton/streambutton';
-import {connect} from 'react-redux';
-import {createAudioData, playPauseSoundFromFile, createStreamData, startMuteStreamAudio, mergeCanvasWidth } from '../../actions/audioactions';
+import { connect } from 'react-redux';
+import { createAudioData, playPauseSoundFromFile, createStreamData, startMuteStreamAudio, mergeCanvasWidth } from '../../actions/audioactions';
 
 
 class Equalizer extends React.Component {  
@@ -16,27 +16,27 @@ class Equalizer extends React.Component {
     }
    
   detectStreamSoundFromMicrophon=()=>{    
-    const context = this.props.audiocontext;          
-    const audiolinein = new Audio();   
+    const context = this.props.audioData.audiocontext;          
+    const audioLineIn = new Audio();   
     if (navigator.mediaDevices) {      
       navigator.mediaDevices.getUserMedia ({audio: true})      
       .then((stream)=> {   
-        audiolinein.srcObject = stream;
-        audiolinein.muted=true;        
+        audioLineIn.srcObject = stream;
+        audioLineIn.muted=true;        
           //hark
           const options = {};
           const speechEvents = Hark(stream, options);
           const htmlinfo=document.getElementById("stream_detecting")
       
-          speechEvents.on('speaking', function() {           
+          speechEvents.on('speaking', ()=>{           
             htmlinfo.innerHTML=`speaking`
           });
        
-          speechEvents.on('stopped_speaking', function() {
+          speechEvents.on('stopped_speaking', ()=>{
             htmlinfo.innerHTML=`no stream detekting`
           });
-          const sourcestream = context.createMediaStreamSource(stream);                           
-          this.props.createStreamData({audiolinein,sourcestream})          
+          const sourceStream = context.createMediaStreamSource(stream);                           
+          this.props.createStreamData({audioLineIn: audioLineIn, sourceStream})          
       })
       .catch(function(err) {
           console.log('The following gUM error occured: ' + err);
@@ -51,8 +51,8 @@ class Equalizer extends React.Component {
   }     
 
   playSoundFromFile=(e)=>{
-    const soundfromfile=this.props.audionodefromfile    
-    if (this.props.playpausestate===false) {     
+    const soundfromfile=this.props.audioData.audioFromFile    
+    if (this.props.audioData.playpausestate===false) {     
       soundfromfile.play();
       this.equaliserRun()
       this.props.playPauseSoundFromFile()
@@ -62,12 +62,12 @@ class Equalizer extends React.Component {
   }}
 
   startMuteStream =()=>{    
-    const audionstream=this.props.audiostream; 
-    const context=this.props.audiocontext;
-    const analyser=this.props.analyser  
-    const sourcestream=this.props.sourcestream
-          
-    if (this.props.startmutesstate===false) { 
+    const audionstream=this.props.audioData.audioStream; 
+    const context=this.props.audioData.audiocontext;
+    const analyser=this.props.audioData.analyser  
+    const sourcestream=this.props.audioData.streamSource
+              
+    if (this.props.audioData.startMuteState === false) { 
       sourcestream.connect(analyser);
       analyser.connect(context.destination); 
       //play/pause function doesn't work 
@@ -84,7 +84,7 @@ class Equalizer extends React.Component {
   equaliserRun=(e)=>{   
     const ctx = document.querySelector("canvas").getContext("2d");   
     let flagColorColumn=true;
-    const analyser=this.props.analyser    
+    const analyser=this.props.audioData.analyser    
     const numPoints = analyser.frequencyBinCount-80;
     const heightArray = new Uint8Array(numPoints);
     function render() {
@@ -124,14 +124,18 @@ class Equalizer extends React.Component {
 
   uploadSoundInfoFromFile=(e)=>{  
     const file=e.target.files[0]
-    const context=this.props.audiocontext;
-    const analyser=this.props.analyser;    
+    const context=this.props.audioData.audiocontext;
+    
+    const analyser=this.props.audioData.analyser;    
     const audio = new Audio();   
         audio.loop = true;       
         audio.crossOrigin = "anonymous";
-        audio.addEventListener('canplay', function() {
+        audio.src = URL.createObjectURL(file)
+        audio.addEventListener('canplay', ()=> {
           try {
-            var source = context.createMediaElementSource(audio);
+            const source = context.createMediaElementSource(audio);
+            
+            this.props.createAudioData({audio, file, source, name:file.name, size: file.size, type:file.type})
             source.connect(analyser);
             analyser.connect(context.destination);
           } catch (e) {
@@ -141,8 +145,6 @@ class Equalizer extends React.Component {
         audio.addEventListener('error', function(e) {
           console.log(e.toString(),'ERORA');
         });
-        audio.src = URL.createObjectURL(file)
-        this.props.createAudioData({audio,file,source,name:file.name,size: file.size, type:file.type})   
       }  
 
   render(){   
@@ -150,16 +152,16 @@ class Equalizer extends React.Component {
     <div className="App">      
       <Streambutton onclickhandler={this.startMuteStream} /><span id="stream_detecting"></span>
       <PlayButton hadlesound={this.playSoundFromFile}/>
-      <Graphicequaliser width={this.props.widthCanvas} height="200" onchange={this.widthMerge}/>
+      <Graphicequaliser width={this.props.audioData.widthCanvas} height="200" onchange={this.widthMerge}/>
       <Uploadbutton handleinfofromsound={this.uploadSoundInfoFromFile}/>
-      <Infoabouttrack trackname={this.props.trackname} tracksize={this.props.tracksize} tracktype={this.props.tracktype} />
+      <Infoabouttrack trackname={this.props.audioData.trackname} tracksize={this.props.audioData.tracksize} tracktype={this.props.audioData.tracktype} />
     </div>
   );
   }
 }
 
 
-FormComponent.propTypes = {
+Equalizer.propTypes = {
   createAudioData: PropTypes.func.isRequired,
   playPauseSoundFromFile: PropTypes.func.isRequired,
   createStreamData: PropTypes.func.isRequired,
@@ -170,7 +172,8 @@ FormComponent.propTypes = {
 
 
 const mapStateToProps = state => ({
+  // ...state,
   audioData: state.audioData  
 })
 
-export default connect(mapStateToProps, {createAudioData, playPauseSoundFromFile, createStreamData, startMuteStreamAudio, mergeCanvasWidth })(Equalizer)
+export default connect(mapStateToProps, { createAudioData, playPauseSoundFromFile, createStreamData, startMuteStreamAudio, mergeCanvasWidth })(Equalizer)
