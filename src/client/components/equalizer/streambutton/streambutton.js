@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
- const StartStopStreamButton = (props)=>(
+ const StartStopStreamButton = (props) => (
     <button onClick={props.onclickhandler}>Start stream</button>
 );
 
