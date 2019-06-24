@@ -1,4 +1,4 @@
-import {createAudioData,playPauseSoundFromFile, createStreamData, startMuteStreamAudio, mergeCanvasWidth} from './types'
+import { CREATE_AUDIO_DATA, PLAY_PAUSE_SOUND_FROM_FILE, CREATE_STREAME_DATA, START_MUTE_STREAME_AUDIO, MERGE_CANVAS_WIDTH } from '../actions/types';
 
 var context = new (window.AudioContext || window.webkitAudioContext)();    
 var analyser = context.createAnalyser();
@@ -27,7 +27,7 @@ const initialState={
 export default function audioReducer(state=initialState, action){
     
     switch(action.type){
-        case createAudioData:                         
+        case CREATE_AUDIO_DATA:                         
             return {
                 ...state,
                 trackname: action.payload.name,
@@ -37,23 +37,23 @@ export default function audioReducer(state=initialState, action){
                 audioFromFile: action.payload.audio,
                 audioFromFileSource: action.payload.source
                     } 
-        case playPauseSoundFromFile:
+        case PLAY_PAUSE_SOUND_FROM_FILE:
             return {
                 ...state,
                 playpausestate: !(state.playpausestate)
             }
-        case createStreamData:
+        case CREATE_STREAME_DATA:
             return {
                 ...state,
                 audioStream: action.payload.audiolinein,
                 streamSource: action.payload.sourcestream
                 }      
-        case startMuteStreamAudio:
+        case START_MUTE_STREAME_AUDIO:
                 return {
                     ...state,
                     startmutesstate: !(state.startmutesstate)
                 }    
-        case mergeCanvasWidth:
+        case MERGE_CANVAS_WIDTH:
             return {
                 ...state,
                 widthCanvas: action.payload

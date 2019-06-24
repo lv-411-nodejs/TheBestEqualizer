@@ -11,7 +11,7 @@ const Main = () => {
     <React.Fragment>
       <AppHeader />
       <AdditionalConfigs/>
-      <Equalizer/>
+      {/* <Equalizer/> */}
       <Modes/>
       <ComponentWithSliders/>
       <Link to="/login">Login</Link>
