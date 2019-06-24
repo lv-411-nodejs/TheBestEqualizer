@@ -11,9 +11,9 @@ const Infoabouttrack=(props)=>{
 };
 
 Infoabouttrack.propTypes = {
-    trackname: PropTypes.string.isRequired,
-    tracksize: PropTypes.number.isRequired,
-    tracktype: PropTypes.string.isRequired
+    trackname: PropTypes.string,
+    tracksize: PropTypes.number,
+    tracktype: PropTypes.string
   };
 
 export default Infoabouttrack;

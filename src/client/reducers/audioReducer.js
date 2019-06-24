@@ -6,7 +6,8 @@ var analyser = context.createAnalyser();
 
 const initialState={  
     //graphic canvas 
-     widthCanvas: 500, 
+     widthCanvas: 500,
+     heightCanvas: 150, 
     //audio from file
      trackname: undefined,     
      tracktype: undefined,

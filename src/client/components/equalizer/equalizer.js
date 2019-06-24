@@ -150,7 +150,7 @@ class Equalizer extends React.Component {
     <div className="graphic_equalizer">      
       <Streambutton onclickhandler={this.startMuteStream} /><span id="stream_detecting"></span>
       <PlayButton hadlesound={this.playSoundFromFile}/>
-      <Graphicequaliser width={this.props.audioData.widthCanvas} height="150" onchange={this.widthMerge}/>
+      <Graphicequaliser width={this.props.audioData.widthCanvas} height={this.props.audioData.heightCanvas} onchange={this.widthMerge}/>
       <Uploadbutton handleInfoFromSound={this.uploadSoundInfoFromFile}/>
       <Infoabouttrack trackname={this.props.audioData.trackname} tracksize={this.props.audioData.tracksize} tracktype={this.props.audioData.tracktype} />
     </div>
