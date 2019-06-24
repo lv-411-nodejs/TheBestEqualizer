@@ -10,9 +10,9 @@ const Main = () => {
   return (
     <React.Fragment>
       <AppHeader />
-      <AdditionalConfigs/>
-      <Equalizer/>
+      <AdditionalConfigs/>      
       <Modes/>
+      <Equalizer/>
       <ComponentWithSliders/>
       <Link to="/login">Login</Link>
       <Link to="/registration">Registration</Link>

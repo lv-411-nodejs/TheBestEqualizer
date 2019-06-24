@@ -114,8 +114,7 @@ class Equalizer extends React.Component {
       ctx.lineTo(x + width, y-height+radius);
       ctx.arcTo(x + width, y-height, x+width-radius, y - height, radius);
       ctx.lineTo(x +radius, y-height);
-      ctx.arcTo(x, y - height, x, y - height+radius, radius);
-      // ctx.stroke();
+      ctx.arcTo(x, y - height, x, y - height+radius, radius);      
       ctx.fillStyle =flagColorColumn ? '#1ecea8' : '#93969f';
       flagColorColumn =!flagColorColumn;
       ctx.fill();      
@@ -143,23 +142,22 @@ class Equalizer extends React.Component {
           }
         });
         audio.addEventListener('error', function(e) {
-          console.log(e.toString(),'ERORA');
+          console.log(e.toString(),'EROR_upload_sound_info');
         });
       }  
 
   render(){   
   return (    
-    <div className="App">      
+    <div className="graphic_equalizer">      
       <Streambutton onclickhandler={this.startMuteStream} /><span id="stream_detecting"></span>
       <PlayButton hadlesound={this.playSoundFromFile}/>
-      <Graphicequaliser width={this.props.audioData.widthCanvas} height="200" onchange={this.widthMerge}/>
-      <Uploadbutton handleinfofromsound={this.uploadSoundInfoFromFile}/>
+      <Graphicequaliser width={this.props.audioData.widthCanvas} height="150" onchange={this.widthMerge}/>
+      <Uploadbutton handleInfoFromSound={this.uploadSoundInfoFromFile}/>
       <Infoabouttrack trackname={this.props.audioData.trackname} tracksize={this.props.audioData.tracksize} tracktype={this.props.audioData.tracktype} />
     </div>
   );
   }
 }
-
 
 Equalizer.propTypes = {
   createAudioData: PropTypes.func.isRequired,
@@ -170,9 +168,7 @@ Equalizer.propTypes = {
   audioData: PropTypes.object.isRequired
 }
 
-
-const mapStateToProps = state => ({
-  // ...state,
+const mapStateToProps = state => ({  
   audioData: state.audioData  
 })
 
