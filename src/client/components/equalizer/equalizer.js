@@ -1,12 +1,13 @@
 import React from 'react';
-import Hark from 'hark'
-import Graphicequaliser from './canvasequalizer/canvasequalizer'
-import PlayButton from './playbutton/playbutton'
-import Uploadbutton from './upload/uploadbutton'
-import Infoabouttrack from './upload/infoaboutfile/infoaboutuploadfile'
-import Streambutton from './streambutton/streambutton'
-import {connect} from 'react-redux'
-import {createAudioData, playPauseSoundFromFile, createStreamData, startMuteStreamAudio, mergeCanvasWidth } from './redux/actions'
+import Hark from 'hark';
+import PropTypes from 'prop-types';
+import Graphicequaliser from './canvasequalizer/canvasequalizer';
+import PlayButton from './playbutton/playbutton';
+import Uploadbutton from './upload/uploadbutton';
+import Infoabouttrack from './upload/infoaboutfile/infoaboutuploadfile';
+import Streambutton from './streambutton/streambutton';
+import {connect} from 'react-redux';
+import {createAudioData, playPauseSoundFromFile, createStreamData, startMuteStreamAudio, mergeCanvasWidth } from './redux/actions';
 
 
 class Equalizer extends React.Component {  
@@ -15,17 +16,17 @@ class Equalizer extends React.Component {
     }
    
   detectStreamSoundFromMicrophon=()=>{    
-    var context = this.props.audiocontext;          
-    var audiolinein = new Audio();   
+    const context = this.props.audiocontext;          
+    const audiolinein = new Audio();   
     if (navigator.mediaDevices) {      
       navigator.mediaDevices.getUserMedia ({audio: true})      
       .then((stream)=> {   
         audiolinein.srcObject = stream;
         audiolinein.muted=true;        
           //hark
-          var options = {};
-          var speechEvents = Hark(stream, options);
-          var htmlinfo=document.getElementById("stream_detecting")
+          const options = {};
+          const speechEvents = Hark(stream, options);
+          const htmlinfo=document.getElementById("stream_detecting")
       
           speechEvents.on('speaking', function() {           
             htmlinfo.innerHTML=`speaking`
@@ -34,7 +35,7 @@ class Equalizer extends React.Component {
           speechEvents.on('stopped_speaking', function() {
             htmlinfo.innerHTML=`no stream detekting`
           });
-          var sourcestream = context.createMediaStreamSource(stream);                           
+          const sourcestream = context.createMediaStreamSource(stream);                           
           this.props.createStreamData({audiolinein,sourcestream})          
       })
       .catch(function(err) {
@@ -156,6 +157,17 @@ class Equalizer extends React.Component {
   );
   }
 }
+
+
+FormComponent.propTypes = {
+  createAudioData: PropTypes.func.isRequired,
+  playPauseSoundFromFile: PropTypes.func.isRequired,
+  createStreamData: PropTypes.func.isRequired,
+  startMuteStreamAudio: PropTypes.func.isRequired,
+  mergeCanvasWidth: PropTypes.func.isRequired,
+  audioData: PropTypes.object.isRequired
+}
+
 
 const mapStateToProps = state => ({
   audioData: state.audioData  
