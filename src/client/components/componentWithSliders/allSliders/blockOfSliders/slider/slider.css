@@ -1,0 +1,38 @@
+.Sliders--slider{
+  margin: 35px;
+  width: 3px;
+  height: 100px
+}
+
+.Sliders--slider .rangeslider__fill {
+  background-color: #6080ce;
+}
+
+.Sliders--slider .rangeslider__handle {
+  outline: none;
+  border-radius: 50%;
+  height: 17px;
+  width: 17px;
+  left: -8px;
+}
+
+.Sliders--slider .rangeslider__handle .rangeslider__handle-tooltip{
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+}
+.Sliders--slider .rangeslider__handle:hover{
+  background-color: #6080ce;
+  transition: 0.3s ease all;
+  border: white;
+}
+
+.Sliders--label{
+  color: #a0a0a0;
+  font-size: 11px;
+  text-transform: uppercase;
+}
