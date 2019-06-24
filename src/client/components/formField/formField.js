@@ -2,8 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './formField.css';
 
-const FormField = ({el: {name, label, type}, onInputChange}) => {
-    return (
+const FormField = ({el: {name, label, type}, onInputChange}) => (
         <div>
             <label className='label'>{label}</label>
             <div className="field">
@@ -11,7 +10,7 @@ const FormField = ({el: {name, label, type}, onInputChange}) => {
             </div>
         </div>
     );
-};
+
 
 FormField.propTypes = {
     onInputChange: PropTypes.func.isRequired,
