@@ -1,4 +1,4 @@
-import { headsetIcon, rssIcon, thIcon, rocketIcon } from '../assets/icons/icons'
+import { headsetIcon, rssIcon, thIcon, rocketIcon } from '../assets/icons/icons';
 
     export const imageArray = [{
         img: rocketIcon,

@@ -1,5 +1,5 @@
 import React from 'react';
-import {settingsIcon} from '../../../assets/icons/icons'
+import {settingsIcon} from '../../../assets/icons/icons';
 import './settings.css';
 
 const Settings = () => {
