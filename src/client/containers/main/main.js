@@ -4,6 +4,7 @@ import AdditionalConfigs from '../../components/additionalConfigs/additionalConf
 import Modes from '../../components/modes/modes';
 import AppHeader from '../../components/appheader/appheader';
 import ComponentWithSliders from '../../components/componentWithSliders/componentWithSliders';
+import SavePressetesModalWindow from '../../components/componentWithSliders/modalsavewindow/modalsavewindow'
 
 const Main = () => {
   return (
@@ -12,6 +13,7 @@ const Main = () => {
       <AdditionalConfigs/>
       <Modes/>
       <ComponentWithSliders/>
+      <SavePressetesModalWindow/>
       <Link to="/login">Login</Link>
       <Link to="/registration">Registration</Link>
     </React.Fragment>
