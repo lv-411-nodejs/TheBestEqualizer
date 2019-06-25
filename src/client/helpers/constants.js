@@ -1,13 +1,13 @@
-import { Image3d, ImageHeadSet, ImageSpeaker, ImageExtra } from '../images';
+import { headsetIcon, rssIcon, thIcon, rocketIcon } from '../assets/icons/icons'
 
     export const imageArray = [{
-        img: Image3d,
+        img: rocketIcon,
         text: '3D' }, {
-        img: ImageHeadSet,
+        img: headsetIcon ,
         text: 'HeadSet' }, {
-        img: ImageSpeaker,
+        img: thIcon,
         text: 'Speaker' }, {
-        img: ImageExtra,
+        img: rssIcon,
         text: 'Extra'
     }];
 

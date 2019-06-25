@@ -5,14 +5,13 @@ import VolumeSlider from './volumeSlider/volumeSlider';
 
 import './additionalConfigs.css';
 
-const AdditionalConfigs = () => {
-  return (
-    <section className='additionalSettingsContainer'>
-      <VolumeSlider/>
-      <ModesThemeSwitcher/>
-      <Settings/>
-    </section>
-  );
-};
+const AdditionalConfigs = () => (
+  <section className='additionalSettingsContainer'>
+    <VolumeSlider/>
+    <ModesThemeSwitcher/>
+    <Settings/>
+  </section>
+);
+
 
 export default AdditionalConfigs;
