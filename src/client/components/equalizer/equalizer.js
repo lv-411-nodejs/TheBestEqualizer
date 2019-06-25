@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Hark from 'hark';
 import PropTypes from 'prop-types';
 import Graphicequaliser from './canvasequalizer/canvasequalizer';
@@ -10,34 +10,37 @@ import { connect } from 'react-redux';
 import { createAudioData, playPauseSoundFromFile, createStreamData, startMuteStreamAudio, mergeCanvasWidth } from '../../actions/audioactions';
 
 
-class Equalizer extends React.Component {  
+class Equalizer extends Component {  
    componentDidMount(){ 
       this.detectStreamSoundFromMicrophon();
     }
-   
-  detectStreamSoundFromMicrophon=()=>{    
-    const context = this.props.audioData.audiocontext;          
-    const audioLineIn = new Audio();   
-    if (navigator.mediaDevices) {      
-      navigator.mediaDevices.getUserMedia ({audio: true})      
-      .then((stream)=> {   
-        audioLineIn.srcObject = stream;
-        audioLineIn.muted=true;        
-          //hark
-          const options = {};
-          const speechEvents = Hark(stream, options);
-          const htmlinfo=document.getElementById("stream_detecting");      
-          speechEvents.on('speaking', ()=>{           
+  
+  createSoundStream = (stream) => {
+    const { audioContext: context } =  this.props.audioData;           
+    const audioLineIn = new Audio(); 
+    
+    audioLineIn.srcObject = stream;
+    audioLineIn.muted=true;        
+    //hark - JS module that listens to an audio stream, and emits events indicating whether the user is speaking or not 
+    const options = {};
+    const speechEvents = Hark(stream, options);
+    const htmlinfo=document.getElementById("stream_detecting");      
+    speechEvents.on('speaking', ()=>{           
             htmlinfo.innerHTML=`speaking`;
           });
        
-          speechEvents.on('stopped_speaking', ()=>{
+    speechEvents.on('stopped_speaking', ()=>{
             htmlinfo.innerHTML=`no stream detekting`;
           });
-          const sourceStream = context.createMediaStreamSource(stream);                           
-          this.props.createStreamData({audioLineIn: audioLineIn, sourceStream});          
-      })
-      .catch(function(e) {
+    const sourceStream = context.createMediaStreamSource(stream);                           
+    this.props.createStreamData({audioLineIn: audioLineIn, sourceStream});
+  }  
+
+  detectStreamSoundFromMicrophon = () => {
+    if (navigator.mediaDevices) {      
+      navigator.mediaDevices.getUserMedia ({audio: true})      
+      .then(stream => this.createSoundStream(stream))
+      .catch((e) => {
         throw new Error(e);
       });
   } else {
@@ -50,32 +53,29 @@ class Equalizer extends React.Component {
   }     
 
   playSoundFromFile=(e)=>{
-    const soundfromfile=this.props.audioData.audioFromFile;    
-    if (this.props.audioData.playpausestate===false) {     
+    const {audioFromFile: soundfromfile, playPauseState} = this.props.audioData;    
+    if (!playPauseState) {     
       soundfromfile.play();
-      this.equaliserRun();
-      this.props.playPauseSoundFromFile();
+      this.equaliserRun();     
     } else {      
-      soundfromfile.pause();
-      this.props.playPauseSoundFromFile();
-  }}
+      soundfromfile.pause();   
+  }
+    this.props.playPauseSoundFromFile();
+  }
 
   startMuteStream =()=>{    
-    const audionstream=this.props.audioData.audioStream; 
-    const context=this.props.audioData.audiocontext;
-    const analyser=this.props.audioData.analyser;  
-    const sourcestream=this.props.audioData.streamSource;
-              
-    if (this.props.audioData.startMuteState === false) { 
-      sourcestream.connect(analyser);
-      analyser.connect(context.destination); 
+    const {audioStream, audioContext, analyser, streamSource, startMuteState} = this.props.audioData; 
+                 
+    if (startMuteState === false) { 
+      streamSource.connect(analyser);
+      analyser.connect(audioContext.destination); 
       //play/pause function doesn't work 
-      audionstream.play();
+      audioStream.play();
       this.equaliserRun();
       this.props.startMuteStreamAudio();
     } else { 
-      sourcestream.disconnect(analyser);
-      audionstream.pause();
+      streamSource.disconnect(analyser);
+      audioStream.pause();
       this.props.startMuteStreamAudio();
   }
   }
@@ -83,7 +83,7 @@ class Equalizer extends React.Component {
   equaliserRun=(e)=>{   
     const ctx = document.querySelector("canvas").getContext("2d");   
     let flagColorColumn=true;
-    const analyser=this.props.audioData.analyser;    
+    const {analyser} = this.props.audioData;    
     const numPoints = analyser.frequencyBinCount-80;
     const heightArray = new Uint8Array(numPoints);
     function render() {
@@ -122,9 +122,9 @@ class Equalizer extends React.Component {
 
   uploadSoundInfoFromFile=(e)=>{  
     const file=e.target.files[0];
-    const context=this.props.audioData.audiocontext;
-    
-    const analyser=this.props.audioData.analyser;    
+
+    const {audioContext: context, analyser} = this.props.audioData;
+     
     const audio = new Audio();   
         audio.loop = true;       
         audio.crossOrigin = "anonymous";
@@ -150,9 +150,9 @@ class Equalizer extends React.Component {
     <div className="graphic_equalizer">      
       <Streambutton onclickhandler={this.startMuteStream} /><span id="stream_detecting"></span>
       <PlayButton hadlesound={this.playSoundFromFile}/>
-      <Graphicequaliser width={this.props.audioData.widthCanvas} height={this.props.audioData.heightCanvas} onchange={this.widthMerge}/>
+      <Graphicequaliser width={this.props.audioData.widthCanvas} height={this.props.audioData.heightCanvas} onChangeWidth={this.widthMerge}/>
       <Uploadbutton handleInfoFromSound={this.uploadSoundInfoFromFile}/>
-      <Infoabouttrack trackname={this.props.audioData.trackname} tracksize={this.props.audioData.tracksize} tracktype={this.props.audioData.tracktype} />
+      <Infoabouttrack trackname={this.props.audioData.trackName} tracksize={this.props.audioData.trackSize} tracktype={this.props.audioData.trackType} />
     </div>
   );
   }

@@ -3,16 +3,15 @@ import { CREATE_AUDIO_DATA, PLAY_PAUSE_SOUND_FROM_FILE, CREATE_STREAME_DATA, STA
 var context = new (window.AudioContext || window.webkitAudioContext)();    
 var analyser = context.createAnalyser();
 
-
 const initialState={  
     //graphic canvas 
      widthCanvas: 500,
      heightCanvas: 150, 
     //audio from file
-     trackname: undefined,     
-     tracktype: undefined,
-     tracksize: undefined,     
-     audiocontext: context,
+     trackName: undefined,     
+     trackType: undefined,
+     trackSize: undefined,     
+     audioContext: context,
      analyser: analyser,
      audioFile: undefined,
      audioFromFile: undefined,
@@ -20,7 +19,7 @@ const initialState={
     //from stream
      audioStream: undefined,
      streamSource: undefined,     
-     playpausestate: false,
+     playPauseState: false,
      startMuteState: false
 };
 
@@ -28,27 +27,31 @@ const initialState={
 export default function (state=initialState, action){
     
     switch(action.type){
-        case CREATE_AUDIO_DATA:                         
+        case CREATE_AUDIO_DATA: {  
+            const {name: trackName, type: trackType, size: trackSize, file: audioFile, audio: audioFromFile, source: audioFromFileSource} = action.payload;                                            
             return {
                 ...state,
-                trackname: action.payload.name,
-                tracktype: action.payload.type,
-                tracksize: action.payload.size,                
-                audioFile: action.payload.file,
-                audioFromFile: action.payload.audio,
-                audioFromFileSource: action.payload.source
-                    }; 
+                trackName,
+                trackType,
+                trackSize,
+                audioFile,
+                audioFromFile,
+                audioFromFileSource
+                };
+            }
         case PLAY_PAUSE_SOUND_FROM_FILE:
             return {
                 ...state,
-                playpausestate: !(state.playpausestate)
+                playPauseState: !(state.playPauseState)
             };
-        case CREATE_STREAME_DATA:
+        case CREATE_STREAME_DATA: {
+            const {audioLineIn: audioStream, sourceStream: streamSource} = action.payload;
             return {
                 ...state,
-                audioStream: action.payload.audioLineIn,
-                streamSource: action.payload.sourceStream
-                };     
+                audioStream,
+                streamSource
+                };
+            }     
         case START_MUTE_STREAME_AUDIO:
                 return {
                     ...state,
