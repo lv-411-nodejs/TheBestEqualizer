@@ -1,4 +1,4 @@
-import { Image3d, ImageHeadSet, ImageSpeaker, ImageExtra } from 'src/images';
+import { Image3d, ImageHeadSet, ImageSpeaker, ImageExtra } from '../images';
 
     export const imageArray = [{
         img: Image3d,
