@@ -1,7 +1,7 @@
 import { CREATE_AUDIO_DATA, PLAY_PAUSE_SOUND_FROM_FILE, CREATE_STREAME_DATA, START_MUTE_STREAME_AUDIO, MERGE_CANVAS_WIDTH } from '../actions/types';
 
-var context = new (window.AudioContext || window.webkitAudioContext)();    
-var analyser = context.createAnalyser();
+const context = new (window.AudioContext || window.webkitAudioContext)();    
+const analyser = context.createAnalyser();
 
 const initialState={  
     //graphic canvas 

@@ -6,6 +6,7 @@ import PlayButton from './playbutton/playbutton';
 import Uploadbutton from './upload/uploadbutton';
 import Infoabouttrack from './upload/infoaboutfile/infoaboutuploadfile';
 import Streambutton from './streambutton/streambutton';
+import EqualizerMethods from './equalizerMethods';
 import { connect } from 'react-redux';
 import { createAudioData, playPauseSoundFromFile, createStreamData, startMuteStreamAudio, mergeCanvasWidth } from '../../actions/audioactions';
 
@@ -48,11 +49,11 @@ class Equalizer extends Component {
   }  
   }  
 
-  widthMerge=(e)=>{   
+  widthMerge = (e) => {   
     this.props.mergeCanvasWidth(e);
   }     
 
-  playSoundFromFile=(e)=>{
+  playSoundFromFile = () => {
     const {audioFromFile: soundfromfile, playPauseState} = this.props.audioData;    
     if (!playPauseState) {     
       soundfromfile.play();
@@ -63,10 +64,10 @@ class Equalizer extends Component {
     this.props.playPauseSoundFromFile();
   }
 
-  startMuteStream =()=>{    
+  startMuteStream = () => {    
     const {audioStream, audioContext, analyser, streamSource, startMuteState} = this.props.audioData; 
                  
-    if (startMuteState === false) { 
+    if (!startMuteState) { 
       streamSource.connect(analyser);
       analyser.connect(audioContext.destination); 
       //play/pause function doesn't work 
@@ -80,47 +81,17 @@ class Equalizer extends Component {
   }
   }
 
-  equaliserRun=(e)=>{   
-    const ctx = document.querySelector("canvas").getContext("2d");   
-    let flagColorColumn=true;
-    const {analyser} = this.props.audioData;    
+  equaliserRun = () => {   
+    const ctx = document.querySelector("canvas").getContext("2d");    
+    const {analyser, audioContext} = this.props.audioData;    
     const numPoints = analyser.frequencyBinCount-80;
-    const heightArray = new Uint8Array(numPoints);
-    function render() {
-      analyser.getByteFrequencyData(heightArray);      
-      const width = ctx.canvas.width;
-      const height = ctx.canvas.height;
-      const countcolumns=Math.floor(ctx.canvas.width/52);
-      const columnwidth=Math.floor(5/6*ctx.canvas.width/52);      
-      ctx.clearRect(0, 0, width, height);
-      for (let x =0; x < width; x += countcolumns) {
-        const ndx = x * numPoints / width | 0;
-        const vol = heightArray[ndx];
-        const y = vol * height / 512;            
-         roundedRect(ctx, x, height/2, columnwidth, y, 2);          
-      }    
-      requestAnimationFrame(render);
-    }
-    requestAnimationFrame(render);
-    
-    function roundedRect(ctx, x, y, width, height, radius) {
-      ctx.beginPath();
-      ctx.moveTo(x, y-height);
-      ctx.lineTo(x, y +height - radius);
-      ctx.arcTo(x, y + height, x + radius, y + height, radius);
-      ctx.lineTo(x + width - radius, y + height);
-      ctx.arcTo(x + width, y + height, x + width, y + height-radius, radius);
-      ctx.lineTo(x + width, y-height+radius);
-      ctx.arcTo(x + width, y-height, x+width-radius, y - height, radius);
-      ctx.lineTo(x +radius, y-height);
-      ctx.arcTo(x, y - height, x, y - height+radius, radius);      
-      ctx.fillStyle =flagColorColumn ? '#1ecea8' : '#93969f';
-      flagColorColumn =!flagColorColumn;
-      ctx.fill();      
-    }     
-  } 
+    const heightArray = new Uint8Array(numPoints); 
+    const equalizerMethods = new EqualizerMethods(ctx, audioContext, analyser, numPoints, heightArray);   
+    requestAnimationFrame(equalizerMethods.renderEqualizer);
+  }   
+   
 
-  uploadSoundInfoFromFile=(e)=>{  
+  uploadSoundInfoFromFile = (e) => {  
     const file=e.target.files[0];
 
     const {audioContext: context, analyser} = this.props.audioData;
@@ -138,15 +109,14 @@ class Equalizer extends Component {
             analyser.connect(context.destination);
           } catch (e) {
             throw new Error(e);
-          }
-        });
-        audio.addEventListener('error', function(e) {
+        }
+      });
+        audio.addEventListener('error', (e) => {
           throw new Error(e);
         });
       }  
 
-  render(){   
-  return (    
+  render = () => (      
     <div className="graphic_equalizer">      
       <Streambutton onclickhandler={this.startMuteStream} /><span id="stream_detecting"></span>
       <PlayButton hadlesound={this.playSoundFromFile}/>
@@ -154,8 +124,7 @@ class Equalizer extends Component {
       <Uploadbutton handleInfoFromSound={this.uploadSoundInfoFromFile}/>
       <Infoabouttrack trackname={this.props.audioData.trackName} tracksize={this.props.audioData.trackSize} tracktype={this.props.audioData.trackType} />
     </div>
-  );
-  }
+   )
 }
 
 Equalizer.propTypes = {
