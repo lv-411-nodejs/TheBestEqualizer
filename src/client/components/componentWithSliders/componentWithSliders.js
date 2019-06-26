@@ -15,7 +15,7 @@ const ComponentWithSliders = () => (
     <main className="SlidersComponent__main">
       <AllSliders/>
       <div className="SlidersComponent__main--buttons">
-        <SaveButton/>
+        <SaveButton/>        
         <UploadButton/>
       </div>
       <Song/>
