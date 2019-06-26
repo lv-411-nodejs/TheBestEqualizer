@@ -1,7 +1,7 @@
 .Sliders--slider{
   margin: 35px;
   width: 3px;
-  height: 100px
+  height: 100px;
 }
 
 .Sliders--slider .rangeslider__fill {

@@ -3,10 +3,8 @@ import React from 'react';
 import './playButton.css';
 import PropTypes from "prop-types";
 
-
-
 const PlayButton = ({onClick, playing, className, icon, value}) => (
-    <button className={className} onClick={onClick}>{icon} {value}</button>
+  <button className={className} onClick={onClick}>{icon} {value}</button>
 );
 
 PlayButton.propTypes = {

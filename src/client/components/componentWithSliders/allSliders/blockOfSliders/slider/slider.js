@@ -21,9 +21,7 @@ class OneSlider extends Component {
       value = parseFloat(value.toFixed(2));
       const { blockName, effectName } = this.props;
       this.props.setEffectsValue(blockName, effectName, value);
-      this.setState({
-          sliderValue: value
-      });
+      this.setState({sliderValue: value});
   };
 
   render () {
