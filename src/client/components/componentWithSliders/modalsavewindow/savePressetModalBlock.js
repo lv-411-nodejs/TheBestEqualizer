@@ -26,7 +26,7 @@ class SavePressetModalBlock extends Component {
     render () {
       const modalBlock = this.state.showModalBlock ? (
         <React.Fragment>                     
-          <ModalSaveWindow/>
+          <ModalSaveWindow onclick={this.showHideModalBlock}/>
           <BackgroundForModal onclick={this.showHideModalBlock}/>          
         </React.Fragment>
       ) : null; 

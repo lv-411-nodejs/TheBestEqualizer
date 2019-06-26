@@ -2,9 +2,9 @@
     position: fixed;
     top: 50%;
     margin-top: -100px;
-    margin-left: -200px; 
-    left: 50%;
-    padding: 0;    
+	margin-left: -200px; 
+	padding: 5px 10px 0 10px;
+    left: 50%;      
     background-color: #2ecc71;
     width: 400px;
     height: 200px;
