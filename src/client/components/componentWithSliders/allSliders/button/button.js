@@ -1,13 +1,13 @@
 import React from 'react';
 
-import './playButton.css';
+import './button.css';
 import PropTypes from "prop-types";
 
-const PlayButton = ({onClick, playing, className, icon, value}) => (
+const Button = ({onClick, playing, className, icon, value}) => (
   <button className={className} onClick={onClick}>{icon} {value}</button>
 );
 
-PlayButton.propTypes = {
+Button.propTypes = {
   onClick: PropTypes.func,
   playing: PropTypes.bool,
   className: PropTypes.string,
@@ -15,4 +15,4 @@ PlayButton.propTypes = {
   value: PropTypes.string
 };
 
-export default PlayButton;
+export default Button;
