@@ -4,9 +4,13 @@ import AdditionalConfigs from '../../components/additionalConfigs/additionalConf
 import Modes from '../../components/modes/modes';
 import AppHeader from '../../components/appheader/appheader';
 import ComponentWithSliders from '../../components/componentWithSliders/componentWithSliders';
+<<<<<<< HEAD
 import SavePressetModalBlock from '../../components/componentWithSliders/modalsavewindow/savePressetModalBlock';
 
 
+=======
+import './main.css';
+>>>>>>> develop
 const Main = () => {
   return (
     <React.Fragment>
