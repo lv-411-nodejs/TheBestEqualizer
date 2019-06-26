@@ -1,6 +1,6 @@
-import React from './node_modules/react';
-import PropTypes from './node_modules/prop-types';
-import {connect} from './node_modules/react-redux';
+import React from 'react';
+import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
 
 const PlayButton = (props) => (
         <button onClick={props.hadlesound}>

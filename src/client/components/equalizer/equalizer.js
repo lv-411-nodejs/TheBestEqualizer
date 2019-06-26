@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import Hark from 'hark';
 import PropTypes from 'prop-types';
-import Graphicequaliser from './canvasEqualizer/canvasequalizer';
+import Graphicequaliser from './canvasEqualizer/canvasEqualizer';
 import PlayButton from './playButton/playButton';
-import Uploadbutton from './upload/uploadbutton';
-import Infoabouttrack from './upload/infoAboutFile/infoaboutuploadfile';
+import Uploadbutton from './upload/uploadButton';
+import Infoabouttrack from './upload/infoAboutFile/infoAboutUploadFile';
 import Streambutton from './streamButton/streamButton';
 import {connect} from 'react-redux';
 import {createAudioData, playPauseSoundFromFile, createStreamData, startMuteStreamAudio, mergeCanvasWidth} from '../../actions/audioActions';
