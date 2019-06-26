@@ -1,9 +1,6 @@
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUpload } from '@fortawesome/free-solid-svg-icons';
 import './uploadButton.css';
-
-const uploadIcon = <FontAwesomeIcon icon={faUpload}/>;
+import { uploadIcon } from '../../../assets/icons/icons';
 
 const UploadButton = () => (
   <div className="UploadButton--wrapper">

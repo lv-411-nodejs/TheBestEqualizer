@@ -5,6 +5,7 @@
 
 .modes-container {
     background: #2A2A2A;
+    color: white;
 }
 
 div .modes {
@@ -14,12 +15,17 @@ div .modes {
 }
 
 .modes > div button {
-    padding: 0;
+    color: white;
+    margin: 10px;
     border: none;
     font: inherit;
-    color: inherit;
     background-color: transparent;
     cursor: pointer;
+}
+
+.modes > div button svg{
+  font-size: 18px;
+  margin-right: 10px;
 }
 
 .modes > div button:hover {
