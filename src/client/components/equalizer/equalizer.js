@@ -52,12 +52,12 @@ class Equalizer extends Component {
   }     
 
   playSoundFromFile = () => {
-    const {audioFromFile: soundfromfile, playPauseState} = this.props.audioData;    
+    const {audioFromFile: soundFromFile, playPauseState} = this.props.audioData;    
     if (!playPauseState) {     
-      soundfromfile.play();
+      soundFromFile.play();
       this.equaliserRun();     
     } else {      
-      soundfromfile.pause();   
+      soundFromFile.pause();   
   }
     this.props.playPauseSoundFromFile();
   }

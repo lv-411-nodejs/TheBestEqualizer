@@ -5,7 +5,7 @@ import Modes from '../../components/modes/modes';
 import AppHeader from '../../components/appheader/appheader';
 import Equalizer from '../../components/equalizer/equalizer';
 import ComponentWithSliders from '../../components/componentWithSliders/componentWithSliders';
-
+import './main.css';
 const Main = () => {
   return (
     <React.Fragment>
