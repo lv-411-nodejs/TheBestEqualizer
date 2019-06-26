@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import ModalSaveWindow from './modalsavewindow';
-import BackgroundForModal from './backgroundformodal';
-
+import ModalSaveWindow from './modalSaveWindow';
+import BackgroundForModal from './backgroundForModal';
 
 class SavePressetModalBlock extends Component {
 
     state = {
-        showModalBlock: true
+        showModalBlock: false
     }
+
     componentDidMount(){
       const buttonSave = document.getElementById("savePressetes");
             buttonSave.addEventListener("click", ()=>{
@@ -16,7 +16,6 @@ class SavePressetModalBlock extends Component {
     }
     
     showHideModalBlock = () => {  
-      console.log('click')    
       this.setState({
         showModalBlock: !this.state.showModalBlock
       })
@@ -34,4 +33,6 @@ class SavePressetModalBlock extends Component {
      )
     }
 }
+
 export default SavePressetModalBlock;
+
