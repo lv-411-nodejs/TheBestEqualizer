@@ -14,14 +14,13 @@ class SavePressetModalBlock extends Component {
               this.showHideModalBlock();
       })
     }
-
+    
     showHideModalBlock = () => {  
       console.log('click')    
       this.setState({
         showModalBlock: !this.state.showModalBlock
       })
-    } 
-       
+    }        
 
     render () {
       const modalBlock = this.state.showModalBlock ? (
