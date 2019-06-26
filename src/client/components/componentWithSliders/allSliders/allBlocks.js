@@ -63,7 +63,7 @@ class AllBlocks extends Component {
               setEffectsValue={this.setEffectsValue}
             />))}
         </div>
-        <div>
+        <div className="Buttons">
           {!playing  ?
             <PlayButton
               className="PlayButton"
