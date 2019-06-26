@@ -12,10 +12,10 @@ renderEqualizer = () => {
     this.analyser.getByteFrequencyData(this.heightArray); 
     const width = this.canvasContext.canvas.width;
     const height = this.canvasContext.canvas.height;
-    const countcolumns=Math.floor(this.canvasContext.canvas.width/52);
-    const columnwidth=Math.floor(5/6*this.canvasContext.canvas.width/52);      
+    const countcolumns = Math.floor(this.canvasContext.canvas.width/52);
+    const columnwidth = Math.floor(5/6*this.canvasContext.canvas.width/52);      
     this.canvasContext.clearRect(0, 0, width, height);
-    for (let x =0; x < width; x += countcolumns) {
+    for (let x = 0; x < width; x += countcolumns) {
       const ndx = x * this.numPoints / width | 0;
       const vol = this.heightArray[ndx];
       const y = vol * height / 512;            

@@ -21,17 +21,17 @@ class Equalizer extends Component {
     const audioLineIn = new Audio(); 
     
     audioLineIn.srcObject = stream;
-    audioLineIn.muted=true;        
+    audioLineIn.muted = true;        
     //hark - JS module that listens to an audio stream, and emits events indicating whether the user is speaking or not 
     const options = {};
     const speechEvents = Hark(stream, options);
-    const htmlinfo=document.getElementById("stream_detecting");      
-    speechEvents.on('speaking', ()=>{           
-            htmlinfo.innerHTML=`speaking`;
+    const htmlinfo = document.getElementById("stream_detecting");      
+    speechEvents.on('speaking', () => {           
+            htmlinfo.innerHTML = `speaking`;
           });
        
-    speechEvents.on('stopped_speaking', ()=>{
-            htmlinfo.innerHTML=`no stream detekting`;
+    speechEvents.on('stopped_speaking', () => {
+            htmlinfo.innerHTML = `no stream detekting`;
           });
     const sourceStream = context.createMediaStreamSource(stream);                           
     this.props.createStreamData({audioLineIn: audioLineIn, sourceStream});
@@ -41,9 +41,7 @@ class Equalizer extends Component {
     if (navigator.mediaDevices) {      
       navigator.mediaDevices.getUserMedia ({audio: true})      
       .then(stream => this.createSoundStream(stream))
-      .catch((e) => {
-        throw new Error(e);
-      });
+      .catch((e) => {throw new Error(e)});
   } else {
     throw new Error('browser doesnt support audio API');
   }  
@@ -92,24 +90,19 @@ class Equalizer extends Component {
    
 
   uploadSoundInfoFromFile = (e) => {  
-    const file=e.target.files[0];
-
-    const {audioContext: context, analyser} = this.props.audioData;
-     
-    const audio = new Audio();   
+    const [file] = e.target.files;
+    const {audioContext: context, analyser} = this.props.audioData;     
+    const audio = new Audio(URL.createObjectURL(file));   
         audio.loop = true;       
-        audio.crossOrigin = "anonymous";
-        audio.src = URL.createObjectURL(file);
-        audio.addEventListener('canplay', ()=> {
+        audio.crossOrigin = "anonymous";        
+        audio.addEventListener('canplay', () => {
           try {
             const source = context.createMediaElementSource(audio);
             
             this.props.createAudioData({audio, file, source, name:file.name, size: file.size, type:file.type});
             source.connect(analyser);
             analyser.connect(context.destination);
-          } catch (e) {
-            throw new Error(e);
-        }
+          } catch (e) {throw new Error(e)}
       });
         audio.addEventListener('error', (e) => {
           throw new Error(e);
@@ -117,12 +110,12 @@ class Equalizer extends Component {
       }  
 
   render = () => (      
-    <div className="graphic_equalizer">      
-      <Streambutton onclickhandler={this.startMuteStream} /><span id="stream_detecting"></span>
-      <PlayButton hadlesound={this.playSoundFromFile}/>
-      <Graphicequaliser width={this.props.audioData.widthCanvas} height={this.props.audioData.heightCanvas} onChangeWidth={this.widthMerge}/>
-      <Uploadbutton handleInfoFromSound={this.uploadSoundInfoFromFile}/>
-      <Infoabouttrack trackname={this.props.audioData.trackName} tracksize={this.props.audioData.trackSize} tracktype={this.props.audioData.trackType} />
+    <div className = "graphic_equalizer">      
+      <Streambutton onclickhandler = {this.startMuteStream} /><span id="stream_detecting"></span>
+      <PlayButton hadlesound = {this.playSoundFromFile}/>
+      <Graphicequaliser width = {this.props.audioData.widthCanvas} height = {this.props.audioData.heightCanvas} onChangeWidth = {this.widthMerge}/>
+      <Uploadbutton handleInfoFromSound = {this.uploadSoundInfoFromFile}/>
+      <Infoabouttrack trackname = {this.props.audioData.trackName} tracksize = {this.props.audioData.trackSize} tracktype = {this.props.audioData.trackType} />
     </div>
    )
 }

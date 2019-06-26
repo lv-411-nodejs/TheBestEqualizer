@@ -3,7 +3,7 @@ import { CREATE_AUDIO_DATA, PLAY_PAUSE_SOUND_FROM_FILE, CREATE_STREAME_DATA, STA
 const context = new (window.AudioContext || window.webkitAudioContext)();    
 const analyser = context.createAnalyser();
 
-const initialState={  
+const initialState = {  
     //graphic canvas 
      widthCanvas: 500,
      heightCanvas: 150, 
@@ -42,7 +42,7 @@ export default function (state=initialState, action){
         case PLAY_PAUSE_SOUND_FROM_FILE:
             return {
                 ...state,
-                playPauseState: !(state.playPauseState)
+                playPauseState: !state.playPauseState
             };
         case CREATE_STREAME_DATA: {
             const {audioLineIn: audioStream, sourceStream: streamSource} = action.payload;
@@ -60,7 +60,7 @@ export default function (state=initialState, action){
         case MERGE_CANVAS_WIDTH:
             return {
                 ...state,
-                widthCanvas: action.payload
+                widthCanvas: +action.payload
             };          
         default: return state;
     }  
