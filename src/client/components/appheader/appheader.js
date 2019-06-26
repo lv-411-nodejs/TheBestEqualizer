@@ -8,7 +8,10 @@ const AppHeader = () => (
     <div className="AppLogo">
       <img src={logo} alt="logo" />
     </div>
-    <div className="UserName">{userIcon}UserName</div>
+    <div className="UserName">
+      {userIcon}
+UserName
+    </div>
   </section>
 );
 

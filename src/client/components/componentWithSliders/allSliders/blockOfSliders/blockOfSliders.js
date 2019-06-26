@@ -4,7 +4,7 @@ import './blockOfSliders.css';
 import OneSlider from './slider/slider';
 
 
-const BlockOfSliders = ({name, effects, setEffectsValue}) => (
+const BlockOfSliders = ({ name, effects, setEffectsValue }) => (
   <div className="Sliders__block">
     <p className="Sliders__block--title">
       {name}
@@ -17,7 +17,8 @@ const BlockOfSliders = ({name, effects, setEffectsValue}) => (
           value={effects[effect]}
           key={i}
           setEffectsValue={setEffectsValue}
-        />))
+        />
+      ))
       }
     </div>
   </div>
@@ -25,8 +26,8 @@ const BlockOfSliders = ({name, effects, setEffectsValue}) => (
 
 BlockOfSliders.propTypes = {
   name: PropTypes.string,
-  effects: PropTypes.object,
-  setEffectsValue: PropTypes.func
+  effects: PropTypes.instanceOf(Object),
+  setEffectsValue: PropTypes.func,
 };
 
 export default BlockOfSliders;

@@ -9,13 +9,13 @@ import UploadButton from './uploadButton';
 const ComponentWithSliders = () => (
   <section className="SlidersComponent">
     <header className="SlidersComponent__header">
-      <SelectItem/>
+      <SelectItem />
     </header>
     <main className="SlidersComponent__main">
-      <AllBlocks/>
+      <AllBlocks />
       <div className="SlidersComponent__main--buttons">
-        <SaveButton/>
-        <UploadButton/>
+        <SaveButton />
+        <UploadButton />
       </div>
     </main>
   </section>
