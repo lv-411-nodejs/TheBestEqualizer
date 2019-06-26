@@ -42,7 +42,6 @@ class Equalizer extends Component {
     speechEvents.on('speaking', () => {
       htmlinfo.innerHTML = `speaking`;
     });
-
     speechEvents.on('stopped_speaking', () => {
       htmlinfo.innerHTML = `no stream detekting`;
     });
