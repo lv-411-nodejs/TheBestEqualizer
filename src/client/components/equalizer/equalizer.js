@@ -7,13 +7,7 @@ import Uploadbutton from './upload/uploadbutton';
 import Infoabouttrack from './upload/infoaboutfile/infoaboutuploadfile';
 import Streambutton from './streambutton/streambutton';
 import {connect} from 'react-redux';
-import {createAudioData,
-        playPauseSoundFromFile,
-        createStreamData,
-        startMuteStreamAudio,
-        mergeCanvasWidth
-        } from '../../actions/audioactions';
-
+import {createAudioData, playPauseSoundFromFile, createStreamData, startMuteStreamAudio, mergeCanvasWidth} from '../../actions/audioactions';
 
 class Equalizer extends Component {
   state = {
@@ -148,9 +142,7 @@ class Equalizer extends Component {
     ctx.fillStyle = flagColor ? '#1ecea8' : '#93969f';
     ctx.fill();
   }
-
-
-
+  
   uploadSoundInfoFromFile = (e) => {
     let [file] = e.target.files;
     let {audioContext: context, analyser} = this.props.audioData;
