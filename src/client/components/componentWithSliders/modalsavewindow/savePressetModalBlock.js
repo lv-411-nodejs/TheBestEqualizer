@@ -12,13 +12,13 @@ class SavePressetModalBlock extends Component {
       const buttonSave = document.getElementById("savePressetes");
             buttonSave.addEventListener("click", ()=>{
               this.showHideModalBlock();
-      })
+      });
     }
     
     showHideModalBlock = () => {  
       this.setState({
         showModalBlock: !this.state.showModalBlock
-      })
+      });
     }        
 
     render () {
@@ -30,7 +30,7 @@ class SavePressetModalBlock extends Component {
       ) : null; 
      return(
         modalBlock
-     )
+     );
     }
 }
 

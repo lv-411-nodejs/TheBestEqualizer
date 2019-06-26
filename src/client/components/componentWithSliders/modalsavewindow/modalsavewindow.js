@@ -1,5 +1,6 @@
 import React from 'react';
-import './modalSaveWindow.css'
+import PropTypes from 'prop-types';
+import './modalSaveWindow.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
@@ -11,7 +12,7 @@ const SavePressetesModalWindow = (props) => (
                 {cancelWindowIcon} 
             </div>
             <div className="textArea">
-                <strong>Please type presset's name</strong>             
+                <strong>Please type presset`&#39;`s name</strong>             
                 <input type="text"></input> 
                 <ins>Errors/success</ins>
             </div>
@@ -20,7 +21,11 @@ const SavePressetesModalWindow = (props) => (
                 <button className="pressetesButton" id="cancelPressetesButton" onClick={props.onclick}>Cancel</button>
             </div>    
         </div>
-    )
+    );
+
+SavePressetesModalWindow.propTypes = {
+    onclick: PropTypes.func.isRequired
+};
 
 export default SavePressetesModalWindow;
 
