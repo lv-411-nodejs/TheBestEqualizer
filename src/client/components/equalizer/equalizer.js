@@ -7,7 +7,7 @@ import Uploadbutton from './upload/uploadbutton';
 import Infoabouttrack from './upload/infoaboutfile/infoaboutuploadfile';
 import Streambutton from './streambutton/streambutton';
 import {connect} from 'react-redux';
-import {createAudioData, playPauseSoundFromFile, createStreamData, startMuteStreamAudio, mergeCanvasWidth} from '../../actions/audioactions';
+import {createAudioData, playPauseSoundFromFile, createStreamData, startMuteStreamAudio, mergeCanvasWidth} from '../../actions/audioActions';
 
 class Equalizer extends Component {
   state = {
