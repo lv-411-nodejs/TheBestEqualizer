@@ -6,7 +6,7 @@ import PlayButton from './playbutton/playButton';
 import Uploadbutton from './upload/uploadButton';
 import Infoabouttrack from './upload/infoaboutfile/infoAboutUploadFile';
 import Streambutton from './streambutton/streamButton';
-import StreamDetect from './streamDetect/streamDetect'
+import StreamDetect from './streamDetect/streamDetect';
 import {connect} from 'react-redux';
 import {createAudioData, playPauseSoundFromFile, createStreamData, startMuteStreamAudio, mergeCanvasWidth} from '../../actions/audioActions';
 
@@ -43,12 +43,12 @@ class Equalizer extends Component {
     speechEvents.on('speaking', () => {
       this.setState({
         streamDetect: 'speaking'
-      })     
+      });     
     });
     speechEvents.on('stopped_speaking', () => {
       this.setState({
         streamDetect: 'no speaking'
-      })     
+      });     
     });
     let sourceStream = context.createMediaStreamSource(stream);
     this.props.createStreamData({

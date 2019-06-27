@@ -37,8 +37,8 @@ export default function (state=initialState, action){
                 audioFile,
                 audioFromFile,
                 audioFromFileSource 
-            }
-            };            
+            };
+            }            
         case PLAY_PAUSE_SOUND_FROM_FILE:
             return {
                 ...state,
@@ -58,12 +58,12 @@ export default function (state=initialState, action){
                     startMuteState: !state.startMuteState                
                 };    
         case MERGE_CANVAS_WIDTH: {
-            let widthCanvas = parseInt(action.payload, 10)
+            let widthCanvas = parseInt(action.payload, 10);
             return {
                 ...state,
                 widthCanvas
-            }
-            };          
+            };
+            }          
         default: return state;
     }  
 }
