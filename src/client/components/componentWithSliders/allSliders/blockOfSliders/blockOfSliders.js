@@ -1,30 +1,33 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './blockOfSliders.css';
-import OneSlider from '../slider/slider';
+import OneSlider from './slider/slider';
 
-const renderSliders = (numOfSliders) => {
-  const sliders = [];
-  for (let i = 0; i < numOfSliders; i++) {
-    sliders.push(<OneSlider key={i}/>);
-  }
-  return sliders;
-};
 
-const BlockOfSliders = ({ name, numOfSliders }) => (
+const BlockOfSliders = ({ name, effects, setEffectsValue }) => (
   <div className="Sliders__block">
     <p className="Sliders__block--title">
       {name}
     </p>
     <div className="Sliders__block--sliders">
-      {renderSliders(numOfSliders)}
+      {Object.keys(effects).map((effect, i) => (
+        <OneSlider
+          blockName={name}
+          effectName={effect}
+          value={effects[effect]}
+          key={i}
+          setEffectsValue={setEffectsValue}
+        />
+      ))
+      }
     </div>
   </div>
 );
 
 BlockOfSliders.propTypes = {
   name: PropTypes.string,
-  numOfSliders: PropTypes.number
+  effects: PropTypes.instanceOf(Object),
+  setEffectsValue: PropTypes.func,
 };
 
 export default BlockOfSliders;

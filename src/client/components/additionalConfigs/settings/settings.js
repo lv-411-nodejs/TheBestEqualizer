@@ -1,12 +1,12 @@
 import React from 'react';
-import {settingsIcon} from '../../../assets/icons/icons';
+import { settingsIcon } from '../../../assets/icons/icons';
 import './settings.css';
 
-const Settings = () =>  (
-    <div className='settingsContainer'>
-      { settingsIcon }
+const Settings = () => (
+  <div className="settingsContainer">
+    { settingsIcon }
       Settings
-    </div>
-  );
+  </div>
+);
 
 export default Settings;

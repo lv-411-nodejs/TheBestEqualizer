@@ -5,17 +5,16 @@ import Modes from '../../components/modes/modes';
 import AppHeader from '../../components/appheader/appheader';
 import ComponentWithSliders from '../../components/componentWithSliders/componentWithSliders';
 import './main.css';
-const Main = () => {
-  return (
-    <React.Fragment>
-      <AppHeader />
-      <AdditionalConfigs/>
-      <Modes/>
-      <ComponentWithSliders/>
-      <Link to="/login">Login</Link>
-      <Link to="/registration">Registration</Link>
-    </React.Fragment>
-  );
-};
+
+const Main = () => (
+  <React.Fragment>
+    <AppHeader />
+    <AdditionalConfigs />
+    <Modes />
+    <ComponentWithSliders />
+    <Link to="/login">Login</Link>
+    <Link to="/registration">Registration</Link>
+  </React.Fragment>
+);
 
 export default Main;
