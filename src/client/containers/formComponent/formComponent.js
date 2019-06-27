@@ -1,77 +1,77 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';  
-import FormField from '../../components/formField/formField';
-import {connect} from 'react-redux';
-import {postUserData} from '../../actions/postUserDataAction';
-import {getUserData} from '../../actions/getUserDataAction';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import FormField from '../../components/formField/formField';
+import postUserData from '../../actions/postUserDataAction';
+import getUserData from '../../actions/getUserDataAction';
 import './formComponent.css';
 
 class FormComponent extends Component {
     state = {
-        userName: '',
-        email: '',
-        password: '',
-        passwordConfirmation: '',
-    }
+      userName: '',
+      email: '',
+      password: '',
+    };
 
-    onInputChange = ({target: {name, value}}) => {
-        this.setState({[name]: value});
-    }
+
+    onInputChange = ({ target: { name, value } }) => {
+      this.setState({ [name]: value });
+    };
 
     onRegistratuinSubmit = (e) => {
-        e.preventDefault();
-        const newUser = {
-            username: this.state.username,
-            email: this.state.email,
-            password: this.state.password,
-        };
-        this.props.postUserData(newUser);
-        // this.props.history.push('/main');
-    }
+      e.preventDefault();
+      const { userName, email, password } = this.state;
+      const { history } = this.props;
+      const newUser = {
+        userName,
+        email,
+        password,
+      };
+      postUserData(newUser);
+      history.push('/main');
+    };
 
     onLoginSubmit = (e) => {
-        e.preventDefault();
-        this.props.getUserData(); 
-        this.props.history.push('/main'); 
-    }
+      e.preventDefault();
+      const { history } = this.props;
+      getUserData();
+      history.push('/main');
+    };
 
 
     render() {
-        const {fildsToRender, isMember} = this.props;
-        const onSubmit = isMember ? this.onLoginSubmit : this.onRegistratuinSubmit;
-        const formFilds = fildsToRender.map((el,i)=>(
-                <FormField 
-                key={i+3}
-                onInputChange={this.onInputChange}
-                el={el}/>
-            ));
-    return (
+      const { fieldsToRender, isMember } = this.props;
+      const onSubmit = isMember ? this.onLoginSubmit : this.onRegistratuinSubmit;
+      const formFields = fieldsToRender.map((el, i) => (
+        <FormField
+          key={i}
+          onInputChange={this.onInputChange}
+          el={el}
+        />
+      ));
+      return (
         <div>
-            <form onSubmit={onSubmit} className='form-body' autoComplete='off'>
-                {formFilds}
-                <div className="field">
-                    <button className="submit">Submit</button>
-                </div>
-            </form>
+          <form onSubmit={onSubmit} className="form-body" autoComplete="off">
+            {formFields}
+            <div className="field">
+              <button type="submit" className="submit">Submit</button>
+            </div>
+          </form>
         </div>
-    );
+      );
     }
 }
 
 FormComponent.propTypes = {
-    getUserData: PropTypes.func.isRequired,
-    postUserData: PropTypes.func.isRequired,
-    postuser: PropTypes.object.isRequired,
-    getuser: PropTypes.object.isRequired,
-    history: PropTypes.object.isRequired,
-    fildsToRender: PropTypes.array.isRequired,
-    isMember: PropTypes.bool.isRequired
+  history: PropTypes.instanceOf(Object).isRequired,
+  fieldsToRender: PropTypes.instanceOf(Array).isRequired,
+  isMember: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = state => ({
-    postuser: state.postUser.postuser,
-    getuser: state.getUser.getuser
+  postUser: state.postUser.postUser,
+  getUser: state.getUser.getUser,
 });
 
-export default connect(mapStateToProps, {postUserData, getUserData})(withRouter(FormComponent));
+export default connect(mapStateToProps)(withRouter(FormComponent));

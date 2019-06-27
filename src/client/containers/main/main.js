@@ -6,18 +6,17 @@ import AppHeader from '../../components/appheader/appheader';
 import Equalizer from '../../components/equalizer/equalizer';
 import ComponentWithSliders from '../../components/componentWithSliders/componentWithSliders';
 import './main.css';
-const Main = () => {
-  return (
-    <React.Fragment>
-      <AppHeader />
-      <AdditionalConfigs/>      
-      <Modes/>
-      <Equalizer/>
-      <ComponentWithSliders/>
-      <Link to="/login">Login</Link>
-      <Link to="/registration">Registration</Link>
-    </React.Fragment>
-  );
-};
+
+const Main = () => (
+  <React.Fragment>
+    <AppHeader />
+    <AdditionalConfigs />
+    <Modes />
+    <Equalizer/>
+    <ComponentWithSliders />
+    <Link to="/login">Login</Link>
+    <Link to="/registration">Registration</Link>
+  </React.Fragment>
+);
 
 export default Main;

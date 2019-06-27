@@ -1,4 +1,4 @@
-import {combineReducers} from 'redux';
+import { combineReducers } from 'redux';
 import postUserDataReducer from './postUserDataReducer';
 import getUserDataReducer from './getUserDataReducer';
 import audioReducer from './audioReducer';
