@@ -8,7 +8,7 @@ import {
 } from '../actions/types';
 
 const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-const analyser = audioContext.createAnalyser();
+const analyser = audioContext.createAnalyser(audioContext);
 
 const initialState = {
   // graphic canvas
@@ -33,12 +33,10 @@ const initialState = {
 
 export default function (state = initialState, action) {
   switch (action.type) {
-    case CREATE_BASE_AUDIO_CONTEXT_AND_ANALYSER: {
-      // const { audioContext, analyser } = action.payload;
+    case CREATE_BASE_AUDIO_CONTEXT_AND_ANALYSER:
       return {
         ...state,
       };
-    }
     case CREATE_AUDIO_DATA: {
       const {
         trackName, trackSize, trackType, audioFile, audioFromFile, audioFromFileSource,
@@ -59,10 +57,10 @@ export default function (state = initialState, action) {
         playPauseState: !state.playPauseState,
       };
     case CREATE_STREAME_DATA: {
-      const { audioLineIn, sourceStream: streamSource } = action.payload;
+      const { audioStream, streamSource } = action.payload;
       return {
         ...state,
-        audioStream: audioLineIn,
+        audioStream,
         streamSource,
       };
     }

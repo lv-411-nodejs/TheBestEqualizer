@@ -9,7 +9,6 @@ import Infoabouttrack from './upload/infoAboutFile/infoAboutUploadFile';
 import Streambutton from './streamButton/streamButton';
 import StreamDetect from './streamDetect/streamDetect';
 import {
-  createBaseAudioContextAndAnalyser,
   createAudioData,
   playPauseSoundFromFile,
   createStreamData,
@@ -31,7 +30,8 @@ class Equalizer extends Component {
     const canvasEl = document.querySelector('canvas').getContext('2d');
     const { audioData } = this.props;
     const { analyser, audioContext } = audioData;
-    const numPoints = analyser.frequencyBinCount - 80;
+    const howManyFrequancyCut = 80;
+    const numPoints = analyser.frequencyBinCount - howManyFrequancyCut;
     const uint8Array = new Uint8Array(numPoints);
     this.setState({
       ctx: canvasEl,
@@ -44,10 +44,10 @@ class Equalizer extends Component {
 
   createSoundStream = (stream) => {
     const { audioContext } = this.state;
-    const audioLineIn = new Audio();
+    const audioStream = new Audio();
 
-    audioLineIn.srcObject = stream;
-    audioLineIn.muted = true;
+    audioStream.srcObject = stream;
+    audioStream.muted = true;
     // hark - JS module that listens to an audio stream,
     // and emits events indicating whether the user is speaking or not
     const options = {};
@@ -62,10 +62,11 @@ class Equalizer extends Component {
         streamDetect: 'no speaking',
       });
     });
-    const sourceStream = audioContext.createMediaStreamSource(stream);
-    createStreamData({
-      audioLineIn,
-      sourceStream,
+    const streamSource = audioContext.createMediaStreamSource(stream);
+    const { createStreamData: createStreamDataAsProp } = this.props;
+    createStreamDataAsProp({
+      audioStream,
+      streamSource,
     });
   }
 
@@ -83,8 +84,9 @@ class Equalizer extends Component {
     }
   }
 
-  widthMerge = (e) => {
-    mergeCanvasWidth(e);
+  widthMerge = (eventFromInputTypeRange) => {
+    const { mergeCanvasWidth: mergeCanvasWidthAsProp } = this.props;
+    mergeCanvasWidthAsProp(eventFromInputTypeRange);
   }
 
   playSoundFromFile = () => {
@@ -96,7 +98,8 @@ class Equalizer extends Component {
     } else {
       soundFromFile.pause();
     }
-    playPauseSoundFromFile();
+    const { playPauseSoundFromFile: playPauseSoundFromFileAsProp } = this.props;
+    playPauseSoundFromFileAsProp();
   }
 
   startMuteStream = () => {
@@ -115,12 +118,12 @@ class Equalizer extends Component {
       // play/pause function doesn't work
       audioStream.play();
       this.equaliserRun();
-      startMuteStreamAudio();
     } else {
       streamSource.disconnect(analyser);
       audioStream.pause();
-      startMuteStreamAudio();
     }
+    const { startMuteStreamAudio: startMuteStreamAudioAsProp } = this.props;
+    startMuteStreamAudioAsProp();
   }
 
   equaliserRun = () => {
@@ -178,7 +181,8 @@ class Equalizer extends Component {
     audio.addEventListener('canplay', () => {
       try {
         const audioFromFileSource = context.createMediaElementSource(audio);
-        createAudioData({
+        const { createAudioData: createAudioDataAsProp } = this.props;
+        createAudioDataAsProp({
           audioFromFile: audio,
           audioFile: file,
           audioFromFileSource,
@@ -235,13 +239,12 @@ class Equalizer extends Component {
 }
 
 Equalizer.propTypes = {
-  // createBaseAudioContextAndAnalyser: PropTypes.func.isRequired,
-  // createAudioData: PropTypes.func.isRequired,
-  // playPauseSoundFromFile: PropTypes.func.isRequired,
-  // createStreamData: PropTypes.func.isRequired,
-  // startMuteStreamAudio: PropTypes.func.isRequired,
-  // mergeCanvasWidth: PropTypes.func.isRequired,
-  audioData: PropTypes.func,
+  createAudioData: PropTypes.func.isRequired,
+  playPauseSoundFromFile: PropTypes.func.isRequired,
+  createStreamData: PropTypes.func.isRequired,
+  startMuteStreamAudio: PropTypes.func.isRequired,
+  mergeCanvasWidth: PropTypes.func.isRequired,
+  audioData: PropTypes.instanceOf(Object).isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -249,7 +252,6 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps, {
-  createBaseAudioContextAndAnalyser,
   createAudioData,
   playPauseSoundFromFile,
   createStreamData,
