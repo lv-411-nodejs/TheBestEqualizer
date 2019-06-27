@@ -2,23 +2,21 @@ import React from 'react';
 import './componentWithSliders.css';
 
 import SelectItem from './selectItem';
-import AllSliders from './allSliders';
+import AllBlocks from './allSliders';
 import SaveButton from './saveButton';
 import UploadButton from './uploadButton';
-import Song from './song';
 
 const ComponentWithSliders = () => (
   <section className="SlidersComponent">
     <header className="SlidersComponent__header">
-      <SelectItem/>
+      <SelectItem />
     </header>
     <main className="SlidersComponent__main">
-      <AllSliders/>
+      <AllBlocks />
       <div className="SlidersComponent__main--buttons">
-        <SaveButton/>
-        <UploadButton/>
+        <SaveButton />
+        <UploadButton />
       </div>
-      <Song/>
     </main>
   </section>
 );
