@@ -4,7 +4,7 @@ import getUserDataReducer from './getUserDataReducer';
 import audioReducer from './audioReducer';
 
 export default combineReducers({
-    postUser: postUserDataReducer,
-    getUser: getUserDataReducer,
-    audioData: audioReducer
+  postUser: postUserDataReducer,
+  getUser: getUserDataReducer,
+  audioData: audioReducer,
 });
