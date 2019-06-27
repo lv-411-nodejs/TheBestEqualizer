@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Slider from 'react-rangeslider';
 import 'react-rangeslider/lib/index.css';
 import './volumeSlider.css';
-import { volumeIcon } from '../../../assets/icons/icons';
+import { volumeIcon } from '../../assets/icons/icons';
 
 class VolumeSlider extends Component {
   constructor(props, context) {

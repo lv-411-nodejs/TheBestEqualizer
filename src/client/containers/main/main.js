@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import AdditionalConfigs from '../../components/additionalConfigs/additionalConfigs';
 import Modes from '../../components/modes/modes';
@@ -7,14 +7,14 @@ import ComponentWithSliders from '../../components/componentWithSliders/componen
 import './main.css';
 
 const Main = () => (
-  <React.Fragment>
+  <Fragment>
     <AppHeader />
     <AdditionalConfigs />
     <Modes />
     <ComponentWithSliders />
     <Link to="/login">Login</Link>
     <Link to="/registration">Registration</Link>
-  </React.Fragment>
+  </Fragment>
 );
 
 export default Main;
