@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import Hark from 'hark';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Graphicequaliser from './canvasequalizer/canvasEqualizer';
-import PlayButton from './playbutton/playButton';
+import Graphicequaliser from './canvasEqualizer/canvasEqualizer';
+import PlayButton from './playButton/playButton';
 import Uploadbutton from './upload/uploadButton';
-import Infoabouttrack from './upload/infoaboutfile/infoAboutUploadFile';
-import Streambutton from './streambutton/streamButton';
+import Infoabouttrack from './upload/infoAboutFile/infoAboutUploadFile';
+import Streambutton from './streamButton/streamButton';
 import StreamDetect from './streamDetect/streamDetect';
 import {
   createBaseAudioContextAndAnalyser,
