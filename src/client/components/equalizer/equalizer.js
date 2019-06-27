@@ -8,7 +8,7 @@ import Infoabouttrack from './upload/infoaboutfile/infoAboutUploadFile';
 import Streambutton from './streambutton/streamButton';
 import StreamDetect from './streamDetect/streamDetect';
 import {connect} from 'react-redux';
-import {createAudioData, playPauseSoundFromFile, createStreamData, startMuteStreamAudio, mergeCanvasWidth} from '../../actions/audioActions';
+import {createBaseAudioContextAndAnalyser, createAudioData, playPauseSoundFromFile, createStreamData, startMuteStreamAudio, mergeCanvasWidth} from '../../actions/audioActions';
 
 class Equalizer extends Component {
   state = {
@@ -20,26 +20,26 @@ class Equalizer extends Component {
   }
 
   componentDidMount() {
-    let canvasEl = document.querySelector("canvas").getContext("2d");
-    let numPoints = this.state.analyser.frequencyBinCount - 80;
-    let uint8Array = new Uint8Array(numPoints);
+    this.detectStreamSoundFromMicrophone();
+    const canvasEl = document.querySelector("canvas").getContext("2d");
+    const numPoints = this.state.analyser.frequencyBinCount - 80;
+    const uint8Array = new Uint8Array(numPoints);
     this.setState({
       ctx: canvasEl,
       numPoints,
       heightArray: uint8Array
-    });
-    this.detectStreamSoundFromMicrophone();
+    });    
   }
 
   createSoundStream = (stream) => {
-    let {audioContext: context} = this.props.audioData;
-    let audioLineIn = new Audio();
+    const {audioContext: context} = this.props.audioData;
+    const audioLineIn = new Audio();
 
     audioLineIn.srcObject = stream;
     audioLineIn.muted = true;
     //hark - JS module that listens to an audio stream, and emits events indicating whether the user is speaking or not 
-    let options = {};
-    let speechEvents = Hark(stream, options);   
+    const options = {};
+    const speechEvents = Hark(stream, options);   
     speechEvents.on('speaking', () => {
       this.setState({
         streamDetect: 'speaking'
@@ -58,6 +58,9 @@ class Equalizer extends Component {
   }
 
   detectStreamSoundFromMicrophone = () => {
+      const audioContext = new (window.AudioContext || window.webkitAudioContext)();    
+      const analyser = audioContext.createAnalyser(audioContext, analyser);
+      this.props.createBaseAudioContextAndAnalyser({audioContext, analyser});
     if (navigator.mediaDevices) {
       navigator.mediaDevices.getUserMedia({
           audio: true
@@ -76,7 +79,7 @@ class Equalizer extends Component {
   }
 
   playSoundFromFile = () => {
-    let {audioFromFile: soundFromFile, playPauseState} = this.props.audioData;
+    const {audioFromFile: soundFromFile, playPauseState} = this.props.audioData;
     if (!playPauseState) {
       soundFromFile.play();
       this.equaliserRun();
@@ -87,7 +90,7 @@ class Equalizer extends Component {
   }
 
   startMuteStream = () => {
-    let {
+    const {
       audioStream,
       audioContext,
       analyser,
@@ -114,16 +117,16 @@ class Equalizer extends Component {
   }
 
   renderEqualizer = () => {
-    let {analyser, heightArray, ctx, numPoints} = this.state;
+    const {analyser, heightArray, ctx, numPoints} = this.state;
     let isFirstColorForEqualizerUsed = true;
     analyser.getByteFrequencyData(heightArray);
-    let {width, height} = ctx.canvas;   
-    let numbersOfRectengle = 52;
-    let totalAreaOfRectangles = 5/6;
-    let rectangleCornerRadius = 2;
-    let rectangleMaxWidth = 512;
-    let countColumns = Math.floor(ctx.canvas.width / numbersOfRectengle);
-    let columnWidth = Math.floor(totalAreaOfRectangles * ctx.canvas.width / numbersOfRectengle);
+    const {width, height} = ctx.canvas;   
+    const numbersOfRectengle = 52;
+    const totalAreaOfRectangles = 5 / 6;
+    const rectangleCornerRadius = 2;
+    const rectangleMaxWidth = 512;
+    const countColumns = Math.floor(width / numbersOfRectengle);
+    const columnWidth = Math.floor(totalAreaOfRectangles * width / numbersOfRectengle);
     ctx.clearRect(0, 0, width, height);
     for (let x = 0; x < width; x += countColumns) {
       let ndx = x * numPoints / width | 0;
@@ -151,9 +154,9 @@ class Equalizer extends Component {
   }
   
   uploadSoundInfoFromFile = (e) => {
-    let [file] = e.target.files;
-    let {audioContext: context, analyser} = this.props.audioData;
-    let audio = new Audio(URL.createObjectURL(file));
+    const [file] = e.target.files;
+    const {audioContext: context, analyser} = this.props.audioData;
+    const audio = new Audio(URL.createObjectURL(file));
     audio.loop = true;
     audio.crossOrigin = "anonymous";
     audio.addEventListener('canplay', () => {
@@ -211,5 +214,5 @@ const mapStateToProps = state => ({
   audioData: state.audioData
 });
 
-export default connect(mapStateToProps, {createAudioData, playPauseSoundFromFile, createStreamData, startMuteStreamAudio, mergeCanvasWidth})(Equalizer);
+export default connect(mapStateToProps, {createBaseAudioContextAndAnalyser, createAudioData, playPauseSoundFromFile, createStreamData, startMuteStreamAudio, mergeCanvasWidth})(Equalizer);
 

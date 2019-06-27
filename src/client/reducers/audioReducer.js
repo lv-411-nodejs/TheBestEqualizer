@@ -1,7 +1,7 @@
-import { CREATE_AUDIO_DATA, PLAY_PAUSE_SOUND_FROM_FILE, CREATE_STREAME_DATA, START_MUTE_STREAME_AUDIO, MERGE_CANVAS_WIDTH } from '../actions/types';
+import {CREATE_BASE_AUDIO_CONTEXT_AND_ANALYSER, CREATE_AUDIO_DATA, PLAY_PAUSE_SOUND_FROM_FILE, CREATE_STREAME_DATA, START_MUTE_STREAME_AUDIO, MERGE_CANVAS_WIDTH } from '../actions/types';
 
-const context = new (window.AudioContext || window.webkitAudioContext)();    
-const analyser = context.createAnalyser();
+// const audioContext = new (window.AudioContext || window.webkitAudioContext)();    
+// const analyser = audioContext.createAnalyser(audioContext, analyser);
 
 const initialState = {  
     //graphic canvas 
@@ -11,8 +11,8 @@ const initialState = {
      trackName: null,     
      trackType: null,
      trackSize: null,     
-     audioContext: context,
-     analyser: analyser,
+     audioContext: null,
+     analyser: null,
      audioFile: null,
      audioFromFile: null,
      audioFromFileSource: null,
@@ -27,8 +27,17 @@ const initialState = {
 export default function (state=initialState, action){
     
     switch(action.type){
+        case CREATE_BASE_AUDIO_CONTEXT_AND_ANALYSER: {
+            const {audioContext, analyser} = action.payload;
+            console.log(audioContext, analyser)
+            return {
+                ...state,
+                audioContext,
+                analyser
+            }
+            };
         case CREATE_AUDIO_DATA:{  
-            let {trackName, trackSize, trackType, audioFile, audioFromFile, audioFromFileSource} = action.payload;                                                        
+            const {trackName, trackSize, trackType, audioFile, audioFromFile, audioFromFileSource} = action.payload;                                                        
             return {
                 ...state,
                 trackName,
@@ -45,7 +54,7 @@ export default function (state=initialState, action){
                 playPauseState: !state.playPauseState
             };
         case CREATE_STREAME_DATA: {
-            let {audioLineIn: audioLineIn, sourceStream: streamSource} = action.payload;
+            const {audioLineIn: audioLineIn, sourceStream: streamSource} = action.payload;
             return {
                 ...state,
                 audioStream: audioLineIn,
@@ -58,7 +67,7 @@ export default function (state=initialState, action){
                     startMuteState: !state.startMuteState                
                 };    
         case MERGE_CANVAS_WIDTH: {
-            let widthCanvas = parseInt(action.payload, 10);
+            const widthCanvas = parseInt(action.payload);
             return {
                 ...state,
                 widthCanvas
