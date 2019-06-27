@@ -8,17 +8,17 @@ const initialState = {
      widthCanvas: 500,
      heightCanvas: 150, 
     //audio from file
-     trackName: undefined,     
-     trackType: undefined,
-     trackSize: undefined,     
+     trackName: null,     
+     trackType: null,
+     trackSize: null,     
      audioContext: context,
      analyser: analyser,
-     audioFile: undefined,
-     audioFromFile: undefined,
-     audioFromFileSource: undefined,
+     audioFile: null,
+     audioFromFile: null,
+     audioFromFileSource: null,
     //from stream
-     audioStream: undefined,
-     streamSource: undefined,     
+     audioStream: null,
+     streamSource: null,     
      playPauseState: false,
      startMuteState: false
 };
@@ -27,8 +27,8 @@ const initialState = {
 export default function (state=initialState, action){
     
     switch(action.type){
-        case CREATE_AUDIO_DATA: {  
-            const {name: trackName, type: trackType, size: trackSize, file: audioFile, audio: audioFromFile, source: audioFromFileSource} = action.payload;                                            
+        case CREATE_AUDIO_DATA:{  
+            let {trackName, trackSize, trackType, audioFile, audioFromFile, audioFromFileSource} = action.payload;                                                        
             return {
                 ...state,
                 trackName,
@@ -36,31 +36,33 @@ export default function (state=initialState, action){
                 trackSize,
                 audioFile,
                 audioFromFile,
-                audioFromFileSource
-                };
+                audioFromFileSource 
             }
+            };            
         case PLAY_PAUSE_SOUND_FROM_FILE:
             return {
                 ...state,
                 playPauseState: !state.playPauseState
             };
         case CREATE_STREAME_DATA: {
-            const {audioLineIn: audioStream, sourceStream: streamSource} = action.payload;
+            let {audioLineIn: audioLineIn, sourceStream: streamSource} = action.payload;
             return {
                 ...state,
-                audioStream,
-                streamSource
+                audioStream: audioLineIn,
+                streamSource: streamSource
                 };
             }     
-        case START_MUTE_STREAME_AUDIO:
+        case START_MUTE_STREAME_AUDIO:             
                 return {
                     ...state,
-                    startMuteState: !(state.startMuteState)
+                    startMuteState: !state.startMuteState                
                 };    
-        case MERGE_CANVAS_WIDTH:
+        case MERGE_CANVAS_WIDTH: {
+            let widthCanvas = parseInt(action.payload, 10)
             return {
                 ...state,
-                widthCanvas: +action.payload
+                widthCanvas
+            }
             };          
         default: return state;
     }  
