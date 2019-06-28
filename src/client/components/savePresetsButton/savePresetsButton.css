@@ -1,4 +1,4 @@
-.SaveButton {
+.SavePresetsButton {
   border-radius: 4px;
   width: 200px;
   height: 30px;
@@ -6,7 +6,7 @@
   border: 1px solid #6080ce;
 }
 
-.SaveButton:hover {
+.SavePresetsButton:hover {
   background-color: #6080ce;
   color: #ffffff;
   cursor: pointer;

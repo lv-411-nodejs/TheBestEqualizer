@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import AdditionalConfigs from '../../components/additionalConfigs/additionalConfigs';
-import Modes from '../../components/modes/modes';
+import SoundModes from '../../components/soundModes';
 import AppHeader from '../../components/appheader/appheader';
 import ComponentWithSliders from '../../components/componentWithSliders/componentWithSliders';
 import './main.css';
@@ -10,7 +10,7 @@ const Main = () => (
   <Fragment>
     <AppHeader />
     <AdditionalConfigs />
-    <Modes />
+    <SoundModes />
     <ComponentWithSliders />
     <Link to="/login">Login</Link>
     <Link to="/registration">Registration</Link>

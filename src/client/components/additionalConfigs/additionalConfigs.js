@@ -1,6 +1,5 @@
 import React from 'react';
-import ModesThemeSwitcher from '../modesThemeSwitcher';
-import Settings from '../settings';
+import ColorThemeSwitcher from '../colorThemeSwitcher';
 import VolumeSlider from '../volumeSlider';
 
 import './additionalConfigs.css';
@@ -8,8 +7,7 @@ import './additionalConfigs.css';
 const AdditionalConfigs = () => (
   <section className="additionalSettingsContainer">
     <VolumeSlider />
-    <ModesThemeSwitcher />
-    <Settings />
+    <ColorThemeSwitcher />
   </section>
 );
 

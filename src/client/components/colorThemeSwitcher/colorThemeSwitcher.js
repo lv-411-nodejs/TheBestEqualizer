@@ -1,8 +1,8 @@
 import React from 'react';
 
-import './modesThemeSwitcher.css';
+import './colorThemeSwitcher.css';
 
-const ModesThemeSwitcher = () => (
+const ColorThemeSwitcher = () => (
   <div className="switchContainer">
     <label htmlFor="slider" className="switch">
       <input type="checkbox" />
@@ -12,4 +12,4 @@ const ModesThemeSwitcher = () => (
   </div>
 );
 
-export default ModesThemeSwitcher;
+export default ColorThemeSwitcher;

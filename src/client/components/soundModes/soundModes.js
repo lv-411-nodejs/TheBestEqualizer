@@ -1,9 +1,9 @@
 import React from 'react';
-import './modes.css';
+import './soundModes.css';
 import ModesItem from '../modesItems/modesItem';
 import { imageArray } from '../../helpers/constants';
 
-const Modes = () => {
+const SoundModes = () => {
   const fullModesItem = imageArray.map((item, i) => (
     <ModesItem
       key={i}
@@ -22,4 +22,4 @@ const Modes = () => {
   );
 };
 
-export default Modes;
+export default SoundModes;

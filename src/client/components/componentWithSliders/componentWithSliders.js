@@ -1,20 +1,20 @@
 import React from 'react';
 import './componentWithSliders.css';
 
-import SelectItem from '../presetsDropdownSelector';
+import PresetsDropdownSelector from '../presetsDropdownSelector';
 import AllBlocks from './allSliders';
-import SaveButton from '../saveButton';
+import SavePresetsButton from '../savePresetsButton';
 import UploadSongButton from '../uploadSongButton';
 
 const ComponentWithSliders = () => (
   <section className="SlidersComponent">
     <header className="SlidersComponent__header">
-      <SelectItem />
+      <PresetsDropdownSelector />
     </header>
     <main className="SlidersComponent__main">
       <AllBlocks />
       <div className="SlidersComponent__main--buttons">
-        <SaveButton />
+        <SavePresetsButton />
         <UploadSongButton />
       </div>
     </main>
