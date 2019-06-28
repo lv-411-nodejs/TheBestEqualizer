@@ -1,7 +1,7 @@
 import React from 'react';
-import './modesItem.css';
+import './soundModesItems.css';
 
-const ModesItem = (items) => {
+const SoundModesItem = (items) => {
   const { iconUrl, text } = items;
   return (
     <div>
@@ -13,4 +13,4 @@ const ModesItem = (items) => {
   );
 };
 
-export default ModesItem;
+export default SoundModesItem;

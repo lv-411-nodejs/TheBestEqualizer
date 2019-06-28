@@ -2,13 +2,13 @@ import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import AdditionalConfigs from '../../components/additionalConfigs/additionalConfigs';
 import SoundModes from '../../components/soundModes';
-import AppHeader from '../../components/appheader/appheader';
+import MainPageHeader from '../../components/mainPageHeader';
 import ComponentWithSliders from '../../components/componentWithSliders/componentWithSliders';
 import './main.css';
 
 const Main = () => (
   <Fragment>
-    <AppHeader />
+    <MainPageHeader />
     <AdditionalConfigs />
     <SoundModes />
     <ComponentWithSliders />

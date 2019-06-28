@@ -1,11 +1,11 @@
 import React from 'react';
 import './soundModes.css';
-import ModesItem from '../modesItems/modesItem';
+import SoundModesItem from '../soundModesItems';
 import { imageArray } from '../../helpers/constants';
 
 const SoundModes = () => {
   const fullModesItem = imageArray.map((item, i) => (
-    <ModesItem
+    <SoundModesItem
       key={i}
       iconUrl={item.img}
       text={item.text}
