@@ -17,14 +17,14 @@
   border-radius: 4px;
   width: 200px;
   height: 30px;
-  background-color: #6080ce;
-  color: #ffffff;
-  border: 1px solid #6080ce;
+  background-color: #ffffff;
+  color: var(--rangeSlider-ocean);
+  border: 1px solid #ffffff;
 }
 
 .UploadSongButton:hover {
-  background-color: #ffffff;
-  color: #000000;
+  background-color: var(--rangeSlider-ocean);
+  color: #ffffff;
   cursor: pointer;
   transition: 0.3s ease all;
 }

@@ -1,9 +1,12 @@
+@import url('https://fonts.googleapis.com/css?family=Fira+Sans&display=swap');
+
 *{
   padding: 0;
   margin: 0;
 }
 
 :root{
+  --font-title-firaSans: 'Fira Sans', sans-serif;
   --mainBackground-dark-blue: #142849;
   --mainText-white: #ffffff;
   --accentElement-terquoise: #4DDFE9;
@@ -13,5 +16,4 @@
 body {
   background: var(--mainBackground-dark-blue);
   color: var(--mainText-white);
-  
 }

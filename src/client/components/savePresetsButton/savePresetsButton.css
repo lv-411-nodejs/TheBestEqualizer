@@ -3,11 +3,12 @@
   width: 200px;
   height: 30px;
   background-color: #ffffff;
-  border: 1px solid #6080ce;
+  color: var(--rangeSlider-ocean);
+  border: 1px solid #ffffff;
 }
 
 .SavePresetsButton:hover {
-  background-color: #6080ce;
+  background-color: var(--rangeSlider-ocean);
   color: #ffffff;
   cursor: pointer;
   transition: 0.3s ease all;

@@ -3,15 +3,25 @@
     display: flex;
     padding: 10px 15px 10px 15px;
     align-items: center;
+    align-content: center;
     justify-content: space-between;
     max-width: 1024px;
     width: 100%;
     margin: auto;
 }
-.AppLogo img{
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  height: 50px;
-  width: 100px;
+.AppLogoContainer img{
+  height:50px;
+  width: 50px;
+  
 }
+ .AppLogoContainer{
+  font-family: var(--font-title-firaSans);
+  display: flex;
+  align-items: center;
+  align-content: center;
+  font-size: 2rem;
+ }
+
+ .UserName span {
+   margin-left: 10px;
+ }
