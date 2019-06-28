@@ -1,10 +1,10 @@
-.UploadButton--wrapper{
+.UploadSongButton--wrapper{
   position: relative;
   overflow: hidden;
   display: inline-block;
 }
 
-.UploadButton--wrapper .UploadInput {
+.UploadSongButton--wrapper .UploadInput {
   font-size: 100px;
   position: absolute;
   left: 0;
@@ -13,7 +13,7 @@
   cursor: pointer;
 }
 
-.UploadButton {
+.UploadSongButton {
   border-radius: 4px;
   width: 200px;
   height: 30px;
@@ -22,7 +22,7 @@
   border: 1px solid #6080ce;
 }
 
-.UploadButton:hover {
+.UploadSongButton:hover {
   background-color: #ffffff;
   color: #000000;
   cursor: pointer;

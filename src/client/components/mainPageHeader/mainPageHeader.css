@@ -1,0 +1,12 @@
+.MainPageHeaderContainer{
+    color:#a0a0a0;
+    background: #2A2A2A;
+    display: flex;
+    padding: 10px 15px 10px 15px;
+    align-items: center;
+    justify-content: space-between;
+}
+.AppLogo img{
+    height: 31px;
+    width: 34px;
+}

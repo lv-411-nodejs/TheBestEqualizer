@@ -1,10 +1,10 @@
 import React from 'react';
-import './uploadButton.css';
+import './uploadSongButton.css';
 import { uploadIcon } from '../../assets/icons/icons';
 
-const UploadButton = () => (
-  <div className="UploadButton--wrapper">
-    <button type="button" className="UploadButton">
+const UploadSongButton = () => (
+  <div className="UploadSongButton--wrapper">
+    <button type="button" className="UploadSongButton">
       {uploadIcon}
       {' '}
       Upload Song
@@ -13,4 +13,4 @@ const UploadButton = () => (
   </div>
 );
 
-export default UploadButton;
+export default UploadSongButton;
