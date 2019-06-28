@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
-import './alllBlocks.css';
-
 import Pizzicato from 'pizzicato';
+
 import BlockOfSliders from './blockOfSliders';
 import Button from './button';
 import { pauseIcon, playIcon, stopIcon } from '../../../assets/icons/icons';
-
 import { BLOCKS } from '../../../helpers/constants';
 import Sound from '../../../sounds/sound.mp3';
-
+import './alllBlocks.css';
 
 class AllBlocks extends Component {
   constructor(props, context) {

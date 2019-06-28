@@ -10,7 +10,7 @@
   border-radius: 4px;
   margin: 20px auto;
   display: flex;
-  border: 1px solid #6080ce;
+  border: 1px solid var(--rangeSlider-ocean);
   width: 95%;
   justify-content: space-around;
   flex-wrap: wrap;

@@ -1,3 +1,1 @@
-import SoundModesItems from './soundModesItems';
-
-export default SoundModesItems;
+export { default } from './soundModesItems';

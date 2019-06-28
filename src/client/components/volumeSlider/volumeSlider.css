@@ -19,7 +19,7 @@
 }
 
 .volumeContainer--slider .rangeslider__fill {
-    background-color: #6080ce;
+    background-color: var(--rangeSlider-ocean);
 }
 
 .volumeContainer  .rangeslider__handle {

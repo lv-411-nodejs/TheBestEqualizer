@@ -3,15 +3,14 @@
   margin: auto 30px;
   width: 100px;
   height: 30px;
-  background-color: #DC143C;
-  color: #ffffff;
+  background-color: #ffffff;
+  color: var(--rangeSlider-ocean);
   border: 1px solid #ffffff;
 }
 
 .PlayButton:hover {
-  border: 1px solid #DC143C;
-  background-color: #ffffff;
-  color: #DC143C;
+  background-color: var(--rangeSlider-ocean);
+  color: #ffffff;
   cursor: pointer;
   transition: 0.3s ease all;
 }
@@ -21,13 +20,13 @@
   margin: auto 30px;
   width: 100px;
   height: 30px;
-  border: 1px solid #DC143C;
   background-color: #ffffff;
-  color: #DC143C;
+  color: var(--rangeSlider-ocean);
+  border: 1px solid #ffffff;
 }
 
 .PauseButton:hover {
-  background-color: #DC143C;
+  background-color: var(--rangeSlider-ocean);
   color: #ffffff;
   border: 1px solid #ffffff;
   cursor: pointer;
@@ -39,13 +38,12 @@
   margin: auto 30px;
   width: 100px;
   height: 30px;
-  border: 1px solid #DC143C;
   background-color: #ffffff;
-  color: #DC143C;
+  color: var(--rangeSlider-ocean);
 }
 
 .StopButton:hover {
-  background-color: #DC143C;
+  background-color: var(--rangeSlider-ocean);
   color: #ffffff;
   border: 1px solid #ffffff;
   cursor: pointer;

@@ -1,3 +1,1 @@
-import MainPageHeader from './mainPageHeader';
-
-export default MainPageHeader;
+export { default } from './mainPageHeader';

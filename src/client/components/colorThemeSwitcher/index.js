@@ -1,3 +1,1 @@
-import ColorThemeSwitcher from './colorThemeSwitcher';
-
-export default ColorThemeSwitcher;
+export { default } from './colorThemeSwitcher';

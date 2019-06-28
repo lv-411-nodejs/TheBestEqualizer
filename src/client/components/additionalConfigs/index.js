@@ -1,3 +1,1 @@
-import AdditionalConfigs from './additionalConfigs';
-
-export default AdditionalConfigs;
+export { default } from './additionalConfigs';

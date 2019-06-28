@@ -1,3 +1,1 @@
-import VolumeSlider from './volumeSlider';
-
-export default VolumeSlider;
+export { default } from './volumeSlider';

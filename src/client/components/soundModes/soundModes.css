@@ -4,14 +4,17 @@
 }
 
 .modes-container {
-    background: #2A2A2A;
-    color: white;
+    max-width: 1024px;
+    width: 100%;
+    margin: auto;
 }
 
 div .modes {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    border-bottom: 1px solid var(--rangeSlider-ocean);
+    
 }
 
 .modes > div button {
@@ -21,6 +24,7 @@ div .modes {
     font: inherit;
     background-color: transparent;
     cursor: pointer;
+    
 }
 
 .modes > div button svg{

@@ -5,10 +5,11 @@
 }
 
 .Sliders--slider .rangeslider__fill {
-  background-color: #6080ce;
+  background-color: var(--rangeSlider-ocean);
 }
 
 .Sliders--slider .rangeslider__handle {
+  background: var(--accentElement-terquoise);
   outline: none;
   border-radius: 50%;
   height: 17px;
@@ -26,13 +27,11 @@
                                   supported by Chrome and Opera */
 }
 .Sliders--slider .rangeslider__handle:hover{
-  background-color: #6080ce;
+  background-color: var(--accentElement-terquoise);
   transition: 0.3s ease all;
-  border: white;
 }
 
 .Sliders--label{
-  color: #a0a0a0;
   font-size: 11px;
   text-transform: uppercase;
 }
