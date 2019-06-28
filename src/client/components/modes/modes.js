@@ -4,7 +4,13 @@ import ModesItem from '../modesItems/modesItem';
 import { imageArray } from '../../helpers/constants';
 
 const Modes = () => {
-  const fullModesItem = imageArray.map((item, index) => <ModesItem key={index} iconUrl={item.img} text={item.text} />);
+  const fullModesItem = imageArray.map((item, i) => (
+    <ModesItem
+      key={i}
+      iconUrl={item.img}
+      text={item.text}
+    />
+  ));
 
   return (
     <div className="modes-container">

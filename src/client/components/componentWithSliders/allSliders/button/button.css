@@ -1,0 +1,53 @@
+.PlayButton {
+  border-radius: 4px;
+  margin: auto 30px;
+  width: 100px;
+  height: 30px;
+  background-color: #DC143C;
+  color: #ffffff;
+  border: 1px solid #ffffff;
+}
+
+.PlayButton:hover {
+  border: 1px solid #DC143C;
+  background-color: #ffffff;
+  color: #DC143C;
+  cursor: pointer;
+  transition: 0.3s ease all;
+}
+
+.PauseButton {
+  border-radius: 4px;
+  margin: auto 30px;
+  width: 100px;
+  height: 30px;
+  border: 1px solid #DC143C;
+  background-color: #ffffff;
+  color: #DC143C;
+}
+
+.PauseButton:hover {
+  background-color: #DC143C;
+  color: #ffffff;
+  border: 1px solid #ffffff;
+  cursor: pointer;
+  transition: 0.3s ease all;
+}
+
+.StopButton {
+  border-radius: 4px;
+  margin: auto 30px;
+  width: 100px;
+  height: 30px;
+  border: 1px solid #DC143C;
+  background-color: #ffffff;
+  color: #DC143C;
+}
+
+.StopButton:hover {
+  background-color: #DC143C;
+  color: #ffffff;
+  border: 1px solid #ffffff;
+  cursor: pointer;
+  transition: 0.3s ease all;
+}

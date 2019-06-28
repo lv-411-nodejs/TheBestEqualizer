@@ -32,6 +32,10 @@ module.exports = {
       {
         test: /\.(png|woff|woff2|eot|ttf|svg|img|jpg)$/,
         loader: 'url-loader?limit=100000'
+      },
+      {
+        test: /\.(ogg|mp3|wav|mpe?g)$/i,
+        use: 'file-loader'
       }
     ]
   },
@@ -43,7 +47,9 @@ module.exports = {
   },
   devServer: {
     port: 3000,
-    historyApiFallback: true
+    historyApiFallback: true,
+    compress: true,
+    disableHostCheck: true
   },
   plugins: [
     new HtmlWebpackPlugin({

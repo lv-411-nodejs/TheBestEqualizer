@@ -5,7 +5,7 @@ const ModesItem = (items) => {
   const { iconUrl, text } = items;
   return (
     <div>
-      <button className='modesItem__button'>
+      <button type="button" className="modesItem__button">
         {iconUrl}
         {text}
       </button>
