@@ -1,6 +1,6 @@
 import React from 'react';
 import './uploadButton.css';
-import { uploadIcon } from '../../../assets/icons/icons';
+import { uploadIcon } from '../../assets/icons/icons';
 
 const UploadButton = () => (
   <div className="UploadButton--wrapper">

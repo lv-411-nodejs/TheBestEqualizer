@@ -3,8 +3,8 @@ import './componentWithSliders.css';
 
 import SelectItem from './selectItem';
 import AllBlocks from './allSliders';
-import SaveButton from './saveButton';
-import UploadButton from './uploadButton';
+import SaveButton from '../saveButton';
+import UploadButton from '../uploadButton';
 
 const ComponentWithSliders = () => (
   <section className="SlidersComponent">
