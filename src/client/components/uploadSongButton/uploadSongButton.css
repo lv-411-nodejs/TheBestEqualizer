@@ -17,10 +17,16 @@
   border-radius: 4px;
   width: 200px;
   height: 30px;
-  background-color: #ffffff;
-  color: var(--rangeSlider-ocean);
+  background-color: var(--rangeSlider-ocean);
+  color: var(--mainText-ordinary-white);
   border: 1px solid #ffffff;
 }
+
+.UploadSongButton svg {
+  color: var(--mainText-accent-blue);
+
+}
+
 
 .UploadSongButton:hover {
   background-color: var(--rangeSlider-ocean);

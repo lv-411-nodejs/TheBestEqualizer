@@ -11,7 +11,9 @@
     -ms-flex-align: center;
     align-items: center;
 }
-
+.volumeContainer svg {
+  color: var(--mainText-accent-blue);
+}
 .volumeContainer--slider {
     width: 200px;
     height: 4px;

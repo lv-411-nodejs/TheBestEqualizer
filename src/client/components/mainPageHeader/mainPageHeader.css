@@ -9,14 +9,9 @@
     margin: auto;
     background-color: var(--headerBackground-dark-super);
 }
-.AppLogoContainer img{
-  height:50px;
-  width: 50px;
+
+.AppLogoContainer{
   color: var(--mainText-ordinary-white);
-  
-}
- .AppLogoContainer{
-  color: var(--mainText-accent-blue);
   font-family: var(--font-title-firaSans);
   display: flex;
   align-items: center;
@@ -24,7 +19,17 @@
   font-size: 2rem;
  }
 
+.AppLogoContainer img{
+  height: 60px;
+  width: 70px;
+  color: var(--mainText-ordinary-white);
+}
+ 
  .UserName span {
    margin-left: 10px;
    color: var(--mainText-ordinary-white);
+ }
+
+ .UserName svg {
+   color: var(--mainText-accent-blue);
  }

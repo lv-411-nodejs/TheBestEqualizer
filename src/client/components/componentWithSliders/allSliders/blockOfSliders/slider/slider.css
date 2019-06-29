@@ -27,7 +27,7 @@
                                   supported by Chrome and Opera */
 }
 .Sliders--slider .rangeslider__handle:hover{
-  background-color: var(--accentElement-terquoise);
+  background-color: var(--mainText-accent-blue);
   transition: 0.3s ease all;
 }
 

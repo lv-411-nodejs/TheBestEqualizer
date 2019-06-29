@@ -2,7 +2,7 @@
     text-align: center;
     margin: auto;
     padding-top: 10px;
-    color: var(--mainText-accent-blue);
+    color: var(--mainText-ordinary-white);
 }
 
 .modes-container {
@@ -34,6 +34,7 @@ div .modes {
 .modes > div button svg{
   font-size: 18px;
   margin-right: 10px;
+  color: var(--mainText-accent-blue);
 }
 
 .modes > div button:hover {
