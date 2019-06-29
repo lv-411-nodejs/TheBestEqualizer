@@ -1,5 +1,4 @@
 import User from '../models/user';
-import bcrypt from 'bcrypt';
 import { response } from '../helpers/errorHandler';
 
 export default class ApiController {
@@ -28,7 +27,7 @@ export default class ApiController {
 }
 
 const passwordComparison = (res, foundUser, receivedPassword) => (
-  bcrypt.compare(receivedPassword, foundUser.password)
+  foundUser.verifyPassword(receivedPassword)
     .then(comparisonResult => comparisonResult
       ? res.status(200).json({ result: 'Logged in' })
       : response(res, 'Login failed', 404))
