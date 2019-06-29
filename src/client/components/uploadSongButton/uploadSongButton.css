@@ -1,7 +1,11 @@
-.UploadSongButton--wrapper{
+.UploadSongButton--wrapper {
   position: relative;
   overflow: hidden;
-  display: inline-block;
+  display: flex;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+
 }
 
 .UploadSongButton--wrapper .UploadInput {
@@ -14,23 +18,23 @@
 }
 
 .UploadSongButton {
+  font-size: var(--fontSize-text);
   border-radius: 4px;
   width: 200px;
   height: 30px;
   background-color: var(--rangeSlider-ocean);
   color: var(--mainText-ordinary-white);
-  border: 1px solid #ffffff;
+  border: 1px solid var(--mainText-accent-blue);
 }
-
-.UploadSongButton svg {
-  color: var(--mainText-accent-blue);
-
-}
-
 
 .UploadSongButton:hover {
   background-color: var(--rangeSlider-ocean);
   color: #ffffff;
   cursor: pointer;
   transition: 0.3s ease all;
+}
+
+.UploadSongButton svg {
+  font-size: var(--fontSize-icons);
+  margin-right: 5px;
 }

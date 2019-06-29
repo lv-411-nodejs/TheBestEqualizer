@@ -5,7 +5,7 @@ const SoundModesItem = (items) => {
   const { iconUrl, text } = items;
   return (
     <div>
-      <button type="button" className="modesItem__button">
+      <button type="button" className="ModesItem__button">
         {iconUrl}
         {text}
       </button>

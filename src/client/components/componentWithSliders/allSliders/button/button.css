@@ -1,51 +1,83 @@
 .PlayButton {
   border-radius: 4px;
+  font-size: var(--fontSize-text);
   margin: auto 30px;
+  display: flex;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
   width: 100px;
   height: 30px;
-  background-color: #ffffff;
-  color: var(--rangeSlider-ocean);
-  border: 1px solid #ffffff;
+  background-color: var(--rangeSlider-ocean);
+  color: var(--mainText-ordinary-white);
+  border: 1px solid var(--mainText-accent-blue);
 }
 
 .PlayButton:hover {
-  background-color: var(--rangeSlider-ocean);
-  color: #ffffff;
+  background-color: var(--mainText-ordinary-white);
+  color: var(--rangeSlider-ocean);
+  border: 1px solid var(--mainText-accent-blue);
   cursor: pointer;
   transition: 0.3s ease all;
+}
+
+.PlayButton svg {
+  font-size: var(--fontSize-ButtonsIcons);
+  margin-right: 5px;
 }
 
 .PauseButton {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
   border-radius: 4px;
   margin: auto 30px;
   width: 100px;
   height: 30px;
-  background-color: #ffffff;
-  color: var(--rangeSlider-ocean);
-  border: 1px solid #ffffff;
+  font-size: var(--fontSize-text);
+  background-color: var(--rangeSlider-ocean);
+  color: var(--mainText-ordinary-white);
+  border: 1px solid var(--mainText-accent-blue);
 }
 
 .PauseButton:hover {
-  background-color: var(--rangeSlider-ocean);
-  color: #ffffff;
-  border: 1px solid #ffffff;
+  background-color: var(--mainText-ordinary-white);
+  color: var(--rangeSlider-ocean);
+  border: 1px solid var(--mainText-accent-blue);
   cursor: pointer;
   transition: 0.3s ease all;
 }
 
+.PauseButton svg {
+  font-size: var(--fontSize-ButtonsIcons);
+  margin-right: 5px;
+}
+
 .StopButton {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
   border-radius: 4px;
   margin: auto 30px;
   width: 100px;
   height: 30px;
-  background-color: #ffffff;
-  color: var(--rangeSlider-ocean);
+  font-size: var(--fontSize-text);
+  background-color: var(--rangeSlider-ocean);
+  color: var(--mainText-ordinary-white);
+  border: 1px solid var(--mainText-accent-blue);
 }
 
 .StopButton:hover {
-  background-color: var(--rangeSlider-ocean);
-  color: #ffffff;
-  border: 1px solid #ffffff;
+  background-color: var(--mainText-ordinary-white);
+  color: var(--rangeSlider-ocean);
+  border: 1px solid var(--mainText-accent-blue);
   cursor: pointer;
   transition: 0.3s ease all;
+}
+
+.StopButton svg {
+  font-size: var(--fontSize-ButtonsIcons);
+  margin-right: 5px;
 }

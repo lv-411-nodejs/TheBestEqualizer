@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Bitter&display=swap');
 
-.additionalSettingsContainer {
+.AdditionalSettingsContainer {
   font-family: Bitter, serif;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -14,5 +14,5 @@
   margin: auto;
   border-bottom: 1px solid var(--rangeSlider-ocean);
   background: var(--headerBackground-dark-super);
-  padding: 10px 25px;
+  padding: 0px 25px;
 }

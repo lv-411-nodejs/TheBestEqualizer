@@ -1,15 +1,30 @@
 .SavePresetsButton {
+  font-size: var(--fontSize-text);
+  display: flex;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
   border-radius: 4px;
   width: 200px;
   height: 30px;
-  background-color: #ffffff;
-  color: var(--rangeSlider-ocean);
-  border: 1px solid #ffffff;
+  background-color: var(--rangeSlider-ocean);
+  color: var(--mainText-ordinary-white);
+  border: 1px solid var(--mainText-accent-blue);
 }
 
 .SavePresetsButton:hover {
-  background-color: var(--rangeSlider-ocean);
-  color: #ffffff;
+  background-color: var(--mainText-ordinary-white);
+  color: var(--rangeSlider-ocean);
+  border: 1px solid var(--mainText-accent-blue);
   cursor: pointer;
   transition: 0.3s ease all;
+  -webkit-transition: 0.3s ease all;
+  -moz-transition: 0.3s ease all;
+  -ms-transition: 0.3s ease all;
+  -o-transition: 0.3s ease all;
+}
+
+.SavePresetsButton svg {
+  font-size: 25px;
+  margin-right: 5px;
 }

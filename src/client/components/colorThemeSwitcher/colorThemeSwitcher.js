@@ -3,12 +3,12 @@ import React from 'react';
 import './colorThemeSwitcher.css';
 
 const ColorThemeSwitcher = () => (
-  <div className="switchContainer">
-    <label htmlFor="slider" className="switch">
-      <input type="checkbox" />
-      <span id="slider" className="slider" />
+  <div className="SwitchContainer">
+    <label htmlFor="slider" className="Switch">
+      <input type="heckbox" />
+      <span id="slider" className="Slider" />
     </label>
-    <span className="modes">Modes</span>
+    <span className="ModesSpan">Dark theme</span>
   </div>
 );
 

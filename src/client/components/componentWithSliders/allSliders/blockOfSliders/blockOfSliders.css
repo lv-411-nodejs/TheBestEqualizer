@@ -13,4 +13,5 @@
 
 .Sliders__block--title {
   color: var(--mainText-ordinary-white);
+  font-size: var(--fontSize-title);
 }

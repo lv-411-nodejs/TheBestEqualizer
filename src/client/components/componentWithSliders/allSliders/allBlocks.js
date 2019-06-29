@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Pizzicato from 'pizzicato';
 
 import BlockOfSliders from './blockOfSliders';
+import SavePresetsButton from '../../savePresetsButton';
+import UploadSongButton from '../../uploadSongButton';
 import Button from './button';
 import { pauseIcon, playIcon, stopIcon } from '../../../assets/icons/icons';
 import { BLOCKS } from '../../../helpers/constants';
@@ -93,8 +95,10 @@ class AllBlocks extends Component {
           ))}
         </div>
         <div className="Buttons">
+          <UploadSongButton/>
           {isPlaying ? PauseButton : PlayButton}
           {StopButton}
+          <SavePresetsButton/>
         </div>
       </div>
     );

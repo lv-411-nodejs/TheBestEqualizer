@@ -5,7 +5,7 @@ import VolumeSlider from '../volumeSlider';
 import './additionalConfigs.css';
 
 const AdditionalConfigs = () => (
-  <section className="additionalSettingsContainer">
+  <section className="AdditionalSettingsContainer">
     <VolumeSlider />
     <ColorThemeSwitcher />
   </section>

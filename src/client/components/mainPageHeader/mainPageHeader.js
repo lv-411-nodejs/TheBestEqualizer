@@ -7,11 +7,11 @@ const MainPageHeader = () => (
   <section className="MainPageHeaderContainer">
     <div className="AppLogoContainer">
       <img src={logo} alt="logo" />
-      Equalizer
+      <span className='Node'>nodes</span>Equalizer
     </div>
     <div className="UserName">
       {userIcon}
-      <span>Elon Mask</span>
+      <span>Billie Eilish</span>
     </div>
   </section>
 );

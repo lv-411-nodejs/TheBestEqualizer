@@ -23,10 +23,10 @@ class VolumeSlider extends Component {
   render() {
     const { sliderValue, maxValue, minValue } = this.state;
     return (
-      <div className="volumeContainer">
+      <div className="VolumeContainer">
         {volumeIcon}
         <Slider
-          className="volumeContainer--slider"
+          className="VolumeContainer--slider"
           value={sliderValue}
           min={minValue}
           tooltip={false}

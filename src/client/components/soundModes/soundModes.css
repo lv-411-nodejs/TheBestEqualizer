@@ -1,42 +1,45 @@
-.modes-title {
+.Modes-container {
+  padding: 4px 25px;
+  max-width: 1024px;
+  width: 100%;
+  margin: auto;
+  background: var(--headerBackground-dark-super);
+  
+}
+
+.Modes-title {
     text-align: center;
     margin: auto;
     padding-top: 10px;
+    font-size: var(--fontSize-title);
     color: var(--mainText-ordinary-white);
 }
 
-.modes-container {
-    padding: 10px 25px;
-    max-width: 1024px;
-    width: 100%;
-    margin: auto;
-    background: var(--headerBackground-dark-super);
-}
-
-div .modes {
+div .Modes {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     border-bottom: 1px solid var(--rangeSlider-ocean);
+    display: flex;
     
 }
 
-.modes > div button {
+.Modes > div button {
     color: white;
     margin: 10px;
     border: none;
-    font: inherit;
+    font-size: var(--fontSize-text);
     background-color: transparent;
     cursor: pointer;
     
 }
 
-.modes > div button svg{
-  font-size: 18px;
+.Modes > div button svg{
+  font-size: var(--fontSize-ModesIcons);
   margin-right: 10px;
   color: var(--mainText-accent-blue);
 }
 
-.modes > div button:hover {
+.Modes > div button:hover {
   transform: scale(1.2);
 }
