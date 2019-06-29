@@ -5,7 +5,7 @@ import Modes from '../../components/modes/modes';
 import AppHeader from '../../components/appheader/appheader';
 import Equalizer from '../../components/equalizer';
 import ComponentWithSliders from '../../components/componentWithSliders/componentWithSliders';
-import SavePressetModalBlock from '../../components/componentWithSliders/modalsavewindow/savePressetModalBlock';
+import SavePressetModalBlock from '../../components/componentWithSliders/modalSavePressetesWindow';
 
 
 import './main.css';
