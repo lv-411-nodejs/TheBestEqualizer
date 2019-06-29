@@ -17,7 +17,7 @@ const Main = () => (
     <Modes />
     <Equalizer />
     <ComponentWithSliders />
-    <SavePressetModalBlock/>
+    <SavePressetModalBlock />
     <Link to="/login">Login</Link>
     <Link to="/registration">Registration</Link>
   </React.Fragment>
