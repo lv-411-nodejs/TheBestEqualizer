@@ -3,17 +3,24 @@
 *{
   padding: 0;
   margin: 0;
+  box-sizing: border-box;
 }
 
 :root{
   --font-title-firaSans: 'Fira Sans', sans-serif;
-  --mainBackground-dark-blue: #142849;
-  --mainText-white: #ffffff;
+  
+  --bodyBackground-dark-light: #142A48;
+  --headerBackground-dark-super:#131E2F;
+  
+  --mainText-accent-blue:#05D8C5;
+  --mainText-ordinary-white: #FFFFFF;
+
   --accentElement-terquoise: #4DDFE9;
-  --rangeSlider-ocean: #0F92E4; 
+  --rangeSlider-ocean: #0B85B2; 
+  
 }
 
 body {
-  background: var(--mainBackground-dark-blue);
+  background: var(--bodyBackground-dark-light);
   color: var(--mainText-white);
 }

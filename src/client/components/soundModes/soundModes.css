@@ -1,13 +1,16 @@
 .modes-title {
     text-align: center;
     margin: auto;
-    margin-top: 10px;
+    padding-top: 10px;
+    color: var(--mainText-accent-blue);
 }
 
 .modes-container {
+    padding: 10px 25px;
     max-width: 1024px;
     width: 100%;
     margin: auto;
+    background: var(--headerBackground-dark-super);
 }
 
 div .modes {

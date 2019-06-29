@@ -10,3 +10,7 @@
   display: flex;
   justify-content: space-around;
 }
+
+.Sliders__block--title {
+  color: var(--mainText-accent-blue);
+}

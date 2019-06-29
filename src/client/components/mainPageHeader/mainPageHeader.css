@@ -1,20 +1,22 @@
 .MainPageHeaderContainer{
-    color: var(--mainText-white);
     display: flex;
-    padding: 10px 15px 10px 15px;
+    padding: 10px 25px;
     align-items: center;
     align-content: center;
     justify-content: space-between;
     max-width: 1024px;
     width: 100%;
     margin: auto;
+    background-color: var(--headerBackground-dark-super);
 }
 .AppLogoContainer img{
   height:50px;
   width: 50px;
+  color: var(--mainText-ordinary-white);
   
 }
  .AppLogoContainer{
+  color: var(--mainText-accent-blue);
   font-family: var(--font-title-firaSans);
   display: flex;
   align-items: center;
@@ -24,4 +26,5 @@
 
  .UserName span {
    margin-left: 10px;
+   color: var(--mainText-ordinary-white);
  }
