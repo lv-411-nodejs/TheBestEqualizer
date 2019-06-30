@@ -1,14 +1,14 @@
 .label {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 .field input {
-    border: none;
-    border-bottom: 2px solid rgb(20, 19, 17);
-    background-color: transparent;
-    outline: none;
-    height: 1rem;
-    padding-left: 0.5rem;
-    margin-bottom: 1rem;
-    width: 100%;
+  width: 100%;
+  height: 1rem;
+  margin-bottom: 1rem;
+  padding-left: 0.5rem;
+  border: none;
+  border-bottom: 2px solid rgb(20, 19, 17);
+  outline: none;
+  background-color: transparent;
 }

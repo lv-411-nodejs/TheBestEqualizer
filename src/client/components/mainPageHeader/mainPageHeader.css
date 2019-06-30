@@ -1,40 +1,45 @@
-.MainPageHeaderContainer{
-    display: flex;
-    padding: 0px 25px;
-    align-items: center;
-    align-content: center;
-    justify-content: space-between;
-    max-width: 1024px;
-    width: 100%;
-    margin: auto;
-    background-color: var(--headerBackground-dark-super);
+.MainPageHeaderContainer {
+  background-color: var(--headerBackground-dark-super);
+
+  display: flex;
+  width: 100%;
+  max-width: 1024px;
+  margin: auto;
+  padding: 0 25px;
+  align-items: center;
+  align-content: center;
+  justify-content: space-between;
 }
 
-.AppLogoContainer{
-  color: var(--mainText-ordinary-white);
+.AppLogoContainer {
   font-family: var(--font-title);
+  color: var(--mainText-ordinary-white);
+
+  font-size: 2rem;
   display: flex;
   align-items: center;
   align-content: center;
-  font-size: 2rem;
- }
-.AppLogoContainer .Node {
-  margin-left: 10px;
-  font-size: 16px;
 }
-.AppLogoContainer img{
-  height: 60px;
-  width: 70px;
-  color: var(--mainText-ordinary-white);
-}
- 
- .UserName span {
-   margin-left: 10px;
-   color: var(--mainText-ordinary-white);
-   font-size: var(--fontSize-text);
-   letter-spacing: 0.8px;
- }
 
- .UserName svg {
-   color: var(--mainText-accent-blue);
- }
+.AppLogoContainer .Node {
+  font-size: 16px;
+  margin-left: 10px;
+}
+
+.AppLogoContainer img {
+  color: var(--mainText-ordinary-white);
+  width: 70px;
+  height: 60px; 
+}
+
+.UserName span {
+  font-size: var(--fontSize-text);
+  color: var(--mainText-ordinary-white);
+
+  margin-left: 10px;
+  letter-spacing: 0.8px;
+}
+
+.UserName svg {
+  color: var(--mainText-accent-blue);
+}

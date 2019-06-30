@@ -1,12 +1,13 @@
 .SlidersComponent__header--selector {
-  margin: 10px 25px 0 0;
-  color: var(--mainText-ordinary-white);
-  width: 120px;
-  border-radius: 4px;
-  border: 1px solid var(--mainText-accent-blue);
-  padding: 3px;
-  font-size: 14px;
-  background: var(--rangeSlider-ocean);
-  letter-spacing: 1px;
   font-family: var(--font-ordinary);
+  color: var(--mainText-ordinary-white);
+  border: 1px solid var(--mainText-accent-blue);
+  background: var(--rangeSlider-ocean);
+
+  font-size: 14px;
+  width: 120px;
+  margin: 10px 25px 0 0;
+  padding: 3px;
+  letter-spacing: 1px;
+  border-radius: 4px;
 }

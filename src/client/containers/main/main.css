@@ -1,16 +1,16 @@
-@import url('https://fonts.googleapis.com/css?family=Orbitron&display=swap');
-@import url('https://fonts.googleapis.com/css?family=Khand|Orbitron&display=swap');
+@import url("https://fonts.googleapis.com/css?family=Orbitron&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Khand|Orbitron&display=swap");
 
-@import './variables.css';
+@import "./variables.css";
 
 * {
-  padding: 0;
-  margin: 0;
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-  background: var(--bodyBackground-dark-light);
-  color: var(--mainText-white);
   font-family: var(--font-ordinary);
+  color: var(--mainText-white);
+  background: var(--bodyBackground-dark-light);
 }
