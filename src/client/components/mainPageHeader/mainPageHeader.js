@@ -7,7 +7,8 @@ const MainPageHeader = () => (
   <section className="MainPageHeaderContainer">
     <div className="AppLogoContainer">
       <img src={logo} alt="logo" />
-      <span className='Node'>nodes</span>Equalizer
+      <span className="Node">nodes</span>
+      Equalizer
     </div>
     <div className="UserName">
       {userIcon}

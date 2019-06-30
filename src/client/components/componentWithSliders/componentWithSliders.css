@@ -5,11 +5,15 @@
   width: 100%;
   max-width: 1024px;
   margin: auto;
+  
 }
 
 .SlidersComponent__header {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
+  padding-left: 25px;
 }
 
 .SlidersComponent__main {

@@ -9,7 +9,11 @@ const UploadSongButton = () => (
       {' '}
       Upload Song
     </button>
-    <input className="UploadInput" type="file" name="myfile" />
+    <input
+      className="uplodSoundInput"
+      type="file"
+      name="myfile"
+    />
   </div>
 );
 

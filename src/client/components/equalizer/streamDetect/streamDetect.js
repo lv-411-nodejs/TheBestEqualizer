@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import './streamDetect.css';
 
 const StreamDetect = (props) => {
   const { streamDetect } = props;
