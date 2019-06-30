@@ -8,6 +8,8 @@
   justify-content: center;
   width: 100px;
   height: 30px;
+  letter-spacing: 1px;
+  font-family: var(--font-ordinary);
   background-color: var(--rangeSlider-ocean);
   color: var(--mainText-ordinary-white);
   border: 1px solid var(--mainText-accent-blue);
@@ -28,6 +30,8 @@
 
 .PauseButton {
   display: flex;
+  letter-spacing: 1px;
+  font-family: var(--font-ordinary);
   align-content: center;
   align-items: center;
   justify-content: center;
@@ -55,6 +59,8 @@
 }
 
 .StopButton {
+  letter-spacing: 1px;
+  font-family: var(--font-ordinary);
   display: flex;
   align-content: center;
   align-items: center;

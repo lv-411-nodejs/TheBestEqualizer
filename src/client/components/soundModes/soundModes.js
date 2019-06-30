@@ -14,7 +14,7 @@ const SoundModes = () => {
 
   return (
     <div className="Modes-container">
-      <h3 className="Modes-title">Sound Modes</h3>
+      <p className="Modes-title">Sound Modes</p>
       <div className="Modes">
         {fullModesItem}
       </div>

@@ -33,6 +33,8 @@
 
 .Sliders--label{
   font-size: var(--fontSize-text);
+  font-family: var(--font-ordinary);
   text-transform: uppercase;
   color: var(--mainText-ordinary-white);
+  letter-spacing: 1px;
 }

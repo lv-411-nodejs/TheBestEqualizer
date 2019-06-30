@@ -7,4 +7,6 @@
   padding: 3px;
   font-size: 14px;
   background: var(--rangeSlider-ocean);
+  letter-spacing: 1px;
+  font-family: var(--font-ordinary);
 }

@@ -1,5 +1,7 @@
 .SavePresetsButton {
   font-size: var(--fontSize-text);
+  letter-spacing: 1px;
+  font-family: var(--font-ordinary);
   display: flex;
   align-content: center;
   align-items: center;

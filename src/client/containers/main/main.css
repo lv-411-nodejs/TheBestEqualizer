@@ -1,4 +1,7 @@
-@import url('https://fonts.googleapis.com/css?family=Fira+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Orbitron&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Khand|Orbitron&display=swap');
+
+@import './variables.css';
 
 * {
   padding: 0;
@@ -9,45 +12,5 @@
 body {
   background: var(--bodyBackground-dark-light);
   color: var(--mainText-white);
-}
-
-:root {
-  /* Fonts */
-  --font-title-firaSans: 'Fira Sans', sans-serif;
-
-  /* Icons */
-  --fontSize-ModesIcons: 25px;
-  --fontSize-ButtonsIcons: 18px;
-
-  /* Text */
-  --mainText-ordinary-white: #FFFFFF;
-  --fontSize-title: 1rem;
-  --fontSize-text: 0.7rem;
-
-  /* Color Elements */
-  --bodyBackground-dark-light: #142A48;
-  --headerBackground-dark-super: #131E2F;
-  --mainText-accent-blue: #05D8C5;
-  --accentElement-terquoise: rgb(105, 221, 230);
-  --rangeSlider-ocean: #0B85B2;
-}
-
-/* Custom scroll */
-::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-  background-color: #F5F5F5;
-  border-radius: 10px;
-}
-
-::-webkit-scrollbar {
-  width: 10px;
-  background-color: #F5F5F5;
-}
-
-::-webkit-scrollbar-thumb {
-  border-radius: 10px;
-  background-image: -webkit-gradient(linear, left bottom, left top,
-      color-stop(0.44, rgb(122, 153, 217)),
-      color-stop(0.72, rgb(73, 125, 189)),
-      color-stop(0.86, rgb(28, 58, 148)));
+  font-family: var(--font-ordinary);
 }

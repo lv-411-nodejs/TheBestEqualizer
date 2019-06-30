@@ -1,4 +1,6 @@
 .SwitchContainer {
+  font-family: var(--font-ordinary);
+  letter-spacing: 1px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;

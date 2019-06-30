@@ -18,6 +18,8 @@
 }
 
 .UploadSongButton {
+  letter-spacing: 1px;
+  font-family: var(--font-ordinary);
   font-size: var(--fontSize-text);
   border-radius: 4px;
   width: 200px;
@@ -35,6 +37,6 @@
 }
 
 .UploadSongButton svg {
-  font-size: var(--fontSize-icons);
+  font-size: var(--fontSize-ButtonsIcons);
   margin-right: 5px;
 }
