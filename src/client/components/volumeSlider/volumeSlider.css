@@ -12,7 +12,7 @@
   align-items: center;
 }
 
-.VolumeContainer svg {
+.VolumeContainer .icon {
   color: var(--mainText-accent-blue);
 }
 

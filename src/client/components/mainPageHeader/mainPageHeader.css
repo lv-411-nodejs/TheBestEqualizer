@@ -40,6 +40,6 @@
   letter-spacing: 0.8px;
 }
 
-.UserName svg {
+.UserName .icon {
   color: var(--mainText-accent-blue);
 }

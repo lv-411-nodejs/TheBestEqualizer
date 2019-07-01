@@ -37,7 +37,7 @@ div .Modes {
   background-color: transparent;
 }
 
-.Modes > div button svg {
+.Modes > div button .icon {
   font-size: var(--fontSize-ModesIcons);
   color: var(--mainText-accent-blue);
 

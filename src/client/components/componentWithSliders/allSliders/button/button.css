@@ -25,7 +25,7 @@
   transition: 0.3s ease all;
 }
 
-.PlayButton svg {
+.PlayButton .icon {
   font-size: var(--fontSize-ButtonsIcons);
   margin-right: 5px;
 }
