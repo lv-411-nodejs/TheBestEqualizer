@@ -17,8 +17,8 @@ class FormComponent extends Component {
       this.setState({ [name]: value });
     };
 
-    onFormSubmit = (click) => {
-      click.preventDefault();
+    onFormSubmit = (event) => {
+      event.preventDefault();
       const { username, email, password } = this.state;
       const { postUserData: post, isMember, history } = this.props;
       let path;
@@ -39,7 +39,7 @@ class FormComponent extends Component {
       const { fieldsToRender } = this.props;
       return (
         <div>
-          <form onSubmit={this.onSubmit} className="form-body" autoComplete="off">
+          <form onSubmit={this.onFormSubmit} className="form-body" autoComplete="off">
             <RenderFormFields fieldsToRender={fieldsToRender} onInputChange={this.onInputChange} />
             <div className="field">
               <button type="submit" className="submit">Submit</button>
