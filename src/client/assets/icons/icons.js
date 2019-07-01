@@ -12,6 +12,7 @@ import {
   faRocket,
   faUser,
   faStop, faPlay, faPause,
+  faTimes
 } from '@fortawesome/free-solid-svg-icons';
 
 export const settingsIcon = <FontAwesomeIcon icon={faCog} />;
@@ -26,3 +27,4 @@ export const userIcon = <FontAwesomeIcon icon={faUser} />;
 export const stopIcon = <FontAwesomeIcon icon={faStop} />;
 export const playIcon = <FontAwesomeIcon icon={faPlay} />;
 export const pauseIcon = <FontAwesomeIcon icon={faPause} />;
+export const cancelWindowIcon = <FontAwesomeIcon icon={faTimes} />;

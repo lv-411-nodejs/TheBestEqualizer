@@ -1,22 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './modalSavePressetesWindow.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { cancelWindowIcon } from '../../../../assets/icons/icons';
 import SavePressetsToBDAndCancelButton from './savePressetsToBDAndCancelButton';
 
-const cancelWindowIcon = <FontAwesomeIcon icon={faTimes} />;
-
 const SavePressetesModalWindow = (props) => {
-  const { saveButtonClick, cancelButtonClickOrKeyEscDown } = props;
-
+  const { saveButtonClick, showHideModalBlock } = props;  
   return (
     <div
       role="button"
       className="modalSavePressetesWindow"
       id="modalSavePressetesWindow"
       tabIndex="0"
-      onKeyDown={cancelButtonClickOrKeyEscDown}
+      onKeyDown={showHideModalBlock}
+      ref={props.refFocus}
     >
       <div className="headerModalWindow">
         {cancelWindowIcon}
@@ -36,7 +33,7 @@ const SavePressetesModalWindow = (props) => {
         <SavePressetsToBDAndCancelButton
           className="pressetesButton"
           id="cancelPressetesButton"
-          onClickHandler={cancelButtonClickOrKeyEscDown}
+          onClickHandler={showHideModalBlock}
           buttonTitle="Close"
         />
       </div>
@@ -46,7 +43,7 @@ const SavePressetesModalWindow = (props) => {
 
 SavePressetesModalWindow.propTypes = {
   saveButtonClick: PropTypes.func.isRequired,
-  cancelButtonClickOrKeyEscDown: PropTypes.func.isRequired,
+  showHideModalBlock: PropTypes.func.isRequired,
 };
 
 export default SavePressetesModalWindow;
