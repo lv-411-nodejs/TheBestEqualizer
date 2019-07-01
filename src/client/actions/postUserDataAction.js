@@ -14,7 +14,7 @@ const postUserData = (rout, newUser, history) => async (dispatch) => {
 
     history.push('/main');
 
-  } catch({response: {data: {error}}}) {
+  } catch({ response: { data: { error } } }) {
     dispatch({
         type: POST_USER_DATA,
         status: 'Authentification was failed'
