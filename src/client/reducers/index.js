@@ -4,5 +4,5 @@ import audioReducer from './audioReducer';
 
 export default combineReducers({
   authStatus: postUserDataReducer,
-  audioData: audioReducer
+  audioData: audioReducer,
 });

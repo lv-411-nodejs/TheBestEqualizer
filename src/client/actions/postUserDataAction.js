@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 import { POST_USER_DATA } from './types';
 
 const baseUrl = 'http://localhost:8080';
