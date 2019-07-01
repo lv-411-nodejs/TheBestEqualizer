@@ -1,7 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import './button.css';
-import PropTypes from 'prop-types';
 
 const Button = ({
   onClick, className, icon, value,

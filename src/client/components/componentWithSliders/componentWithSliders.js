@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import './componentWithSliders.css';
-
-import SelectItem from './selectItem';
+import PresetsDropdownSelector from '../presetsDropdownSelector';
+import SavePresetsButton from '../savePresetsButton';
 import AllBlocks from './allSliders';
-import SaveButton from './saveButton';
-import UploadButton from './uploadButton';
 import SavePressetModalBlock  from './savePressetModalBlock'
 
 
@@ -28,14 +26,11 @@ class ComponentWithSliders extends Component {
   <section className="SlidersComponent">
       {this.state.isModalBlockShow && <SavePressetModalBlock showHideModalBlock={this.showHideModalBlock}/>}
     <header className="SlidersComponent__header">
-      <SelectItem />
+      <SavePresetsButton onclick={this.showHideModalBlock}/>
+      <PresetsDropdownSelector />
     </header>
     <main className="SlidersComponent__main">
       <AllBlocks />
-      <div className="SlidersComponent__main--buttons">
-        <SaveButton onclick={this.showHideModalBlock}/>
-        <UploadButton />
-      </div>
     </main>
   </section>
   );

@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 const PlayButton = (props) => {
   const { hadlesound } = props;
   return (
-    <button type="button" onClick={hadlesound}>
+    <button type="button" onClick={hadlesound} className="PlayButton">
       Play
     </button>
   );
