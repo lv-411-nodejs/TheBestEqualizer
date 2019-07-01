@@ -1,10 +1,10 @@
 import Pizzicato from 'pizzicato';
 import {
-  headsetIcon, rssIcon, thIcon, rocketIcon,
+  headsetIcon, rssIcon, thIcon, podcastIcon,
 } from '../assets/icons/icons';
 
 export const imageArray = [{
-  img: rocketIcon,
+  img: podcastIcon,
   text: '3D',
 }, {
   img: headsetIcon,

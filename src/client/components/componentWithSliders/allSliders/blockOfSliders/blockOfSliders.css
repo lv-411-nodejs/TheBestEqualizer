@@ -16,4 +16,5 @@
   font-family: var(--font-title);
   font-size: var(--fontSize-title);
   color: var(--mainText-ordinary-white);
+  letter-spacing: 2px;
 }

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Pizzicato from 'pizzicato';
 
 import BlockOfSliders from './blockOfSliders';
-import UploadSongButton from '../../uploadSongButton';
 import Button from './button';
 import { pauseIcon, playIcon, stopIcon } from '../../../assets/icons/icons';
 import { BLOCKS } from '../../../helpers/constants';
@@ -13,11 +12,12 @@ class AllBlocks extends Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      sound: new Pizzicato.Sound(Sound,
-        () => BLOCKS.forEach(({ createEffect }) => {
+      sound: new Pizzicato.Sound(Sound, () =>
+        BLOCKS.forEach(({ createEffect }) => {
           const { sound } = this.state;
           sound.addEffect(createEffect);
-        })),
+        })
+      ),
       isPlaying: false,
     };
   }
@@ -52,32 +52,32 @@ class AllBlocks extends Component {
   render() {
     const { sound, isPlaying } = this.state;
 
-    // const PlayButton = (
-    //   <Button
-    //     className="PlayButton"
-    //     onClick={this.play}
-    //     icon={playIcon}
-    //     value="Play"
-    //   />
-    // );
+    const PlayButton = (
+      <Button
+        className="PlayButton"
+        onClick={this.play}
+        icon={playIcon}
+        value="Play"
+      />
+    );
 
-    // const PauseButton = (
-    //   <Button
-    //     className="PauseButton"
-    //     onClick={this.pause}
-    //     icon={pauseIcon}
-    //     value="Pause"
-    //   />
-    // );
+    const PauseButton = (
+      <Button
+        className="PauseButton"
+        onClick={this.pause}
+        icon={pauseIcon}
+        value="Pause"
+      />
+    );
 
-    // const StopButton = (
-    //   <Button
-    //     className="StopButton"
-    //     onClick={this.stop}
-    //     icon={stopIcon}
-    //     value="Stop"
-    //   />
-    // );
+    const StopButton = (
+      <Button
+        className="StopButton"
+        onClick={this.stop}
+        icon={stopIcon}
+        value="Stop"
+      />
+    );
 
     return (
       <div className="SlidersComponent__main--container">
@@ -92,6 +92,10 @@ class AllBlocks extends Component {
               setEffectsValue={this.setEffectsValue}
             />
           ))}
+        </div>
+        <div className="Buttons">
+          {isPlaying ? PauseButton : PlayButton}
+          {StopButton}
         </div>
       </div>
     );
