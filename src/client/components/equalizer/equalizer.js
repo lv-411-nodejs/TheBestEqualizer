@@ -8,6 +8,7 @@ import Uploadbutton from './upload';
 import Infoabouttrack from './upload/infoAboutFile';
 import Streambutton from './streamButton';
 import StreamDetect from './streamDetect';
+import './equalizer.css';
 import {
   createAudioData,
   playPauseSoundFromFile,
@@ -30,7 +31,7 @@ class Equalizer extends Component {
     const canvasEl = document.querySelector('canvas').getContext('2d');
     const { audioData } = this.props;
     const { analyser, audioContext } = audioData;
-    const howManyFrequancyCut = 80;
+    const howManyFrequancyCut = 100;
     const numPoints = analyser.frequencyBinCount - howManyFrequancyCut;
     const uint8Array = new Uint8Array(numPoints);
     this.setState({
@@ -167,7 +168,7 @@ class Equalizer extends Component {
     ctx.arcTo(x + width, y - height, x + width - radius, y - height, radius);
     ctx.lineTo(x + radius, y - height);
     ctx.arcTo(x, y - height, x, y - height + radius, radius);
-    ctx.fillStyle = flagColor ? '#1ecea8' : '#93969f';
+    ctx.fillStyle = flagColor ? '#05D8C5' : '#FFFFFF';
     ctx.fill();
   }
 
@@ -219,15 +220,17 @@ class Equalizer extends Component {
     } = audioData;
     return (
       <div className="graphic_equalizer">
-        <Streambutton onclickhandler={startMuteStream} />
-        <StreamDetect streamDetect={streamDetect} />
-        <PlayButton hadlesound={playSoundFromFile} />
         <Graphicequaliser
           width={widthCanvas}
           height={heightCanvas}
           onChangeWidth={widthMerge}
         />
-        <Uploadbutton handleInfoFromSound={uploadSoundInfoFromFile} />
+        <div className="ButtonsContainer">
+          <Streambutton onclickhandler={startMuteStream} />
+          <StreamDetect streamDetect={streamDetect} />
+          <Uploadbutton handleInfoFromSound={uploadSoundInfoFromFile} />
+          <PlayButton hadlesound={playSoundFromFile} />
+        </div>
         <Infoabouttrack
           trackname={trackName}
           tracksize={trackSize}

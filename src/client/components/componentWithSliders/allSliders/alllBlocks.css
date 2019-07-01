@@ -1,17 +1,25 @@
-.SlidersComponent__main--container{
+.SlidersComponent__main--container {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  margin: 20px 0;
 }
 
-.Sliders{
-  border-radius: 4px;
-  margin: 20px auto;
+.Sliders {
+  border: 1px solid var(--rangeSlider-ocean);
+
   display: flex;
-  border: 1px solid #6080ce;
   width: 95%;
+  margin: 15px auto;
+  border-radius: 4px;
   justify-content: space-around;
   flex-wrap: wrap;
+}
+
+.SlidersComponent__main--container .Buttons {
+  display: flex;
+  margin-bottom: 15px;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
 }

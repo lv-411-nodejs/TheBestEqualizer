@@ -1,14 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import './uploadButton.css';
 
 const UploadButton = (props) => {
   const { handleInfoFromSound } = props;
   return (
     <label htmlFor="uplodSoundInput">
       {' '}
-    Виберіть трек для завантаження
-      <input name="uplodSoundInput" type="file" id="soundsource" accept="audio/mp3" onChange={handleInfoFromSound} />
+      <input
+        name="uplodSoundInput"
+        type="file"
+        id="soundsource"
+        accept="audio/mp3"
+        className="UplodSoundInput"
+        onChange={handleInfoFromSound}
+      />
     </label>
   );
 };

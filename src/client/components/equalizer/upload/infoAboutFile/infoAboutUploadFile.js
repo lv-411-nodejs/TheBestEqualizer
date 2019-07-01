@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import './infoAboutUploadFile.css';
 
 const InfoAboutTrack = (props) => {
   const { trackname, tracksize, tracktype } = props;
   return (
     <details id="detailstrack">
       <summary>
-        Tack name
+        Tack name:
         {trackname}
       </summary>
       <p>

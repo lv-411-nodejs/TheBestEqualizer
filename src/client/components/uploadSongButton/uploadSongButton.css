@@ -1,0 +1,43 @@
+.UploadSongButton--wrapper {
+  position: relative;
+  display: flex;
+  overflow: hidden;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.UploadSongButton--wrapper .UploadInput {
+  font-size: 100px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  cursor: pointer;
+  opacity: 0;
+}
+
+.UploadSongButton {
+  font-family: var(--font-ordinary);
+  font-size: var(--fontSize-text);
+  color: var(--mainText-ordinary-white);
+  border: 1px solid var(--mainText-accent-blue);
+  background-color: var(--rangeSlider-ocean);
+
+  width: 200px;
+  height: 30px;
+  letter-spacing: 1px;
+  border-radius: 4px;
+}
+
+.UploadSongButton:hover {
+  background-color: var(--rangeSlider-ocean);
+
+  cursor: pointer;
+  transition: 0.3s ease all;
+  color: #fff;
+}
+
+.UploadSongButton svg {
+  font-size: var(--fontSize-ButtonsIcons);
+  margin-right: 5px;
+}

@@ -12,7 +12,7 @@ const analyser = audioContext.createAnalyser(audioContext);
 
 const initialState = {
   // graphic canvas
-  widthCanvas: 500,
+  widthCanvas: 980,
   heightCanvas: 150,
   // audio from file
   trackName: null,

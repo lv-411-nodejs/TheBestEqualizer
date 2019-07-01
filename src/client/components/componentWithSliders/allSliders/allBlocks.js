@@ -1,27 +1,27 @@
 import React, { Component } from 'react';
-import './alllBlocks.css';
-
 import Pizzicato from 'pizzicato';
+
 import BlockOfSliders from './blockOfSliders';
+
 import Button from './button';
 import { pauseIcon, playIcon, stopIcon } from '../../../assets/icons/icons';
-
 import { BLOCKS } from '../../../helpers/constants';
 import Sound from '../../../sounds/sound.mp3';
-
+import './alllBlocks.css';
 
 class AllBlocks extends Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      sound: new Pizzicato.Sound(Sound,
-        () => BLOCKS.forEach(({ createEffect }) => {
-          const { sound } = this.state;
-          sound.addEffect(createEffect);
-        })),
+      sound: new Pizzicato.Sound(Sound, this.runSound),
       isPlaying: false,
     };
   }
+
+  runSound = () => BLOCKS.forEach(({ createEffect }) => {
+    const { sound } = this.state;
+    sound.addEffect(createEffect);
+  });
 
   play = () => {
     this.setState({ isPlaying: true });
