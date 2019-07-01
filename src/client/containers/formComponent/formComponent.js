@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import RenderFormFields from '../../components/renderFormFields/renderFormFields';
 import FormField from '../../components/formField/formField';
 import postUserData from '../../actions/postUserDataAction';
-import getUserData from '../../actions/getUserDataAction';
 import './formComponent.css';
 
 class FormComponent extends Component {
@@ -14,46 +14,31 @@ class FormComponent extends Component {
       password: '',
     };
 
-
     onInputChange = ({ target: { name, value } }) => {
       this.setState({ [name]: value });
     };
 
-    onRegistratuinSubmit = (e) => {
+    onSubmit = (e) => {
       e.preventDefault();
-      const { userName, email, password } = this.state;
-      const { history } = this.props;
-      const newUser = {
-        userName,
-        email,
-        password,
-      };
-      postUserData(newUser);
-      history.push('/main');
+      const { username, email, password } = this.state;
+      const { postUserData, isMember, history} = this.props;
+      let path, user;
+      if(!isMember){
+        path = '/registration';
+        user = { username, email, password }
+      } else {
+        path = '/login';
+        user = { email, password }
+      }
+      postUserData(path, user, history);
     };
-
-    onLoginSubmit = (e) => {
-      e.preventDefault();
-      const { history } = this.props;
-      getUserData();
-      history.push('/main');
-    };
-
 
     render() {
-      const { fieldsToRender, isMember } = this.props;
-      const onSubmit = isMember ? this.onLoginSubmit : this.onRegistratuinSubmit;
-      const formFields = fieldsToRender.map((el, i) => (
-        <FormField
-          key={i}
-          onInputChange={this.onInputChange}
-          el={el}
-        />
-      ));
+      const { fieldsToRender } = this.props;
       return (
         <div>
-          <form onSubmit={onSubmit} className="form-body" autoComplete="off">
-            {formFields}
+          <form onSubmit={this.onSubmit} className="form-body" autoComplete="off">
+            <RenderFormFields fieldsToRender={fieldsToRender} onInputChange={this.onInputChange}/>
             <div className="field">
               <button type="submit" className="submit">Submit</button>
             </div>
@@ -70,8 +55,7 @@ FormComponent.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  postUser: state.postUser.postUser,
-  getUser: state.getUser.getUser,
+  authStatus: state.authStatus,
 });
 
-export default connect(mapStateToProps)(withRouter(FormComponent));
+export default connect(mapStateToProps, {postUserData})(withRouter(FormComponent));

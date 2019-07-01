@@ -1,14 +1,26 @@
-import Axios from 'axios';
+import axios from "axios";
 import { POST_USER_DATA } from './types';
 
-const postUserData = newUser => (dispatch) => {
-  Axios.post('http://localhost:8080/registration', newUser)
-    .then(({ data }) => {
-      dispatch({
-        type: POST_USER_DATA,
-        result: data,
+const baseUrl = 'http://localhost:8080';
+
+const postUserData = (rout, newUser, history) => async (dispatch) => {
+  try {
+    await axios.post(`${baseUrl}${rout}`, newUser)
+
+    dispatch({
+       type: POST_USER_DATA,
+       status: 'Success authentification'
       });
+
+    history.push('/main');
+
+  } catch({response: {data: {error}}}) {
+    dispatch({
+        type: POST_USER_DATA,
+        status: 'Authentification was failed'
     });
+    console.error(error);
+  }
 };
 
 export default postUserData;
