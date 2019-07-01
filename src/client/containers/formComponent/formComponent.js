@@ -20,7 +20,7 @@ class FormComponent extends Component {
     onSubmit = (e) => {
       e.preventDefault();
       const { username, email, password } = this.state;
-      const { postUserData, isMember, history} = this.props;
+      const { postUserData: post, isMember, history } = this.props;
       let path;
       let user;
 
@@ -32,8 +32,7 @@ class FormComponent extends Component {
         user = { email, password };
       }
 
-      postUserData(path, user, history);
-
+      post(path, user, history);
     };
 
     render() {
@@ -55,11 +54,11 @@ FormComponent.propTypes = {
   history: PropTypes.instanceOf(Object).isRequired,
   fieldsToRender: PropTypes.instanceOf(Array).isRequired,
   isMember: PropTypes.bool.isRequired,
-  postUserData: PropTypes.func.isRequired
+  postUserData: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
-  authStatus: state.authStatus
+  authStatus: state.authStatus,
 });
 
-export default connect(mapStateToProps, {postUserData})(withRouter(FormComponent));
+export default connect(mapStateToProps, { postUserData })(withRouter(FormComponent));
