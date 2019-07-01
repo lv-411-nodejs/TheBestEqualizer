@@ -3,7 +3,7 @@ import './componentWithSliders.css';
 import PresetsDropdownSelector from '../presetsDropdownSelector';
 import SavePresetsButton from '../savePresetsButton';
 import AllBlocks from './allSliders';
-import SavePressetModalBlock  from './savePressetModalBlock'
+import SavePressetModalBlock from './savePressetModalBlock';
 
 
 class ComponentWithSliders extends Component {
@@ -22,19 +22,20 @@ class ComponentWithSliders extends Component {
   }
 
   render() {
+    const { isModalBlockShow } = this.state;
     return (
-  <section className="SlidersComponent">
-      {this.state.isModalBlockShow && <SavePressetModalBlock showHideModalBlock={this.showHideModalBlock}/>}
-    <header className="SlidersComponent__header">
-      <SavePresetsButton onclick={this.showHideModalBlock}/>
-      <PresetsDropdownSelector />
-    </header>
-    <main className="SlidersComponent__main">
-      <AllBlocks />
-    </main>
-  </section>
-  );
- }
+      <section className="SlidersComponent">
+        {isModalBlockShow && <SavePressetModalBlock showHideModalBlock={this.showHideModalBlock} />}
+        <header className="SlidersComponent__header">
+          <SavePresetsButton showHideModalBlock={this.showHideModalBlock} />
+          <PresetsDropdownSelector />
+        </header>
+        <main className="SlidersComponent__main">
+          <AllBlocks />
+        </main>
+      </section>
+    );
+  }
 }
 
 export default ComponentWithSliders;

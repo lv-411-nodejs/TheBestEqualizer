@@ -1,28 +1,34 @@
 import React, { Component, Fragment } from 'react';
+import PropTypes from 'prop-types';
 import ModalSavePressetesWindow from './modalSavePressetesWindow';
 import BackgroundUnderModelWindow from './backgroundUnderModelWindow';
 
-class SavePressetModalBlock extends Component {  
-    autoFocusModalSavePressetesWindow = (elementFromRef) => {      
-      elementFromRef && elementFromRef.focus();
-    }   
+class SavePressetModalBlock extends Component {
+    autoFocusModalSavePressetesWindow = (elementFromRef) => {
+      if (elementFromRef) { elementFromRef.focus(); }
+    }
 
     gatherPressetesValuesAndSendToBD = () => {
       // logic for gather data from pressetes and sent to DB
     }
 
-    render() {      
+    render() {
+      const { showHideModalBlock } = this.props;
       return (
-        <Fragment>          
+        <Fragment>
           <ModalSavePressetesWindow
-            showHideModalBlock={this.props.showHideModalBlock}
+            showHideModalBlock={showHideModalBlock}
             saveButtonClick={this.gatherPressetesValuesAndSendToBD}
-            refFocus={this.autoFocusModalSavePressetesWindow } 
+            refFocus={this.autoFocusModalSavePressetesWindow}
           />
-          <BackgroundUnderModelWindow backgroundClick={this.props.showHideModalBlock} />
+          <BackgroundUnderModelWindow backgroundClick={showHideModalBlock} />
         </Fragment>
       );
     }
 }
+
+SavePressetModalBlock.propTypes = {
+  showHideModalBlock: PropTypes.func.isRequired,
+};
 
 export default SavePressetModalBlock;

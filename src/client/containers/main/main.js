@@ -16,7 +16,7 @@ const Main = () => (
     <AdditionalConfigs />
     <SoundModes />
     <Equalizer />
-    <ComponentWithSliders />    
+    <ComponentWithSliders />
     <Link to="/login">Login</Link>
     <Link to="/registration">Registration</Link>
   </Fragment>

@@ -5,7 +5,7 @@ import { cancelWindowIcon } from '../../../../assets/icons/icons';
 import SavePressetsToBDAndCancelButton from './savePressetsToBDAndCancelButton';
 
 const SavePressetesModalWindow = (props) => {
-  const { saveButtonClick, showHideModalBlock } = props;  
+  const { saveButtonClick, showHideModalBlock, refFocus } = props;
   return (
     <div
       role="button"
@@ -13,7 +13,7 @@ const SavePressetesModalWindow = (props) => {
       id="modalSavePressetesWindow"
       tabIndex="0"
       onKeyDown={showHideModalBlock}
-      ref={props.refFocus}
+      ref={refFocus}
     >
       <div className="headerModalWindow">
         {cancelWindowIcon}
@@ -44,6 +44,7 @@ const SavePressetesModalWindow = (props) => {
 SavePressetesModalWindow.propTypes = {
   saveButtonClick: PropTypes.func.isRequired,
   showHideModalBlock: PropTypes.func.isRequired,
+  refFocus: PropTypes.func.isRequired,
 };
 
 export default SavePressetesModalWindow;

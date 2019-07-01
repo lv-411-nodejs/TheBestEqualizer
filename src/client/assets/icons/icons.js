@@ -12,7 +12,7 @@ import {
   faPodcast,
   faUser,
   faStop, faPlay, faPause,
-  faTimes
+  faTimes,
 } from '@fortawesome/free-solid-svg-icons';
 
 export const settingsIcon = <FontAwesomeIcon icon={faCog} className="icon" />;
