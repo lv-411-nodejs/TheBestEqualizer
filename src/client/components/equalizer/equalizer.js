@@ -41,6 +41,29 @@ class Equalizer extends Component {
       analyser,
       audioContext,
     });
+    this.animateEqulizerAtStart();
+  }
+
+  animateEqulizerAtStart = () => {
+    const { ctx } = this.state;
+    console.log( this.state)
+    // const { width: widthCanvas, height: heightCanvas} = ctx;
+    // const rectangleHeight = 2;
+    // const startX = 0;
+    // const startY = heightCanvas / 2 - rectangleHeight;
+    // ctx.beginPath();
+    // ctx.moveTo(startX, startY);
+    // ctx.lineTo(widthCanvas, startY);    
+    // ctx.lineTo(widthCanvas, startY + 2 * rectangleHeight);
+    
+    // ctx.lineTo(startX, startY + 2 * rectangleHeight);
+    // ctx.moveTo(startX, startY);
+    
+    // ctx.fillStyle ='#05D8C5';
+    // ctx.fill();
+  
+  
+  
   }
 
   createSoundStream = (stream) => {
