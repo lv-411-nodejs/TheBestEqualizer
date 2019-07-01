@@ -5,11 +5,11 @@ const baseUrl = 'http://localhost:8080';
 
 const postUserData = (path, newUser, history) => (dispatch) => {
   axios.post(`${baseUrl}${path}`, newUser)
-    .then(() => { 
+    .then(() => {
       dispatch({
         type: POST_USER_DATA,
         status: 'Success authentification',
-      })
+      });
     })
     .then(() => {
       history.push('/main');
