@@ -1,7 +1,7 @@
 import { POST_USER_DATA } from '../actions/types';
 
 const initialState = {
-  status: undefined,
+  status: null,
 };
 
 export default function (state = initialState, action) {

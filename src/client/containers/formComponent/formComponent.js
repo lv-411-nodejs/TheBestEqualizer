@@ -8,17 +8,17 @@ import './formComponent.css';
 
 class FormComponent extends Component {
     state = {
-      username: '',
-      email: '',
-      password: '',
+      username: null,
+      email: null,
+      password: null,
     };
 
     onInputChange = ({ target: { name, value } }) => {
       this.setState({ [name]: value });
     };
 
-    onSubmit = (e) => {
-      e.preventDefault();
+    onFormSubmit = (click) => {
+      click.preventDefault();
       const { username, email, password } = this.state;
       const { postUserData: post, isMember, history } = this.props;
       let path;
