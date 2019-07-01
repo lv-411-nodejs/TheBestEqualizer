@@ -1,1 +1,0 @@
-export const JWTSECRET = process.env.JWTSECRET || '669141b534e06cf5c0271a389b79ebc11910f86bd210a74b6f00fcb974010809';
