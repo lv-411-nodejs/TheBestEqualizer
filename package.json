@@ -10,6 +10,7 @@
     "dev:client": "webpack-dev-server --mode development --devtool inline-source-map --hot --open",
     "dev:server": "nodemon --exec babel-node ./src/server/app.js",
     "lint:client": "./node_modules/.bin/eslint ./src/client",
+    "lint:client-fix": "./node_modules/.bin/eslint ./src/client --fix",
     "heroku-prebuild": "npm install --dev",
     "heroku-app": "webpack-dev-server --port $PORT --host 0.0.0.0 --mode development --devtool inline-source-map --hot --open"
   },
