@@ -2,6 +2,7 @@
   width: 3px;
   height: 100px;
   margin: 35px;
+  border: 1px solid var(--rangeSlider-ocean);
 }
 
 .Sliders--slider .rangeslider__fill {

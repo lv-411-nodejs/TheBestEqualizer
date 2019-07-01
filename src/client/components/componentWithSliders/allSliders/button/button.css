@@ -57,7 +57,7 @@
   transition: 0.3s ease all;
 }
 
-.PauseButton svg {
+.PauseButton .icon {
   font-size: var(--fontSize-ButtonsIcons);
   margin-right: 5px;
 }
@@ -89,7 +89,7 @@
   transition: 0.3s ease all;
 }
 
-.StopButton svg {
+.StopButton .icon {
   font-size: var(--fontSize-ButtonsIcons);
   margin-right: 5px;
 }
