@@ -26,7 +26,7 @@ class Equalizer extends Component {
     streamDetect: 'no speaking',
   }
 
-  async componentDidMount() {    
+  async componentDidMount() {
     const canvasEl = document.querySelector('canvas').getContext('2d');
     const { audioData } = this.props;
     const { analyser, audioContext } = audioData;
