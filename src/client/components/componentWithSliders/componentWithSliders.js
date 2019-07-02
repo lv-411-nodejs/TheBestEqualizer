@@ -11,10 +11,10 @@ class ComponentWithSliders extends Component {
     isModalBlockShow: false,
   }
 
-  showHideModalBlock = (clickOrEscKeyEvent) => {
+  showHideModalBlock = (mouseOrKeyEvent) => {
     const { isModalBlockShow } = this.state;
-    if (((clickOrEscKeyEvent.type === 'keydown') && (clickOrEscKeyEvent.key === 'Escape'))
-        || (clickOrEscKeyEvent.type === 'click')) {
+    if (((mouseOrKeyEvent.type === 'keydown') && (mouseOrKeyEvent.key === 'Escape'))
+        || (mouseOrKeyEvent.type === 'click')) {
       this.setState({
         isModalBlockShow: !isModalBlockShow,
       });

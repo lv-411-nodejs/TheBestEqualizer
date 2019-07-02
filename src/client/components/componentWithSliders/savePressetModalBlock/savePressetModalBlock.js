@@ -5,7 +5,9 @@ import BackgroundUnderModelWindow from './backgroundUnderModelWindow';
 
 class SavePressetModalBlock extends Component {
     autoFocusModalSavePressetesWindow = (elementFromRef) => {
-      if (elementFromRef) { elementFromRef.focus(); }
+      if (elementFromRef) {
+        elementFromRef.focus();
+      }
     }
 
     gatherPressetesValuesAndSendToBD = () => {
