@@ -4,13 +4,13 @@ import './savePresetsButton.css';
 import { saveIcon } from '../../assets/icons/icons';
 
 const SavePresetsButton = ({ showHideModalBlock }) => (
-    <button type="button" className="SavePresetsButton" onClick={showHideModalBlock}>
-      {' '}
-      {saveIcon}
-      {' '}
+  <button type="button" className="SavePresetsButton" onClick={showHideModalBlock}>
+    {' '}
+    {saveIcon}
+    {' '}
     Save Preset
-    </button>
-  );
+  </button>
+);
 
 
 SavePresetsButton.propTypes = {
