@@ -8,7 +8,7 @@ import {
 } from '../actions/types';
 
 const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-const analyser = audioContext.createAnalyser(audioContext);
+const analyser = audioContext.createAnalyser();
 
 const initialState = {
   // graphic canvas
