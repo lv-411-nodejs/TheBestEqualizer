@@ -1,13 +1,25 @@
-import Axios from 'axios';
+import axios from 'axios';
 import { POST_USER_DATA } from './types';
 
-const postUserData = newUser => (dispatch) => {
-  Axios.post('http://localhost:8080/registration', newUser)
-    .then(({ data }) => {
+const baseUrl = 'http://localhost:8080';
+
+const postUserData = (path, newUser, history) => (dispatch) => {
+  axios.post(`${baseUrl}${path}`, newUser)
+    .then(() => {
       dispatch({
         type: POST_USER_DATA,
-        result: data,
+        status: 'Success authentification',
       });
+    })
+    .then(() => {
+      history.push('/main');
+    })
+    .catch(({ response: { data: { error } } }) => {
+      dispatch({
+        type: POST_USER_DATA,
+        status: 'Authentification was failed',
+      });
+      console.error(error);
     });
 };
 
