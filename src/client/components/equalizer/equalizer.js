@@ -26,44 +26,22 @@ class Equalizer extends Component {
     streamDetect: 'no speaking',
   }
 
-  componentDidMount() {
-    this.detectStreamSoundFromMicrophone();
+  async componentDidMount() {    
     const canvasEl = document.querySelector('canvas').getContext('2d');
     const { audioData } = this.props;
     const { analyser, audioContext } = audioData;
     const howManyFrequancyCut = 300;
     const numPoints = analyser.frequencyBinCount - howManyFrequancyCut;
     const uint8Array = new Uint8Array(numPoints);
-    this.setState({
+    await this.setState({
       ctx: canvasEl,
       numPoints,
       heightArray: uint8Array,
       analyser,
       audioContext,
     });
-    this.animateEqulizerAtStart();
-  }
-
-  animateEqulizerAtStart = () => {
-    const { ctx } = this.state;
-    console.log( this.state)
-    // const { width: widthCanvas, height: heightCanvas} = ctx;
-    // const rectangleHeight = 2;
-    // const startX = 0;
-    // const startY = heightCanvas / 2 - rectangleHeight;
-    // ctx.beginPath();
-    // ctx.moveTo(startX, startY);
-    // ctx.lineTo(widthCanvas, startY);    
-    // ctx.lineTo(widthCanvas, startY + 2 * rectangleHeight);
-    
-    // ctx.lineTo(startX, startY + 2 * rectangleHeight);
-    // ctx.moveTo(startX, startY);
-    
-    // ctx.fillStyle ='#05D8C5';
-    // ctx.fill();
-  
-  
-  
+    await this.detectStreamSoundFromMicrophone();
+    await this.renderEqualizer();
   }
 
   createSoundStream = (stream) => {
@@ -181,16 +159,17 @@ class Equalizer extends Component {
   }
 
   roundedRect = (ctx, x, y, width, height, radius, flagColor) => {
+    const heightReq = height < radius ? radius : height;
     ctx.beginPath();
-    ctx.moveTo(x, y - height);
-    ctx.lineTo(x, y + height - radius);
-    ctx.arcTo(x, y + height, x + radius, y + height, radius);
-    ctx.lineTo(x + width - radius, y + height);
-    ctx.arcTo(x + width, y + height, x + width, y + height - radius, radius);
-    ctx.lineTo(x + width, y - height + radius);
-    ctx.arcTo(x + width, y - height, x + width - radius, y - height, radius);
-    ctx.lineTo(x + radius, y - height);
-    ctx.arcTo(x, y - height, x, y - height + radius, radius);
+    ctx.moveTo(x, y - heightReq);
+    ctx.lineTo(x, y + heightReq - radius);
+    ctx.arcTo(x, y + heightReq, x + radius, y + heightReq, radius);
+    ctx.lineTo(x + width - radius, y + heightReq);
+    ctx.arcTo(x + width, y + heightReq, x + width, y + heightReq - radius, radius);
+    ctx.lineTo(x + width, y - heightReq + radius);
+    ctx.arcTo(x + width, y - heightReq, x + width - radius, y - heightReq, radius);
+    ctx.lineTo(x + radius, y - heightReq);
+    ctx.arcTo(x, y - heightReq, x, y - heightReq + radius, radius);
     ctx.fillStyle = flagColor ? '#05D8C5' : '#FFFFFF';
     ctx.fill();
   }
