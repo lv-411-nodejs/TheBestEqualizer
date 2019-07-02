@@ -3,9 +3,7 @@ import PropTypes from 'prop-types';
 import './savePresetsButton.css';
 import { saveIcon } from '../../assets/icons/icons';
 
-const SavePresetsButton = (props) => {
-  const { showHideModalBlock } = props;
-  return (
+const SavePresetsButton = ({ showHideModalBlock }) => (
     <button type="button" className="SavePresetsButton" onClick={showHideModalBlock}>
       {' '}
       {saveIcon}
@@ -13,7 +11,7 @@ const SavePresetsButton = (props) => {
     Save Preset
     </button>
   );
-};
+
 
 SavePresetsButton.propTypes = {
   showHideModalBlock: PropTypes.func.isRequired,
