@@ -136,6 +136,8 @@ class Equalizer extends Component {
     const {
       analyser, heightArray, ctx, numPoints,
     } = this.state;
+    const { audioData } = this.props;
+    const { playPauseState, startMuteState } = audioData;
     let isFirstColorForEqualizerUsed = true;
     analyser.getByteFrequencyData(heightArray);
     const { width, height } = ctx.canvas;
@@ -155,7 +157,9 @@ class Equalizer extends Component {
         isFirstColorForEqualizerUsed);
       isFirstColorForEqualizerUsed = !isFirstColorForEqualizerUsed;
     }
-    requestAnimationFrame(this.renderEqualizer);
+    if (playPauseState === true || startMuteState === true) {
+      requestAnimationFrame(this.renderEqualizer);
+    }
   }
 
   roundedRect = (ctx, x, y, width, height, radius, flagColor) => {
