@@ -3,7 +3,7 @@ import Pizzicato from 'pizzicato';
 
 import BlockOfSliders from './blockOfSliders';
 
-import Button from './button';
+import Button from '../../button';
 import { pauseIcon, playIcon, stopIcon } from '../../../assets/icons/icons';
 import { BLOCKS } from '../../../helpers/constants';
 import Sound from '../../../sounds/sound.mp3';
