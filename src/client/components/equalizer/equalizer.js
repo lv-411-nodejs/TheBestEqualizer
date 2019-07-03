@@ -14,7 +14,6 @@ import {
   playPauseSoundFromFile,
   createStreamData,
   startMuteStreamAudio,
-  mergeCanvasWidth,
 } from '../../actions/audioActions';
 
 class Equalizer extends Component {
@@ -26,15 +25,13 @@ class Equalizer extends Component {
     streamDetect: 'no speaking',
   }
 
-  async componentDidMount() {
-    const canvasEl = document.querySelector('canvas').getContext('2d');
+  async componentDidMount() {    
     const { audioData } = this.props;
     const { analyser, audioContext } = audioData;
     const howManyFrequancyCut = 300;
     const numPoints = analyser.frequencyBinCount - howManyFrequancyCut;
     const uint8Array = new Uint8Array(numPoints);
-    await this.setState({
-      ctx: canvasEl,
+    await this.setState({      
       numPoints,
       heightArray: uint8Array,
       analyser,
@@ -84,11 +81,6 @@ class Equalizer extends Component {
     } else {
       throw new Error('browser doesnt support audio API');
     }
-  }
-
-  widthMerge = (eventFromInputTypeRange) => {
-    const { mergeCanvasWidth: mergeCanvasWidthAsProp } = this.props;
-    mergeCanvasWidthAsProp(eventFromInputTypeRange);
   }
 
   playSoundFromFile = () => {
@@ -208,12 +200,21 @@ class Equalizer extends Component {
     });
   }
 
-  render() {
+  setCanvasToState = (canvasEl) => {
+    this.setState({
+      ctx: canvasEl.getContext('2d'),
+    })
+
+
+  }
+
+
+  render() {    
     const {
       startMuteStream,
       playSoundFromFile,
-      widthMerge,
       uploadSoundInfoFromFile,
+      setCanvasToState,
     } = this;
     const { streamDetect } = this.state;
     const { audioData } = this.props;
@@ -229,7 +230,7 @@ class Equalizer extends Component {
         <Graphicequaliser
           width={widthCanvas}
           height={heightCanvas}
-          onChangeWidth={widthMerge}
+          getCanvasEl={setCanvasToState}
         />
         <div className="ButtonsContainer">
           <Streambutton onclickhandler={startMuteStream} />
@@ -251,8 +252,7 @@ Equalizer.propTypes = {
   createAudioData: PropTypes.func.isRequired,
   playPauseSoundFromFile: PropTypes.func.isRequired,
   createStreamData: PropTypes.func.isRequired,
-  startMuteStreamAudio: PropTypes.func.isRequired,
-  mergeCanvasWidth: PropTypes.func.isRequired,
+  startMuteStreamAudio: PropTypes.func.isRequired,  
   audioData: PropTypes.instanceOf(Object).isRequired,
 };
 
@@ -265,5 +265,6 @@ export default connect(mapStateToProps, {
   playPauseSoundFromFile,
   createStreamData,
   startMuteStreamAudio,
-  mergeCanvasWidth,
 })(Equalizer);
+
+
