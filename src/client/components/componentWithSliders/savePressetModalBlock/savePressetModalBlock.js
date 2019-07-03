@@ -10,17 +10,12 @@ class SavePressetModalBlock extends Component {
       }
     }
 
-    gatherPressetesValuesAndSendToBD = () => {
-      // logic for gather data from pressetes and sent to DB
-    }
-
     render() {
       const { showHideModalBlock } = this.props;
       return (
         <Fragment>
           <ModalSavePressetesWindow
             showHideModalBlock={showHideModalBlock}
-            saveButtonClick={this.gatherPressetesValuesAndSendToBD}
             refFocus={this.autoFocusModalSavePressetesWindow}
           />
           <BackgroundUnderModelWindow backgroundClick={showHideModalBlock} />
