@@ -1,5 +1,4 @@
 import ApiController from '../controllers/ApiController';
-import { middleware } from "../helpers/token";
 
 export default (app) => {
   app.post('/registration', ApiController.postRegistrationHandler);

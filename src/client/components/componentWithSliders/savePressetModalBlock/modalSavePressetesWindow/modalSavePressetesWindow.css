@@ -1,0 +1,35 @@
+.modalSavePressetesWindow {
+    position: fixed;
+    top: 50%;
+    margin-top: -100px;
+	margin-left: -200px; 
+	left: 50%;      
+    background-color: #2ecc71;
+    width: 400px;
+    height: 200px;
+    box-sizing: border-box;
+    z-index: 101;
+}
+
+.headerModalWindow {
+	text-align: right
+}
+
+.textArea {
+padding-left: 20px;
+}
+
+.textArea > * {
+	display: block;
+	margin-top: 10px;
+}
+
+.pressetesButtons {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;    
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 50px 0 50px;
+}

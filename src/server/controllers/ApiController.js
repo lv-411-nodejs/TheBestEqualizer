@@ -1,11 +1,10 @@
 import User from '../models/user';
 import { response } from '../helpers/errorHandler';
-import { generate } from "../helpers/token";
+import { generate } from '../helpers/token';
 
 const availableTokens = [];
 
 export default class ApiController {
-
   static postRegistrationHandler (req, res, next) {
     const { username, email, password } = req.body;
     const user = new User({ username, email, password });
@@ -28,8 +27,8 @@ export default class ApiController {
   };
 
   /**
-   * 
-   * @param {string} refresh 
+   *
+   * @param {string} refresh
    * @param {string} userId
    */
   static refreshTokenHandler (req, res) {
@@ -38,14 +37,13 @@ export default class ApiController {
     const findedRefreshToken = availableTokens
       .find((token, index) => token.ref === refresh);
 
-    if(findedRefreshToken)  {
-        let index = availableTokens.indexOf(findedRefreshToken);
-        availableTokens.splice(index, 1);
+    if (findedRefreshToken) {
+      let index = availableTokens.indexOf(findedRefreshToken);
+      availableTokens.splice(index, 1);
 
-        return res.status(200).json({ token: generateTokens({ userId }) });
-    }
-    else {
-        return response(res, { err: 'Refresh expired' }, 403);
+      return res.status(200).json({ token: generateTokens({ userId }) });
+    } else {
+      return response(res, { err: 'Refresh expired' }, 403);
     }
   }
 }
@@ -66,7 +64,7 @@ const saveUserInDB = (res, user) => (
 );
 
 const generateTokens = (user) => {
-  const tokens = generate( user );
+  const tokens = generate(user);
   availableTokens.push({ ref: tokens.refresh, userId: user.userId });
   return tokens;
-}
+};
