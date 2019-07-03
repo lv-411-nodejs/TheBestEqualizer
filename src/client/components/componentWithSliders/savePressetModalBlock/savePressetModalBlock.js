@@ -5,11 +5,9 @@ import BackgroundUnderModelWindow from './backgroundUnderModelWindow';
 
 class SavePressetModalBlock extends Component {
     autoFocusModalSavePressetesWindow = (elementFromRef) => {
-      if (elementFromRef) { elementFromRef.focus(); }
-    }
-
-    gatherPressetesValuesAndSendToBD = () => {
-      // logic for gather data from pressetes and sent to DB
+      if (elementFromRef) {
+        elementFromRef.focus();
+      }
     }
 
     render() {
@@ -18,7 +16,6 @@ class SavePressetModalBlock extends Component {
         <Fragment>
           <ModalSavePressetesWindow
             showHideModalBlock={showHideModalBlock}
-            saveButtonClick={this.gatherPressetesValuesAndSendToBD}
             refFocus={this.autoFocusModalSavePressetesWindow}
           />
           <BackgroundUnderModelWindow backgroundClick={showHideModalBlock} />
