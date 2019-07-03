@@ -1,12 +1,11 @@
 import User from '../models/user';
 import { response } from '../helpers/errorHandler';
+import { generate } from "../helpers/token";
 
 const availableTokens = [];
 
 export default class ApiController {
-  static index (req, res) {
-    res.json({ version: '0.0.1' });
-  }
+
   static postRegistrationHandler (req, res, next) {
     const { username, email, password } = req.body;
     const user = new User({ username, email, password });
@@ -17,6 +16,7 @@ export default class ApiController {
         : saveUserInDB(res, user))
       .catch(err => response(res, err.message, 404));
   };
+
   static postLoginHandler (req, res, next) {
     const { email, password: receivedPassword } = req.body;
     User
@@ -26,21 +26,26 @@ export default class ApiController {
         : response(res, 'Login failed', 404))
       .catch(err => response(res, err.message, 401));
   };
+
+  /**
+   * 
+   * @param {string} refresh 
+   * @param {string} userId
+   */
   static refreshTokenHandler (req, res) {
-    const { refresh } = req.body;
+    const { refresh, userId } = req.body;
 
     const findedRefreshToken = availableTokens
-      .find((token, index) => token.ref === refresh && token.valide === true);
+      .find((token, index) => token.ref === refresh);
 
     if(findedRefreshToken)  {
         let index = availableTokens.indexOf(findedRefreshToken);
         availableTokens.splice(index, 1);
 
-        // find user by id and refresh token for him
-        return responce(res, { token: generateTokens(User) }, 200);
+        return res.status(200).json({ token: generateTokens({ userId }) });
     }
     else {
-        return responce(res, { err: 'Refresh expired' }, 403);
+        return response(res, { err: 'Refresh expired' }, 403);
     }
   }
 }
@@ -48,7 +53,7 @@ export default class ApiController {
 const passwordComparison = (res, foundUser, receivedPassword) => (
   foundUser.verifyPassword(receivedPassword)
     .then(comparisonResult => comparisonResult
-      ? response(res, { userId: foundUser._id }, 200)
+      ? res.status(200).json({ token: generateTokens({ userId: foundUser._id }) })
       : response(res, 'Login failed', 404))
     .catch(err => response(res, err.message, 404))
 );
@@ -61,7 +66,7 @@ const saveUserInDB = (res, user) => (
 );
 
 const generateTokens = (user) => {
-  const tokens = token.generate( user );
+  const tokens = generate( user );
   availableTokens.push({ ref: tokens.refresh, userId: user.userId });
   return tokens;
 }

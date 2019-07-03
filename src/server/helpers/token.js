@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
-import { responce } from '../helpers/errorHandler';
+import { response } from '../helpers/errorHandler';
 
 const { SECRET = '669141b534e06cf5c0271a389b79ebc11910f86bd210a74b6f00fcb974010809' } = process.env;
 const tokenLife = '15m', refreshLife = '12h';
@@ -18,14 +18,14 @@ export const generate = (payload, life = tokenLife) => {
 export const middleware = (req, res, next) => {
     let token = req.headers['x-access-token'];
     if (!token)
-        return responce(res, {
+        return response(res, {
             success: false,
             message: 'No token provided.'
         }, 403);
 
     jwt.verify(token, SECRET, (err, decoded) => {
         if (err)
-            return responce(res, {
+            return response(res, {
                 success: false,
                 message: 'Failed to authenticate token.'
             }, 403);
