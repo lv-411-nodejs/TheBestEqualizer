@@ -31,7 +31,7 @@ class Equalizer extends Component {
     const canvasEl = document.querySelector('canvas').getContext('2d');
     const { audioData } = this.props;
     const { analyser, audioContext } = audioData;
-    const howManyFrequancyCut = 100;
+    const howManyFrequancyCut = 300;
     const numPoints = analyser.frequencyBinCount - howManyFrequancyCut;
     const uint8Array = new Uint8Array(numPoints);
     this.setState({
