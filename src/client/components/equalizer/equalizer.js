@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Hark from 'hark';
+import Pizzicato from 'pizzicato';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Graphicequaliser from './canvasEqualizer';
@@ -149,9 +150,9 @@ class Equalizer extends Component {
         isFirstColorForEqualizerUsed);
       isFirstColorForEqualizerUsed = !isFirstColorForEqualizerUsed;
     }
-    if (playPauseState === true || startMuteState === true) {
+    // if (playPauseState === true || startMuteState === true) {
       requestAnimationFrame(this.renderEqualizer);
-    }
+    // }
   }
 
   roundedRect = (ctx, x, y, width, height, radius, flagColor) => {
@@ -171,33 +172,29 @@ class Equalizer extends Component {
   }
 
   uploadSoundInfoFromFile = (e) => {
-    const [file] = e.target.files;
-    const { audioData } = this.props;
-    const { audioContext: context, analyser } = audioData;
-    const audio = new Audio(URL.createObjectURL(file));
-    audio.loop = true;
-    audio.crossOrigin = 'anonymous';
-    audio.addEventListener('canplay', () => {
-      try {
-        const audioFromFileSource = context.createMediaElementSource(audio);
-        const { createAudioData: createAudioDataAsProp } = this.props;
+    const [file] = e.target.files;    
+    const audioFile = new Audio(URL.createObjectURL(file));
+    const sound = new Pizzicato.Sound({
+      source: 'file',
+      options: {
+        path: audioFile.src,
+        loop: true,
+      }
+    }, () => {
+      const { audioData } = this.props;
+      const { analyser } = audioData;  
+      sound.connect(analyser);
+      const { createAudioData: createAudioDataAsProp } = this.props;
         createAudioDataAsProp({
-          audioFromFile: audio,
-          audioFile: file,
-          audioFromFileSource,
+          sound,
           trackName: file.name,
           trackType: file.type,
           trackSize: file.size,
-        });
-        audioFromFileSource.connect(analyser);
-        analyser.connect(context.destination);
-      } catch (err) {
-        throw new Error(err);
-      }
-    });
-    audio.addEventListener('error', (err) => {
-      throw new Error(err);
-    });
+        });        
+  };
+    );       
+        
+      
   }
 
   setCanvasToState = (canvasEl) => {

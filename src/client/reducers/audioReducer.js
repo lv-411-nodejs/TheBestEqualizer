@@ -1,3 +1,5 @@
+import Pizzicato from 'pizzicato';
+
 import {
   CREATE_BASE_AUDIO_CONTEXT_AND_ANALYSER,
   CREATE_AUDIO_DATA,
@@ -7,7 +9,7 @@ import {
   MERGE_CANVAS_WIDTH,
 } from '../actions/types';
 
-const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+const audioContext = Pizzicato.context;
 const analyser = audioContext.createAnalyser();
 
 const initialState = {
@@ -20,9 +22,7 @@ const initialState = {
   trackSize: null,
   audioContext,
   analyser,
-  audioFile: null,
-  audioFromFile: null,
-  audioFromFileSource: null,
+  sound: null,  
   // from stream
   audioStream: null,
   streamSource: null,
@@ -39,16 +39,14 @@ export default function (state = initialState, action) {
       };
     case CREATE_AUDIO_DATA: {
       const {
-        trackName, trackSize, trackType, audioFile, audioFromFile, audioFromFileSource,
+        trackName, trackSize, trackType, sound,
       } = action.payload;
       return {
         ...state,
         trackName,
         trackType,
         trackSize,
-        audioFile,
-        audioFromFile,
-        audioFromFileSource,
+        sound,
       };
     }
     case PLAY_PAUSE_SOUND_FROM_FILE:
