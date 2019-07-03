@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Button from '../../../button';
 import './modalSavePressetesWindow.css';
 import { cancelWindowIcon } from '../../../../assets/icons/icons';
 import SavePressetsToBDAndCancelButton from './savePressetsToBDAndCancelButton';
+import { saveIcon } from '../../../../assets/icons/icons';
 
 const SavePressetesModalWindow = ({ showHideModalBlock, refFocus }) => (
   <div
@@ -22,6 +24,12 @@ const SavePressetesModalWindow = ({ showHideModalBlock, refFocus }) => (
       <ins>Errors/success</ins>
     </div>
     <div className="pressetesButtons">
+      <Button
+        className="ButtonStyleTemplate"
+        // onClick={this.showHideModalBlock}
+        icon={saveIcon}
+        value="Save"
+      />
       <SavePressetsToBDAndCancelButton
         className="pressetesButton"
         id="savePressetesButton"

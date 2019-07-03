@@ -1,14 +1,11 @@
 import React, { Component } from 'react';
-import Hark from 'hark';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Graphicequaliser from './canvasEqualizer';
 import Button from '../button';
-import PlayButton from './playButton';
-import Uploadbutton from './upload';
-import Infoabouttrack from './upload/infoAboutFile';
-import StreamDetect from './streamDetect';
-import { startStreamIcon } from '../../assets/icons/icons';
+import UploadButton from './upload';
+import InfoAboutTrack from './upload/infoAboutFile';
+import { startStreamIcon, playIcon, stopIcon } from '../../assets/icons/icons';
 import './equalizer.css';
 import {
   createAudioData,
@@ -24,7 +21,6 @@ class Equalizer extends Component {
     ctx: null,
     numPoints: null,
     heightArray: null,
-    streamDetect: 'no speaking',
   }
 
   componentDidMount() {
@@ -50,20 +46,7 @@ class Equalizer extends Component {
 
     audioStream.srcObject = stream;
     audioStream.muted = true;
-    // hark - JS module that listens to an audio stream,
-    // and emits events indicating whether the user is speaking or not
-    const options = {};
-    const speechEvents = Hark(stream, options);
-    speechEvents.on('speaking', () => {
-      this.setState({
-        streamDetect: 'speaking',
-      });
-    });
-    speechEvents.on('stopped_speaking', () => {
-      this.setState({
-        streamDetect: 'no speaking',
-      });
-    });
+    
     const streamSource = audioContext.createMediaStreamSource(stream);
     const { createStreamData: createStreamDataAsProp } = this.props;
     createStreamDataAsProp({
@@ -210,15 +193,40 @@ class Equalizer extends Component {
       widthMerge,
       uploadSoundInfoFromFile,
     } = this;
-    const { streamDetect } = this.state;
     const { audioData } = this.props;
     const {
       widthCanvas,
       heightCanvas,
       trackName,
-      trackSize,
-      trackType,
     } = audioData;
+
+    const StartStreamButton = (
+      <Button
+        className="ButtonStyleTemplate"
+        onClick={startMuteStream}
+        icon={startStreamIcon}
+        value="Start stream"
+      />
+    );
+
+    const PlayButton = (
+      <Button
+        className="ButtonStyleTemplate"
+        onClick={playSoundFromFile}
+        icon={playIcon}
+        value="Play"
+      />
+    );
+
+    const StopButton = (
+      <Button
+        className="ButtonStyleTemplate"
+        // onClick={stopSound}
+        icon={stopIcon}
+        value="Stop"
+      />
+    );
+
     return (
       <div className="graphic_equalizer">
         <Graphicequaliser
@@ -227,20 +235,13 @@ class Equalizer extends Component {
           onChangeWidth={widthMerge}
         />
         <div className="ButtonsContainer">
-          <Button  
-            className="PlayButton"
-            onClick={startMuteStream}
-            icon={startStreamIcon}
-            value="Start stream"
-          />
-          <StreamDetect streamDetect={streamDetect} />
-          <Uploadbutton handleInfoFromSound={uploadSoundInfoFromFile} />
-          <PlayButton hadlesound={playSoundFromFile} />
+          {StartStreamButton}
+          <UploadButton handleInfoFromSound={uploadSoundInfoFromFile} />
+          {PlayButton}
+          {StopButton}
         </div>
-        <Infoabouttrack
+        <InfoAboutTrack
           trackname={trackName}
-          tracksize={trackSize}
-          tracktype={trackType}
         />
       </div>
     );

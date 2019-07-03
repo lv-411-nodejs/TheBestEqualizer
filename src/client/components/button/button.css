@@ -1,4 +1,4 @@
-.PlayButton {
+.ButtonStyleTemplate {
   font-family: var(--font-ordinary);
   font-size: var(--fontSize-text);
   color: var(--mainText-ordinary-white);
@@ -16,7 +16,7 @@
   justify-content: center;
 }
 
-.PlayButton:hover {
+.ButtonStyleTemplate:hover {
   color: var(--rangeSlider-ocean);
   border: 1px solid var(--mainText-accent-blue);
   background-color: var(--mainText-ordinary-white);
@@ -25,12 +25,12 @@
   transition: 0.3s ease all;
 }
 
-.PlayButton .icon {
+.ButtonStyleTemplate .icon {
   font-size: var(--fontSize-ButtonsIcons);
   margin-right: 5px;
 }
 
-.PauseButton {
+.ButtonStyleTemplate {
   font-family: var(--font-ordinary);
   font-size: var(--fontSize-text);
   color: var(--mainText-ordinary-white);
@@ -48,7 +48,7 @@
   justify-content: center;
 }
 
-.PauseButton:hover {
+.ButtonStyleTemplate:hover {
   color: var(--rangeSlider-ocean);
   border: 1px solid var(--mainText-accent-blue);
   background-color: var(--mainText-ordinary-white);
@@ -57,12 +57,12 @@
   transition: 0.3s ease all;
 }
 
-.PauseButton .icon {
+.ButtonStyleTemplate .icon {
   font-size: var(--fontSize-ButtonsIcons);
   margin-right: 5px;
 }
 
-.StopButton {
+.ButtonStyleTemplate {
   font-family: var(--font-ordinary);
   font-size: var(--fontSize-text);
   color: var(--mainText-ordinary-white);
@@ -80,7 +80,7 @@
   justify-content: center;
 }
 
-.StopButton:hover {
+.ButtonStyleTemplate:hover {
   color: var(--rangeSlider-ocean);
   border: 1px solid var(--mainText-accent-blue);
   background-color: var(--mainText-ordinary-white);
@@ -89,7 +89,7 @@
   transition: 0.3s ease all;
 }
 
-.StopButton .icon {
+.ButtonStyleTemplate .icon {
   font-size: var(--fontSize-ButtonsIcons);
   margin-right: 5px;
 }

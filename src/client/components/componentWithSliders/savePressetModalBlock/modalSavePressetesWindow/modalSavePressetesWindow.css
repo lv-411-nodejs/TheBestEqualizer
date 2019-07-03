@@ -1,22 +1,37 @@
 .modalSavePressetesWindow {
-    position: fixed;
-    top: 50%;
-    margin-top: -100px;
-	margin-left: -200px; 
-	left: 50%;      
-    background-color: #2ecc71;
-    width: 400px;
-    height: 200px;
-    box-sizing: border-box;
-    z-index: 101;
+  color: var(--mainText-ordinary-white);
+  border-radius: 5px;
+  position: fixed;
+  top: 50%;
+  margin-top: -100px;
+  margin-left: -200px;
+  left: 50%;
+  background-color: var(--headerBackground-dark-super);
+  width: 400px;
+  height: 200px;
+  box-sizing: border-box;
+  letter-spacing: 1.5px;
+  z-index: 101;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
 }
 
 .headerModalWindow {
 	text-align: right
 }
 
-.textArea {
-padding-left: 20px;
+.textArea strong {
+  text-align: center;
+  padding-left: 20px;
+  font-family: var(--font-title);
+}
+
+
+.textArea ins {
+  font-family: var(--font-ordinary);
+  text-decoration: none;
 }
 
 .textArea > * {
@@ -25,11 +40,11 @@ padding-left: 20px;
 }
 
 .pressetesButtons {
-    position: absolute;
-    bottom: 20px;
-    width: 100%;    
-    box-sizing: border-box;
-    display: flex;
-    justify-content: space-between;
-    padding: 0 50px 0 50px;
+  position: absolute;
+  bottom: 20px;
+  width: 100%;    
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 50px 0 50px;
 }
