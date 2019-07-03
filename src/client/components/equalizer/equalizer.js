@@ -3,11 +3,12 @@ import Hark from 'hark';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Graphicequaliser from './canvasEqualizer';
+import Button from '../button';
 import PlayButton from './playButton';
 import Uploadbutton from './upload';
 import Infoabouttrack from './upload/infoAboutFile';
-import Streambutton from './streamButton';
 import StreamDetect from './streamDetect';
+import { startStreamIcon } from '../../assets/icons/icons';
 import './equalizer.css';
 import {
   createAudioData,
@@ -226,7 +227,12 @@ class Equalizer extends Component {
           onChangeWidth={widthMerge}
         />
         <div className="ButtonsContainer">
-          <Streambutton onclickhandler={startMuteStream} />
+          <Button  
+            className="PlayButton"
+            onClick={startMuteStream}
+            icon={startStreamIcon}
+            value="Start stream"
+          />
           <StreamDetect streamDetect={streamDetect} />
           <Uploadbutton handleInfoFromSound={uploadSoundInfoFromFile} />
           <PlayButton hadlesound={playSoundFromFile} />
