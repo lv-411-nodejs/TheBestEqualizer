@@ -27,8 +27,7 @@ class Equalizer extends Component {
     this.detectStreamSoundFromMicrophone();
   }
 
-  static getDerivedStateFromProps({ audioData }) {
-    const { analyser, audioContext } = audioData;
+  static getDerivedStateFromProps({ audioData: { analyser, audioContext } }) {
     const howManyFrequancyCut = 300;
     const numPoints = analyser.frequencyBinCount - howManyFrequancyCut;
     const uint8Array = new Uint8Array(numPoints);
@@ -79,8 +78,7 @@ class Equalizer extends Component {
   };
 
   createSoundInfoInState = (sound, file) => {
-    const { audioData } = this.props;
-    const { analyser } = audioData;
+    const { audioData: { analyser } } = this.props;
     sound.connect(analyser);
     const { createAudioData: createAudioDataAsProp } = this.props;
     createAudioDataAsProp({
@@ -92,13 +90,11 @@ class Equalizer extends Component {
   }
 
    playSoundFromFile = async () => {
-     const { audioData } = this.props;
      const {
-       sound,
-       playPauseState,
-     } = audioData;
-     const {
-       playPauseSoundFromFile: playPauseSoundFromFileAsProp,
+       audioData: {
+         sound,
+         playPauseState,
+       }, playPauseSoundFromFile: playPauseSoundFromFileAsProp,
      } = this.props;
      if (!playPauseState) {
        sound.play();
@@ -110,12 +106,13 @@ class Equalizer extends Component {
    }
 
   startMuteStream = async () => {
-    const { audioData } = this.props;
     const {
-      analyser,
-      voice,
-      startMuteState,
-    } = audioData;
+      audioData: {
+        analyser,
+        voice,
+        startMuteState,
+      },
+    } = this.props;
     if (!startMuteState) {
       voice.connect(analyser);
       voice.play();
@@ -131,8 +128,7 @@ class Equalizer extends Component {
     const {
       analyser, uint8Array, ctx, numPoints,
     } = this.state;
-    const { audioData } = this.props;
-    const { playPauseState, startMuteState } = audioData;
+    const { audioData: { playPauseState, startMuteState } } = this.props;
     let isFirstColorForEqualizerUsed = true;
     analyser.getByteFrequencyData(uint8Array);
     const { width, height } = ctx.canvas;
@@ -145,10 +141,10 @@ class Equalizer extends Component {
     const paddingColumn = (widthColumnWithPadding - columnWidth) / 2;
     ctx.clearRect(0, 0, width, height);
     for (let x = 0; x < width - widthColumnWithPadding; x += columnWidth + 2 * paddingColumn) {
-      const ndx = Math.floor(x * numPoints / width);
-      const vol = uint8Array[ndx];
-      const y = vol * height / rectangleMaxHeight;
-      this.roundedRect(ctx, x, height / 2, columnWidth, y,
+      const everageValueOfFreq = Math.floor(x * numPoints / width);
+      const valueOfFrequance = uint8Array[everageValueOfFreq];
+      const rectHeight = valueOfFrequance * height / rectangleMaxHeight;
+      this.roundedRect(ctx, x, height / 2, columnWidth, rectHeight,
         rectangleCornerRadius,
         isFirstColorForEqualizerUsed);
       isFirstColorForEqualizerUsed = !isFirstColorForEqualizerUsed;
@@ -187,14 +183,15 @@ class Equalizer extends Component {
       uploadSoundInfoFromFile,
       setCanvasToState,
     } = this;
-    const { audioData } = this.props;
     const {
-      widthCanvas,
-      heightCanvas,
-      trackName,
-      trackSize,
-      trackType,
-    } = audioData;
+      audioData: {
+        widthCanvas,
+        heightCanvas,
+        trackName,
+        trackSize,
+        trackType,
+      },
+    } = this.props;
     return (
       <div className="graphicEqualizer">
         <Graphicequaliser
