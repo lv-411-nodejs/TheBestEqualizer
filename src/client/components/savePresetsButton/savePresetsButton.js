@@ -9,8 +9,8 @@ const SavePresetsButton = ({ showHideModalBlock }) => (
     {saveIcon}
     {' '}
     Save Preset
-    </button>
-  );
+  </button>
+);
 
 
 SavePresetsButton.propTypes = {

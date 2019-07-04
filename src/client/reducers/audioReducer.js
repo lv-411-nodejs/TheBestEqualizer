@@ -22,9 +22,9 @@ const initialState = {
   trackSize: null,
   audioContext,
   analyser,
-  sound: null,  
+  sound: null,
   // from stream
-  voice: null,  
+  voice: null,
   playPauseState: false,
   startMuteState: false,
 };
