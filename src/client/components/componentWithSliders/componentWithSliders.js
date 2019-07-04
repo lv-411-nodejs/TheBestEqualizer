@@ -29,7 +29,7 @@ class ComponentWithSliders extends Component {
         {isModalBlockShow && <SavePressetModalBlock showHideModalBlock={this.showHideModalBlock} />}
         <header className="SlidersComponent__header">
           <Button
-            className="ButtonStyleTemplate"
+            className="ButtonStyleTemplate SavePresetButton"
             onClick={this.showHideModalBlock}
             icon={saveIcon}
             value="Save Preset"

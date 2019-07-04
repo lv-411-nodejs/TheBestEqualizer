@@ -15,7 +15,9 @@ const SavePressetesModalWindow = ({ showHideModalBlock, refFocus }) => (
     ref={refFocus}
   >
     <div className="headerModalWindow">
-      {cancelIcon}
+      <span onClick={showHideModalBlock}>
+        {cancelIcon}
+      </span>
     </div>
     <div className="textArea">
       <strong>Please type presset&#39;s name</strong>

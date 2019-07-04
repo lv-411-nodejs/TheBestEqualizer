@@ -202,7 +202,7 @@ class Equalizer extends Component {
 
     const StartStreamButton = (
       <Button
-        className="ButtonStyleTemplate"
+        className="ButtonStyleTemplate StartStreamButton"
         onClick={startMuteStream}
         icon={startStreamIcon}
         value="Start stream"

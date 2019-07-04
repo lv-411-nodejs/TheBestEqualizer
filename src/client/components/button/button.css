@@ -6,9 +6,10 @@
   background-color: var(--rangeSlider-ocean);
 
   display: flex;
-  width: 100px;
+  width: 150px;
   height: 30px;
-  margin: auto 30px;
+  line-height: 30px;
+  margin: auto 10px;
   letter-spacing: 1px;
   border-radius: 4px;
   align-content: center;
@@ -28,4 +29,5 @@
 .ButtonStyleTemplate .icon {
   font-size: var(--fontSize-ButtonsIcons);
   margin-right: 5px;
+  line-height: 30px;
 }
