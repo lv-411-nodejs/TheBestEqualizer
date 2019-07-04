@@ -46,7 +46,7 @@ class Equalizer extends Component {
 
     audioStream.srcObject = stream;
     audioStream.muted = true;
-    
+
     const streamSource = audioContext.createMediaStreamSource(stream);
     const { createStreamData: createStreamDataAsProp } = this.props;
     createStreamDataAsProp({

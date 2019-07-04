@@ -1,6 +1,6 @@
 .modalSavePressetesWindow {
   color: var(--mainText-ordinary-white);
-  border-radius: 5px;
+  border-radius: 8px;
   position: fixed;
   top: 50%;
   margin-top: -100px;
@@ -12,14 +12,18 @@
   box-sizing: border-box;
   letter-spacing: 1.5px;
   z-index: 101;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  -ms-border-radius: 5px;
-  -o-border-radius: 5px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -ms-border-radius: 8px;
+  -o-border-radius: 8px;
 }
 
 .headerModalWindow {
-	text-align: right
+  text-align: right
+}
+
+.headerModalWindow .icon {
+ margin: 10px;
 }
 
 .textArea strong {
@@ -28,18 +32,30 @@
   font-family: var(--font-title);
 }
 
-
-.textArea ins {
-  font-family: var(--font-ordinary);
-  text-decoration: none;
-}
-
 .textArea > * {
+  margin: 10px auto;
 	display: block;
-	margin-top: 10px;
 }
 
-.pressetesButtons {
+.textArea input {
+  background: transparent;
+  color: var(--mainText-ordinary-white);
+  height: 40px;
+  width: 250px;
+  margin-top: 20px;
+  padding-left: 10px;
+  border: none;
+  border-bottom: 1px solid #ffffff;
+  font-family: var(--font-ordinary);
+  font-size: 1.3rem;
+  letter-spacing: 1.2px;
+}
+
+.textArea input:focus {
+  outline: none;
+}
+
+.SaveCancelButtonsContainer {
   position: absolute;
   bottom: 20px;
   width: 100%;    

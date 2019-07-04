@@ -11,10 +11,12 @@ import {
   faTh,
   faPodcast,
   faUser,
-  faStop, faPlay, faPause,
-  faTimes,
+  faStop, 
+  faPlay, 
+  faPause,
   faFlag,
   faMusic,
+  faTimes,
 } from '@fortawesome/free-solid-svg-icons';
 
 export const settingsIcon = <FontAwesomeIcon icon={faCog} className="icon" />;
@@ -29,6 +31,6 @@ export const userIcon = <FontAwesomeIcon icon={faUser} className="icon" />;
 export const stopIcon = <FontAwesomeIcon icon={faStop} className="icon" />;
 export const playIcon = <FontAwesomeIcon icon={faPlay} className="icon" />;
 export const pauseIcon = <FontAwesomeIcon icon={faPause} className="icon" />;
-export const cancelWindowIcon = <FontAwesomeIcon icon={faTimes} />;
 export const startStreamIcon = <FontAwesomeIcon icon={faFlag} className="icon" />;
 export const musicIcon = <FontAwesomeIcon icon={faMusic} className="icon" />;
+export const cancelIcon = <FontAwesomeIcon icon={faTimes} className="icon" />;
