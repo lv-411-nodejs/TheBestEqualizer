@@ -24,8 +24,7 @@ class Equalizer extends Component {
   }
 
   componentDidMount() { 
-    this.detectStreamSoundFromMicrophone();
-    // this.renderEqualizer();
+    this.detectStreamSoundFromMicrophone();    
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -137,14 +136,17 @@ class Equalizer extends Component {
     analyser.getByteFrequencyData(uint8Array);
     const { width, height } = ctx.canvas;
     const numbersOfRectengle = 52;
-    const totalAreaOfRectangles = 5 / 6;
+    const totalAreaOfRectangles = 5 / 6 * width;
     const rectangleCornerRadius = 2;
     const rectangleMaxHeight = 512;
-    const countColumns = Math.floor(width / numbersOfRectengle);
-    const columnWidth = Math.floor(totalAreaOfRectangles * width / numbersOfRectengle);
-    console.log(width, columnWidth,  countColumns )
-    ctx.clearRect(0, 0, width, height);
-    for (let x = 0; x < width; x += countColumns) {
+    const widthColumnWithPadding = width / numbersOfRectengle;    
+    const columnWidth = totalAreaOfRectangles / numbersOfRectengle;
+    const paddingColumn = (widthColumnWithPadding - columnWidth) / 2;
+    console.log(width, paddingColumn, columnWidth,  widthColumnWithPadding )
+    ctx.clearRect(0, 0, width, height, );
+    let krok = 0;
+    for (let x = 0; x < width - widthColumnWithPadding; x += columnWidth + 2 * paddingColumn) {
+      krok += 1;
       const ndx = Math.floor(x * numPoints / width);
       const vol = uint8Array[ndx];
       const y = vol * height / rectangleMaxHeight;
@@ -153,6 +155,7 @@ class Equalizer extends Component {
         isFirstColorForEqualizerUsed);
       isFirstColorForEqualizerUsed = !isFirstColorForEqualizerUsed;
     }
+    console.log(krok)
     if (playPauseState === true || startMuteState === true) {
       console.log('aqua')
       requestAnimationFrame(this.renderEqualizer);
