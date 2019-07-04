@@ -27,8 +27,7 @@ class Equalizer extends Component {
     this.detectStreamSoundFromMicrophone();
   }
 
-  static getDerivedStateFromProps(nextProps) {
-    const { audioData } = nextProps;
+  static getDerivedStateFromProps({ audioData }) {
     const { analyser, audioContext } = audioData;
     const howManyFrequancyCut = 300;
     const numPoints = analyser.frequencyBinCount - howManyFrequancyCut;
@@ -76,17 +75,19 @@ class Equalizer extends Component {
         path: audioFile.src,
         loop: true,
       },
-    }, () => {
-      const { audioData } = this.props;
-      const { analyser } = audioData;
-      sound.connect(analyser);
-      const { createAudioData: createAudioDataAsProp } = this.props;
-      createAudioDataAsProp({
-        sound,
-        trackName: file.name,
-        trackType: file.type,
-        trackSize: file.size,
-      });
+    }, () => this.createSoundInfoInState(sound, file));
+  };
+
+  createSoundInfoInState = (sound, file) => {
+    const { audioData } = this.props;
+    const { analyser } = audioData;
+    sound.connect(analyser);
+    const { createAudioData: createAudioDataAsProp } = this.props;
+    createAudioDataAsProp({
+      sound,
+      trackName: file.name,
+      trackType: file.type,
+      trackSize: file.size,
     });
   }
 
