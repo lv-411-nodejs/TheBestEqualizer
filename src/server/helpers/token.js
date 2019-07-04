@@ -16,7 +16,7 @@ export const generate = (payload, life = tokenLife) => {
 };
 
 export const middleware = (req, res, next) => {
-  let token = req.headers['x-access-token'];
+  const token = req.headers['x-access-token'];
   if (!token) {
     return response(res, {
       success: false,

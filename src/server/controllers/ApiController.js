@@ -38,13 +38,13 @@ export default class ApiController {
       .find((token, index) => token.ref === refresh);
 
     if (findedRefreshToken) {
-      let index = availableTokens.indexOf(findedRefreshToken);
+      const index = availableTokens.indexOf(findedRefreshToken);
       availableTokens.splice(index, 1);
 
       return res.status(200).json({ token: generateTokens({ userId }) });
-    } else {
-      return response(res, { err: 'Refresh expired' }, 403);
     }
+
+    return response(res, { err: 'Refresh expired' }, 403);
   }
 }
 
