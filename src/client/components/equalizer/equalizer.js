@@ -43,7 +43,7 @@ class Equalizer extends Component {
     const voice = new Pizzicato.Sound({
       source: 'input',
     });
-    const { createStreamData: createStreamDataAsProp } = this.props;
+    const { createStreamDataAsProp } = this.props;
     createStreamDataAsProp({
       voice,
     });
@@ -80,7 +80,7 @@ class Equalizer extends Component {
   createSoundInfoInState = (sound, file) => {
     const { audioData: { analyser } } = this.props;
     sound.connect(analyser);
-    const { createAudioData: createAudioDataAsProp } = this.props;
+    const { createAudioDataAsProp } = this.props;
     createAudioDataAsProp({
       sound,
       trackName: file.name,
@@ -94,7 +94,7 @@ class Equalizer extends Component {
        audioData: {
          sound,
          playPauseState,
-       }, playPauseSoundFromFile: playPauseSoundFromFileAsProp,
+       }, playPauseSoundFromFileAsProp,
      } = this.props;
      if (!playPauseState) {
        sound.play();
@@ -119,7 +119,7 @@ class Equalizer extends Component {
     } else {
       voice.pause();
     }
-    const { startMuteStreamAudio: startMuteStreamAudioAsProp } = this.props;
+    const { startMuteStreamAudioAsProp } = this.props;
     await startMuteStreamAudioAsProp();
     await this.renderEqualizer();
   }
@@ -215,10 +215,10 @@ class Equalizer extends Component {
 }
 
 Equalizer.propTypes = {
-  createAudioData: PropTypes.func.isRequired,
-  playPauseSoundFromFile: PropTypes.func.isRequired,
-  createStreamData: PropTypes.func.isRequired,
-  startMuteStreamAudio: PropTypes.func.isRequired,
+  createAudioDataAsProp: PropTypes.func.isRequired,
+  playPauseSoundFromFileAsProp: PropTypes.func.isRequired,
+  createStreamDataAsProp: PropTypes.func.isRequired,
+  startMuteStreamAudioAsProp: PropTypes.func.isRequired,
   audioData: PropTypes.instanceOf(Object).isRequired,
 };
 
@@ -227,8 +227,8 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps, {
-  createAudioData,
-  playPauseSoundFromFile,
-  createStreamData,
-  startMuteStreamAudio,
+  createAudioDataAsProp: createAudioData,
+  playPauseSoundFromFileAsProp: playPauseSoundFromFile,
+  createStreamDataAsProp: createStreamData,
+  startMuteStreamAudioAsProp: startMuteStreamAudio,
 })(Equalizer);
