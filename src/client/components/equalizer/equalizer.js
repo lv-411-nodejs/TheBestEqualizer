@@ -139,14 +139,15 @@ class Equalizer extends Component {
     const numbersOfRectengle = 52;
     const totalAreaOfRectangles = 5 / 6;
     const rectangleCornerRadius = 2;
-    const rectangleMaxWidth = 512;
+    const rectangleMaxHeight = 512;
     const countColumns = Math.floor(width / numbersOfRectengle);
     const columnWidth = Math.floor(totalAreaOfRectangles * width / numbersOfRectengle);
+    console.log(width, columnWidth,  countColumns )
     ctx.clearRect(0, 0, width, height);
     for (let x = 0; x < width; x += countColumns) {
       const ndx = Math.floor(x * numPoints / width);
       const vol = uint8Array[ndx];
-      const y = vol * height / rectangleMaxWidth;
+      const y = vol * height / rectangleMaxHeight;
       this.roundedRect(ctx, x, height / 2, columnWidth, y,
         rectangleCornerRadius,
         isFirstColorForEqualizerUsed);
@@ -186,8 +187,7 @@ class Equalizer extends Component {
       playSoundFromFile,
       uploadSoundInfoFromFile,
       setCanvasToState,
-    } = this;
-    
+    } = this;    
     const { audioData } = this.props;
     const {
       widthCanvas,
@@ -197,13 +197,13 @@ class Equalizer extends Component {
       trackType,
     } = audioData;
     return (
-      <div className="graphic_equalizer">
+      <div className="graphicEqualizer">
         <Graphicequaliser
           width={widthCanvas}
           height={heightCanvas}
           getCanvasEl={setCanvasToState}
         />
-        <div className="ButtonsContainer">
+        <div className="buttonsContainer">
           <Streambutton onclickhandler={startMuteStream} />          
           <Uploadbutton handleInfoFromSound={uploadSoundInfoFromFile} />
           <PlayButton hadlesound={playSoundFromFile} />
