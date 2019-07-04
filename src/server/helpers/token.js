@@ -1,26 +1,41 @@
 import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
-import { response } from '../helpers/errorHandler';
+import dotenv from 'dotenv';
+import response from './errorHandler';
 
-const { SECRET = '669141b534e06cf5c0271a389b79ebc11910f86bd210a74b6f00fcb974010809' } = process.env;
+dotenv.config();
+
+const { SECRET } = process.env;
 const tokenLife = '15m';
 
-export const generate = (payload, life = tokenLife) => {
+/**
+ *
+ * @param {object} payload { userId }
+ * @param {string} [life]
+ * @return {object}
+ */
+export const generateTokensPair = (payload, life = tokenLife) => {
   const refresh = crypto.randomBytes(24).toString('hex');
   const access = jwt.sign({
     ...payload,
-    _refresh: refresh
+    _refresh: refresh,
   }, SECRET, { expiresIn: life });
 
   return { refresh, access };
 };
 
+/**
+ *
+ * @param {object} req { userId }
+ * @param {object} res
+ * @param {function} next
+ */
 export const middleware = (req, res, next) => {
   const token = req.headers['x-access-token'];
   if (!token) {
     return response(res, {
       success: false,
-      message: 'No token provided.'
+      message: 'No token provided.',
     }, 403);
   }
 
@@ -28,11 +43,12 @@ export const middleware = (req, res, next) => {
     if (err) {
       return response(res, {
         success: false,
-        message: 'Failed to authenticate token.'
+        message: 'Failed to authenticate token.',
       }, 403);
     }
 
     req.userId = decoded.userId;
-    next();
+    return next();
   });
+  return null;
 };

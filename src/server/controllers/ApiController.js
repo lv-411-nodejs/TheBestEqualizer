@@ -1,41 +1,62 @@
 import User from '../models/user';
-import { response } from '../helpers/errorHandler';
-import { generate } from '../helpers/token';
+import response from '../helpers/errorHandler';
+import { generateTokensPair } from '../helpers/token';
 
 const availableTokens = [];
 
+const saveUserInDB = (res, user) => (
+  user
+    .save()
+    .then(() => res.status(201).json({ result: 'User created' }))
+    .catch(err => response(res, err.message, 422))
+);
+
+const generateTokens = (user) => {
+  const tokens = generateTokensPair(user);
+  availableTokens.push({ ref: tokens.refresh, userId: user.userId });
+  return tokens;
+};
+
+const passwordComparison = (res, foundUser, receivedPassword) => (
+  foundUser.verifyPassword(receivedPassword)
+    .then(comparisonResult => (comparisonResult
+      ? res.status(200).json({ token: generateTokens({ userId: foundUser._id }) })
+      : response(res, 'Login failed', 404)))
+    .catch(err => response(res, err.message, 404))
+);
+
 export default class ApiController {
-  static postRegistrationHandler (req, res, next) {
+  static postRegistrationHandler(req, res) {
     const { username, email, password } = req.body;
     const user = new User({ username, email, password });
     User
       .findOne({ email })
-      .then(foundUser => foundUser
+      .then(foundUser => (foundUser
         ? response(res, 'User already exists!', 404)
-        : saveUserInDB(res, user))
+        : saveUserInDB(res, user)))
       .catch(err => response(res, err.message, 404));
-  };
+  }
 
-  static postLoginHandler (req, res, next) {
+  static postLoginHandler(req, res) {
     const { email, password: receivedPassword } = req.body;
     User
       .findOne({ email })
-      .then(foundUser => foundUser
+      .then(foundUser => (foundUser
         ? passwordComparison(res, foundUser, receivedPassword)
-        : response(res, 'Login failed', 404))
+        : response(res, 'Login failed', 404)))
       .catch(err => response(res, err.message, 401));
-  };
+  }
 
   /**
    *
    * @param {string} refresh
    * @param {string} userId
    */
-  static refreshTokenHandler (req, res) {
+  static refreshTokenHandler(req, res) {
     const { refresh, userId } = req.body;
 
     const findedRefreshToken = availableTokens
-      .find((token, index) => token.ref === refresh);
+      .find(token => token.ref === refresh);
 
     if (findedRefreshToken) {
       const index = availableTokens.indexOf(findedRefreshToken);
@@ -47,24 +68,3 @@ export default class ApiController {
     return response(res, { err: 'Refresh expired' }, 403);
   }
 }
-
-const passwordComparison = (res, foundUser, receivedPassword) => (
-  foundUser.verifyPassword(receivedPassword)
-    .then(comparisonResult => comparisonResult
-      ? res.status(200).json({ token: generateTokens({ userId: foundUser._id }) })
-      : response(res, 'Login failed', 404))
-    .catch(err => response(res, err.message, 404))
-);
-
-const saveUserInDB = (res, user) => (
-  user
-    .save()
-    .then(() => res.status(201).json({ result: 'User created' }))
-    .catch(err => response(res, err.message, 422))
-);
-
-const generateTokens = (user) => {
-  const tokens = generate(user);
-  availableTokens.push({ ref: tokens.refresh, userId: user.userId });
-  return tokens;
-};
