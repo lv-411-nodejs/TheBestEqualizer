@@ -24,8 +24,7 @@ const initialState = {
   analyser,
   sound: null,  
   // from stream
-  audioStream: null,
-  streamSource: null,
+  voice: null,  
   playPauseState: false,
   startMuteState: false,
 };
@@ -55,11 +54,10 @@ export default function (state = initialState, action) {
         playPauseState: !state.playPauseState,
       };
     case CREATE_STREAME_DATA: {
-      const { audioStream, streamSource } = action.payload;
+      const { voice } = action.payload;
       return {
         ...state,
-        audioStream,
-        streamSource,
+        voice,
       };
     }
     case START_MUTE_STREAME_AUDIO:

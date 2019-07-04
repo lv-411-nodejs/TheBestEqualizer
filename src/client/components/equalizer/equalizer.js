@@ -20,35 +20,35 @@ class Equalizer extends Component {
     analyser: null,
     ctx: null,
     numPoints: null,
-    heightArray: null,    
+    uint8Array: null,    
   }
 
-  componentDidMount() {    
-    const { audioData } = this.props;
+  componentDidMount() { 
+    this.detectStreamSoundFromMicrophone();
+    // this.renderEqualizer();
+  }
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    const { audioData } = nextProps;
     const { analyser, audioContext } = audioData;
     const howManyFrequancyCut = 300;
     const numPoints = analyser.frequencyBinCount - howManyFrequancyCut;
     const uint8Array = new Uint8Array(numPoints);
-    this.setState({      
+    return {      
       numPoints,
-      heightArray: uint8Array,
+      uint8Array,
       analyser,
       audioContext,
-    });
-     this.detectStreamSoundFromMicrophone();
-    // await this.renderEqualizer();
-  }
+    }
+    };  
 
-  createSoundStream = (stream) => {
-    const { audioContext } = this.state;
-    const audioStream = new Audio();
-    audioStream.srcObject = stream;
-    audioStream.muted = true;    
-    const streamSource = audioContext.createMediaStreamSource(stream);
+  createSoundStream = () => {   
+    const voice = new Pizzicato.Sound({
+      source: 'input',
+    })        
     const { createStreamData: createStreamDataAsProp } = this.props;
     createStreamDataAsProp({
-      audioStream,
-      streamSource,
+      voice,
     });
   }
 
@@ -57,9 +57,11 @@ class Equalizer extends Component {
       navigator.mediaDevices.getUserMedia({
         audio: true,
       })
-        .then(stream => this.createSoundStream(stream))
-        .catch((e) => {
-          throw new Error(e);
+        .then(           
+          this.createSoundStream()
+        )
+        .catch((errorStream) => {
+          throw new Error(errorStream);
         });
     } else {
       throw new Error('browser doesnt support audio API');
@@ -107,37 +109,32 @@ class Equalizer extends Component {
     await this.renderEqualizer();
   }
 
-  startMuteStream = () => {
+  startMuteStream = async () => {
     const { audioData } = this.props;
     const {
-      audioStream,
-      audioContext,
       analyser,
-      streamSource,
+      voice,
       startMuteState,
     } = audioData;
     if (!startMuteState) {
-      streamSource.connect(analyser);
-      analyser.connect(audioContext.destination);
-      // play/pause function doesn't work
-      audioStream.play();
-      this.equaliserRun();
+      voice.connect(analyser); 
+      voice.play();      
     } else {
-      streamSource.disconnect(analyser);
-      audioStream.pause();
+      voice.pause();
     }
     const { startMuteStreamAudio: startMuteStreamAudioAsProp } = this.props;
-    startMuteStreamAudioAsProp();
+    await startMuteStreamAudioAsProp();
+    await this.renderEqualizer();
   }
 
   renderEqualizer = () => {
     const {
-      analyser, heightArray, ctx, numPoints,
+      analyser, uint8Array, ctx, numPoints,
     } = this.state;
     const { audioData } = this.props;
     const { playPauseState, startMuteState } = audioData;    
     let isFirstColorForEqualizerUsed = true;
-    analyser.getByteFrequencyData(heightArray);
+    analyser.getByteFrequencyData(uint8Array);
     const { width, height } = ctx.canvas;
     const numbersOfRectengle = 52;
     const totalAreaOfRectangles = 5 / 6;
@@ -148,7 +145,7 @@ class Equalizer extends Component {
     ctx.clearRect(0, 0, width, height);
     for (let x = 0; x < width; x += countColumns) {
       const ndx = Math.floor(x * numPoints / width);
-      const vol = heightArray[ndx];
+      const vol = uint8Array[ndx];
       const y = vol * height / rectangleMaxWidth;
       this.roundedRect(ctx, x, height / 2, columnWidth, y,
         rectangleCornerRadius,
@@ -175,18 +172,13 @@ class Equalizer extends Component {
     ctx.arcTo(x, y - heightReq, x, y - heightReq + radius, radius);
     ctx.fillStyle = flagColor ? '#05D8C5' : '#FFFFFF';
     ctx.fill();
-  }
-
- 
+  } 
 
   setCanvasToState = (canvasEl) => {
     this.setState({
       ctx: canvasEl.getContext('2d'),
     })
-
-
   }
-
 
   render() {    
     const {
