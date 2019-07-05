@@ -79,7 +79,7 @@ class Equalizer extends Component {
 
   createSoundInfoInState = (sound, file) => {
     const { audioData: { analyser }, createAudioDataAsProp } = this.props;
-    sound.connect(analyser);    
+    sound.connect(analyser);
     createAudioDataAsProp({
       sound,
       trackName: file.name,
