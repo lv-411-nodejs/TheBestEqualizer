@@ -65,8 +65,8 @@ class Equalizer extends Component {
     }
   }
 
-  uploadSoundInfoFromFile = (e) => {
-    const [file] = e.target.files;
+  uploadSoundInfoFromFile = (eventFromInputFile) => {
+    const [file] = eventFromInputFile.target.files;
     const audioFile = new Audio(URL.createObjectURL(file));
     const sound = new Pizzicato.Sound({
       source: 'file',
@@ -78,9 +78,8 @@ class Equalizer extends Component {
   };
 
   createSoundInfoInState = (sound, file) => {
-    const { audioData: { analyser } } = this.props;
-    sound.connect(analyser);
-    const { createAudioDataAsProp } = this.props;
+    const { audioData: { analyser }, createAudioDataAsProp } = this.props;
+    sound.connect(analyser);    
     createAudioDataAsProp({
       sound,
       trackName: file.name,
