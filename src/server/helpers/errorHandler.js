@@ -1,3 +1,3 @@
-export const response = (res, message, code) => {
+export default (res, message, code) => {
   res.status(code || 500).json({ error: message });
 };

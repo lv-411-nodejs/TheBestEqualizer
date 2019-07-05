@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
-import routes from './routes/api';
 import bodyParser from 'body-parser';
+import routes from './routes/api';
 import dbConnect from './helpers/database';
 
 const app = express();
