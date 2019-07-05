@@ -1,0 +1,80 @@
+.authentication {
+    font-family: var(--font-authentication);
+    color: var(--authFont-white);
+    background-image: url('../../assets/images/authBackground.jpeg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.title {
+    font-size: 3rem;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.form-container {
+    width: 320px;
+    padding: 0 1rem;
+}
+
+.message {
+    color: var(--authFont-white);
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    outline: none;
+}
+
+.message:hover {
+    text-decoration: underline;
+}
+
+@media screen and (min-width: 1440px) {
+    .authImage {
+        width: 40%;
+    }
+
+    .form-container {
+        width: 20%;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .authImage {
+        width: 60%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .authentication {
+        flex-wrap: wrap;
+    }
+    
+    .form-container {
+        margin-top: -15rem;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .authentication {
+        align-items: flex-start;
+    }
+
+    .authImage {
+        width: 100%;
+    }
+
+    .form-container {
+        margin-top: -5rem;
+        width: 70%;
+    }
+
+    .title {
+        font-size: 2rem;
+        margin-bottom: 0;
+    }
+}

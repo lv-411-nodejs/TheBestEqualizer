@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import {
   AdditionalConfigs,
@@ -11,7 +11,7 @@ import {
 import './main.css';
 
 const Main = () => (
-  <Fragment>
+  <div className="main">
     <MainPageHeader />
     <AdditionalConfigs />
     <SoundModes />
@@ -19,7 +19,7 @@ const Main = () => (
     <ComponentWithSliders />
     <Link to="/login">Login</Link>
     <Link to="/registration">Registration</Link>
-  </Fragment>
+  </div>
 );
 
 export default Main;

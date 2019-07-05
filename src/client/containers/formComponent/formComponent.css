@@ -1,34 +1,40 @@
 .field input, button[class=submit] {
-    margin-bottom: 1rem;
     width: 100%;
 }
 
 .field input {
-    border: none;
-    border-bottom: 2px solid rgb(20, 19, 17);
-    background-color: transparent;
-    outline: none;
-    height: 1rem;
-    padding-left: 0.5rem;
-    color: rgb(0, 255, 255);
+    border-radius: 0.5rem;
+    height: 2rem;
+    color: var(--authInputFont-black);
 }
 
 ::placeholder {
-    color: rgb(0, 255, 255);
+    color: var(--authInputFont-black);
 }
 
 .submit {
     border: none;
     outline: none;
-    height: 2rem;
-    background:  rgb(0, 255, 255);
-    color: rgb(20, 19, 17);
+    height: 3rem;
+    background: #1b072b;
+    color: var(--authFont-white);
     font-weight: bold;
-    font-size: 1rem;
+    font-size: 1.5rem;
     cursor: pointer;
     border-radius: 1rem;
 }
 .submit:hover {
-    background: rgb(20, 19, 17);
-    color: rgb(0, 255, 255);
+    background: #39006b;
+    color: var(--authInputFont-black);
+}
+
+.submit:active {
+    transform: matrix(0.95, 0, 0, 0.95, 0, 0);
+}
+
+@media screen and (max-width: 500px) {
+    .submit {
+        height: 2rem;
+        font-size: 1rem;
+    }
 }
