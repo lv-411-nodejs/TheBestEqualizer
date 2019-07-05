@@ -1,8 +1,7 @@
 .authentication {
     font-family: var(--font-authentication);
     color: var(--authFont-white);
-    background-image: url('../../assets/images/authBackground.jpeg');
-    background-repeat: no-repeat;
+    background: url(../../assets/images/authBackground.jpeg) no-repeat;
     background-size: cover;
     display: flex;
     justify-content: center;
@@ -43,9 +42,13 @@
     }
 }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1024px) {
     .authImage {
         width: 60%;
+    }
+
+    .form-container {
+        width: 80%;
     }
 }
 
@@ -55,26 +58,24 @@
     }
     
     .form-container {
-        margin-top: -15rem;
+        width: 60%;
+    }
+
+    .form-container {
+        margin-top: -10rem;
     }
 }
 
 @media screen and (max-width: 500px) {
-    .authentication {
-        align-items: flex-start;
-    }
-
     .authImage {
-        width: 100%;
+        display: none;
     }
 
     .form-container {
-        margin-top: -5rem;
-        width: 70%;
+        width: 80%;
     }
 
     .title {
         font-size: 2rem;
-        margin-bottom: 0;
     }
 }
