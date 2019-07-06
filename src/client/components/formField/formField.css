@@ -17,3 +17,9 @@
     margin: 0 0 0.5rem;
   }
 }
+
+@media screen and (max-height: 754px) {
+  .field input {
+    height: 0.5rem;
+  }
+}
