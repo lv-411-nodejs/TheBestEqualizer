@@ -118,7 +118,7 @@ class Equalizer extends Component {
       voice.play();
     } else {
       voice.pause();
-    }    
+    }
     await startMuteStreamAudioAsProp();
     await this.renderEqualizer();
   }
