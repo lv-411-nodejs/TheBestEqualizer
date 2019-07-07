@@ -28,7 +28,7 @@ class Equalizer extends Component {
   }
 
   static getDerivedStateFromProps({ audioData: { analyser, audioContext } }) {
-    const howManyFrequancyCut = 300;
+    const howManyFrequancyCut = 20;
     const numPoints = analyser.frequencyBinCount - howManyFrequancyCut;
     const uint8Array = new Uint8Array(numPoints);
     return {
@@ -111,14 +111,14 @@ class Equalizer extends Component {
         voice,
         startMuteState,
       },
+      startMuteStreamAudioAsProp,
     } = this.props;
     if (!startMuteState) {
       voice.connect(analyser);
       voice.play();
     } else {
       voice.pause();
-    }
-    const { startMuteStreamAudioAsProp } = this.props;
+    }    
     await startMuteStreamAudioAsProp();
     await this.renderEqualizer();
   }
