@@ -6,7 +6,7 @@ const FormField = ({ el: { name, label, type }, onInputChange }) => (
   <div>
     <label htmlFor="field" className="label">{label}</label>
     <div className="field">
-      <input id="field" onChange={onInputChange} name={name} type={type} />
+      <input onChange={onInputChange} name={name} type={type} />
     </div>
   </div>
 );
