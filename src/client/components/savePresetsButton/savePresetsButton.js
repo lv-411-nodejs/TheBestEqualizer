@@ -17,4 +17,9 @@ SavePresetsButton.propTypes = {
   showHideModalBlock: PropTypes.func.isRequired,
 };
 
+
+SavePresetsButton.propTypes = {
+  showHideModalBlock: PropTypes.func.isRequired,
+};
+
 export default SavePresetsButton;
