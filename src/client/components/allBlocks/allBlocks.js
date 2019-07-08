@@ -115,19 +115,16 @@ class AllBlocks extends Component {
             {blocksData.map(({
               name, effects, createEffect, isVisible,
             }, i) => {
-              if (isVisible) {
-                return (
-                  <BlockOfSliders
-                    name={name}
-                    effects={effects}
-                    createEffect={createEffect}
-                    key={i}
-                    sound={sound}
-                    setEffectsValue={this.setEffectsValue}
-                  />
-                );
-              }
-              return null;
+              return isVisible ?
+                <BlockOfSliders
+                  name={name}
+                  effects={effects}
+                  createEffect={createEffect}
+                  key={i}
+                  sound={sound}
+                  setEffectsValue={this.setEffectsValue}
+                /> :
+                null;
             })}
           </div>
         </div>
