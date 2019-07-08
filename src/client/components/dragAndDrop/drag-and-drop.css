@@ -1,3 +1,23 @@
+.container:hover {
+    color: var(--rangeSlider-ocean);
+    border: 1px dashed var(--mainText-accent-blue);
+    background-color: var(--mainText-ordinary-white);
+    cursor: pointer;
+}
+
 .container {
-    border: none;
+    font-family: var(--font-ordinary);
+    font-size: 20px;
+    color: var(--mainText-ordinary-white);
+    border: 1px dashed var(--mainText-accent-blue);
+    background-color: var(--rangeSlider-ocean);
+    margin-bottom: 10px;
+    text-align: center;
+}
+.container input {
+    outline: none;
+    height: 100px;
+}
+.containerForInput {
+    padding: 59px 10px 59px 10px;
 }

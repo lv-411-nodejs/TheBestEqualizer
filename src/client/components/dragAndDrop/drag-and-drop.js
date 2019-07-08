@@ -5,6 +5,8 @@ import Pizzicato from 'pizzicato';
 import Dropzone from 'react-dropzone';
 import { createAudioData } from '../../actions/audioActions';
 
+import './drag-and-drop.css';
+
 
 class DragAndDrop extends Component {
     onDrop = (acceptedFiles) => {
@@ -43,8 +45,8 @@ class DragAndDrop extends Component {
           {({
             getRootProps, getInputProps, isDragActive, isDragReject,
           }) => (
-            <div {...getRootProps()}>
-              <input {...getInputProps()} onChange={this.onDrop} />
+            <div {...getRootProps()} className="containerForInput">
+              <input {...getInputProps()} />
               {!isDragActive && 'Click here or drop a file to upload!'}
               {isDragActive && !isDragReject && "Drop it like it's hot!"}
               {isDragReject && 'File type not accepted, sorry!'}
