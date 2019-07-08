@@ -114,8 +114,8 @@ class AllBlocks extends Component {
           <div className="Sliders">
             {blocksData.map(({
               name, effects, createEffect, isVisible,
-            }, i) => {
-              return isVisible ?
+            }, i) => (isVisible
+              ? (
                 <BlockOfSliders
                   name={name}
                   effects={effects}
@@ -123,9 +123,9 @@ class AllBlocks extends Component {
                   key={i}
                   sound={sound}
                   setEffectsValue={this.setEffectsValue}
-                /> :
-                null;
-            })}
+                />
+              )
+              : null))}
           </div>
         </div>
         <div className="Buttons">
