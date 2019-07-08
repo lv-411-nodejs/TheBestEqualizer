@@ -7,9 +7,9 @@ const FormComponent = ({ fieldsToRender, onInputChange, onFormSubmit, userData }
   <div>
     <form onSubmit={onFormSubmit} className="form-body" autoComplete="off">
       <RenderFormFields 
-        fieldsToRender={fieldsToRender} 
-        onInputChange={onInputChange} 
-        userData={userData} />
+        fieldsToRender={ fieldsToRender } 
+        onInputChange={ onInputChange } 
+        userData={ userData } />
       <div className="field">
         <button type="submit" className="submit">Submit</button>
       </div>
