@@ -43,7 +43,7 @@ class Authentication extends Component {
         path = '/login';
         data = { email, password };
       }
-     
+      
       post(path, data, history);
     };
 
