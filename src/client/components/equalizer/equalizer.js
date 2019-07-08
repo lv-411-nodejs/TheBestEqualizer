@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+
+import Pizzicato from 'pizzicato';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Graphicequaliser from './canvasEqualizer';
@@ -6,13 +8,13 @@ import Button from '../button';
 import UploadButton from './upload';
 import InfoAboutTrack from './upload/infoAboutFile';
 import { startStreamIcon, playIcon, stopIcon } from '../../assets/icons/icons';
+
 import './equalizer.css';
 import {
   createAudioData,
   playPauseSoundFromFile,
   createStreamData,
   startMuteStreamAudio,
-  mergeCanvasWidth,
 } from '../../actions/audioActions';
 
 class Equalizer extends Component {
@@ -20,38 +22,32 @@ class Equalizer extends Component {
     analyser: null,
     ctx: null,
     numPoints: null,
-    heightArray: null,
+    uint8Array: null,
   }
 
   componentDidMount() {
     this.detectStreamSoundFromMicrophone();
-    const canvasEl = document.querySelector('canvas').getContext('2d');
-    const { audioData } = this.props;
-    const { analyser, audioContext } = audioData;
-    const howManyFrequancyCut = 300;
-    const numPoints = analyser.frequencyBinCount - howManyFrequancyCut;
-    const uint8Array = new Uint8Array(numPoints);
-    this.setState({
-      ctx: canvasEl,
-      numPoints,
-      heightArray: uint8Array,
-      analyser,
-      audioContext,
-    });
   }
 
-  createSoundStream = (stream) => {
-    const { audioContext } = this.state;
-    const audioStream = new Audio();
+  static getDerivedStateFromProps({ audioData: { analyser, audioContext } }) {
+    const howManyFrequancyCut = 20;
+    const numPoints = analyser.frequencyBinCount - howManyFrequancyCut;
+    const uint8Array = new Uint8Array(numPoints);
+    return {
+      numPoints,
+      uint8Array,
+      analyser,
+      audioContext,
+    };
+  }
 
-    audioStream.srcObject = stream;
-    audioStream.muted = true;
-
-    const streamSource = audioContext.createMediaStreamSource(stream);
-    const { createStreamData: createStreamDataAsProp } = this.props;
+  createSoundStream = () => {
+    const voice = new Pizzicato.Sound({
+      source: 'input',
+    });
+    const { createStreamDataAsProp } = this.props;
     createStreamDataAsProp({
-      audioStream,
-      streamSource,
+      voice,
     });
   }
 
@@ -60,129 +56,124 @@ class Equalizer extends Component {
       navigator.mediaDevices.getUserMedia({
         audio: true,
       })
-        .then(stream => this.createSoundStream(stream))
-        .catch((e) => {
-          throw new Error(e);
+        .then(
+          this.createSoundStream(),
+        )
+        .catch((errorStream) => {
+          throw new Error(errorStream);
         });
     } else {
       throw new Error('browser doesnt support audio API');
     }
   }
 
-  widthMerge = (eventFromInputTypeRange) => {
-    const { mergeCanvasWidth: mergeCanvasWidthAsProp } = this.props;
-    mergeCanvasWidthAsProp(eventFromInputTypeRange);
+  uploadSoundInfoFromFile = (eventFromInputFile) => {
+    const [file] = eventFromInputFile.target.files;
+    const audioFile = new Audio(URL.createObjectURL(file));
+    const sound = new Pizzicato.Sound({
+      source: 'file',
+      options: {
+        path: audioFile.src,
+        loop: true,
+      },
+    }, () => this.createSoundInfoInState(sound, file));
+  };
+
+  createSoundInfoInState = (sound, file) => {
+    const { audioData: { analyser }, createAudioDataAsProp } = this.props;
+    sound.connect(analyser);
+    createAudioDataAsProp({
+      sound,
+      trackName: file.name,
+      trackType: file.type,
+      trackSize: file.size,
+    });
   }
 
-  playSoundFromFile = () => {
-    const { audioData } = this.props;
-    const { audioFromFile: soundFromFile, playPauseState } = audioData;
-    if (!playPauseState) {
-      soundFromFile.play();
-      this.equaliserRun();
-    } else {
-      soundFromFile.pause();
-    }
-    const { playPauseSoundFromFile: playPauseSoundFromFileAsProp } = this.props;
-    playPauseSoundFromFileAsProp();
-  }
+   playSoundFromFile = async () => {
+     const {
+       audioData: {
+         sound,
+         playPauseState,
+       }, playPauseSoundFromFileAsProp,
+     } = this.props;
+     if (!playPauseState) {
+       sound.play();
+     } else {
+       sound.pause();
+     }
+     await playPauseSoundFromFileAsProp();
+     await this.renderEqualizer();
+   }
 
-  startMuteStream = () => {
-    const { audioData } = this.props;
+  startMuteStream = async () => {
     const {
-      audioStream,
-      audioContext,
-      analyser,
-      streamSource,
-      startMuteState,
-    } = audioData;
-
+      audioData: {
+        analyser,
+        voice,
+        startMuteState,
+      },
+      startMuteStreamAudioAsProp,
+    } = this.props;
     if (!startMuteState) {
-      streamSource.connect(analyser);
-      analyser.connect(audioContext.destination);
-      // play/pause function doesn't work
-      audioStream.play();
-      this.equaliserRun();
+      voice.connect(analyser);
+      voice.play();
     } else {
-      streamSource.disconnect(analyser);
-      audioStream.pause();
+      voice.pause();
     }
-    const { startMuteStreamAudio: startMuteStreamAudioAsProp } = this.props;
-    startMuteStreamAudioAsProp();
-  }
-
-  equaliserRun = () => {
-    requestAnimationFrame(this.renderEqualizer);
+    await startMuteStreamAudioAsProp();
+    await this.renderEqualizer();
   }
 
   renderEqualizer = () => {
     const {
-      analyser, heightArray, ctx, numPoints,
+      analyser, uint8Array, ctx, numPoints,
     } = this.state;
+    const { audioData: { playPauseState, startMuteState } } = this.props;
     let isFirstColorForEqualizerUsed = true;
-    analyser.getByteFrequencyData(heightArray);
+    analyser.getByteFrequencyData(uint8Array);
     const { width, height } = ctx.canvas;
     const numbersOfRectengle = 52;
-    const totalAreaOfRectangles = 5 / 6;
+    const totalAreaOfRectangles = 5 / 6 * width;
     const rectangleCornerRadius = 2;
-    const rectangleMaxWidth = 512;
-    const countColumns = Math.floor(width / numbersOfRectengle);
-    const columnWidth = Math.floor(totalAreaOfRectangles * width / numbersOfRectengle);
+    const rectangleMaxHeight = 512;
+    const widthColumnWithPadding = width / numbersOfRectengle;
+    const columnWidth = totalAreaOfRectangles / numbersOfRectengle;
+    const paddingColumn = (widthColumnWithPadding - columnWidth) / 2;
     ctx.clearRect(0, 0, width, height);
-    for (let x = 0; x < width; x += countColumns) {
-      const ndx = Math.floor(x * numPoints / width);
-      const vol = heightArray[ndx];
-      const y = vol * height / rectangleMaxWidth;
-      this.roundedRect(ctx, x, height / 2, columnWidth, y,
+    for (let x = 0; x < width - widthColumnWithPadding; x += columnWidth + 2 * paddingColumn) {
+      const everageValueOfFreq = Math.floor(x * numPoints / width);
+      const valueOfFrequance = uint8Array[everageValueOfFreq];
+      const rectHeight = valueOfFrequance * height / rectangleMaxHeight;
+      this.roundedRect(ctx, x, height / 2, columnWidth, rectHeight,
         rectangleCornerRadius,
         isFirstColorForEqualizerUsed);
       isFirstColorForEqualizerUsed = !isFirstColorForEqualizerUsed;
     }
-    requestAnimationFrame(this.renderEqualizer);
+    if (playPauseState === true || startMuteState === true) {
+      requestAnimationFrame(this.renderEqualizer);
+    }
   }
 
   roundedRect = (ctx, x, y, width, height, radius, flagColor) => {
+    const heightReq = height < radius ? radius : height;
     ctx.beginPath();
-    ctx.moveTo(x, y - height);
-    ctx.lineTo(x, y + height - radius);
-    ctx.arcTo(x, y + height, x + radius, y + height, radius);
-    ctx.lineTo(x + width - radius, y + height);
-    ctx.arcTo(x + width, y + height, x + width, y + height - radius, radius);
-    ctx.lineTo(x + width, y - height + radius);
-    ctx.arcTo(x + width, y - height, x + width - radius, y - height, radius);
-    ctx.lineTo(x + radius, y - height);
-    ctx.arcTo(x, y - height, x, y - height + radius, radius);
+    ctx.moveTo(x, y - heightReq);
+    ctx.lineTo(x, y + heightReq - radius);
+    ctx.arcTo(x, y + heightReq, x + radius, y + heightReq, radius);
+    ctx.lineTo(x + width - radius, y + heightReq);
+    ctx.arcTo(x + width, y + heightReq, x + width, y + heightReq - radius, radius);
+    ctx.lineTo(x + width, y - heightReq + radius);
+    ctx.arcTo(x + width, y - heightReq, x + width - radius, y - heightReq, radius);
+    ctx.lineTo(x + radius, y - heightReq);
+    ctx.arcTo(x, y - heightReq, x, y - heightReq + radius, radius);
     ctx.fillStyle = flagColor ? '#05D8C5' : '#FFFFFF';
     ctx.fill();
   }
 
-  uploadSoundInfoFromFile = (e) => {
-    const [file] = e.target.files;
-    const { audioData } = this.props;
-    const { audioContext: context, analyser } = audioData;
-    const audio = new Audio(URL.createObjectURL(file));
-    audio.loop = true;
-    audio.crossOrigin = 'anonymous';
-    audio.addEventListener('canplay', () => {
-      try {
-        const audioFromFileSource = context.createMediaElementSource(audio);
-        const { createAudioData: createAudioDataAsProp } = this.props;
-        createAudioDataAsProp({
-          audioFromFile: audio,
-          audioFile: file,
-          audioFromFileSource,
-          trackName: file.name,
-          trackType: file.type,
-          trackSize: file.size,
-        });
-        audioFromFileSource.connect(analyser);
-        analyser.connect(context.destination);
-      } catch (err) {
-        throw new Error(err);
-      }
-    });
-    audio.addEventListener('error', (err) => {
-      throw new Error(err);
+  setCanvasToState = (canvasEl) => {
+    this.setState({
+      ctx: canvasEl.getContext('2d'),
     });
   }
 
@@ -190,8 +181,8 @@ class Equalizer extends Component {
     const {
       startMuteStream,
       playSoundFromFile,
-      widthMerge,
       uploadSoundInfoFromFile,
+      setCanvasToState,
     } = this;
     const { audioData } = this.props;
     const {
@@ -228,11 +219,11 @@ class Equalizer extends Component {
     );
 
     return (
-      <div className="graphic_equalizer">
+      <div className="graphicEqualizer">
         <Graphicequaliser
           width={widthCanvas}
           height={heightCanvas}
-          onChangeWidth={widthMerge}
+          getCanvasEl={setCanvasToState}
         />
         <div className="ButtonsContainer">
           {StartStreamButton}
@@ -249,11 +240,10 @@ class Equalizer extends Component {
 }
 
 Equalizer.propTypes = {
-  createAudioData: PropTypes.func.isRequired,
-  playPauseSoundFromFile: PropTypes.func.isRequired,
-  createStreamData: PropTypes.func.isRequired,
-  startMuteStreamAudio: PropTypes.func.isRequired,
-  mergeCanvasWidth: PropTypes.func.isRequired,
+  createAudioDataAsProp: PropTypes.func.isRequired,
+  playPauseSoundFromFileAsProp: PropTypes.func.isRequired,
+  createStreamDataAsProp: PropTypes.func.isRequired,
+  startMuteStreamAudioAsProp: PropTypes.func.isRequired,
   audioData: PropTypes.instanceOf(Object).isRequired,
 };
 
@@ -262,9 +252,8 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps, {
-  createAudioData,
-  playPauseSoundFromFile,
-  createStreamData,
-  startMuteStreamAudio,
-  mergeCanvasWidth,
+  createAudioDataAsProp: createAudioData,
+  playPauseSoundFromFileAsProp: playPauseSoundFromFile,
+  createStreamDataAsProp: createStreamData,
+  startMuteStreamAudioAsProp: startMuteStreamAudio,
 })(Equalizer);
