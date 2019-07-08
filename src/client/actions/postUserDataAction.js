@@ -19,7 +19,6 @@ const postUserData = (path, newUser, history) => (dispatch) => {
         type: POST_USER_DATA,
         status: 'Authentification was failed',
       });
-      console.error(error);
     });
 };
 
