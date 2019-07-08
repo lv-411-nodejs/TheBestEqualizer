@@ -43,3 +43,7 @@
 .UserName .icon {
   color: var(--mainText-accent-blue);
 }
+
+.UserNameAndLogout {
+  display:flex;
+}
