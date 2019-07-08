@@ -7,6 +7,7 @@ import PlayButton from './playButton';
 import Uploadbutton from './upload';
 import Infoabouttrack from './upload/infoAboutFile';
 import Streambutton from './streamButton';
+import DragAndDrop from '../dragAndDrop';
 import './equalizer.css';
 import {
   createAudioData,
@@ -65,28 +66,6 @@ class Equalizer extends Component {
     }
   }
 
-  uploadSoundInfoFromFile = (eventFromInputFile) => {
-    const [file] = eventFromInputFile.target.files;
-    const audioFile = new Audio(URL.createObjectURL(file));
-    const sound = new Pizzicato.Sound({
-      source: 'file',
-      options: {
-        path: audioFile.src,
-        loop: true,
-      },
-    }, () => this.createSoundInfoInState(sound, file));
-  };
-
-  createSoundInfoInState = (sound, file) => {
-    const { audioData: { analyser }, createAudioDataAsProp } = this.props;
-    sound.connect(analyser);
-    createAudioDataAsProp({
-      sound,
-      trackName: file.name,
-      trackType: file.type,
-      trackSize: file.size,
-    });
-  }
 
    playSoundFromFile = async () => {
      const {
@@ -198,6 +177,7 @@ class Equalizer extends Component {
           height={heightCanvas}
           getCanvasEl={setCanvasToState}
         />
+        <DragAndDrop />
         <div className="buttonsContainer">
           <Streambutton onclickhandler={startMuteStream} />
           <Uploadbutton handleInfoFromSound={uploadSoundInfoFromFile} />
@@ -214,7 +194,6 @@ class Equalizer extends Component {
 }
 
 Equalizer.propTypes = {
-  createAudioDataAsProp: PropTypes.func.isRequired,
   playPauseSoundFromFileAsProp: PropTypes.func.isRequired,
   createStreamDataAsProp: PropTypes.func.isRequired,
   startMuteStreamAudioAsProp: PropTypes.func.isRequired,
