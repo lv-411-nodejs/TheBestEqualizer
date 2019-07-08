@@ -13,7 +13,6 @@ class AllBlocks extends Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      Sound:Sound,
       sound: new Pizzicato.Sound(Sound, this.runSound),
       isPlaying: false,
     };
@@ -53,7 +52,6 @@ class AllBlocks extends Component {
 
   render() {
     const { sound, isPlaying } = this.state;
-    console.log(this.state.sound)
     const PlayButton = (
       <Button
         className="PlayButton"
