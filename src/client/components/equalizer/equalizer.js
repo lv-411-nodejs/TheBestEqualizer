@@ -50,6 +50,29 @@ class Equalizer extends Component {
     });
   }
 
+  uploadSoundInfoFromFile = (eventFromInputFile) => {
+    const [file] = eventFromInputFile.target.files;
+    const audioFile = new Audio(URL.createObjectURL(file));
+    const sound = new Pizzicato.Sound({
+      source: 'file',
+      options: {
+        path: audioFile.src,
+        loop: true,
+      },
+    }, () => this.createSoundInfoInState(sound, file));
+  };
+
+  createSoundInfoInState = (sound, file) => {
+    const { audioData: { analyser }, createAudioDataAsProp } = this.props;
+    sound.connect(analyser);
+    createAudioDataAsProp({
+      sound,
+      trackName: file.name,
+      trackType: file.type,
+      trackSize: file.size,
+    });
+  };
+
   detectStreamSoundFromMicrophone = () => {
     if (navigator.mediaDevices) {
       navigator.mediaDevices.getUserMedia({
@@ -194,6 +217,7 @@ class Equalizer extends Component {
 }
 
 Equalizer.propTypes = {
+  createAudioDataAsProp: PropTypes.func.isRequired,
   playPauseSoundFromFileAsProp: PropTypes.func.isRequired,
   createStreamDataAsProp: PropTypes.func.isRequired,
   startMuteStreamAudioAsProp: PropTypes.func.isRequired,

@@ -8,20 +8,16 @@ import { createAudioData } from '../../actions/audioActions';
 
 class DragAndDrop extends Component {
     onDrop = (acceptedFiles) => {
-      console.log(acceptedFiles);
+      const file = acceptedFiles[0];
+      const audioFile = new Audio(URL.createObjectURL(file));
+      const sound = new Pizzicato.Sound({
+        source: 'file',
+        options: {
+          path: audioFile.src,
+          loop: true,
+        },
+      }, () => this.createSoundInfoInState(sound, file));
     };
-
-  uploadSoundInfoFromFile = (eventFromInputFile) => {
-    const [file] = eventFromInputFile.target.files;
-    const audioFile = new Audio(URL.createObjectURL(file));
-    const sound = new Pizzicato.Sound({
-      source: 'file',
-      options: {
-        path: audioFile.src,
-        loop: true,
-      },
-    }, () => this.createSoundInfoInState(sound, file));
-  };
 
   createSoundInfoInState = (sound, file) => {
     const { audioData: { analyser }, createAudioDataAsProp } = this.props;
@@ -35,43 +31,27 @@ class DragAndDrop extends Component {
   };
 
   render() {
+    const maxSize = 1000000000;
     return (
       <div className="container text-center mt-5">
-        <Dropzone onDrop={this.onDrop} accept="audio/">
+        <Dropzone
+          onDrop={this.onDrop}
+          accept="audio/mp3"
+          minSize={0}
+          maxSize={maxSize}
+        >
           {({
             getRootProps, getInputProps, isDragActive, isDragReject,
           }) => (
-            <section>
-              <div {...getRootProps()}>
-                <input {...getInputProps()} onChange={this.uploadSoundInfoFromFile} />
-                {!isDragActive && 'Click here or drop a file to upload!'}
-                {isDragActive && !isDragReject && "Drop it like it's hot!"}
-                {isDragReject && 'File type not accepted, sorry!'}
-              </div>
-            </section>
-          )}
+            <div {...getRootProps()}>
+              <input {...getInputProps()} onChange={this.onDrop} />
+              {!isDragActive && 'Click here or drop a file to upload!'}
+              {isDragActive && !isDragReject && "Drop it like it's hot!"}
+              {isDragReject && 'File type not accepted, sorry!'}
+            </div>
+          )
+        }
         </Dropzone>
-        {/* <div {...getRootProps()}>
-            <input {...getInputProps()}/>
-            {!isDragActive && 'Click here or drop a file to upload!'}
-            {isDragActive && !isDragReject && "Drop it like it's hot!"}
-            {isDragReject && 'File type not accepted, sorry!'}
-            {isFileTooLarge && (
-              <div className="text-danger mt-2">File is too large.</div>
-            )}
-          </div>
-          <ul className="list-group mt-2">
-            {acceptedFiles.length > 0
-              && acceptedFiles.map((acceptedFile, id) => (
-                <li
-                  key={id}
-                  className="list-group-item list-group-item-success"
-                  onChange={handleInfoFromSound}
-                >
-                  {acceptedFile.name}
-                </li>
-              ))}
-          </ul> */}
       </div>
     );
   }
