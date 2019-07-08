@@ -9,18 +9,16 @@ const FormComponent = ({
   onFormSubmit,
   userData,
 }) => (
-  <div>
-    <form onSubmit={onFormSubmit} className="form-body" autoComplete="off">
-      <RenderFormFields
-        fieldsToRender={fieldsToRender}
-        onInputChange={onInputChange}
-        userData={userData}
-      />
-      <div className="field">
-        <button type="submit" className="submit">Submit</button>
-      </div>
-    </form>
-  </div>
+  <form onSubmit={onFormSubmit} className="form-body" autoComplete="off">
+    <RenderFormFields
+      fieldsToRender={fieldsToRender}
+      onInputChange={onInputChange}
+      userData={userData}
+    />
+    <div className="field">
+      <button type="submit" className="submit">Submit</button>
+    </div>
+  </form>
 );
 
 FormComponent.propTypes = {
