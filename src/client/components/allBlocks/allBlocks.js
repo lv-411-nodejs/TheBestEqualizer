@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Pizzicato from 'pizzicato';
-import connect from 'react-redux/es/connect/connect';
+import { connect } from 'react-redux';
 import {
   setVisibility,
 } from '../../actions/blocksActions';
