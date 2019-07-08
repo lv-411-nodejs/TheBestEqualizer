@@ -4,10 +4,10 @@ import RenderFormFields from '../renderFormFields/renderFormFields';
 import './formComponent.css';
 
 const FormComponent = ({
-  fieldsToRender, 
-  onInputChange, 
-  onFormSubmit, 
-  userData, 
+  fieldsToRender,
+  onInputChange,
+  onFormSubmit,
+  userData,
 }) => (
   <div>
     <form onSubmit={onFormSubmit} className="form-body" autoComplete="off">
@@ -15,7 +15,7 @@ const FormComponent = ({
         fieldsToRender={fieldsToRender}
         onInputChange={onInputChange}
         userData={userData}
-        />
+      />
       <div className="field">
         <button type="submit" className="submit">Submit</button>
       </div>

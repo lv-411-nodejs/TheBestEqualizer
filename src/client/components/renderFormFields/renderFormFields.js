@@ -20,4 +20,3 @@ RenderFormFields.propTypes = {
 };
 
 export default RenderFormFields;
-
