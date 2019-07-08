@@ -9,6 +9,7 @@
   align-items: center;
   align-content: center;
   justify-content: space-between;
+  border-bottom: 1px solid var(--rangeSlider-ocean);
 }
 
 .AppLogoContainer {

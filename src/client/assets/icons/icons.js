@@ -3,7 +3,6 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faCog,
-  faVolumeUp,
   faUpload,
   faSave,
   faHeadset,
@@ -21,7 +20,6 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 export const settingsIcon = <FontAwesomeIcon icon={faCog} className="icon" />;
-export const volumeIcon = <FontAwesomeIcon icon={faVolumeUp} className="icon" />;
 export const uploadIcon = <FontAwesomeIcon icon={faUpload} className="icon" />;
 export const saveIcon = <FontAwesomeIcon icon={faSave} className="icon" />;
 export const headsetIcon = <FontAwesomeIcon icon={faHeadset} className="icon" />;

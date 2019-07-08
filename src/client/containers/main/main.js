@@ -2,7 +2,6 @@ import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 
 import {
-  AdditionalConfigs,
   MainPageHeader,
   Equalizer,
   ComponentWithSliders,
@@ -13,7 +12,6 @@ import './main.css';
 const Main = () => (
   <Fragment>
     <MainPageHeader />
-    <AdditionalConfigs />
     <Equalizer />
     <ComponentWithSliders />
     <Link to="/login">Login</Link>
