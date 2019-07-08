@@ -15,7 +15,9 @@ class Authentication extends Component {
     };
 
     onInputChange = ({ target: { name, value } }) => {
-      this.setState(({ userData }) => userData[name] = value);
+      this.setState(({ userData }) => {
+        return userData[name] = value;
+      });
     };
 
     onLinkClick = () => {
@@ -29,7 +31,7 @@ class Authentication extends Component {
     onFormSubmit = (submit) => {
       submit.preventDefault();
       const { userData: { username, email, password }, isMember } = this.state;
-      const { postUserData: { post }, history } = this.props;
+      const { postUserData: post, history } = this.props;
       let path;
       let data;
 
