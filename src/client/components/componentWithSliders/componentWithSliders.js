@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './componentWithSliders.css';
 import PresetsDropdownSelector from '../presetsDropdownSelector';
 import SavePresetsButton from '../savePresetsButton';
-import AllBlocks from './allSliders';
+import AllBlocks from '../allBlocks';
 import SavePressetModalBlock from './savePressetModalBlock';
 
 
