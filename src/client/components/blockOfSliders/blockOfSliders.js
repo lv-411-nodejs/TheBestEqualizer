@@ -10,12 +10,12 @@ const BlockOfSliders = ({ name, effects, setEffectsValue }) => (
       {name}
     </p>
     <div className="Sliders__block--sliders">
-      {Object.keys(effects).map((effect, i) => (
+      {Object.keys(effects).map((effect) => (
         <OneSlider
           blockName={name}
           effectName={effect}
           value={effects[effect]}
-          key={i}
+          key={effect}
           setEffectsValue={setEffectsValue}
         />
       ))

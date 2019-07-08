@@ -95,10 +95,10 @@ class AllBlocks extends Component {
         <div className="AllSliders">
           <div className="ListOfEffects">
             {
-              blocksData.map(({ name, isVisible }, i) => (
+              blocksData.map(({ name, isVisible }) => (
                 <button
                   className="Effect"
-                  key={i}
+                  key={name}
                   type="button"
                   id={name}
                   name={name}
@@ -114,13 +114,13 @@ class AllBlocks extends Component {
           <div className="Sliders">
             {blocksData.map(({
               name, effects, createEffect, isVisible,
-            }, i) => (isVisible
+            }) => (isVisible
               ? (
                 <BlockOfSliders
                   name={name}
                   effects={effects}
                   createEffect={createEffect}
-                  key={i}
+                  key={name}
                   sound={sound}
                   setEffectsValue={this.setEffectsValue}
                 />
