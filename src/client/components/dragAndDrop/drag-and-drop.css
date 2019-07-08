@@ -1,8 +1,9 @@
 .container:hover {
-    color: var(--rangeSlider-ocean);
+    color: rgb(255, 255, 255);
     border: 1px dashed var(--mainText-accent-blue);
-    background-color: var(--mainText-ordinary-white);
+    background-color: rgb(8, 168, 226);
     cursor: pointer;
+    opacity: 0.6;
 }
 
 .container {
