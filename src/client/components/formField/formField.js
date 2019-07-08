@@ -14,6 +14,7 @@ const FormField = ({ field: { name, label, type }, onInputChange, value }) => (
 
 FormField.propTypes = {
   onInputChange: PropTypes.func.isRequired,
+  value: PropTypes.string.isRequired,
   field: PropTypes.instanceOf(Object).isRequired,
 };
 

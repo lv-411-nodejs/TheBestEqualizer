@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 import RenderFormFields from '../renderFormFields/renderFormFields';
 import './formComponent.css';
 
-const FormComponent = ({ fieldsToRender, onInputChange, onFormSubmit, user }) => (
+const FormComponent = ({ fieldsToRender, onInputChange, onFormSubmit, userData }) => (
   <div>
     <form onSubmit={onFormSubmit} className="form-body" autoComplete="off">
       <RenderFormFields 
         fieldsToRender={fieldsToRender} 
         onInputChange={onInputChange} 
-        user={user} />
+        userData={userData} />
       <div className="field">
         <button type="submit" className="submit">Submit</button>
       </div>
@@ -19,7 +19,7 @@ const FormComponent = ({ fieldsToRender, onInputChange, onFormSubmit, user }) =>
 
 FormComponent.propTypes = {
   fieldsToRender: PropTypes.instanceOf(Array).isRequired,
-  user: PropTypes.instanceOf(Object).isRequired,
+  userData: PropTypes.instanceOf(Object).isRequired,
   onFormSubmit: PropTypes.func.isRequired,
   onInputChange: PropTypes.func.isRequired,
 };
