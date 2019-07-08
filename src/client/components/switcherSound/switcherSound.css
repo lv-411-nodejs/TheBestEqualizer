@@ -1,0 +1,52 @@
+.SwitcherContainer {
+    background: var(--headerBackground-dark-super);
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    width: 100%;
+    max-width: 1024px;
+    margin: 0 auto;
+    margin: auto;
+    padding: 0 25px;
+    color: white;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: start;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.SwitcherContainer .icon {
+    color: var(--mainText-accent-blue);
+}
+
+
+.SwitcherContainer--slider {
+    width: 200px;
+    height: 4px;
+    margin: 20px;
+}
+
+.SwitcherContainer--slider .rangeslider__fill {
+    background-color: var(--rangeSlider-ocean);
+}
+
+.SwitcherContainer .rangeslider__handle {
+    width: 17px;
+    height: 17px;
+    border-radius: 50%;
+    outline: none;
+}
+
+.SwitcherContainer--slider .rangeslider__handle .rangeslider__handle-tooltip {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+}
+
+.SwitcherContainer--slider .rangeslider__handle:after {
+    display: none;
+}
