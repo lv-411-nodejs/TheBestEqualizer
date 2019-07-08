@@ -30,6 +30,12 @@ module.exports = {
       "required": {
         "every": [ "id" ]
       }
-    }]
+    }],
+    'no-shadow': [
+        'error',
+        {
+            allow: ['setVisibility'],
+        },
+    ],
   },
 };
