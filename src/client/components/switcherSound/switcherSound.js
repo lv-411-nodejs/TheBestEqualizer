@@ -26,14 +26,17 @@ class SwitcherSound extends Component {
     const {
       volumeValueTrack, volumeValueVoice, track, voice,
     } = this.state;
-    track.volume = 1 - volumeValueTrack;
-    voice.volume = 1 - volumeValueVoice;
+    const switcherTrackSound = 1 - volumeValueTrack;
+    const switcherVoiceSound = 1 - volumeValueVoice;
+    track.volume = switcherTrackSound;
+    voice.volume = switcherVoiceSound;
   }
 
   changeVolume = (volumeValueTrack) => {
+    const revertVolumeValueTrack = 1 - volumeValueTrack;
     this.setState({
       volumeValueTrack: parseFloat(volumeValueTrack.toFixed(2)),
-      volumeValueVoice: parseFloat(1 - volumeValueTrack.toFixed(2)),
+      volumeValueVoice: parseFloat(revertVolumeValueTrack.toFixed(2)),
     }, () => this.changeTracksVolume());
   }
 
