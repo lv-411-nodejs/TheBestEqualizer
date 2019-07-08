@@ -4,10 +4,10 @@
   width: 100%;
   max-width: 1024px;
   margin: auto;
-  padding: 0 25px;  
+  padding: 0 25px; 
 }
 
-.buttonsContainer {
+.ButtonsContainer {
   display: flex;
   align-content: center;
   justify-content: center;
