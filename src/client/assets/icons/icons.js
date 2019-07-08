@@ -29,4 +29,4 @@ export const stopIcon = <FontAwesomeIcon icon={faStop} className="icon" />;
 export const playIcon = <FontAwesomeIcon icon={faPlay} className="icon" />;
 export const pauseIcon = <FontAwesomeIcon icon={faPause} className="icon" />;
 export const cancelWindowIcon = <FontAwesomeIcon icon={faTimes} />;
-export const checkTick = <FontAwesomeIcon icon={faCheck} />;
+export const checkTickIcon = <FontAwesomeIcon icon={faCheck} />;

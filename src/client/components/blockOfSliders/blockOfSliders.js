@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './blockOfSliders.css';
-import OneSlider from '../slider/slider';
+import OneSlider from '../slider';
 
 
 const BlockOfSliders = ({ name, effects, setEffectsValue }) => (

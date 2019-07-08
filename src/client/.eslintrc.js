@@ -37,5 +37,7 @@ module.exports = {
             allow: ['setVisibility'],
         },
     ],
+    "import/prefer-default-export": "off"
+
   },
 };

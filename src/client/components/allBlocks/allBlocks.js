@@ -5,10 +5,10 @@ import connect from 'react-redux/es/connect/connect';
 import {
   setVisibility,
 } from '../../actions/blocksActions';
-import BlockOfSliders from '../blockOfSliders/index';
-import Button from '../button/index';
+import BlockOfSliders from '../blockOfSliders';
+import Button from '../button';
 import {
-  pauseIcon, playIcon, stopIcon, checkTick,
+  pauseIcon, playIcon, stopIcon, checkTickIcon,
 } from '../../assets/icons/icons';
 import Sound from '../../sounds/sound.mp3';
 import './alllBlocks.css';
@@ -106,7 +106,7 @@ class AllBlocks extends Component {
                 >
                   {name}
                   {' '}
-                  {isVisible ? checkTick : ''}
+                  {isVisible ? checkTickIcon : ''}
                 </button>
               ))
             }

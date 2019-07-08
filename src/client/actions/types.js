@@ -10,5 +10,4 @@ export const START_MUTE_STREAME_AUDIO = 'START_MUTE_STREAME_AUDIO';
 export const MERGE_CANVAS_WIDTH = 'MERGE_CANVAS_WIDTH';
 
 // blocks data types
-export const SET_EFFECT = 'SET_EFFECT';
 export const SET_VISIBILITY = 'SET_VISIBILITY';
