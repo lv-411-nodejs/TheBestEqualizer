@@ -17,9 +17,7 @@ class Authentication extends Component {
     onInputChange = ({ target: { name, value } }) => {
       const userData = {};
       userData[name] = value;
-      this.setState({
-        userData: userData,
-      });
+      this.setState({userData});
     };
 
     onLinkClick = () => {
