@@ -15,9 +15,10 @@ class Authentication extends Component {
     };
 
     onInputChange = ({ target: { name, value } }) => {
-      const userData = {};
-      userData[name] = value;
-      this.setState({userData});
+      this.setState(({ userData }) => {
+        userData[name] = value;
+        return userData;
+      });
     };
 
     onLinkClick = () => {
@@ -42,7 +43,7 @@ class Authentication extends Component {
         path = '/login';
         data = { email, password };
       }
-
+     console.log(data);
       post(path, data, history);
     };
 
