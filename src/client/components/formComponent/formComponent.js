@@ -3,13 +3,19 @@ import PropTypes from 'prop-types';
 import RenderFormFields from '../renderFormFields/renderFormFields';
 import './formComponent.css';
 
-const FormComponent = ({ fieldsToRender, onInputChange, onFormSubmit, userData }) => (
+const FormComponent = ({
+  fieldsToRender, 
+  onInputChange, 
+  onFormSubmit, 
+  userData, 
+}) => (
   <div>
     <form onSubmit={onFormSubmit} className="form-body" autoComplete="off">
-      <RenderFormFields 
-        fieldsToRender={ fieldsToRender } 
-        onInputChange={ onInputChange } 
-        userData={ userData } />
+      <RenderFormFields
+        fieldsToRender={fieldsToRender}
+        onInputChange={onInputChange}
+        userData={userData}
+        />
       <div className="field">
         <button type="submit" className="submit">Submit</button>
       </div>

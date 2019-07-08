@@ -5,10 +5,10 @@ import FormField from '../formField';
 const RenderFormFields = ({ fieldsToRender, onInputChange, userData }) => (
   fieldsToRender.map(field => (
     <FormField
-      key={ field.name }
-      onInputChange={ onInputChange }
-      field={ field }
-      value={ userData[field.name] || '' }
+      key={field.name}
+      onInputChange={onInputChange}
+      field={field}
+      value={userData[field.name] || ''}
     />
   ))
 );

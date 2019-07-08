@@ -15,21 +15,21 @@ class Authentication extends Component {
     };
 
     onInputChange = ({ target: { name, value } }) => {
-      this.setState(({ userData }) => userData[name] = value);
+      this.setState(({ userData }) => (userData[name] = value));
     };
 
     onLinkClick = () => {
       const { isMember } = this.state;
-      this.setState({ 
-        isMember: !isMember, 
-        userData: {}, 
+      this.setState({
+        isMember: !isMember,
+        userData: {},
       });
     };
 
     onFormSubmit = (submit) => {
       submit.preventDefault();
       const { userData: { username, email, password }, isMember } = this.state;
-      const { postUserData, history } = this.props;
+      const { postUserData: {post}, history } = this.props;
       let path;
       let data;
 
@@ -41,7 +41,7 @@ class Authentication extends Component {
         data = { email, password };
       }
 
-      postUserData(path, data, history);
+      post(path, data, history);
     };
 
     filterFields = (arr, status) => (status ? arr.filter(el => status === el.isMember) : arr);
@@ -53,16 +53,16 @@ class Authentication extends Component {
       const message = isMember ? 'Dont have an account? Register!' : 'Already have an account? Login!';
       return (
         <div className="authentication">
-          <img type="image/svg+xml" src={ authImage } alt="Music band" className="authImage" />
+          <img type="image/svg+xml" src={authImage} alt="Music band" className="authImage" />
           <div className="form-container">
-            <h1 className="title">{ formTitle }</h1>
+            <h1 className="title">{formTitle}</h1>
             <FormComponent
-              fieldsToRender={ fildsToRender }
-              onInputChange={ this.onInputChange }
-              onFormSubmit={ this.onFormSubmit }
-              userData={ userData }
+              fieldsToRender={fildsToRender}
+              onInputChange={this.onInputChange}
+              onFormSubmit={this.onFormSubmit}
+              userData={userData}
             />
-            <input type="button" onClick={ this.onLinkClick } className="message" value={ message } />
+            <input type="button" onClick={this.onLinkClick} className="message" value={message} />
           </div>
         </div>
       );
