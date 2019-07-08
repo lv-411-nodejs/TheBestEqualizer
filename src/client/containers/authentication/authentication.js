@@ -15,8 +15,10 @@ class Authentication extends Component {
     };
 
     onInputChange = ({ target: { name, value } }) => {
-      this.setState(({ userData }) => {
-        return userData[name] = value;
+      const { userData } = this.state;
+      userData[name] = value;
+      this.setState({
+        userData: userData
       });
     };
 
