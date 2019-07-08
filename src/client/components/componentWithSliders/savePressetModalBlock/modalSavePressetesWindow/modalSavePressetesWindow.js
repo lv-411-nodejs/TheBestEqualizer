@@ -18,7 +18,7 @@ const SavePressetesModalWindow = ({ showHideModalBlock, refFocus }) => (
       {cancelIcon}
     </div>
     <div className="textArea">
-      <strong>Please type presset&#39;s name</strong>
+      <h3>Please type presset&#39;s name</h3>
       <input type="text" />
     </div>
     <div className="SaveCancelButtonsContainer">

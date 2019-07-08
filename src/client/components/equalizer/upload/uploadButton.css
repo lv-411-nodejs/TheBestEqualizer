@@ -16,7 +16,6 @@
   justify-content: center;
 }
 
-
 .UploadButtonLabel:hover {
   color: var(--rangeSlider-ocean);
   border: 1px solid var(--mainText-accent-blue);
@@ -25,7 +24,6 @@
   cursor: pointer;
   transition: 0.3s ease all;
 }
-
 
 .UploadButtonLabel input[type="file"] {
   display: none;

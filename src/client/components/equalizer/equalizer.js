@@ -212,7 +212,6 @@ class Equalizer extends Component {
     const StopButton = (
       <Button
         className="ButtonStyleTemplate"
-        // onClick={stopSound}
         icon={stopIcon}
         value="Stop"
       />
