@@ -4,9 +4,13 @@ import PropTypes from 'prop-types';
 import './button.css';
 
 const Button = ({
-  onClick, className, icon, value,
+  onClick, className, icon, value, type,
 }) => (
-  <button type="button" className={className} onClick={onClick}>
+  <button
+    type={type}
+    className={className}
+    onClick={onClick}
+  >
     {icon}
     {' '}
     {value}
@@ -16,6 +20,7 @@ const Button = ({
 Button.propTypes = {
   onClick: PropTypes.func,
   className: PropTypes.string,
+  type: PropTypes.string,
   icon: PropTypes.instanceOf(Object),
   value: PropTypes.string,
 };

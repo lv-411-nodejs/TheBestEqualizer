@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import RenderFormFields from '../../components/renderFormFields/renderFormFields';
 import postUserData from '../../actions/postUserDataAction';
+import Button from '../../components/button';
 import './formComponent.css';
 
 class FormComponent extends Component {
@@ -39,10 +40,17 @@ class FormComponent extends Component {
       const { fieldsToRender } = this.props;
       return (
         <div>
-          <form onSubmit={this.onFormSubmit} className="form-body" autoComplete="off">
-            <RenderFormFields fieldsToRender={fieldsToRender} onInputChange={this.onInputChange} />
+          <form
+            onSubmit={this.onFormSubmit}
+            className="form-body"
+            autoComplete="off"
+          >
+            <RenderFormFields
+              fieldsToRender={fieldsToRender}
+              onInputChange={this.onInputChange}
+            />
             <div className="field">
-              <button type="submit" className="submit">Submit</button>
+              <Button className="submit" value="Submit" type="submit" />
             </div>
           </form>
         </div>

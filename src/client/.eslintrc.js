@@ -30,6 +30,7 @@ module.exports = {
       "required": {
         "every": [ "id" ]
       }
-    }]
+    }],
+    "react/button-has-type": 'off'
   },
 };
