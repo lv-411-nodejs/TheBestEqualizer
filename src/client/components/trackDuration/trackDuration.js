@@ -10,15 +10,24 @@ class TrackDuration extends Component {
         currentTime: null,
     }
 
-    formaterTimeOfSong = (seconds) => {
+    formatingSongTime = (seconds) => {
         let songminutes; 
         let songseconds;
         if (seconds > 60){
             songminutes = (seconds / 60).toFixed();
-            songseconds = seconds - (songminutes * 60);
+            if (songminutes < 10) {
+                songminutes = `0${songminutes}`;
+            }
+            songseconds = (seconds - (songminutes * 60)).toFixed();
+            if (songseconds < 10){
+                songseconds = `0${songseconds}`;
+            }
             return `${songminutes}:${songseconds}`
         } else {
-        		songseconds = seconds;
+            songseconds = seconds.toFixed();
+            if (songseconds < 10){
+                songseconds = `0${songseconds}`;
+            }
             return `00:${songseconds}`
         }
     }
@@ -29,7 +38,7 @@ class TrackDuration extends Component {
             if (audioData.sound.sourceNode){
                 console.log(audioData.sound.sourceNode.buffer.duration)
                 return {
-                    duration: this.formaterTimeOfSong(audioData.sound.sourceNode.buffer.duration),
+                    duration: audioData.sound.sourceNode.buffer.duration,
                 }
             } 
         return null;
@@ -43,11 +52,15 @@ class TrackDuration extends Component {
 
     render() {
         const {duration} = this.state;
+        let formatedTime = '00:00';
+        if (duration){
+            formatedTime = this.formatingSongTime(duration);
+        }
         const minSliderVolume = 0;
         const stepSliderVolume = 0.001;
         return (
             <div className="DurationContainer">
-                <span>Cur / Dur</span>
+                <span>Cur / {formatedTime}</span>
                 <Slider 
                     className="DurationContainer--slider"
                     value={this.durationValueTrack}
@@ -57,7 +70,6 @@ class TrackDuration extends Component {
             </div>
         )
     }
-    
 }
 
 const mapStateToProps = state => ({
