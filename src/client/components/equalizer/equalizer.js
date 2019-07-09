@@ -190,20 +190,53 @@ class Equalizer extends Component {
         trackName,
         trackSize,
         trackType,
-        sound,
       },
     } = this.props;
 
-    const temp = sound ? (
-      <Graphicequaliser
-        width={widthCanvas}
-        height={heightCanvas}
-        getCanvasEl={setCanvasToState}
-      />
-    ) : <DragAndDrop />;
+    // const hideOrShowCanvas = sound || startMuteState ? (
+    //   <Graphicequaliser
+    //     width={widthCanvas}
+    //     height={heightCanvas}
+    //     getCanvasEl={setCanvasToState}
+    //   />
+    // ) : <DragAndDrop />;
+
+    // const hideOrShowCanvas = sound || startMuteState ?  (
+    //   <div>
+    //     <div style={{ display: 'block' }}>
+    //       <Graphicequaliser
+    //         width={widthCanvas}
+    //         height={heightCanvas}
+    //         getCanvasEl={setCanvasToState}
+    //       />
+    //     </div>
+    //     <div style={{ display: 'none' }}>
+    //       <DragAndDrop />
+    //     </div>
+    //   </div>
+    // ) : (
+    //   <div>
+    //     <div style={{ display: 'none' }}>
+    //       <Graphicequaliser
+    //         width={widthCanvas}
+    //         height={heightCanvas}
+    //         getCanvasEl={setCanvasToState}
+    //       />
+    //     </div>
+    //     <div style={{ display: 'block' }}>
+    //       <DragAndDrop />
+    //     </div>
+    //   </div>
+    // );
+
     return (
       <div className="graphicEqualizer">
-        {temp}
+        <Graphicequaliser
+          width={widthCanvas}
+          height={heightCanvas}
+          getCanvasEl={setCanvasToState}
+        />
+        <DragAndDrop />
         <div className="buttonsContainer">
           <Streambutton onclickhandler={startMuteStream} />
           <Uploadbutton handleInfoFromSound={uploadSoundInfoFromFile} />
