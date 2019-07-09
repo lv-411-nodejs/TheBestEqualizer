@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
+
 import Pizzicato from 'pizzicato';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Graphicequaliser from './canvasEqualizer';
-import PlayButton from './playButton';
-import Uploadbutton from './upload';
-import Infoabouttrack from './upload/infoAboutFile';
-import Streambutton from './streamButton';
+import Button from '../button';
+import UploadButton from './upload';
+import InfoAboutTrack from './upload/infoAboutFile';
+import { startStreamIcon, playIcon, stopIcon } from '../../assets/icons/icons';
+
 import './equalizer.css';
 import {
   createAudioData,
@@ -182,15 +184,39 @@ class Equalizer extends Component {
       uploadSoundInfoFromFile,
       setCanvasToState,
     } = this;
+
     const {
-      audioData: {
-        widthCanvas,
-        heightCanvas,
-        trackName,
-        trackSize,
-        trackType,
-      },
-    } = this.props;
+      widthCanvas,
+      heightCanvas,
+      trackName,
+    } = this.props.audioData;
+
+    const StartStreamButton = (
+      <Button
+        className="ButtonStyleTemplate StartStreamButton"
+        onClick={startMuteStream}
+        icon={startStreamIcon}
+        value="Start stream"
+      />
+    );
+
+    const PlayButton = (
+      <Button
+        className="ButtonStyleTemplate"
+        onClick={playSoundFromFile}
+        icon={playIcon}
+        value="Play"
+      />
+    );
+
+    const StopButton = (
+      <Button
+        className="ButtonStyleTemplate"
+        icon={stopIcon}
+        value="Stop"
+      />
+    );
+
     return (
       <div className="graphicEqualizer">
         <Graphicequaliser
@@ -198,15 +224,14 @@ class Equalizer extends Component {
           height={heightCanvas}
           getCanvasEl={setCanvasToState}
         />
-        <div className="buttonsContainer">
-          <Streambutton onclickhandler={startMuteStream} />
-          <Uploadbutton handleInfoFromSound={uploadSoundInfoFromFile} />
-          <PlayButton hadlesound={playSoundFromFile} />
+        <div className="ButtonsContainer">
+          {StartStreamButton}
+          <UploadButton handleInfoFromSound={uploadSoundInfoFromFile} />
+          {PlayButton}
+          {StopButton}
         </div>
-        <Infoabouttrack
+        <InfoAboutTrack
           trackname={trackName}
-          tracksize={trackSize}
-          tracktype={trackType}
         />
       </div>
     );

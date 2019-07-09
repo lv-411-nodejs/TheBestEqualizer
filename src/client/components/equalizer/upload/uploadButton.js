@@ -1,22 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { cloudIcon } from '../../../assets/icons/icons';
+
 import './uploadButton.css';
 
 const UploadButton = (props) => {
   const { handleInfoFromSound } = props;
   return (
-    <label htmlFor="uplodSoundInput">
-      {' '}
-      <input
-        name="uplodSoundInput"
-        type="file"
-        id="soundsource"
-        accept="audio/mp3"
-        className="UplodSoundInput"
-        onChange={handleInfoFromSound}
-      />
-    </label>
+    <div>
+      <label htmlFor="file" className="UploadButtonLabel">
+        { cloudIcon }
+        Upload song
+        <input
+          name="uplodSoundInput"
+          type="file"
+          id="file"
+          accept="audio/mp3"
+          onChange={handleInfoFromSound}
+        />
+      </label>
+    </div>
   );
 };
 

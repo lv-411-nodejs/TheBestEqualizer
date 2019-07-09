@@ -31,6 +31,8 @@ module.exports = {
         "every": [ "id" ]
       }
     }],
+    "react/button-has-type": 'off',
+    "react/destructuring-assignment": 'off',
     'no-shadow': [
         'error',
         {

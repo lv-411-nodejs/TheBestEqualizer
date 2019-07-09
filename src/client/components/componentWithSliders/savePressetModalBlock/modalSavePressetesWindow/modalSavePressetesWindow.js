@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Button from '../../../button';
 import './modalSavePressetesWindow.css';
-import { cancelWindowIcon } from '../../../../assets/icons/icons';
-import SavePressetsToBDAndCancelButton from './savePressetsToBDAndCancelButton';
+import { cancelIcon, saveIcon } from '../../../../assets/icons/icons';
+
 
 const SavePressetesModalWindow = ({ showHideModalBlock, refFocus }) => (
   <div
@@ -14,24 +15,23 @@ const SavePressetesModalWindow = ({ showHideModalBlock, refFocus }) => (
     ref={refFocus}
   >
     <div className="headerModalWindow">
-      {cancelWindowIcon}
+      {cancelIcon}
     </div>
     <div className="textArea">
-      <strong>Please type presset&#39;s name</strong>
+      <h3>Please type presset&#39;s name</h3>
       <input type="text" />
-      <ins>Errors/success</ins>
     </div>
-    <div className="pressetesButtons">
-      <SavePressetsToBDAndCancelButton
-        className="pressetesButton"
-        id="savePressetesButton"
-        buttonTitle="Save"
+    <div className="SaveCancelButtonsContainer">
+      <Button
+        className="ButtonStyleTemplate"
+        icon={saveIcon}
+        value="Save"
       />
-      <SavePressetsToBDAndCancelButton
-        className="pressetesButton"
-        id="cancelPressetesButton"
-        onClickHandler={showHideModalBlock}
-        buttonTitle="Close"
+      <Button
+        className="ButtonStyleTemplate"
+        onClick={showHideModalBlock}
+        icon={cancelIcon}
+        value="Cancel"
       />
     </div>
   </div>

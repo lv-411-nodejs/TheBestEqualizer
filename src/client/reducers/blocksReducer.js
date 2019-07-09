@@ -3,7 +3,6 @@ import {
   SET_VISIBILITY,
 } from '../actions/types';
 
-
 const initialState = [
   {
     name: 'Delay',
