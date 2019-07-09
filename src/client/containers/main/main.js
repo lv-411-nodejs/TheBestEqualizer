@@ -5,6 +5,7 @@ import {
   SoundModes,
   MainPageHeader,
   Equalizer,
+  TrackDuration,
   SwitcherSound,
   ComponentWithSliders,
 } from '../../components';
@@ -17,6 +18,7 @@ const Main = () => (
     <AdditionalConfigs />
     <SoundModes />
     <Equalizer />
+    <TrackDuration />
     <SwitcherSound />
     <ComponentWithSliders />
     <Link to="/login">Login</Link>
