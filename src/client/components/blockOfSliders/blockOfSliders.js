@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './blockOfSliders.css';
-import OneSlider from './slider/slider';
+import OneSlider from '../slider';
 
 
 const BlockOfSliders = ({ name, effects, setEffectsValue }) => (
@@ -10,12 +10,12 @@ const BlockOfSliders = ({ name, effects, setEffectsValue }) => (
       {name}
     </p>
     <div className="Sliders__block--sliders">
-      {Object.keys(effects).map((effect, i) => (
+      {Object.keys(effects).map(effect => (
         <OneSlider
           blockName={name}
           effectName={effect}
           value={effects[effect]}
-          key={i}
+          key={effect}
           setEffectsValue={setEffectsValue}
         />
       ))
