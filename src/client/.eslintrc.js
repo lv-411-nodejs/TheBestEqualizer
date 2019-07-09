@@ -31,6 +31,14 @@ module.exports = {
         "every": [ "id" ]
       }
     }],
-    "react/button-has-type": 'off'
+    "react/button-has-type": 'off',
+    'no-shadow': [
+        'error',
+        {
+            allow: ['setVisibility'],
+        },
+    ],
+    "import/prefer-default-export": "off"
+
   },
 };

@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import './componentWithSliders.css';
 import PresetsDropdownSelector from '../presetsDropdownSelector';
-import AllBlocks from './allSliders';
+import AllBlocks from '../allBlocks';
 import SavePressetModalBlock from './savePressetModalBlock';
 import { saveIcon } from '../../assets/icons/icons';
 import Button from '../button';
-
 
 class ComponentWithSliders extends Component {
   state = {
