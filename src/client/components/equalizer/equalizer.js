@@ -89,7 +89,6 @@ class Equalizer extends Component {
     }
   }
 
-
    playSoundFromFile = async () => {
      const {
        audioData: {
@@ -191,16 +190,20 @@ class Equalizer extends Component {
         trackName,
         trackSize,
         trackType,
+        sound,
       },
     } = this.props;
+
+    const temp = sound ? (
+      <Graphicequaliser
+        width={widthCanvas}
+        height={heightCanvas}
+        getCanvasEl={setCanvasToState}
+      />
+    ) : <DragAndDrop />;
     return (
       <div className="graphicEqualizer">
-        <Graphicequaliser
-          width={widthCanvas}
-          height={heightCanvas}
-          getCanvasEl={setCanvasToState}
-        />
-        <DragAndDrop />
+        {temp}
         <div className="buttonsContainer">
           <Streambutton onclickhandler={startMuteStream} />
           <Uploadbutton handleInfoFromSound={uploadSoundInfoFromFile} />

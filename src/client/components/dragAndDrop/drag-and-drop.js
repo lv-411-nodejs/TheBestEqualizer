@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Pizzicato from 'pizzicato';
 import Dropzone from 'react-dropzone';
-import { createAudioData } from '../../actions/audioActions';
+import { createAudioData, playPauseSoundFromFile } from '../../actions/audioActions';
 
 import './drag-and-drop.css';
 
@@ -71,4 +71,5 @@ const mapStateToProps = state => ({
 
 export default connect(mapStateToProps, {
   createAudioDataAsProp: createAudioData,
+  playPauseSoundFromFileAsProp: playPauseSoundFromFile,
 })(DragAndDrop);

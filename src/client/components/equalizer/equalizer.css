@@ -14,3 +14,7 @@
   align-items: center;
 }
 
+.graphicEqualizer .canvasGraphic {
+  display: none;
+  background-color: red;
+}
