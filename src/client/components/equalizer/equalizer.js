@@ -184,12 +184,12 @@ class Equalizer extends Component {
       uploadSoundInfoFromFile,
       setCanvasToState,
     } = this;
-    const { audioData } = this.props;
+
     const {
       widthCanvas,
       heightCanvas,
       trackName,
-    } = audioData;
+    } = this.props.audioData;
 
     const StartStreamButton = (
       <Button

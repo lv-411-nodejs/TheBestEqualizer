@@ -32,6 +32,7 @@ module.exports = {
       }
     }],
     "react/button-has-type": 'off',
+    "react/destructuring-assignment": 'off',
     'no-shadow': [
         'error',
         {

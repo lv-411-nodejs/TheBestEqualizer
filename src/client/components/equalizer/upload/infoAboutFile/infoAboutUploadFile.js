@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import './infoAboutUploadFile.css';
 import { musicIcon } from '../../../../assets/icons/icons';
 
-const InfoAboutTrack = (props) => {
-  const { trackname } = props;
+const InfoAboutTrack = ({ trackname }) => {
+
   return (
     <div id="detailstrack">
       {musicIcon}
