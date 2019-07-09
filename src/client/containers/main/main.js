@@ -1,8 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+
 import {
-  AdditionalConfigs,
-  SoundModes,
   MainPageHeader,
   Equalizer,
   TrackDuration,
@@ -15,8 +14,6 @@ import './main.css';
 const Main = () => (
   <div className="main">
     <MainPageHeader />
-    <AdditionalConfigs />
-    <SoundModes />
     <Equalizer />
     <TrackDuration />
     <SwitcherSound />
