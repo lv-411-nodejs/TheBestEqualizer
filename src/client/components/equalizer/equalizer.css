@@ -18,3 +18,7 @@
   display: none;
   background-color: red;
 }
+
+#detailstrack:hover{
+  cursor: pointer;
+}
