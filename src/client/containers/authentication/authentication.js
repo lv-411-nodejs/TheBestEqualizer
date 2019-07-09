@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import FormComponent from '../../components/formComponent/formComponent';
 import { formFieldsInfo } from '../../helpers/constants';
-import postUserData from '../../actions/postUserDataAction';
+import postUserData from '../../store/actions/postUserDataAction';
 import authImage from '../../assets/images/authImage.png';
 import './authentication.css';
 
@@ -32,7 +32,7 @@ class Authentication extends Component {
     onFormSubmit = (submit) => {
       submit.preventDefault();
       const { userData: { username, email, password }, isMember } = this.state;
-      const { postUserData: post, history } = this.props;
+      const { history } = this.props;
       let path;
       let data;
 
@@ -43,7 +43,7 @@ class Authentication extends Component {
         path = '/login';
         data = { email, password };
       }
-      post(path, data, history);
+      this.props.onAuth(path, data, history);
     };
 
     filterFields = (arr, status) => (status ? arr.filter(el => status === el.isMember) : arr);
@@ -83,7 +83,12 @@ class Authentication extends Component {
 
 Authentication.propTypes = {
   history: PropTypes.instanceOf(Object).isRequired,
-  postUserData: PropTypes.func.isRequired,
 };
 
-export default connect(null, { postUserData })(withRouter(Authentication));
+const mapDispatchtoProps = dispatch => {
+  return {
+    onAuth: (path, newUser, history) => dispatch(postUserData(path, newUser, history))
+  }
+};
+
+export default connect(null, mapDispatchtoProps)(withRouter(Authentication));

@@ -7,15 +7,17 @@ import Graphicequaliser from './canvasEqualizer';
 import Button from '../button';
 import UploadButton from './upload';
 import InfoAboutTrack from './upload/infoAboutFile';
+import Spinner from '../../assets/images/playSpinner.gif';
 import { startStreamIcon, playIcon, stopIcon } from '../../assets/icons/icons';
 
 import './equalizer.css';
 import {
+  startCreationAudioData,
   createAudioData,
   playPauseSoundFromFile,
   createStreamData,
   startMuteStreamAudio,
-} from '../../actions/audioActions';
+} from '../../store/actions/audioActions';
 
 class Equalizer extends Component {
   state = {
@@ -68,6 +70,7 @@ class Equalizer extends Component {
   }
 
   uploadSoundInfoFromFile = (eventFromInputFile) => {
+    this.props.startCreationAudioDataAsProp();
     const [file] = eventFromInputFile.target.files;
     const audioFile = new Audio(URL.createObjectURL(file));
     const sound = new Pizzicato.Sound({
@@ -80,9 +83,9 @@ class Equalizer extends Component {
   };
 
   createSoundInfoInState = (sound, file) => {
-    const { audioData: { analyser }, createAudioDataAsProp } = this.props;
+    const { audioData: { analyser } } = this.props;
     sound.connect(analyser);
-    createAudioDataAsProp({
+    this.props.createAudioDataAsProp({
       sound,
       trackName: file.name,
       trackType: file.type,
@@ -199,15 +202,24 @@ class Equalizer extends Component {
         value="Start stream"
       />
     );
+    let button = <Button
+      className="ButtonStyleTemplate"
+      onClick={playSoundFromFile}
+      icon={playIcon}
+      value={'Play'}
+    />;
 
-    const PlayButton = (
-      <Button
+    if(this.props.audioData.loading) {
+      button = <Button
         className="ButtonStyleTemplate"
         onClick={playSoundFromFile}
-        icon={playIcon}
-        value="Play"
-      />
-    );
+        icon={null}
+        value={<img src={Spinner} alt={'Play music spinner'} />}
+        disabled="disabled"
+      />;
+    }
+
+    const PlayButton = button;
 
     const StopButton = (
       <Button
@@ -251,6 +263,7 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps, {
+  startCreationAudioDataAsProp: startCreationAudioData,
   createAudioDataAsProp: createAudioData,
   playPauseSoundFromFileAsProp: playPauseSoundFromFile,
   createStreamDataAsProp: createStreamData,

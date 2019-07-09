@@ -1,4 +1,5 @@
 .main {
+  min-height: 100vh;
   font-family: var(--font-ordinary);
   color: var(--mainText-white);
   background: var(--bodyBackground-dark-light);

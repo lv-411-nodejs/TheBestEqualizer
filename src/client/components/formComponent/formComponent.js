@@ -1,26 +1,31 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import RenderFormFields from '../renderFormFields/renderFormFields';
 import Button from '../button';
+import Spinner from '../../assets/images/spinner.gif';
 import './formComponent.css';
 
-const FormComponent = ({
-  fieldsToRender,
-  onInputChange,
-  onFormSubmit,
-  userData,
-}) => (
-  <form onSubmit={onFormSubmit} className="form-body" autoComplete="off">
+const FormComponent = (props) => {
+  let value = 'Submit';
+      
+  if(props.loading) {
+    value = <img src={Spinner} alt={'Authentication spinner'} />;
+  }
+  return (
+  <form onSubmit={props.onFormSubmit} className="form-body" autoComplete="off">
     <RenderFormFields
-      fieldsToRender={fieldsToRender}
-      onInputChange={onInputChange}
-      userData={userData}
+      fieldsToRender={props.fieldsToRender}
+      onInputChange={props.onInputChange}
+      userData={props.userData}
     />
     <div className="field">
-      <Button className="submit" value="Submit" type="submit" />
+      <Button className="submit" value={value} type="submit" />
     </div>
   </form>
-);
+  )
+};
 
 FormComponent.propTypes = {
   fieldsToRender: PropTypes.instanceOf(Array).isRequired,
@@ -29,4 +34,8 @@ FormComponent.propTypes = {
   onInputChange: PropTypes.func.isRequired,
 };
 
-export default FormComponent;
+const mapStateToProps = state => ({
+  loading: state.authStatus.loading,
+});
+
+export default connect(mapStateToProps)(withRouter(FormComponent));

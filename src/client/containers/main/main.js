@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 import {
   MainPageHeader,
@@ -14,8 +13,6 @@ const Main = () => (
     <MainPageHeader />
     <Equalizer />
     <ComponentWithSliders />
-    <Link to="/login">Login</Link>
-    <Link to="/registration">Registration</Link>
   </div>
 );
 
