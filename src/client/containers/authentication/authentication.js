@@ -55,7 +55,12 @@ class Authentication extends Component {
       const message = isMember ? 'Dont have an account? Register!' : 'Already have an account? Login!';
       return (
         <div className="authentication">
-          <img type="image/svg+xml" src={authImage} alt="Music band" className="authImage" />
+          <img
+            type="image/svg+xml"
+            src={authImage}
+            alt="Music band"
+            className="authImage"
+          />
           <div className="form-container">
             <h1 className="title">{formTitle}</h1>
             <FormComponent
@@ -64,7 +69,12 @@ class Authentication extends Component {
               onFormSubmit={this.onFormSubmit}
               userData={userData}
             />
-            <input type="button" onClick={this.onLinkClick} className="message" value={message} />
+            <input
+              type="button"
+              onClick={this.onLinkClick}
+              className="message"
+              value={message}
+            />
           </div>
         </div>
       );

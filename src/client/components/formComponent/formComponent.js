@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import RenderFormFields from '../renderFormFields/renderFormFields';
+import Button from '../button';
 import './formComponent.css';
 
 const FormComponent = ({
@@ -16,7 +17,7 @@ const FormComponent = ({
       userData={userData}
     />
     <div className="field">
-      <button type="submit" className="submit">Submit</button>
+      <Button className="submit" value="Submit" type="submit" />
     </div>
   </form>
 );
