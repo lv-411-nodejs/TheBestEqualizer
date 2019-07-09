@@ -30,6 +30,14 @@ module.exports = {
       "required": {
         "every": [ "id" ]
       }
-    }]
+    }],
+    'no-shadow': [
+        'error',
+        {
+            allow: ['setVisibility'],
+        },
+    ],
+    "import/prefer-default-export": "off"
+
   },
 };
