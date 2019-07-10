@@ -1,14 +1,22 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import FormField from '../formField';
 
-const RenderFormFields = ({ fieldsToRender, onInputChange }) => (
-  fieldsToRender.map((el, i) => (
+const RenderFormFields = ({ fieldsToRender, onInputChange, userData }) => (
+  fieldsToRender.map(field => (
     <FormField
-      key={i}
+      key={field.name}
       onInputChange={onInputChange}
-      el={el}
+      field={field}
+      value={userData[field.name] || ''}
     />
   ))
 );
+
+RenderFormFields.propTypes = {
+  fieldsToRender: PropTypes.instanceOf(Array).isRequired,
+  onInputChange: PropTypes.func.isRequired,
+  userData: PropTypes.instanceOf(Object).isRequired,
+};
 
 export default RenderFormFields;

@@ -1,35 +1,70 @@
 .modalSavePressetesWindow {
-    position: fixed;
-    top: 50%;
-    margin-top: -100px;
-	margin-left: -200px; 
-	left: 50%;      
-    background-color: #2ecc71;
-    width: 400px;
-    height: 200px;
-    box-sizing: border-box;
-    z-index: 101;
+  color: var(--mainText-ordinary-white);
+  border-radius: 8px;
+  position: fixed;
+  top: 50%;
+  margin-top: -100px;
+  margin-left: -200px;
+  left: 50%;
+  background-color: var(--headerBackground-dark-super);
+  width: 400px;
+  height: 200px;
+  box-sizing: border-box;
+  letter-spacing: 1.5px;
+  z-index: 101;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -ms-border-radius: 8px;
+  -o-border-radius: 8px;
 }
 
 .headerModalWindow {
-	text-align: right
+  text-align: right
 }
 
-.textArea {
-padding-left: 20px;
+.headerModalWindow .icon {
+ margin: 10px;
+}
+
+.textArea h3 {
+  text-align: center;
+  padding-left: 20px;
+  font-family: var(--font-title);
 }
 
 .textArea > * {
+  margin: 10px auto;
 	display: block;
-	margin-top: 10px;
 }
 
-.pressetesButtons {
-    position: absolute;
-    bottom: 20px;
-    width: 100%;    
-    box-sizing: border-box;
-    display: flex;
-    justify-content: space-between;
-    padding: 0 50px 0 50px;
+.textArea input {
+  background: transparent;
+  color: var(--mainText-ordinary-white);
+  height: 40px;
+  width: 250px;
+  margin-top: 20px;
+  padding-left: 10px;
+  border: none;
+  border-bottom: 1px solid #ffffff;
+  font-family: var(--font-ordinary);
+  font-size: 1.3rem;
+  letter-spacing: 1.2px;
+}
+
+.textArea input:focus {
+  outline: none;
+}
+
+.SaveCancelButtonsContainer {
+  position: absolute;
+  bottom: 20px;
+  width: 100%;    
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 50px 0 50px;
+}
+
+.headerModalWindow .icon:hover{
+  color: var(--rangeSlider-ocean);
 }
