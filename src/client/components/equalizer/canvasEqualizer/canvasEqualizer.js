@@ -1,11 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './canvasEqualiser.css'
-
+import './canvasEqualiser.css';
 
 const GraphicEqualiser = ({ width, height, getCanvasEl }) => (
   <canvas
-    className={'GraphicEqualiser'}
+    className="GraphicEqualiser"
     width={width}
     height={height}
     ref={getCanvasEl}

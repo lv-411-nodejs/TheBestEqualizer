@@ -4,12 +4,14 @@ import { updateObject } from '../../helpers/utility';
 const initialState = {
   status: null,
   loading: false,
-  error: null
+  error: null,
 };
 
-const authStart = (state) => updateObject( state, { loading: true } );
-const authSuccess = (state, action) => updateObject( state, { status: action.status, loading: false } );
-const authFail = (state, action) => updateObject( state, { status: action.status, loading: false, error: action.error } );
+const authStart = state => updateObject(state, { loading: true });
+const authSuccess = (state, action) => updateObject(state,
+  { status: action.status, loading: false });
+const authFail = (state, action) => updateObject(state,
+  { status: action.status, loading: false, error: action.error });
 
 export default function (state = initialState, action) {
   switch (action.type) {

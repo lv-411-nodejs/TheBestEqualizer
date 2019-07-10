@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import FormComponent from '../../components/formComponent/formComponent';
 import { formFieldsInfo } from '../../helpers/constants';
-import postUserData from '../../store/actions/postUserDataAction';
+import { postUserData } from '../../store/actions/postUserDataAction';
 import authImage from '../../assets/images/authImage.png';
 import './authentication.css';
 
@@ -83,12 +83,11 @@ class Authentication extends Component {
 
 Authentication.propTypes = {
   history: PropTypes.instanceOf(Object).isRequired,
+  onAuth: PropTypes.func,
 };
 
-const mapDispatchtoProps = dispatch => {
-  return {
-    onAuth: (path, newUser, history) => dispatch(postUserData(path, newUser, history))
-  }
-};
+const mapDispatchtoProps = dispatch => ({
+  onAuth: (path, newUser, history) => dispatch(postUserData(path, newUser, history)),
+});
 
 export default connect(null, mapDispatchtoProps)(withRouter(Authentication));
