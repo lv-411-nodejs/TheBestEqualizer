@@ -20,10 +20,10 @@ import {
             }
         }
 
-    expect(reducer(initialState, action).toEqual({
+    expect(reducer(initialState, action)).toEqual({
         ...initialState,
         trackName: action.payload,        
         sound: action.payload,
-    }))    
+    })    
     }) 
   })
