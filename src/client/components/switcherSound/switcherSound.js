@@ -12,12 +12,12 @@ class SwitcherSound extends Component {
   };
 
   static getDerivedStateFromProps(props, state) {
-    const { audioData } = props;
+    const { audioData: { sound, voice } } = props;
     const { volumeValueTrack, volumeValueVoice } = state;
-    if (audioData.sound && audioData.voice) {
-      audioData.sound.volume = volumeValueTrack;
-      audioData.voice.volume = volumeValueVoice;
-      return { track: audioData.sound, voice: audioData.voice };
+    if (sound && voice) {
+      sound.volume = volumeValueTrack;
+      voice.volume = volumeValueVoice;
+      return { track: sound, voice };
     }
     return null;
   }
@@ -47,7 +47,7 @@ class SwitcherSound extends Component {
     const stepSliderVolume = 0.001;
     return (
       <div className="SwitcherContainer">
-        {track && voice.playing && (
+        {track && (voice.playing && track.playing) && (
         <Fragment>
           <span>Track</span>
           <Slider
