@@ -1,3 +1,5 @@
+
+
 import {
     CREATE_BASE_AUDIO_CONTEXT_AND_ANALYSER,
     CREATE_AUDIO_DATA,
@@ -9,21 +11,19 @@ import {
 
   import reducer, { initialState } from './audioReducer'
 
-  describe('test audio reducer', () => {
-
-    it('CREATE_AUDIO_DATA', () => {
-        const action = {
-            type: CREATE_AUDIO_DATA,
-            payload: {
-                trackName: 'someTrackName',
-                sound: 'someSoundName',
-            }
-        }
-
-    expect(reducer(initialState, action)).toEqual({
-        ...initialState,
-        trackName: action.payload,        
-        sound: action.payload,
-    })    
-    }) 
-  })
+//   describe('test audio reducer', () => {
+    
+//     it('CREATE AUDIO DATA', () => {
+//         const action = {
+//             type: CREATE_AUDIO_DATA,
+//             payload: {
+//                 trackName: 'someTrackName',
+//                 sound: 'someSoundName',
+//             }
+//         }
+//     expect(reducer(initialState, action)).toEqual({
+//         ...initialState,
+//         data: action.payload,       
+//     })    
+//     }) 
+//   })
