@@ -9,22 +9,22 @@ import './formComponent.css';
 
 const FormComponent = (props) => {
   let value = 'Submit';
-      
-  if(props.loading) {
-    value = <img src={Spinner} alt={'Authentication spinner'} />;
+
+  if (props.loading) {
+    value = <img src={Spinner} alt="Authentication spinner" />;
   }
   return (
-  <form onSubmit={props.onFormSubmit} className="form-body" autoComplete="off">
-    <RenderFormFields
-      fieldsToRender={props.fieldsToRender}
-      onInputChange={props.onInputChange}
-      userData={props.userData}
-    />
-    <div className="field">
-      <Button className="submit" value={value} type="submit" />
-    </div>
-  </form>
-  )
+    <form onSubmit={props.onFormSubmit} className="form-body" autoComplete="off">
+      <RenderFormFields
+        fieldsToRender={props.fieldsToRender}
+        onInputChange={props.onInputChange}
+        userData={props.userData}
+      />
+      <div className="field">
+        <Button className="submit" value={value} type="submit" />
+      </div>
+    </form>
+  );
 };
 
 FormComponent.propTypes = {
@@ -32,6 +32,7 @@ FormComponent.propTypes = {
   userData: PropTypes.instanceOf(Object).isRequired,
   onFormSubmit: PropTypes.func.isRequired,
   onInputChange: PropTypes.func.isRequired,
+  loading: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = state => ({

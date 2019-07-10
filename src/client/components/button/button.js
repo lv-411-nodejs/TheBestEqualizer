@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import './button.css';
 
 const Button = ({
-  onClick, className, icon, value, type, disabled
+  onClick, className, icon, value, type, disabled,
 }) => (
   <button
     type={type}
@@ -23,6 +23,8 @@ Button.propTypes = {
   className: PropTypes.string,
   type: PropTypes.string,
   icon: PropTypes.instanceOf(Object),
+  value: PropTypes.node,
+  disabled: PropTypes.string,
 };
 
 export default Button;

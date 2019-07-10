@@ -202,24 +202,26 @@ class Equalizer extends Component {
         value="Start stream"
       />
     );
-    let button = <Button
-      className="ButtonStyleTemplate"
-      onClick={playSoundFromFile}
-      icon={playIcon}
-      value={'Play'}
-    />;
-
-    if(this.props.audioData.loading) {
-      button = <Button
+    let PlayButton = (
+      <Button
         className="ButtonStyleTemplate"
         onClick={playSoundFromFile}
-        icon={null}
-        value={<img src={Spinner} alt={'Play music spinner'} />}
-        disabled="disabled"
-      />;
-    }
+        icon={playIcon}
+        value="Play"
+      />
+    );
 
-    const PlayButton = button;
+    if (this.props.audioData.loading) {
+      PlayButton = (
+        <Button
+          className="ButtonStyleTemplate"
+          onClick={playSoundFromFile}
+          icon={null}
+          value={<img src={Spinner} alt="Play music spinner" />}
+          disabled="disabled"
+        />
+      );
+    }
 
     const StopButton = (
       <Button
@@ -251,6 +253,7 @@ class Equalizer extends Component {
 }
 
 Equalizer.propTypes = {
+  startCreationAudioDataAsProp: PropTypes.func.isRequired,
   createAudioDataAsProp: PropTypes.func.isRequired,
   playPauseSoundFromFileAsProp: PropTypes.func.isRequired,
   createStreamDataAsProp: PropTypes.func.isRequired,
