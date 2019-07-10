@@ -16,10 +16,11 @@ export const authSuccess = (status) => {
   };
 };
 
-export const authFail = (status) => {
+export const authFail = (status, error) => {
   return {
-    type: POST_USER_DATA,
-    status
+    type: actionTypes.AUTH_FAIL,
+    status,
+    error
   };
 };
 
@@ -33,7 +34,7 @@ export const postUserData = (path, newUser, history) => (dispatch) => {
       history.push('/main');
     })
     .catch(({ response: { data: { error } } }) => {
-      dispatch(authFail('Authentification was failed'));
+      dispatch(authFail('Authentification was failed', error));
       console.error(error);
     });
 };
