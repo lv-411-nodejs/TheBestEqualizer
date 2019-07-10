@@ -18,9 +18,7 @@ export const initialState = {
   widthCanvas: 980,
   heightCanvas: 150,
   // audio from file
-  trackName: null,
-  trackType: null,
-  trackSize: null,
+  trackName: null,  
   audioContext,
   analyser,
   sound: null,
@@ -39,13 +37,11 @@ export default function (state = initialState, action) {
       };
     case CREATE_AUDIO_DATA: {
       const {
-        trackName, trackSize, trackType, sound,
+        trackName, sound,
       } = action.payload;
       return {
         ...state,
-        trackName,
-        trackType,
-        trackSize,
+        trackName,        
         sound,
       };
     }
