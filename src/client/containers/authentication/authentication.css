@@ -52,7 +52,7 @@
     }
 }
 
-@media screen and (max-height: 754px) {
+@media screen and (max-height: 754px) and (max-width: 768px) {
     .authImage {
         display: none;
     }
