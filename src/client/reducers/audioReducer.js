@@ -13,7 +13,7 @@ const audioContext = Pizzicato.context;
 const analyser = audioContext.createAnalyser();
 analyser.fftSize = 128;
 
-const initialState = {
+export const initialState = {
   // graphic canvas
   widthCanvas: 980,
   heightCanvas: 150,
