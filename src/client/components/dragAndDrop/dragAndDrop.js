@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Dropzone from 'react-dropzone';
 import PropTypes from 'prop-types';
 import Pizzicato from 'pizzicato';
-import Dropzone from 'react-dropzone';
 import { createAudioData, playPauseSoundFromFile } from '../../actions/audioActions';
 
-import './drag-and-drop.css';
+import './dragAndDrop.css';
 
 
 class DragAndDrop extends Component {
     onDrop = (acceptedFiles) => {
-      const file = acceptedFiles[0];
+      const [file] = acceptedFiles;
       const audioFile = new Audio(URL.createObjectURL(file));
       const sound = new Pizzicato.Sound({
         source: 'file',
@@ -27,15 +27,13 @@ class DragAndDrop extends Component {
     createAudioDataAsProp({
       sound,
       trackName: file.name,
-      trackType: file.type,
-      trackSize: file.size,
     });
   };
 
   render() {
     const maxSize = 1000000000;
     return (
-      <div className="container text-center mt-5">
+      <div className="container">
         <Dropzone
           onDrop={this.onDrop}
           accept="audio/mp3"
@@ -48,7 +46,7 @@ class DragAndDrop extends Component {
             <div {...getRootProps()} className="containerForInput">
               <input {...getInputProps()} />
               {!isDragActive && 'Click here or drop a file to upload!'}
-              {isDragActive && !isDragReject && "Drop it like it's hot!"}
+              {isDragActive && !isDragReject && 'Drop it like it\'s hot!'}
               {isDragReject && 'File type not accepted, sorry!'}
             </div>
           )

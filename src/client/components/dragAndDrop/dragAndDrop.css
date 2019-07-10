@@ -1,7 +1,7 @@
 .container:hover {
-    color: rgb(255, 255, 255);
+    color:#ffffff;
     border: 1px dashed var(--mainText-accent-blue);
-    background-color: rgb(8, 168, 226);
+    background-color: #08a8e2;
     cursor: pointer;
     opacity: 0.6;
 }
