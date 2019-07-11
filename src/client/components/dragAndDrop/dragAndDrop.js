@@ -9,17 +9,34 @@ import './dragAndDrop.css';
 
 
 class DragAndDrop extends Component {
-    onDrop = (acceptedFiles) => {
-      const [file] = acceptedFiles;
-      const audioFile = new Audio(URL.createObjectURL(file));
-      const sound = new Pizzicato.Sound({
-        source: 'file',
-        options: {
-          path: audioFile.src,
-          loop: true,
-        },
-      }, () => this.createSoundInfoInState(sound, file));
-    };
+  onDrop = (acceptedFiles) => {
+  //   const [file] = acceptedFiles;
+  //   const audioFile = new Audio(URL.createObjectURL(file));
+  //   const sound = new Pizzicato.Sound({
+  //     source: 'file',
+  //     options: {
+  //       path: audioFile.src,
+  //       loop: true,
+  //     },
+  //   }, () => {
+  //     this.props.audioData.sound = null;
+  //     this.props.attachFilters(sound);
+  //     this.createSoundInfoInState(sound, file);
+  //   });
+    const [file] = acceptedFiles;
+    const audioFile = new Audio(URL.createObjectURL(file));
+    const sound = new Pizzicato.Sound({
+      source: 'file',
+      options: {
+        path: audioFile.src,
+        loop: true,
+      },
+    }, () => {
+      this.props.audioData.sound && this.removefilters(this.props.audioData.sound);
+      this.props.attachFiltersToSource(sound);
+      this.createSoundInfoInState(sound, file);
+    });
+  };
 
   createSoundInfoInState = (sound, file) => {
     const { audioData: { analyser }, createAudioDataAsProp } = this.props;
@@ -65,6 +82,7 @@ DragAndDrop.propTypes = {
 
 const mapStateToProps = state => ({
   audioData: state.audioData,
+  blocksData: state.blocksData,
 });
 
 export default connect(mapStateToProps, {

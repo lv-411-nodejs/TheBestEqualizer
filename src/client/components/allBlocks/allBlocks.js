@@ -5,16 +5,19 @@ import {
   setVisibility,
 } from '../../store/actions/blocksActions';
 import BlockOfSliders from '../blockOfSliders';
-import {
-  pauseIcon, playIcon, stopIcon, checkTickIcon,
-} from '../../assets/icons/icons';
+import { checkTickIcon } from '../../assets/icons/icons';
 import './alllBlocks.css';
 
 class AllBlocks extends Component {
-
+  componentDidUpdate() {
+    // this.props.sound ? this.attachFiltersToSource(this.props.sound) : null;
+  }
+  
+  attachFiltersToSource = sourceInput => this.props.blocksData.forEach(({ createEffect, isVisible }) => {
+    isVisible ? sourceInput.addEffect(createEffect) : null;
+  });
   render() {
     const { setVisibility, blocksData } = this.props;
-
     return (
       <div className="SlidersComponent__main--container">
         <div className="AllSliders">
@@ -45,7 +48,6 @@ class AllBlocks extends Component {
                   name={name}
                   effects={effects}
                   key={name}
-                  setEffectsValue={this.setEffectsValue}
                 />
               )
               : null))}
@@ -63,8 +65,8 @@ AllBlocks.propTypes = {
 
 const mapStateToProps = state => ({
   blocksData: state.blocksData,
+  sound: state.audioData.sound,
+  voice: state.audioData.voice,
 });
 
-export default connect(mapStateToProps, {
-  setVisibility,
-})(AllBlocks);
+export default connect(mapStateToProps, { setVisibility })(AllBlocks);

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Slider from 'react-rangeslider';
+import { connect } from 'react-redux';
 import 'react-rangeslider/lib/index.css';
 import { connect } from 'react-redux';
 
@@ -20,6 +21,15 @@ class OneSlider extends Component {
       step,
     };
   }
+  setEffectsValue = (blockName, effectsName, value) => {
+    const { blocksData } = this.props;
+    blocksData.map(({ name, effects, createEffect }) => {
+      if (name === blockName) {
+        effects[effectsName] = value;
+        createEffect[effectsName] = effects[effectsName];
+      }
+    });
+  };
 
   setEffectsValue = (sliderValue) => {
     const { blocksData, blockName, effectName } = this.props;
