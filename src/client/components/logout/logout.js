@@ -5,7 +5,7 @@ import Button from '../button';
 
 class Logout extends Component {
     SignOut = () => {
-      localStorage.removeItem(_token);
+      localStorage.removeItem('_token');
     }
 
     render() {
