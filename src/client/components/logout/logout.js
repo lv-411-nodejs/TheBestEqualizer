@@ -3,22 +3,24 @@ import { Redirect } from 'react-router-dom';
 import { logoutIcon } from '../../assets/icons/icons';
 import './logout.css';
 import Button from '../button';
-import fetchRequest from '../../helpers/fetchRequest';
+// import fetchRequest from '../../helpers/fetchRequest';
 
 class Logout extends Component {
     state ={
-      auth: false,
+      redirect: false,
     };
 
     SignOut = () => {
-      fetchRequest.post('/logout')
-        .then(() => {
-          localStorage.removeItem('_token');
-          this.setState({ auth: true });
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+      // fetchRequest.post('/logout')
+      //   .then(() => {
+      //     localStorage.removeItem('_token');
+      //     this.setState({ redirect: true });
+      //   })
+      //   .catch((error) => {
+      //     console.error(error);
+      //   });
+      this.setState({ redirect: true });
+      console.log(this.state.redirect);
     }
 
     render() {
@@ -30,7 +32,9 @@ class Logout extends Component {
           onClick={this.SignOut}
         />
       );
-      const red = this.state.auth ? <Redirect to={this.props.history.push('/main')} /> : null;
+      if (this.state.redirect) {
+        return (<Redirect to="" />);
+      }
       return (
         <div>
           { LogoutButton }
