@@ -2,10 +2,23 @@ import React, { Component } from 'react';
 import { logoutIcon } from '../../assets/icons/icons';
 import './logout.css';
 import Button from '../button';
+import { Redirect } from 'react-router-dom';
+import fetchRequest from '../../helpers/fetchRequest';
 
 class Logout extends Component {
+    state ={
+      auth: false,
+    }
+
     SignOut = () => {
-      localStorage.removeItem('_token');
+      fetchRequest.post('/logout')
+        .then(() => {
+          localStorage.removeItem('_token');
+          this.setState()
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     }
 
     render() {
