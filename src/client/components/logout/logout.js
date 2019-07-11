@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import { logoutIcon } from '../../assets/icons/icons';
 import './logout.css';
 import Button from '../button';
-import { Redirect } from 'react-router-dom';
 import fetchRequest from '../../helpers/fetchRequest';
 
 class Logout extends Component {
@@ -14,7 +14,7 @@ class Logout extends Component {
       fetchRequest.post('/logout')
         .then(() => {
           localStorage.removeItem('_token');
-          this.setState({auth: true});
+          this.setState({ auth: true });
         })
         .catch((error) => {
           console.error(error);
@@ -38,4 +38,4 @@ class Logout extends Component {
       );
     }
 }
-export default withRouLogout;
+export default Logout;
