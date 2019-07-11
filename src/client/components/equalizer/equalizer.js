@@ -65,7 +65,10 @@ class Equalizer extends Component {
         path: audioFile.src,
         loop: true,
       },
-    }, () => this.createSoundInfoInState(sound, file));
+    }, () => {
+      this.createSoundInfoInState(sound, file);
+      this.attachFiltersToSound();
+    });
   };
 
   createSoundInfoInState = (sound, file) => {
@@ -141,6 +144,9 @@ class Equalizer extends Component {
      voice.stop();
      ctx.clearRect(0, 0, width, height);
    }
+   attachFiltersToSound = () => this.props.blocksData.forEach(({ createEffect }) => {
+      this.props.audioData.sound.addEffect(createEffect);
+    });
 
   startMuteStream = async () => {
     const {
@@ -310,6 +316,7 @@ Equalizer.propTypes = {
 
 const mapStateToProps = state => ({
   audioData: state.audioData,
+  blocksData: state.blocksData,
 });
 
 export default connect(mapStateToProps, {
