@@ -4,27 +4,23 @@ import './logout.css';
 import Button from '../button';
 
 class Logout extends Component {
-    SignOut = (e) => {
-      console.log(e);
+    SignOut = () => {
+      localStorage.removeItem(_token);
     }
 
     render() {
+      const LogoutButton = (
+        <Button
+          className="ButtonStyleTemplate"
+          icon={logoutIcon}
+          value="Logout"
+          onClick={this.SignOut}
+        />
+      );
       return (
         <div>
-          <Button
-            className="ButtonStyleTemplate ButtonLogoutTemplate"
-            type="button"
-            onClick={this.SignOut}
-            icon={logoutIcon}
-            value="Logout"
-          />
+          { LogoutButton }
         </div>
-      //   <div className="logout">
-      //     {logoutIcon}
-      //     <a href="/" onClick={this.SignOut}>
-      //     Logout
-      //     </a>
-      //   </div>
       );
     }
 }
