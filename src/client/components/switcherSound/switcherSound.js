@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import 'react-rangeslider/lib/index.css';
 import './switcherSound.css';
 import Slider from 'react-rangeslider';
 import { connect } from 'react-redux';

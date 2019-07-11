@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import 'react-rangeslider/lib/index.css';
 import './trackDuration.css';
 import Slider from 'react-rangeslider';
 import { connect } from 'react-redux';
@@ -11,60 +12,68 @@ class TrackDuration extends Component {
     }
 
     formatingSongTime = (seconds) => {
-        let songminutes; 
-        let songseconds;
-        if (seconds > 60){
-            songminutes = (seconds / 60).toFixed();
-            if (songminutes < 10) {
-                songminutes = `0${songminutes}`;
-            }
-            songseconds = (seconds - (songminutes * 60)).toFixed();
-            if (songseconds < 10){
-                songseconds = `0${songseconds}`;
-            }
-            return `${songminutes}:${songseconds}`
-        } else {
-            songseconds = seconds.toFixed();
-            if (songseconds < 10){
-                songseconds = `0${songseconds}`;
-            }
-            return `00:${songseconds}`
-        }
+        seconds %= 3600;
+        let min = (Math.floor(seconds / 60)).toFixed();
+        let sec = (seconds % 60).toFixed();
+        
+        min = String(min).padStart(2, "0");
+        sec = String(sec).padStart(2, "0");
+        return `${min}:${sec}`
     }
 
     static getDerivedStateFromProps(props, state) {
         const { audioData } = props;
+        if(audioData.sound){
+            console.log(audioData.sound);
+        }
         if (audioData.sound) {
             if (audioData.sound.sourceNode){
-                console.log(audioData.sound.sourceNode.buffer.duration)
+                console.log('Song duration:' + audioData.sound.sourceNode.buffer.duration)
                 return {
                     duration: audioData.sound.sourceNode.buffer.duration,
+                    audioData: audioData.sound,
                 }
             } 
         return null;
         }
     }
 
-    durationValueTrack = (props) => {
-        const { audioData } = props;
-        this.setState( {duration: audioData.sound.sourceNode.buffer.duration})
+    componentDidMount() {
+        let timer;
+        timer = setInterval(() => {
+            this.tick();
+        }, 1000);
+    }
+
+    tick() {
+        this.setState({
+            currentTime: this.state.currentTime + 1,
+        })
     }
 
     render() {
-        const {duration} = this.state;
-        let formatedTime = '00:00';
+        const {currentTime, duration, audioData} = this.state;
+        let formatedDurationTime = '00:00';
+        let formatedCurrentTime = '00:00';
+        if(audioData){
+            audioData.lastTimePlayed = -22;
+        }
         if (duration){
-            formatedTime = this.formatingSongTime(duration);
+            formatedDurationTime = this.formatingSongTime(duration);
+        }
+        if (currentTime){
+            formatedCurrentTime = this.formatingSongTime(currentTime);
         }
         const minSliderVolume = 0;
         const stepSliderVolume = 0.001;
         return (
             <div className="DurationContainer">
-                <span>Cur / {formatedTime}</span>
+                <span>{formatedCurrentTime} / {formatedDurationTime}</span>
                 <Slider 
                     className="DurationContainer--slider"
-                    value={this.durationValueTrack}
+                    value={currentTime}
                     min={minSliderVolume}
+                    max={duration}
                     step={stepSliderVolume}
                 />
             </div>
