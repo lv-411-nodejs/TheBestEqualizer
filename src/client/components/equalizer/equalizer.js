@@ -3,12 +3,12 @@ import React, { Component } from 'react';
 import Pizzicato from 'pizzicato';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Graphicequaliser from './canvasEqualizer';
+import GraphicEqualiser from './canvasEqualizer';
+import DragAndDrop from '../dragAndDrop';
 import Button from '../button';
 import UploadButton from './upload';
 import InfoAboutTrack from './upload/infoAboutFile';
 import { startStreamIcon, playIcon, stopIcon } from '../../assets/icons/icons';
-
 import './equalizer.css';
 import {
   createAudioData,
@@ -51,22 +51,6 @@ class Equalizer extends Component {
     });
   }
 
-  detectStreamSoundFromMicrophone = () => {
-    if (navigator.mediaDevices) {
-      navigator.mediaDevices.getUserMedia({
-        audio: true,
-      })
-        .then(
-          this.createSoundStream(),
-        )
-        .catch((errorStream) => {
-          throw new Error(errorStream);
-        });
-    } else {
-      throw new Error('browser doesnt support audio API');
-    }
-  }
-
   uploadSoundInfoFromFile = (eventFromInputFile) => {
     const [file] = eventFromInputFile.target.files;
     const audioFile = new Audio(URL.createObjectURL(file));
@@ -85,9 +69,23 @@ class Equalizer extends Component {
     createAudioDataAsProp({
       sound,
       trackName: file.name,
-      trackType: file.type,
-      trackSize: file.size,
     });
+  };
+
+  detectStreamSoundFromMicrophone = () => {
+    if (navigator.mediaDevices) {
+      navigator.mediaDevices.getUserMedia({
+        audio: true,
+      })
+        .then(
+          this.createSoundStream(),
+        )
+        .catch((errorStream) => {
+          throw new Error(errorStream);
+        });
+    } else {
+      throw new Error('browser doesnt support audio API');
+    }
   }
 
    playSoundFromFile = async () => {
@@ -189,6 +187,8 @@ class Equalizer extends Component {
       widthCanvas,
       heightCanvas,
       trackName,
+      sound,
+      startMuteState,
     } = this.props.audioData;
 
     const StartStreamButton = (
@@ -219,16 +219,21 @@ class Equalizer extends Component {
 
     return (
       <div className="graphicEqualizer">
-        <Graphicequaliser
-          width={widthCanvas}
-          height={heightCanvas}
-          getCanvasEl={setCanvasToState}
-        />
+        <div style={{ display: sound || startMuteState ? 'block' : 'none' }}>
+          <GraphicEqualiser
+            width={widthCanvas}
+            height={heightCanvas}
+            getCanvasEl={setCanvasToState}
+          />
+        </div>
+        <div style={{ display: sound || startMuteState ? 'none' : 'block' }}>
+          <DragAndDrop />
+        </div>
         <div className="ButtonsContainer">
           {StartStreamButton}
           <UploadButton handleInfoFromSound={uploadSoundInfoFromFile} />
-          {PlayButton}
-          {StopButton}
+          {sound && PlayButton}
+          {sound && StopButton}
         </div>
         <InfoAboutTrack
           trackname={trackName}
