@@ -28,7 +28,7 @@ class Authentication extends Component {
     onFormSubmit = (submit) => {
       submit.preventDefault();
       const { userData: { username, email, password }, isMember } = this.state;
-      const { history } = this.props;
+      const { history, onAuth } = this.props;
       let path;
       let data;
 
@@ -39,7 +39,7 @@ class Authentication extends Component {
         path = '/login';
         data = { email, password };
       }
-      this.props.onAuth(path, data, history);
+      onAuth(path, data, history);
     };
 
     filterFields = (arr, status) => (status ? arr.filter(el => status === el.isMember) : arr);

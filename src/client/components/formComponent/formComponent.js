@@ -1,5 +1,4 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import RenderFormFields from '../renderFormFields';
@@ -37,4 +36,4 @@ const mapStateToProps = state => ({
   loading: state.authStatus.loading,
 });
 
-export default connect(mapStateToProps)(withRouter(FormComponent));
+export default connect(mapStateToProps)(FormComponent);
