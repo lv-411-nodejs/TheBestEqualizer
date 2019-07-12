@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import Button from '../../../button';
+import Button from '../../button';
 import './modalSavePressetesWindow.css';
-import { cancelIcon, saveIcon } from '../../../../assets/icons/icons';
+import { cancelIcon, saveIcon } from '../../../assets/icons/icons';
 
 
 class SavePressetesModalWindow extends Component {
