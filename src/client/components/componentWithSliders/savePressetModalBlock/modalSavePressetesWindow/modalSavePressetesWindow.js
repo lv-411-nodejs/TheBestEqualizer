@@ -9,17 +9,17 @@ import { cancelIcon, saveIcon } from '../../../../assets/icons/icons';
 
 class SavePressetesModalWindow extends Component {
   state = {
-    currentValueFromPresetInput: '',
+    valueFromPresetInput: '',
   }
 
   handleInputChange = (event) => {
     event.stopPropagation();
-    this.setState({ currentValueFromPresetInput: event.target.value });
+    this.setState({ valueFromPresetInput: event.target.value });
   }
 
-  handleFilterDataSend = (currentValueFromPresetInput, currentValueOfFilters) => {
+  handleFilterDataSend = (valueFromPresetInput, currentValueOfFilters) => {
     axios.post('/presets', {
-      presetName: currentValueFromPresetInput,
+      presetName: valueFromPresetInput,
       currentValueOfFilters,
     });
   }
@@ -31,7 +31,7 @@ class SavePressetesModalWindow extends Component {
       currentValueOfFilters,
     } = this.props;
 
-    const { currentValueFromPresetInput } = this.state;
+    const { valueFromPresetInput } = this.state;
     return (
       <div
         role="button"
@@ -49,13 +49,13 @@ class SavePressetesModalWindow extends Component {
           <input
             onChange={this.handleInputChange}
             type="text"
-            value={currentValueFromPresetInput}
+            value={valueFromPresetInput}
           />
         </div>
         <div className="SaveCancelButtonsContainer">
           <Button
             className="ButtonStyleTemplate"
-            onClick={() => this.handleFilterDataSend(currentValueFromPresetInput, currentValueOfFilters)}
+            onClick={() => this.handleFilterDataSend(valueFromPresetInput, currentValueOfFilters)}
             icon={saveIcon}
             value="Save"
           />
