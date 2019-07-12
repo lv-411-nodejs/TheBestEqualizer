@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { setPresetValue } from '../../actions/presetsAction';
 
 import './presetsDropdownSelector.css';
 
-const PresetsDropdownSelector = (props) => {
-  const { setPresetValue } = props;
+const PresetsDropdownSelector = ({ setPresetValue }) => {
   const values = ['Jazz', 'Rock', 'Rap'];
 
   const handleSelectorChange = (event) => {
@@ -16,6 +16,10 @@ const PresetsDropdownSelector = (props) => {
       {values.map((value, i) => <option className="option" key={i} value={value}>{value}</option>)}
     </select>
   );
+};
+
+PresetsDropdownSelector.propTypes = {
+  setPresetValue: PropTypes.func,
 };
 
 export default connect(null, {

@@ -11,4 +11,26 @@
 
 body {
     height: 100%;
+    overflow-x: hidden;
+}
+
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+  background-color: #04A598;
+}
+
+::-webkit-scrollbar {
+  width: 7px;
+  background-color: #04A598;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #FFF;
+  background-image: -webkit-gradient(linear, 40% 0%, 75% 84%, from(#131e2f), to(#1f314d), color-stop(0.6, #33517f));
 }
