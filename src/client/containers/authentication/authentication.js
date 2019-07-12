@@ -15,7 +15,7 @@ class Authentication extends Component {
     };
 
     onInputChange = ({ target: { name, value } }) => {
-      const userData = Object.assign({}, this.state.userData);
+      const userData = { ...this.state.userData };
       userData[name] = value;
       this.setState({ userData });
     };
@@ -82,8 +82,8 @@ Authentication.propTypes = {
   onAuth: PropTypes.func,
 };
 
-const mapDispatchtoProps = dispatch => ({
-  onAuth: (path, newUser, history) => dispatch(postUserData(path, newUser, history)),
-});
+const mapDispatchToProps = {
+  onAuth: postUserData,
+};
 
-export default connect(null, mapDispatchtoProps)(withRouter(Authentication));
+export default connect(null, mapDispatchToProps)(withRouter(Authentication));

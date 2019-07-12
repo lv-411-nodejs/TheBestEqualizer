@@ -7,25 +7,23 @@ import Button from '../button';
 import Spinner from '../../assets/images/spinner.gif';
 import './formComponent.css';
 
-const FormComponent = (props) => {
-  let value = 'Submit';
-
-  if (props.loading) {
-    value = <img src={Spinner} alt="Authentication spinner" />;
-  }
-  return (
-    <form onSubmit={props.onFormSubmit} className="form-body" autoComplete="off">
-      <RenderFormFields
-        fieldsToRender={props.fieldsToRender}
-        onInputChange={props.onInputChange}
-        userData={props.userData}
+const FormComponent = props => (
+  <form onSubmit={props.onFormSubmit} className="form-body" autoComplete="off">
+    <RenderFormFields
+      fieldsToRender={props.fieldsToRender}
+      onInputChange={props.onInputChange}
+      userData={props.userData}
+    />
+    <div className="field">
+      <Button
+        className="submit"
+        value={props.loading ? <img src={Spinner} alt="Authentication spinner" /> : 'Submit'}
+        type="submit"
+        disabled={props.loading ? 'disabled' : null}
       />
-      <div className="field">
-        <Button className="submit" value={value} type="submit" />
-      </div>
-    </form>
-  );
-};
+    </div>
+  </form>
+);
 
 FormComponent.propTypes = {
   fieldsToRender: PropTypes.instanceOf(Array).isRequired,
