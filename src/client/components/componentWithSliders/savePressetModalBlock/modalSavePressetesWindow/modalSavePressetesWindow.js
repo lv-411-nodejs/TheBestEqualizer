@@ -1,20 +1,27 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Button from '../../../button';
 import './modalSavePressetesWindow.css';
 import { cancelIcon, saveIcon } from '../../../../assets/icons/icons';
-import postFilterData from '../../../../actions/postFilterDataAction';
 
 
 class SavePressetesModalWindow extends Component {
   state = {
-    currentValueFromInput: '',
+    currentValueFromPresetInput: '',
   }
 
   handleInputChange = (event) => {
     event.stopPropagation();
-    this.setState({ currentValueFromInput: event.target.value });
+    this.setState({ currentValueFromPresetInput: event.target.value });
+  }
+
+  handleFilterDataSend = (currentValueFromPresetInput, currentValueOfFilters) => {
+    axios.post('/presets', {
+      presetName: currentValueFromPresetInput,
+      currentValueOfFilters,
+    });
   }
 
   render() {
@@ -22,10 +29,9 @@ class SavePressetesModalWindow extends Component {
       showHideModalBlock,
       refFocus,
       currentValueOfFilters,
-      handleFilterDataSend,
     } = this.props;
 
-    const { currentValueFromInput } = this.state;
+    const { currentValueFromPresetInput } = this.state;
     return (
       <div
         role="button"
@@ -43,13 +49,13 @@ class SavePressetesModalWindow extends Component {
           <input
             onChange={this.handleInputChange}
             type="text"
-            value={currentValueFromInput}
+            value={currentValueFromPresetInput}
           />
         </div>
         <div className="SaveCancelButtonsContainer">
           <Button
             className="ButtonStyleTemplate"
-            onClick={() => handleFilterDataSend(currentValueFromInput, currentValueOfFilters)}
+            onClick={() => this.handleFilterDataSend(currentValueFromPresetInput, currentValueOfFilters)}
             icon={saveIcon}
             value="Save"
           />
@@ -69,14 +75,10 @@ const mapStateToProps = state => ({
   currentValueOfFilters: state.blocksData,
 });
 
-const mapDispatchToProps = dispatch => ({
-  handleFilterDataSend: (currentValueFromInput, currentValueOfFilters) => dispatch(postFilterData(currentValueFromInput, currentValueOfFilters)),
-});
-
 SavePressetesModalWindow.propTypes = {
   showHideModalBlock: PropTypes.func.isRequired,
   refFocus: PropTypes.func.isRequired,
-  handleFilterDataSend: PropTypes.func.isRequired,
+  currentValueOfFilters: PropTypes.instanceOf(Array),
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SavePressetesModalWindow);
+export default connect(mapStateToProps)(SavePressetesModalWindow);
