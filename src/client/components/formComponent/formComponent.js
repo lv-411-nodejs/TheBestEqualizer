@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import RenderFormFields from '../renderFormFields/renderFormFields';
+import RenderFormFields from '../renderFormFields';
 import Button from '../button';
 import Spinner from '../../assets/images/spinner.gif';
 import './formComponent.css';

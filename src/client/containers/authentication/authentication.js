@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import FormComponent from '../../components/formComponent/formComponent';
+import FormComponent from '../../components/formComponent';
 import { formFieldsInfo } from '../../helpers/constants';
 import { postUserData } from '../../store/actions/postUserDataAction';
 import authImage from '../../assets/images/authImage.png';
