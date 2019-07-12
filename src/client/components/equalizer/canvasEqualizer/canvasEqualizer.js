@@ -4,10 +4,10 @@ import './canvasEqualizer.css';
 
 const GraphicEqualiser = ({ width, height, getCanvasEl }) => (
   <canvas
+    className="GraphicEqualiser"
     width={width}
     height={height}
     ref={getCanvasEl}
-    className="graphicCanvas"
   />
 );
 

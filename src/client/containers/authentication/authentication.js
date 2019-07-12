@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import FormComponent from '../../components/formComponent/formComponent';
+import FormComponent from '../../components/formComponent';
 import { formFieldsInfo } from '../../helpers/constants';
-import postUserData from '../../actions/postUserDataAction';
+import { postUserData } from '../../store/actions/postUserDataAction';
 import authImage from '../../assets/images/authImage.png';
 import './authentication.css';
 
@@ -15,24 +15,20 @@ class Authentication extends Component {
     };
 
     onInputChange = ({ target: { name, value } }) => {
-      this.setState(({ userData }) => {
-        userData[name] = value;
-        return userData;
-      });
+      const userData = { ...this.state.userData };
+      userData[name] = value;
+      this.setState({ userData });
     };
 
     onLinkClick = () => {
       const { isMember } = this.state;
-      this.setState({
-        isMember: !isMember,
-        userData: {},
-      });
+      this.setState({ isMember: !isMember });
     };
 
     onFormSubmit = (submit) => {
       submit.preventDefault();
       const { userData: { username, email, password }, isMember } = this.state;
-      const { postUserData: post, history } = this.props;
+      const { history, onAuth } = this.props;
       let path;
       let data;
 
@@ -43,7 +39,7 @@ class Authentication extends Component {
         path = '/login';
         data = { email, password };
       }
-      post(path, data, history);
+      onAuth(path, data, history);
     };
 
     filterFields = (arr, status) => (status ? arr.filter(el => status === el.isMember) : arr);
@@ -83,7 +79,11 @@ class Authentication extends Component {
 
 Authentication.propTypes = {
   history: PropTypes.instanceOf(Object).isRequired,
-  postUserData: PropTypes.func.isRequired,
+  onAuth: PropTypes.func,
 };
 
-export default connect(null, { postUserData })(withRouter(Authentication));
+const mapDispatchToProps = {
+  onAuth: postUserData,
+};
+
+export default connect(null, mapDispatchToProps)(withRouter(Authentication));
