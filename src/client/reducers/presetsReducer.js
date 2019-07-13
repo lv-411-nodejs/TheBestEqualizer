@@ -15,6 +15,7 @@ export default function (state = 'Default value', action) {
       return {
         JAZZ: 'JAZZ',
       };
+      // will return initial state (because jazz using by default)
     case SET_RAP_PRESET:
       return {
         RAP: 'RAP',
