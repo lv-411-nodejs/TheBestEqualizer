@@ -2,7 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import FormField from '../formField';
 
-const RenderFormFields = ({ fieldsToRender, onInputChange, userData, validationErrors }) => (
+const RenderFormFields = ({
+  fieldsToRender, onInputChange, userData, validationErrors,
+}) => (
   fieldsToRender.map(field => (
     <FormField
       key={field.name}

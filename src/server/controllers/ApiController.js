@@ -21,7 +21,7 @@ const passwordComparison = (res, foundUser, receivedPassword) => (
   foundUser.verifyPassword(receivedPassword)
     .then(comparisonResult => (comparisonResult
       ? res.status(200).json({ token: generateTokens({ userId: foundUser._id }) })
-      : response(res, {password: 'Wrong password'}, 404)))
+      : response(res, { password: 'Wrong password' }, 404)))
     .catch(err => response(res, err.message, 404))
 );
 
@@ -32,7 +32,7 @@ export default class ApiController {
     User
       .findOne({ email })
       .then(foundUser => (foundUser
-        ? response(res, {email: 'User with this email already exists!'}, 404)
+        ? response(res, { email: 'User with this email already exists!' }, 404)
         : saveUserInDB(res, user)))
       .catch(err => response(res, err.message, 404));
   }

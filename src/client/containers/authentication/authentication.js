@@ -30,7 +30,9 @@ class Authentication extends Component {
     onFormSubmit = async (submit) => {
       submit.preventDefault();
       const { userData, isMember } = this.state;
-      const { username, email, password, passwordConfirmation } = userData;
+      const {
+        username, email, password, passwordConfirmation,
+      } = userData;
       const { history, onAuth } = this.props;
       let path;
       let data;
