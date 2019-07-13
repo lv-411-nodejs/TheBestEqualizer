@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import FormComponent from '../../components/formComponent';
-import { formFieldsInfo } from '../../helpers/constants';
+import { fieldsInfo } from '../../helpers/constants';
 import { formValidation } from '../../helpers/formValidation';
 import { postUserData } from '../../store/actions/postUserDataAction';
 import authImage from '../../assets/images/authImage.png';
@@ -30,29 +30,10 @@ class Authentication extends Component {
     onFormSubmit = async (submit) => {
       submit.preventDefault();
       const { userData, isMember } = this.state;
-      const {
-        username, email, password, passwordConfirmation,
-      } = userData;
       const { history, onAuth } = this.props;
-      let path;
-      let data;
-
-      if (!isMember) {
-        path = '/registration';
-        data = {
-          username,
-          email,
-          password,
-          passwordConfirmation,
-        };
-      } else {
-        path = '/login';
-        data = {
-          email,
-          password,
-        };
-      }
+      const { data, path } = this.isMemberInfo([], isMember, userData);
       const validationRes = formValidation(data);
+
       if (Object.keys(validationRes).length === 0) {
         const serverError = await onAuth(path, data, history);
         this.setState({ validationErrors: serverError });
@@ -61,28 +42,27 @@ class Authentication extends Component {
       }
     };
 
-    contentToRender = (fieldsinfo, statusMember) => {
-      let content;
-      if (statusMember) {
-        content = {
-          fildsToRender: fieldsinfo.filter(el => statusMember === el.isMember),
-          formTitle: 'Login',
-          message: 'Dont have an account? Register!',
-        };
-      } else {
-        content = {
-          fildsToRender: fieldsinfo,
-          formTitle: 'Login',
-          message: 'Dont have an account? Register!',
-        };
-      }
-
-      return content;
-    };
+    isMemberInfo = (info, status, {
+      username, email, password, confirmPassword,
+    }) => (status ? {
+      fildsToRender: info.filter(el => status === el.isMember),
+      formTitle: 'Login',
+      message: 'Dont have an account? Register!',
+      path: '/login',
+      data: { email, password },
+    } : {
+      fildsToRender: info,
+      formTitle: 'Registration',
+      message: 'Already have an account? Login!',
+      path: '/registration',
+      data: {
+        username, email, password, confirmPassword,
+      },
+    });
 
     render() {
       const { isMember, userData, validationErrors } = this.state;
-      const { fildsToRender, formTitle, message } = this.contentToRender(formFieldsInfo, isMember);
+      const { fildsToRender, formTitle, message } = this.isMemberInfo(fieldsInfo, isMember, {});
       return (
         <div className="authentication">
           <img

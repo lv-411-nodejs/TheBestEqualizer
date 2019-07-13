@@ -18,7 +18,7 @@ export const imageArray = [
   },
 ];
 
-export const formFieldsInfo = [
+export const fieldsInfo = [
   {
     type: 'text',
     name: 'username',
@@ -39,7 +39,7 @@ export const formFieldsInfo = [
   },
   {
     type: 'password',
-    name: 'passwordConfirmation',
+    name: 'confirmPassword',
     label: 'Pasword confirmation',
     isMember: false,
   },
