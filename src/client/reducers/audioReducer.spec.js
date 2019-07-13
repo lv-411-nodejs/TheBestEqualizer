@@ -1,3 +1,4 @@
+import reducer, { initialState } from './audioReducer'
 
 
 import {
@@ -9,21 +10,46 @@ import {
     MERGE_CANVAS_WIDTH,
   } from '../actions/types';
 
-  import reducer, { initialState } from './audioReducer'
+  const mockValues = {
+    audioContext: 'fakeContext',
+    createAnalyser: 'fakeAnalyser',
+  };
+  jest.mock('pizzicato', () => mockValues);
 
-//   describe('test audio reducer', () => {
-    
-//     it('CREATE AUDIO DATA', () => {
-//         const action = {
-//             type: CREATE_AUDIO_DATA,
-//             payload: {
-//                 trackName: 'someTrackName',
-//                 sound: 'someSoundName',
-//             }
-//         }
-//     expect(reducer(initialState, action)).toEqual({
-//         ...initialState,
-//         data: action.payload,       
-//     })    
-//     }) 
-//   })
+
+// jest.mock("pizzicato", () => ({
+//   `Pizzicato.context`: jest.fn(),
+//   analyser: jest.fn(),
+// }));
+  
+  
+  //  var focusOnTargetSpy = jest.fn();
+  // jest
+  //   .spyOn(Pizzicato.context, 'createAnalyser')
+  //   .mockImplementation(focusOnTargetSpy);
+
+
+  describe('test audio reducer', () => {
+      
+    const state = {
+      ...initialState,
+      audioContext: null,
+      analyser: null,
+    }
+    console.log(initialState)
+
+    it('CREATE AUDIO DATA', () => {
+        const action = {
+            type: CREATE_AUDIO_DATA,
+            payload: {
+                trackName: 'someTrackName',
+                sound: 'someSoundName',                
+            }
+        }
+
+    expect(reducer(state, action)).toEqual({
+        ...state,        
+        ...action.payload,       
+    })    
+    }) 
+  })
