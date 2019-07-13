@@ -21,7 +21,6 @@ module.exports = {
   ],
   rules: {
     "eslint linebreak-style": [0, "error", "windows"],
-    "linebreak-style": ["error", process.env.NODE_ENV === 'prod' ? "unix" : "windows"],
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "no-underscore-dangle": ["error", { "allow": ["__REDUX_DEVTOOLS_EXTENSION__"] }],
     "react/require-default-props": "off",
