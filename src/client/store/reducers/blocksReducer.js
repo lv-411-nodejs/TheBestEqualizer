@@ -6,7 +6,7 @@ import {
 const initialState = [
   {
     name: 'Delay',
-    effects: {
+    options: {
       feedback: 0,
       time: 0,
       mix: 0,
@@ -20,7 +20,7 @@ const initialState = [
   },
   {
     name: 'Ping-Pong Delay',
-    effects: {
+    options: {
       feedback: 0,
       time: 0,
       mix: 0,
@@ -36,7 +36,7 @@ const initialState = [
   },
   {
     name: 'Dub Delay',
-    effects: {
+    options: {
       feedback: 0,
       time: 0,
       cutoff: 0,
@@ -54,7 +54,7 @@ const initialState = [
   },
   {
     name: 'Distortion',
-    effects: { gain: 0 },
+    options: { gain: 0 },
     createEffect: new Pizzicato.Effects.Distortion({
       gain: 0,
     }),
@@ -62,7 +62,7 @@ const initialState = [
   },
   {
     name: 'Quadrafuzz',
-    effects: {
+    options: {
       lowGain: 0,
       midLowGain: 0,
       midHighGain: 0,
@@ -80,7 +80,7 @@ const initialState = [
   },
   {
     name: 'Flanger',
-    effects: {
+    options: {
       time: 0,
       speed: 0,
       depth: 0,
@@ -98,7 +98,7 @@ const initialState = [
   },
   {
     name: 'Reverb',
-    effects: {
+    options: {
       time: 0,
       decay: 0,
       mix: 0,
@@ -112,7 +112,7 @@ const initialState = [
   },
   {
     name: 'Tremolo',
-    effects: {
+    options: {
       speed: 0,
       depth: 0,
       mix: 0,
@@ -126,7 +126,7 @@ const initialState = [
   },
   {
     name: 'Stereo panner',
-    effects: { pan: 0 },
+    options: { pan: 0 },
     createEffect: new Pizzicato.Effects.StereoPanner({
       pan: 0,
     }),
@@ -134,7 +134,7 @@ const initialState = [
   },
   {
     name: 'Compressor',
-    effects: {
+    options: {
       threshold: 0,
       knee: 0,
       attack: 0,
@@ -152,7 +152,7 @@ const initialState = [
   },
   {
     name: 'Low-Pass Filter',
-    effects: {
+    options: {
       frequency: 0,
       peak: 0,
     },
@@ -164,7 +164,7 @@ const initialState = [
   },
   {
     name: 'High-Pass Filter',
-    effects: {
+    options: {
       frequency: 0,
       peak: 0,
     },
@@ -176,7 +176,7 @@ const initialState = [
   },
   {
     name: 'Ring Modulator',
-    effects: {
+    options: {
       speed: 0,
       distortion: 0,
       mix: 0,
