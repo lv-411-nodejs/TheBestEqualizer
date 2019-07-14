@@ -34,7 +34,7 @@ export default class ApiController {
       .findOne({ email })
       .then(foundUser => (foundUser
         ? response(res, { email: 'User with this email already exists!' }, 404)
-        : saveDataToDB(res, user)))
+        : saveDataToDB(res, user, 'User created')))
       .catch(err => response(res, err.message, 404));
   }
 
