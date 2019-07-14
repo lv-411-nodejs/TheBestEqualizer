@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { setPresetValue } from '../../store/actions/presetsAction';
+import { setPresetValue } from '../../store/actions/blocksActions';
 
 import './presetsDropdownSelector.css';
 

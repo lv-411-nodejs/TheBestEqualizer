@@ -1,6 +1,9 @@
 import Pizzicato from 'pizzicato';
 import {
   SET_VISIBILITY,
+  SET_ROCK_PRESET,
+  SET_JAZZ_PRESET,
+  SET_RAP_PRESET,
 } from '../actions/types';
 
 const initialState = [
