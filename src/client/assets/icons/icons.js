@@ -5,10 +5,6 @@ import {
   faCog,
   faUpload,
   faSave,
-  faHeadset,
-  faRss,
-  faTh,
-  faPodcast,
   faUser,
   faStop,
   faPlay,
@@ -23,10 +19,6 @@ import {
 export const settingsIcon = <FontAwesomeIcon icon={faCog} className="icon" />;
 export const uploadIcon = <FontAwesomeIcon icon={faUpload} className="icon" />;
 export const saveIcon = <FontAwesomeIcon icon={faSave} className="icon" />;
-export const headsetIcon = <FontAwesomeIcon icon={faHeadset} className="icon" />;
-export const rssIcon = <FontAwesomeIcon icon={faRss} className="icon" />;
-export const thIcon = <FontAwesomeIcon icon={faTh} className="icon" />;
-export const podcastIcon = <FontAwesomeIcon icon={faPodcast} className="icon" />;
 export const userIcon = <FontAwesomeIcon icon={faUser} className="icon" />;
 export const stopIcon = <FontAwesomeIcon icon={faStop} className="icon" />;
 export const playIcon = <FontAwesomeIcon icon={faPlay} className="icon" />;

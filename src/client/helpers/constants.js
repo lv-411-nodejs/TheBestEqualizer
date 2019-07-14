@@ -1,23 +1,3 @@
-import {
-  headsetIcon, rssIcon, thIcon, podcastIcon,
-} from '../assets/icons/icons';
-
-export const imageArray = [
-  {
-    img: podcastIcon,
-    text: '3D',
-  }, {
-    img: headsetIcon,
-    text: 'HeadSet',
-  }, {
-    img: thIcon,
-    text: 'Speaker',
-  }, {
-    img: rssIcon,
-    text: 'Extra',
-  },
-];
-
 export const formFieldsInfo = [
   {
     type: 'text',
