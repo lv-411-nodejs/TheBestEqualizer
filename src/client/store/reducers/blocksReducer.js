@@ -197,6 +197,15 @@ export default function (state = initialState, action) {
   const { blockName } = action;
 
   switch (action.type) {
+    case SET_ROCK_PRESET:
+      const newMappedState = state.map((item) => {
+        if (item.name === 'Delay') {
+          item = { ...item, name: 'New Delay Name' };
+          item.effects = { ...item.effects, time: 1 };
+        }
+      return item;
+      });
+      return newMappedState
     case SET_VISIBILITY:
       return state.map(block => (block.name === blockName
         ? { ...block, isVisible: !block.isVisible }
