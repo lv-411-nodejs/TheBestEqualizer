@@ -35,7 +35,7 @@ const effectsSchema = new Schema({
       threshold: Number,
       time: Number,
     },
-  },]
+  }],
 });
 
 export default mongoose.model('Effects', effectsSchema);

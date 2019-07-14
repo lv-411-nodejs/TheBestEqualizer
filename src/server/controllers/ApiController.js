@@ -63,9 +63,9 @@ export default class ApiController {
     const { title } = req.body;
     Effects
       .findOne({ title })
-      .then(preset => preset
+      .then(preset => (preset
         ? res.send(preset)
-        : response(res, 'Preset with this title is not found', 404))
+        : response(res, 'Preset with this title is not found', 404)))
       .catch(err => response(res, err.message, 404));
   }
 
