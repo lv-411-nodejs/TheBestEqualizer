@@ -18,9 +18,10 @@ export const authFail = (status, error) => ({
   error,
 });
 
-export const postUserData = (path, newUser, history) => (dispatch) => {
+export const postUserData = (path, newUser, history) => async (dispatch) => {
   dispatch(authStart());
-  axios.post(`${baseUrl}${path}`, newUser)
+  let response;
+  await axios.post(`${baseUrl}${path}`, newUser)
     .then(() => {
       dispatch(authSuccess('Success authentification'));
     })
@@ -29,8 +30,10 @@ export const postUserData = (path, newUser, history) => (dispatch) => {
     })
     .catch(({ response: { data: { error } } }) => {
       dispatch(authFail('Authentification was failed', error));
-      console.error(error);
+      response = error;
     });
+
+  return response;
 };
 
 export default postUserData;
