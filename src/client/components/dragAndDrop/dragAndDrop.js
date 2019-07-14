@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Dropzone from 'react-dropzone';
 import PropTypes from 'prop-types';
 import Pizzicato from 'pizzicato';
-import { createAudioData, playPauseSoundFromFile } from '../../actions/audioActions';
+import { createAudioData, playPauseSoundFromFile } from '../../store/actions/audioActions';
 
 import './dragAndDrop.css';
 

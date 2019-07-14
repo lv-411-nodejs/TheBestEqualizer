@@ -31,3 +31,7 @@
   margin-right: 5px;
   line-height: 30px;
 }
+
+.ButtonStyleTemplate:disabled {
+  cursor: not-allowed;
+}

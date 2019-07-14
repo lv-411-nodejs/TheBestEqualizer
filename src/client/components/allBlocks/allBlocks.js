@@ -4,7 +4,7 @@ import Pizzicato from 'pizzicato';
 import { connect } from 'react-redux';
 import {
   setVisibility,
-} from '../../actions/blocksActions';
+} from '../../store/actions/blocksActions';
 import BlockOfSliders from '../blockOfSliders';
 import Button from '../button';
 import {

@@ -8,14 +8,16 @@ import DragAndDrop from '../dragAndDrop';
 import Button from '../button';
 import UploadButton from './upload';
 import InfoAboutTrack from './upload/infoAboutFile';
+import Spinner from '../../assets/images/playSpinner.gif';
 import { startStreamIcon, playIcon, stopIcon } from '../../assets/icons/icons';
 import './equalizer.css';
 import {
+  startCreationAudioData,
   createAudioData,
   playPauseSoundFromFile,
   createStreamData,
   startMuteStreamAudio,
-} from '../../actions/audioActions';
+} from '../../store/actions/audioActions';
 
 class Equalizer extends Component {
   state = {
@@ -52,6 +54,7 @@ class Equalizer extends Component {
   }
 
   uploadSoundInfoFromFile = (eventFromInputFile) => {
+    this.props.startCreationAudioDataAsProp();
     const [file] = eventFromInputFile.target.files;
     const audioFile = new Audio(URL.createObjectURL(file));
     const sound = new Pizzicato.Sound({
@@ -64,9 +67,9 @@ class Equalizer extends Component {
   };
 
   createSoundInfoInState = (sound, file) => {
-    const { audioData: { analyser }, createAudioDataAsProp } = this.props;
+    const { audioData: { analyser } } = this.props;
     sound.connect(analyser);
-    createAudioDataAsProp({
+    this.props.createAudioDataAsProp({
       sound,
       trackName: file.name,
     });
@@ -199,13 +202,14 @@ class Equalizer extends Component {
         value="Start stream"
       />
     );
-
     const PlayButton = (
       <Button
         className="ButtonStyleTemplate"
         onClick={playSoundFromFile}
-        icon={playIcon}
-        value="Play"
+        icon={this.props.audioData.loading ? null : playIcon}
+        value={this.props.audioData.loading
+          ? <img src={Spinner} alt="Play music spinner" /> : 'Play'}
+        disabled={this.props.audioData.loading ? 'disabled' : null}
       />
     );
 
@@ -244,6 +248,7 @@ class Equalizer extends Component {
 }
 
 Equalizer.propTypes = {
+  startCreationAudioDataAsProp: PropTypes.func.isRequired,
   createAudioDataAsProp: PropTypes.func.isRequired,
   playPauseSoundFromFileAsProp: PropTypes.func.isRequired,
   createStreamDataAsProp: PropTypes.func.isRequired,
@@ -256,6 +261,7 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps, {
+  startCreationAudioDataAsProp: startCreationAudioData,
   createAudioDataAsProp: createAudioData,
   playPauseSoundFromFileAsProp: playPauseSoundFromFile,
   createStreamDataAsProp: createStreamData,

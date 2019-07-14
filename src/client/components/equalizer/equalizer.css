@@ -1,9 +1,6 @@
 .graphicEqualizer {
-  background: var(--headerBackground-dark-super);
   color: #ffffff;
   width: 100%;
-  max-width: 1024px;
-  margin: auto;
   padding: 0 25px;
 }
 
