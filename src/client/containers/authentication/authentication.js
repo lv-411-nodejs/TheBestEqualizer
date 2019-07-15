@@ -36,14 +36,16 @@ class Authentication extends Component {
 
       if (Object.keys(validationRes).length === 0) {
         const serverError = await onAuth(path, data, history);
-        this.setState({ validationErrors: serverError });
+        if(typeof serverError === 'object'){
+          this.setState({ validationErrors: serverError });
+        }
       } else {
         this.setState({ validationErrors: validationRes });
       }
     };
 
     isMemberInfo = (info, status, {
-      username, email, password, confirmPassword,
+      username, email, password, passwordConfirmation,
     }) => (status ? {
       fildsToRender: info.filter(el => status === el.isMember),
       formTitle: 'Login',
@@ -56,7 +58,7 @@ class Authentication extends Component {
       message: 'Already have an account? Login!',
       path: '/registration',
       data: {
-        username, email, password, confirmPassword,
+        username, email, password, passwordConfirmation,
       },
     });
 

@@ -39,7 +39,7 @@ export const fieldsInfo = [
   },
   {
     type: 'password',
-    name: 'confirmPassword',
+    name: 'passwordConfirmation',
     label: 'Pasword confirmation',
     isMember: false,
   },

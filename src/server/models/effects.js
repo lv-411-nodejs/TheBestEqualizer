@@ -10,9 +10,9 @@ const effectsSchema = new Schema({
       message: 'Please, name your title with one word.',
     },
   },
-  effects: [{
+  presets: [{
     name: String,
-    options: {
+    effects: {
       attack: Number,
       cutoff: Number,
       decay: Number,
