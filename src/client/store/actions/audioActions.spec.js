@@ -14,7 +14,7 @@ import {
   mergeCanvasWidth,
 } from './audioActions';
 
-describe('test audio actions', () => {
+describe('TEST AUDIO ACTIONS', () => {
 
   it('CREATE AUDIO DATA', () => {
     const expectedAction = {
