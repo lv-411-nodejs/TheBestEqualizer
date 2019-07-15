@@ -199,11 +199,14 @@ export default function (state = initialState, action) {
   switch (action.type) {
     case SET_ROCK_PRESET: {
       const newState = initialState.map((currentEffect) => {
-        if (currentEffect.name === 'Distortion') {
-          currentEffect = { ...currentEffect, name: 'Distortion1' };
+        if (currentEffect.name === 'Delay') {
+          // currentEffect = { ...currentEffect, name: 'Delay1' };
+          currentEffect = { ...currentEffect};
           currentEffect.effects = {
-            ...currentEffect.effects,
-            gain: 1,
+            // ...currentEffect.effects,
+            feedback: 0.3,
+            time: 0.9,
+            mix: 0.5,
           };
         }
         return currentEffect;
@@ -228,11 +231,10 @@ export default function (state = initialState, action) {
     }
 
     case SET_RAP_PRESET: {
-      const newState = initialState.map((currentEffect) => {
+      return initialState.map((currentEffect) => {
         if (currentEffect.name === 'Flanger') {
-          currentEffect = { ...currentEffect, name: 'Flanger1' };
+          currentEffect = { ...currentEffect };
           currentEffect.effects = {
-            ...currentEffect.effects,
             time: 0.1,
             speed: 0.3,
             depth: 0.5,
@@ -242,7 +244,6 @@ export default function (state = initialState, action) {
         }
         return currentEffect;
       });
-      return newState;
     }
     case SET_VISIBILITY:
       return state.map(block => (block.name === blockName

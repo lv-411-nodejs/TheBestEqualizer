@@ -11,6 +11,7 @@ const PresetsDropdownSelector = ({ setPresetValue }) => {
   const handleSelectorChange = (event) => {
     setPresetValue(event.target.value);
   };
+
   return (
     <select className="SlidersComponent__header--selector" onChange={handleSelectorChange}>
       {values.map((value, i) => <option className="option" key={i} value={value}>{value}</option>)}
