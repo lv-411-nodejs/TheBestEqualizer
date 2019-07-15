@@ -9,6 +9,8 @@ class TrackDuration extends Component {
     state = {
         duration: null,
         currentTime: null,
+        playing: false,
+        startPlayTime: null,
     }
 
     formatingSongTime = (seconds) => {
@@ -21,43 +23,76 @@ class TrackDuration extends Component {
         return `${min}:${sec}`
     }
 
+    calculateCurrentTime = () => {
+        console.log('calc', this.state.currentTime)
+        let currentTime = new Date();
+        console.log(`currentTime: ${currentTime.getTime()}, startPlayTime: ${this.state.startPlayTime.getTime()}`)
+        let currentDifference = Math.floor((currentTime.getTime() - this.state.startPlayTime.getTime())/1000)
+        console.log(currentDifference)
+        if(currentDifference !== this.state.currentTime){
+            console.log(this.state.currentTime)
+            if (this.state.playing){
+                this.setState({currentTime: currentDifference},
+                () => this.calculateCurrentTime())
+            } else {
+                // let PauseTime = new Date();
+                // this.setState({startPlayTime: this.state.startPlayTime + PauseTime.getTime()})
+            }
+        } else {
+            setTimeout(this.calculateCurrentTime, 1000);
+        }
+    }
+
     static getDerivedStateFromProps(props, state) {
         const { audioData } = props;
-        if(audioData.sound){
-            console.log(audioData.sound);
-        }
         if (audioData.sound) {
             if (audioData.sound.sourceNode){
-                console.log('Song duration:' + audioData.sound.sourceNode.buffer.duration)
+                if(state.startPlayTime === null && audioData.sound.playing) {
+                    return {
+                        startPlayTime: new Date(),
+                        duration: audioData.sound.sourceNode.buffer.duration,
+                        playing: audioData.sound.playing
+                    }
+                }
                 return {
                     duration: audioData.sound.sourceNode.buffer.duration,
-                    audioData: audioData.sound,
+                    playing: audioData.sound.playing
                 }
             } 
         return null;
         }
     }
 
-    componentDidMount() {
-        let timer;
-        timer = setInterval(() => {
-            this.tick();
-        }, 1000);
+    // shouldComponentUpdate(nextProps, nextState) {
+    //     console.log(this.state !== nextState)
+    //     return this.state !== nextState;
+    // }
+
+    componentDidUpdate(prevState) {
+        if(this.state.startPlayTime) {
+            this.calculateCurrentTime()
+        }
+
+        // let timer;
+        // console.log(this.state.playing)
+        // if (this.state.playing){
+        //     timer = setInterval(() => {
+        //         this.tick();
+        //     }, 1000);
+        //     console.log(timer);
+        // }
     }
 
-    tick() {
-        this.setState({
-            currentTime: this.state.currentTime + 1,
-        })
-    }
+    // tick() {
+    //     this.setState({
+    //         currentTime: this.state.currentTime + 1,
+    //     })
+    // }
 
     render() {
-        const {currentTime, duration, audioData} = this.state;
+        const {currentTime, duration} = this.state;
         let formatedDurationTime = '00:00';
         let formatedCurrentTime = '00:00';
-        if(audioData){
-            audioData.lastTimePlayed = -22;
-        }
         if (duration){
             formatedDurationTime = this.formatingSongTime(duration);
         }
