@@ -197,15 +197,53 @@ export default function (state = initialState, action) {
   const { blockName } = action;
 
   switch (action.type) {
-    case SET_ROCK_PRESET:
-      const newMappedState = state.map((item) => {
-        if (item.name === 'Delay') {
-          item = { ...item, name: 'New Delay Name' };
-          item.effects = { ...item.effects, time: 1 };
+    case SET_ROCK_PRESET: {
+      const newState = initialState.map((currentEffect) => {
+        if (currentEffect.name === 'Distortion') {
+          currentEffect = { ...currentEffect, name: 'Distortion1' };
+          currentEffect.effects = {
+            ...currentEffect.effects,
+            gain: 1,
+          };
         }
-      return item;
+        return currentEffect;
       });
-      return newMappedState
+      return newState;
+    }
+
+    case SET_JAZZ_PRESET: {
+      const newState = initialState.map((currentEffect) => {
+        if (currentEffect.name === 'Reverb') {
+          currentEffect = { ...currentEffect, name: 'Reverb1' };
+          currentEffect.effects = {
+            ...currentEffect.effects,
+            time: 0.1,
+            decay: 0.2,
+            mix: 0.3,
+          };
+        }
+        return currentEffect;
+      });
+      return newState;
+    }
+
+    case SET_RAP_PRESET: {
+      const newState = initialState.map((currentEffect) => {
+        if (currentEffect.name === 'Flanger') {
+          currentEffect = { ...currentEffect, name: 'Flanger1' };
+          currentEffect.effects = {
+            ...currentEffect.effects,
+            time: 0.1,
+            speed: 0.3,
+            depth: 0.5,
+            feedback: 0.7,
+            mix: 0.9,
+          };
+        }
+        return currentEffect;
+      });
+      return newState;
+    }
     case SET_VISIBILITY:
       return state.map(block => (block.name === blockName
         ? { ...block, isVisible: !block.isVisible }
