@@ -17,7 +17,7 @@ class OneSlider extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { value } = this.props
+    const { value } = this.props;
     if (value !== prevProps.value) {
       this.setState({ sliderValue: value });
     }

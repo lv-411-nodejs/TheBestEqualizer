@@ -8,17 +8,18 @@ import {
 export const setVisibility = blockName => ({ type: SET_VISIBILITY, blockName });
 
 export const setPresetValue = chosenPresetName => (dispatch) => {
-  if (chosenPresetName === 'Rock') {
-    dispatch(
-      { type: SET_ROCK_PRESET },
-    );
-  } else if (chosenPresetName === 'Jazz') {
-    dispatch(
-      { type: SET_JAZZ_PRESET },
-    );
-  } else if (chosenPresetName === 'Rap') {
-    dispatch(
-      { type: SET_RAP_PRESET },
-    );
+
+  switch (chosenPresetName) {
+    case 'Rock':
+      dispatch({ type: SET_ROCK_PRESET });
+      break;
+    case 'Jazz':
+      dispatch({ type: SET_JAZZ_PRESET });
+      break;
+    case 'Rap':
+      dispatch({ type: SET_RAP_PRESET });
+      break;
+    default:
+      return null;
   }
 };

@@ -200,13 +200,13 @@ export default function (state = initialState, action) {
     case SET_ROCK_PRESET: {
       const newState = initialState.map((currentEffect) => {
         if (currentEffect.name === 'Delay') {
-          // currentEffect = { ...currentEffect, name: 'Delay1' };
-          currentEffect = { ...currentEffect};
-          currentEffect.effects = {
-            // ...currentEffect.effects,
-            feedback: 0.3,
-            time: 0.9,
-            mix: 0.5,
+          currentEffect = {
+            ...currentEffect,
+            effects: {
+              feedback: 0.3,
+              time: 0.9,
+              mix: 0.5,
+            },
           };
         }
         return currentEffect;
@@ -217,12 +217,13 @@ export default function (state = initialState, action) {
     case SET_JAZZ_PRESET: {
       const newState = initialState.map((currentEffect) => {
         if (currentEffect.name === 'Reverb') {
-          currentEffect = { ...currentEffect, name: 'Reverb1' };
-          currentEffect.effects = {
-            ...currentEffect.effects,
-            time: 0.1,
-            decay: 0.2,
-            mix: 0.3,
+          currentEffect = {
+            ...currentEffect,
+            effects: {
+              time: 0.1,
+              decay: 0.2,
+              mix: 0.3,
+            },
           };
         }
         return currentEffect;
@@ -233,13 +234,15 @@ export default function (state = initialState, action) {
     case SET_RAP_PRESET: {
       return initialState.map((currentEffect) => {
         if (currentEffect.name === 'Flanger') {
-          currentEffect = { ...currentEffect };
-          currentEffect.effects = {
-            time: 0.1,
-            speed: 0.3,
-            depth: 0.5,
-            feedback: 0.7,
-            mix: 0.9,
+          currentEffect = {
+            ...currentEffect,
+            effects: {
+              time: 0.1,
+              speed: 0.3,
+              depth: 0.5,
+              feedback: 0.7,
+              mix: 0.9,
+            },
           };
         }
         return currentEffect;
