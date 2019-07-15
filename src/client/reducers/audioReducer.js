@@ -12,7 +12,6 @@ import {
 const audioContext = Pizzicato.context;
 const analyser = audioContext.createAnalyser();
 
-
 export const initialState = {
   // graphic canvas
   widthCanvas: 980,
@@ -27,7 +26,6 @@ export const initialState = {
   playPauseState: false,
   startMuteState: false,
 };
-
 
 export default function (state = initialState, action) {
   switch (action.type) {
@@ -63,7 +61,8 @@ export default function (state = initialState, action) {
         startMuteState: !state.startMuteState,
       };
     case MERGE_CANVAS_WIDTH: {
-      const widthCanvas = parseInt(action.payload, 10);
+      let {widthCanvas} = action.payload;
+      widthCanvas = parseInt(widthCanvas);      
       return {
         ...state,
         widthCanvas,

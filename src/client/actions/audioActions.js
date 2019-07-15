@@ -25,7 +25,7 @@ export const createStreamData = data => dispatch => dispatch({
 export const startMuteStreamAudio = () => dispatch => dispatch({
   type: START_MUTE_STREAME_AUDIO,
 });
-export const mergeCanvasWidth = e => dispatch => dispatch({
+export const mergeCanvasWidth = eventInput => dispatch => dispatch({
   type: MERGE_CANVAS_WIDTH,
-  payload: e.target.value,
+  payload: eventInput.target.value,
 });
