@@ -2,6 +2,7 @@ import Pizzicato from 'pizzicato';
 
 import {
   CREATE_BASE_AUDIO_CONTEXT_AND_ANALYSER,
+  START_CREATION_AUDIO_DATA,
   CREATE_AUDIO_DATA,
   PLAY_PAUSE_SOUND_FROM_FILE,
   CREATE_STREAME_DATA,
@@ -21,6 +22,7 @@ export const initialState = {
   audioContext,
   analyser,
   sound: null,
+  loading: false,
   // from stream
   voice: null,
   playPauseState: false,
@@ -33,6 +35,11 @@ export default function (state = initialState, action) {
       return {
         ...state,
       };
+    case START_CREATION_AUDIO_DATA:
+      return {
+        ...state,
+        loading: true,
+      };
     case CREATE_AUDIO_DATA: {
       const {
         trackName, sound,
@@ -41,6 +48,7 @@ export default function (state = initialState, action) {
         ...state,
         trackName,        
         sound,
+        loading: false,
       };
     }
     case PLAY_PAUSE_SOUND_FROM_FILE:

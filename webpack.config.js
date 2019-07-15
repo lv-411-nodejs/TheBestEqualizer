@@ -30,7 +30,7 @@ module.exports = {
         ]
       },
       {
-        test: /\.(png|woff|woff2|eot|ttf|svg|img|jpg|jpeg)$/,
+        test: /\.(png|woff|woff2|eot|ttf|svg|img|jpg|jpeg|gif)$/,
         loader: 'url-loader?limit=100000'
       },
       {

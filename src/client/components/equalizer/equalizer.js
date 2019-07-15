@@ -3,19 +3,21 @@ import React, { Component } from 'react';
 import Pizzicato from 'pizzicato';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Graphicequaliser from './canvasEqualizer';
+import GraphicEqualiser from './canvasEqualizer';
+import DragAndDrop from '../dragAndDrop';
 import Button from '../button';
 import UploadButton from './upload';
 import InfoAboutTrack from './upload/infoAboutFile';
+import Spinner from '../../assets/images/playSpinner.gif';
 import { startStreamIcon, playIcon, stopIcon } from '../../assets/icons/icons';
-
 import './equalizer.css';
 import {
+  startCreationAudioData,
   createAudioData,
   playPauseSoundFromFile,
   createStreamData,
   startMuteStreamAudio,
-} from '../../actions/audioActions';
+} from '../../store/actions/audioActions';
 
 class Equalizer extends Component {
   state = {
@@ -51,6 +53,28 @@ class Equalizer extends Component {
     });
   }
 
+  uploadSoundInfoFromFile = (eventFromInputFile) => {
+    this.props.startCreationAudioDataAsProp();
+    const [file] = eventFromInputFile.target.files;
+    const audioFile = new Audio(URL.createObjectURL(file));
+    const sound = new Pizzicato.Sound({
+      source: 'file',
+      options: {
+        path: audioFile.src,
+        loop: true,
+      },
+    }, () => this.createSoundInfoInState(sound, file));
+  };
+
+  createSoundInfoInState = (sound, file) => {
+    const { audioData: { analyser } } = this.props;
+    sound.connect(analyser);
+    this.props.createAudioDataAsProp({
+      sound,
+      trackName: file.name,
+    });
+  };
+
   detectStreamSoundFromMicrophone = () => {
     if (navigator.mediaDevices) {
       navigator.mediaDevices.getUserMedia({
@@ -65,29 +89,6 @@ class Equalizer extends Component {
     } else {
       throw new Error('browser doesnt support audio API');
     }
-  }
-
-  uploadSoundInfoFromFile = (eventFromInputFile) => {
-    const [file] = eventFromInputFile.target.files;
-    const audioFile = new Audio(URL.createObjectURL(file));
-    const sound = new Pizzicato.Sound({
-      source: 'file',
-      options: {
-        path: audioFile.src,
-        loop: true,
-      },
-    }, () => this.createSoundInfoInState(sound, file));
-  };
-
-  createSoundInfoInState = (sound, file) => {
-    const { audioData: { analyser }, createAudioDataAsProp } = this.props;
-    sound.connect(analyser);
-    createAudioDataAsProp({
-      sound,
-      trackName: file.name,
-      trackType: file.type,
-      trackSize: file.size,
-    });
   }
 
    playSoundFromFile = async () => {
@@ -190,6 +191,8 @@ class Equalizer extends Component {
       widthCanvas,
       heightCanvas,
       trackName,
+      sound,
+      startMuteState,
     } = this.props.audioData;
 
     const StartStreamButton = (
@@ -200,13 +203,14 @@ class Equalizer extends Component {
         value="Start stream"
       />
     );
-
     const PlayButton = (
       <Button
         className="ButtonStyleTemplate"
         onClick={playSoundFromFile}
-        icon={playIcon}
-        value="Play"
+        icon={this.props.audioData.loading ? null : playIcon}
+        value={this.props.audioData.loading
+          ? <img src={Spinner} alt="Play music spinner" /> : 'Play'}
+        disabled={this.props.audioData.loading ? 'disabled' : null}
       />
     );
 
@@ -220,16 +224,21 @@ class Equalizer extends Component {
 
     return (
       <div className="graphicEqualizer">
-        <Graphicequaliser
-          width={widthCanvas}
-          height={heightCanvas}
-          getCanvasEl={setCanvasToState}
-        />
+        <div style={{ display: sound || startMuteState ? 'block' : 'none' }}>
+          <GraphicEqualiser
+            width={widthCanvas}
+            height={heightCanvas}
+            getCanvasEl={setCanvasToState}
+          />
+        </div>
+        <div style={{ display: sound || startMuteState ? 'none' : 'block' }}>
+          <DragAndDrop />
+        </div>
         <div className="ButtonsContainer">
           {StartStreamButton}
           <UploadButton handleInfoFromSound={uploadSoundInfoFromFile} />
-          {PlayButton}
-          {StopButton}
+          {sound && PlayButton}
+          {sound && StopButton}
         </div>
         <InfoAboutTrack
           trackname={trackName}
@@ -240,6 +249,7 @@ class Equalizer extends Component {
 }
 
 Equalizer.propTypes = {
+  startCreationAudioDataAsProp: PropTypes.func.isRequired,
   createAudioDataAsProp: PropTypes.func.isRequired,
   playPauseSoundFromFileAsProp: PropTypes.func.isRequired,
   createStreamDataAsProp: PropTypes.func.isRequired,
@@ -252,6 +262,7 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps, {
+  startCreationAudioDataAsProp: startCreationAudioData,
   createAudioDataAsProp: createAudioData,
   playPauseSoundFromFileAsProp: playPauseSoundFromFile,
   createStreamDataAsProp: createStreamData,

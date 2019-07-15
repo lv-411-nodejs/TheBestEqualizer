@@ -1,11 +1,6 @@
 .SlidersComponent {
-  background: var(--headerBackground-dark-super);
-
   font-family: Bitter, serif;
   width: 100%;
-  max-width: 1024px;
-  margin: auto;
-  
 }
 
 .SlidersComponent__header {

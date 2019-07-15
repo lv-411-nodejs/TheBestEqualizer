@@ -39,7 +39,7 @@ module.exports = {
             allow: ['setVisibility'],
         },
     ],
-    "import/prefer-default-export": "off"
-
+    "import/prefer-default-export": "off",
+    "react/no-access-state-in-setstate": 0
   },
 };
