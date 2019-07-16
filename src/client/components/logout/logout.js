@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
 import { logoutIcon } from '../../assets/icons/icons';
@@ -7,7 +8,12 @@ import Button from '../button';
 
 class Logout extends Component {
     SignOut = async () => {
+      const { sound, voice } = this.props.audioData;
       const { history } = this.props;
+      if (sound) {
+        sound.stop();
+        voice.stop();
+      }
       history.push('/');
     }
 
@@ -30,6 +36,11 @@ class Logout extends Component {
 
 Logout.propTypes = {
   history: PropTypes.instanceOf(Object).isRequired,
+  audioData: PropTypes.instanceOf(Object).isRequired,
 };
 
-export default withRouter(Logout);
+const mapStateToProps = state => ({
+  audioData: state.audioData,
+});
+
+export default connect(mapStateToProps)(withRouter(Logout));
