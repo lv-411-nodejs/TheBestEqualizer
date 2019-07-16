@@ -5,11 +5,11 @@ import { setPresetValue } from '../../store/actions/blocksActions';
 
 import './presetsDropdownSelector.css';
 
-const PresetsDropdownSelector = ({ setPresetValue }) => {
+const PresetsDropdownSelector = (props) => {
   const values = ['Jazz', 'Rock', 'Rap'];
 
   const handleSelectorChange = (event) => {
-    setPresetValue(event.target.value);
+    props.setPresetValue(event.target.value);
   };
 
   return (

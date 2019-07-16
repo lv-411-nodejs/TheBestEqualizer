@@ -8,7 +8,6 @@ import {
 export const setVisibility = blockName => ({ type: SET_VISIBILITY, blockName });
 
 export const setPresetValue = chosenPresetName => (dispatch) => {
-
   switch (chosenPresetName) {
     case 'Rock':
       dispatch({ type: SET_ROCK_PRESET });

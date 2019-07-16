@@ -33,6 +33,7 @@ module.exports = {
     }],
     "react/button-has-type": 'off',
     "react/destructuring-assignment": 'off',
+    "react/no-did-update-set-state": 0,
     'no-shadow': [
         'error',
         {
