@@ -49,8 +49,8 @@ export default class ApiController {
   }
 
   static postEffectsHandler(req, res) {
-    const { title, effects } = req.body;
-    const saveEffects = new Effects({ title, effects });
+    const { title, presets } = req.body;
+    const saveEffects = new Effects({ title, presets });
     Effects
       .findOne({ title })
       .then(foundTitle => (foundTitle

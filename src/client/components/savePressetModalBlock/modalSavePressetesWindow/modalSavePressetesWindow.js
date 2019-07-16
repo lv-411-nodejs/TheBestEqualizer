@@ -24,7 +24,7 @@ class SavePressetesModalWindow extends Component {
       presets: currentValueOfFilters,
     })
       .then(({ response }) => console.log(response))
-      .catch(error => console.log(error))
+      .catch(error => console.log(error));
   }
 
   render() {
