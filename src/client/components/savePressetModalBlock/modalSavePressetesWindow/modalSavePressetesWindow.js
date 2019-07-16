@@ -18,10 +18,13 @@ class SavePressetesModalWindow extends Component {
   }
 
   handleFilterDataSend = (valueFromPresetInput, currentValueOfFilters) => {
-    axios.post('/effects', {
+    // console.log(valueFromPresetInput, currentValueOfFilters)
+    axios.post('http://localhost:8080/effects', {
       title: valueFromPresetInput,
-      currentValueOfFilters,
-    });
+      presets: currentValueOfFilters,
+    })
+      .then(({ response }) => console.log(response))
+      .catch(error => console.log(error))
   }
 
   render() {
