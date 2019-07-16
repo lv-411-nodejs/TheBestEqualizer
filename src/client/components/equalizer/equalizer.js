@@ -193,6 +193,7 @@ class Equalizer extends Component {
       trackName,
       sound,
       startMuteState,
+      playPauseState,
     } = this.props.audioData;
 
     const StartStreamButton = (
@@ -217,6 +218,7 @@ class Equalizer extends Component {
     const StopButton = (
       <Button
         className="ButtonStyleTemplate"
+        onClick={playSoundFromFile}
         icon={stopIcon}
         value="Stop"
       />
@@ -237,8 +239,12 @@ class Equalizer extends Component {
         <div className="ButtonsContainer">
           {StartStreamButton}
           <UploadButton handleInfoFromSound={uploadSoundInfoFromFile} />
-          {sound && PlayButton}
-          {sound && StopButton}
+          <div style={{ display: playPauseState ? 'none' : 'block' }}>
+            {sound && PlayButton}
+          </div>
+          <div style={{ display: playPauseState ? 'block' : 'none' }}>
+            {sound && StopButton}
+          </div>
         </div>
         <InfoAboutTrack
           trackname={trackName}
