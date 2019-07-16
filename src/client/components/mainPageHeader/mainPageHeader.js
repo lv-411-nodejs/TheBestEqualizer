@@ -1,6 +1,7 @@
 import React from 'react';
 import { userIcon } from '../../assets/icons/icons';
 import logo from './logo.svg';
+import Logout from '../logout';
 import './mainPageHeader.css';
 
 const MainPageHeader = () => (
@@ -10,9 +11,12 @@ const MainPageHeader = () => (
       <span className="Node">nodes</span>
       Equalizer
     </div>
-    <div className="UserName">
-      {userIcon}
-      <span>Billie Eilish</span>
+    <div className="UserNameAndLogout">
+      <div className="UserName">
+        {userIcon}
+        <span>Billie Eilish</span>
+      </div>
+      <Logout />
     </div>
   </section>
 );
