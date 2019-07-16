@@ -15,12 +15,12 @@ import {
 const FAKE_REDUCER = 'FAKE_REDUCER';
 
 jest.mock('pizzicato', () => {
-  const myMock = jest.fn();
-  myMock.context = jest.fn(() => {});
-  myMock.context.createAnalyser = jest.fn(() => 'analyser');
+  const mockPizzicato = jest.fn();
+  mockPizzicato.context = jest.fn(() => {});
+  mockPizzicato.context.createAnalyser = jest.fn(() => 'analyser');
   return {
     __esModule: true,
-    default: myMock,
+    default: mockPizzicato,
   }
 })
 
