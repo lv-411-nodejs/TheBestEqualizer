@@ -1,5 +1,6 @@
 import {
   CREATE_AUDIO_DATA,
+  START_CREATION_AUDIO_DATA,
   PLAY_PAUSE_SOUND_FROM_FILE,
   CREATE_STREAME_DATA,
   START_MUTE_STREAME_AUDIO,
@@ -8,6 +9,7 @@ import {
 
 import {
   createAudioData,
+  startCreationAudioData,
   playPauseSoundFromFile,
   createStreamData,
   startMuteStreamAudio,
@@ -23,6 +25,15 @@ describe('TEST AUDIO ACTIONS', () => {
     }
     const dispatch = jest.fn((action) => action)
     expect(createAudioData("audioData")(dispatch))
+      .toEqual(expectedAction)
+  })
+
+  it('START CREATION AUDIO DATA', () => {
+    const expectedAction = {
+      type: START_CREATION_AUDIO_DATA,
+    }
+    const dispatch = jest.fn((action) => action)
+    expect(startCreationAudioData()(dispatch))
       .toEqual(expectedAction)
   })
 

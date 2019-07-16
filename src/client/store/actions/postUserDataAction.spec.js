@@ -29,86 +29,102 @@ describe('TEST POST ACTIONS', () => {
   const fakeHistory = jest.fn(() => [])
 
   describe('ASYNC POST ACTION', () => {
-    afterEach(() => {
+    beforeEach(() => {
       jest.resetAllMocks();
       jest.restoreAllMocks();
       })
 
 
-    //     it('CREATE POST USER DATA', () => {
+      it('CREATE POST USER DATA', () => {      
 
-    //         const failUserData = {
-    //             body: {
-    //             email: 'fakeEmail@fake.server', 
-    //             receivedPassword: '1111'}
-    //         }
-    //         const fakeHistory = jest.fn(() => [])    
-    //         const responce = {status: 200, token: 'fakeToken'}
-    //         fetchMock.postOnce(`http://localhost:8080/login`, responce, (failUserData, fakeHistory)) 
-
-    //         const expectedActions = [
-    //             {
-    //               type: AUTH_START,
-    //             },
-    //             {
-    //               type: POST_USER_DATA,
-    //               status: 'Success authentification', 
-    //             },
-    //           ]
-
-    //           const store = mockStore({})
-
-
-    //     return store.dispatch(postUserData('/login', failUserData, fakeHistory)).then(() => {
-    //         expect(store.getActions()).toEqual(expectedActions)
-    //     }) 
-    // })
-
-    it('CREATE POST USER DATA', () => {      
-
-      jest.mock('axios', () => {
-        const failUserData = {
-          body: {
-            email: 'fakeEmail@fake.server',
-            password: '1111'
-          }
-        }
-
-        const baseUrl = 'http://localhost:8080';
-        const response = {
-          status: 404,
-          body: {
-            data: {
-              error: "Login failed"
+        jest.mock('axios', () => {
+          const failUserData = {
+            body: {
+              email: 'fakeEmail@fake.server',
+              password: '1111'
             }
           }
-        }
-        const myMock = jest.fn();
-
-        myMock.post = jest.fn((...response) => response);
-        const faikRes = myMock.post(baseUrl, response, failUserData)
-        return {
-          __esModule: true,
-          default: faikRes,
-        }
+  
+          const baseUrl = 'http://localhost:8080';
+          const response = {
+            status: 200,
+            body: {
+              data: {
+                status: "Success authentification",               
+              }
+            }
+          }
+          const myMock = jest.fn();
+  
+          myMock.post = jest.fn((...response) => response);
+          const faikeResult = myMock.post(baseUrl, response, failUserData)
+          return {
+            __esModule: true,
+            default: faikeResult,
+          }
+        })
+  
+        const expectedActions = [{
+            type: AUTH_START,
+          },
+          // {
+          //   type: POST_USER_DATA,
+          //   status: "Success authentification",            
+          // },
+        ]
+  
+        const store = mockStore({})
+  
+        return store.dispatch(postUserData('/login', failUserData, fakeHistory)).then(() => {
+          expect(store.getActions()).toEqual(expectedActions)
+        })
       })
 
-      const expectedActions = [{
-          type: AUTH_START,
-        },
-        {
-          type: AUTH_FAIL,
-          status: 'Authentification was failed',
-          error: "Login failed"
-        },
-      ]
+    // it('CREATE POST USER DATA', () => {      
 
-      const store = mockStore({})
+    //   jest.mock('axios', () => {
+    //     const failUserData = {
+    //       body: {
+    //         email: 'fakeEmail@fake.server',
+    //         password: '1111'
+    //       }
+    //     }
 
-      return store.dispatch(postUserData('/login', failUserData, fakeHistory)).then(() => {
-        expect(store.getActions()).toEqual(expectedActions)
-      })
-    })
+    //     const baseUrl = 'http://localhost:8080';
+    //     const response = {
+    //       status: 404,
+    //       body: {
+    //         data: {
+    //           error: "Login failed"
+    //         }
+    //       }
+    //     }
+    //     const myMock = jest.fn();
+
+    //     myMock.post = jest.fn((...response) => response);
+    //     const faikeResult = myMock.post(baseUrl, response, failUserData)
+    //     return {
+    //       __esModule: true,
+    //       default: faikeResult,
+    //     }
+    //   })
+
+    //   const expectedActions = [{
+    //       type: AUTH_START,
+    //     },
+    //     {
+    //       type: AUTH_FAIL,
+    //       status: 'Authentification was failed',
+    //       error: "Login failed"
+    //     },
+    //   ]
+
+    //   const store = mockStore({})
+
+    //   return store.dispatch(postUserData('/login', failUserData, fakeHistory)).then(() => {
+    //     expect(store.getActions()).toEqual(expectedActions)
+    //   })
+    // })
 
   })
 })
