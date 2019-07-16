@@ -1,21 +1,14 @@
 import React, { Component } from 'react';
-// import { Redirect } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
+import { PropTypes } from 'prop-types';
 import { logoutIcon } from '../../assets/icons/icons';
 import './logout.css';
 import Button from '../button';
-import fetchRequest from '../../helpers/fetchRequest';
 
 class Logout extends Component {
-
-    SignOut = () => {
-      fetchRequest.post('/logout')
-        .then(() => {
-          localStorage.removeItem('_token');
-          // this.setState({ redirect: true });
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+    SignOut = async () => {
+      const { history } = this.props;
+      history.push('/');
     }
 
     render() {
@@ -34,4 +27,9 @@ class Logout extends Component {
       );
     }
 }
-export default Logout;
+
+Logout.propTypes = {
+  history: PropTypes.instanceOf(Object).isRequired,
+};
+
+export default withRouter(Logout);

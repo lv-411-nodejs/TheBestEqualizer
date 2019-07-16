@@ -169,9 +169,9 @@ class Equalizer extends Component {
     ctx.fill();
   }
 
-  setCanvasToState = (canvasEl) => {
-    this.setState({
-      ctx: canvasEl.getContext('2d'),
+  setCanvasToState = async (canvasEl) => {
+    await this.setState({
+      ctx: canvasEl ? canvasEl.getContext('2d') : null,
     });
   }
 
