@@ -1,4 +1,4 @@
-export const formFieldsInfo = [
+export const fieldsInfo = [
   {
     type: 'text',
     name: 'username',

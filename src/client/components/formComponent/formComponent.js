@@ -12,6 +12,7 @@ const FormComponent = props => (
       fieldsToRender={props.fieldsToRender}
       onInputChange={props.onInputChange}
       userData={props.userData}
+      validationErrors={props.validationErrors}
     />
     <div className="field">
       <Button
@@ -27,6 +28,7 @@ const FormComponent = props => (
 FormComponent.propTypes = {
   fieldsToRender: PropTypes.instanceOf(Array).isRequired,
   userData: PropTypes.instanceOf(Object).isRequired,
+  validationErrors: PropTypes.instanceOf(Object),
   onFormSubmit: PropTypes.func.isRequired,
   onInputChange: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
