@@ -18,7 +18,7 @@ export const initialState = {
   widthCanvas: 980,
   heightCanvas: 150,
   // audio from file
-  trackName: null,  
+  trackName: null,
   audioContext,
   analyser,
   sound: null,
@@ -46,7 +46,7 @@ export default function (state = initialState, action) {
       } = action.payload;
       return {
         ...state,
-        trackName,        
+        trackName,
         sound,
         loading: false,
       };
@@ -69,8 +69,8 @@ export default function (state = initialState, action) {
         startMuteState: !state.startMuteState,
       };
     case MERGE_CANVAS_WIDTH: {
-      let {widthCanvas} = action.payload;
-      widthCanvas = parseInt(widthCanvas);      
+      let { widthCanvas } = action.payload;
+      widthCanvas = parseInt(widthCanvas, 10);
       return {
         ...state,
         widthCanvas,

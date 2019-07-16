@@ -5,6 +5,10 @@ module.exports = {
   },
   extends: 'airbnb',
   globals: {
+    describe: false,
+    jest: false,
+    it: false,
+    expect: false,
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly',
   },
