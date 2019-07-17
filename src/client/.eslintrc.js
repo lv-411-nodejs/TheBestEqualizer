@@ -9,6 +9,7 @@ module.exports = {
     jest: false,
     it: false,
     expect: false,
+    beforeEach: false,
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly',
   },
