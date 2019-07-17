@@ -6,7 +6,7 @@ import response from './errorHandler';
 dotenv.config();
 
 const { SECRET } = process.env;
-const tokenLife = '20m';
+const tokenLife = '30m';
 
 /**
  *
@@ -32,9 +32,7 @@ export const generateTokensPair = (payload, life = tokenLife) => {
  */
 export const middleware = (req, res, next) => {
   const token = req.headers['x-access-token'];
-  console.log( req.headers)
   if (!token) {
-    console.log('***Hello from IF section***', token)
     return response(res, {
       success: false,
       message: 'No token provided.',

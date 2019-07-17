@@ -24,7 +24,9 @@ class ComponentWithSliders extends Component {
 
   handleGetData = () => {
     fetchRequest.get('http://localhost:8080/effects',
-      { effects: { title: '123d' } });
+      {
+        params: { title: 'myNewpewsen' },
+      });
   };
 
   render() {

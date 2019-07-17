@@ -60,7 +60,8 @@ export default class ApiController {
   }
 
   static getEffectsHandler(req, res) {
-    const { title } = req.body;
+    const { title } = req.query;
+
     Effects
       .findOne({ title })
       .then(preset => (preset
