@@ -17,7 +17,7 @@ import {
 } from './audioActions';
 
 describe('TEST AUDIO ACTIONS', () => {
-  it('CREATE AUDIO DATA', () => {
+  it('SHOULD CREATE AUDIO DATA', () => {
     const expectedAction = {
       type: CREATE_AUDIO_DATA,
       payload: 'audioData',
@@ -27,7 +27,7 @@ describe('TEST AUDIO ACTIONS', () => {
       .toEqual(expectedAction);
   });
 
-  it('START CREATION AUDIO DATA', () => {
+  it('SHOULD START CREATION AUDIO DATA', () => {
     const expectedAction = {
       type: START_CREATION_AUDIO_DATA,
     };
@@ -36,7 +36,7 @@ describe('TEST AUDIO ACTIONS', () => {
       .toEqual(expectedAction);
   });
 
-  it('PLAY OR PAUSE SOUND FROM FILE', () => {
+  it('SHOULD PLAY OR PAUSE SOUND FROM FILE', () => {
     const expectedAction = {
       type: PLAY_PAUSE_SOUND_FROM_FILE,
     };
@@ -45,7 +45,7 @@ describe('TEST AUDIO ACTIONS', () => {
       .toEqual(expectedAction);
   });
 
-  it('CREATE STREAME DATA', () => {
+  it('SHOULD CREATE STREAME DATA', () => {
     const expectedAction = {
       type: CREATE_STREAME_DATA,
     };
@@ -54,7 +54,7 @@ describe('TEST AUDIO ACTIONS', () => {
       .toEqual(expectedAction);
   });
 
-  it('START MUTE STREAME VOICE', () => {
+  it('SHOULD START MUTE STREAME VOICE', () => {
     const expectedAction = {
       type: START_MUTE_STREAME_AUDIO,
     };
@@ -63,7 +63,7 @@ describe('TEST AUDIO ACTIONS', () => {
       .toEqual(expectedAction);
   });
 
-  it('MERGE CANVAS WIDTH', () => {
+  it('SHOULD MERGE CANVAS WIDTH', () => {
     const event = {
       preventDefault() {},
       target: { value: 500 },
