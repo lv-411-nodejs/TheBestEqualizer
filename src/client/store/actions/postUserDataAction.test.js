@@ -23,7 +23,7 @@ describe('TEST POST ACTIONS', () => {
       jest.restoreAllMocks();
     });
 
-    it('CREATE POST USER DATA',  () => {
+    it('CREATE POST USER DATA', () => {
       axios.post = jest.fn()
         .mockImplementation(() => Promise.resolve());
 
@@ -43,7 +43,7 @@ describe('TEST POST ACTIONS', () => {
       }));
     });
 
-    it('CREATE POST USER DATA',  () => {
+    it('CREATE POST USER DATA', () => {
       const response = {
         status: 404,
         response: {
