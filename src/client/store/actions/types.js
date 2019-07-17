@@ -18,4 +18,5 @@ export const SET_VISIBILITY = 'SET_VISIBILITY';
 // Presets data types
 export const SET_ROCK_PRESET = 'SET_ROCK_PRESET';
 export const SET_JAZZ_PRESET = 'SET_JAZZ_PRESET';
-export const SET_RAP_PRESET = 'SET_RAP_PRESET';
+export const SET_POP_PRESET = 'SET_POP_PRESET';
+export const SET_USER_PRESET = 'SET_USER_PRESET';

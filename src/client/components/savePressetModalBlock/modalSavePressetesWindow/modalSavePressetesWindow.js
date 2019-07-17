@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Button from '../../button';
 import './modalSavePressetesWindow.css';
 import { cancelIcon, saveIcon } from '../../../assets/icons/icons';
+import fetchRequest from '../../../helpers/fetchRequest';
 
 
 class SavePressetesModalWindow extends Component {
@@ -18,14 +18,12 @@ class SavePressetesModalWindow extends Component {
   }
 
   handleFilterDataSend = (valueFromPresetInput, currentValueOfFilters) => {
-    // console.log(valueFromPresetInput, currentValueOfFilters)
-    axios.post('http://localhost:8080/effects', {
+    fetchRequest.post('http://localhost:8080/effects', {
       title: valueFromPresetInput,
       presets: currentValueOfFilters,
     })
-      .then(({ response }) => console.log(response))
-      .catch(error => console.log(error));
-  }
+      .then(response => console.log('response is:', response));
+  };
 
   render() {
     const {

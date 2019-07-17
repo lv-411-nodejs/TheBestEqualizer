@@ -3,7 +3,8 @@ import {
   SET_VISIBILITY,
   SET_ROCK_PRESET,
   SET_JAZZ_PRESET,
-  SET_RAP_PRESET,
+  SET_POP_PRESET,
+  SET_USER_PRESET,
 } from '../actions/types';
 
 const initialState = [
@@ -194,59 +195,26 @@ const initialState = [
 ];
 
 export default function (state = initialState, action) {
-  const { blockName } = action;
+  const {
+    blockName,
+    jazzPresetArray,
+    rockPresetArray,
+    popPresetArray,
+    userPresetArray,
+  } = action;
 
   switch (action.type) {
-    case SET_ROCK_PRESET: {
-      const newState = initialState.map((currentEffect) => {
-        if (currentEffect.name === 'Delay') {
-          currentEffect = {
-            ...currentEffect,
-            effects: {
-              feedback: 0.3,
-              time: 0.9,
-              mix: 0.5,
-            },
-          };
-        }
-        return currentEffect;
-      });
-      return newState;
-    }
-
     case SET_JAZZ_PRESET: {
-      const newState = initialState.map((currentEffect) => {
-        if (currentEffect.name === 'Reverb') {
-          currentEffect = {
-            ...currentEffect,
-            effects: {
-              time: 0.1,
-              decay: 0.2,
-              mix: 0.3,
-            },
-          };
-        }
-        return currentEffect;
-      });
-      return newState;
+      return jazzPresetArray;
     }
-
-    case SET_RAP_PRESET: {
-      return initialState.map((currentEffect) => {
-        if (currentEffect.name === 'Flanger') {
-          currentEffect = {
-            ...currentEffect,
-            effects: {
-              time: 0.1,
-              speed: 0.3,
-              depth: 0.5,
-              feedback: 0.7,
-              mix: 0.9,
-            },
-          };
-        }
-        return currentEffect;
-      });
+    case SET_ROCK_PRESET: {
+      return rockPresetArray;
+    }
+    case SET_POP_PRESET: {
+      return popPresetArray;
+    }
+    case SET_USER_PRESET: {
+      return userPresetArray;
     }
     case SET_VISIBILITY:
       return state.map(block => (block.name === blockName
