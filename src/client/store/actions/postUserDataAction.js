@@ -18,10 +18,10 @@ export const authFail = (status, error) => ({
   error,
 });
 
-export const postUserData = (path, newUser, history) => (dispatch) => {
+export const postUserData = (path, newUser, history) => async (dispatch) => {
   dispatch(authStart());
   let response;
-  axios.post(`${baseUrl}${path}`, newUser)
+  await axios.post(`${baseUrl}${path}`, newUser)
     .then(() => {
       dispatch(authSuccess('Success authentification'));
     })
