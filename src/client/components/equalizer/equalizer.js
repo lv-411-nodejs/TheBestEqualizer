@@ -9,7 +9,9 @@ import Button from '../button';
 import UploadButton from './upload';
 import InfoAboutTrack from './upload/infoAboutFile';
 import Spinner from '../../assets/images/playSpinner.gif';
-import { startStreamIcon, playIcon, stopIcon } from '../../assets/icons/icons';
+import {
+  startStreamIcon, playIcon, stopIcon, pauseIcon,
+} from '../../assets/icons/icons';
 import './equalizer.css';
 import {
   startCreationAudioData,
@@ -260,7 +262,7 @@ class Equalizer extends Component {
       <Button
         className="ButtonStyleTemplate"
         onClick={pauseSoundFromFile}
-        icon={stopIcon}
+        icon={pauseIcon}
         value="Pause"
       />
     );
