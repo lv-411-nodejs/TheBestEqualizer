@@ -49,16 +49,6 @@ class AllBlocks extends Component {
     sound.stop();
   };
 
-  setEffectsValue = (blockName, effectsName, value) => {
-    const { blocksData } = this.props;
-    blocksData.forEach(({ name, effects, createEffect }) => {
-      if (name === blockName) {
-        effects[effectsName] = value;
-        createEffect[effectsName] = effects[effectsName];
-      }
-    });
-  };
-
   render() {
     const { sound, isPlaying } = this.state;
     const { setVisibility, blocksData } = this.props;
@@ -113,16 +103,14 @@ class AllBlocks extends Component {
           </div>
           <div className="Sliders">
             {blocksData.map(({
-              name, effects, createEffect, isVisible,
+              name, effects, isVisible,
             }) => (isVisible
               ? (
                 <BlockOfSliders
                   name={name}
                   effects={effects}
-                  createEffect={createEffect}
                   key={name}
                   sound={sound}
-                  setEffectsValue={this.setEffectsValue}
                 />
               )
               : null))}
