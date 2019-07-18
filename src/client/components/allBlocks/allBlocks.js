@@ -9,15 +9,23 @@ import { checkTickIcon } from '../../assets/icons/icons';
 import './alllBlocks.css';
 
 class AllBlocks extends Component {
-  componentDidUpdate() {
-    // this.props.sound ? this.attachFiltersToSource(this.props.sound) : null;
-  }
-  
-  attachFiltersToSource = sourceInput => this.props.blocksData.forEach(({ createEffect, isVisible }) => {
-    isVisible ? sourceInput.addEffect(createEffect) : null;
-  });
-  render() {
+  toggleSourceFilters = (filterName) => {
     const { setVisibility, blocksData } = this.props;
+    setVisibility(filterName);
+    blocksData.forEach(({ createEffect, isVisible, name }) => {
+      if(filterName === name) {
+        if(this.props.audioData.onToggle) {
+          isVisible ? this.props.audioData.voice.removeEffect(createEffect)
+          : this.props.audioData.voice.addEffect(createEffect);
+        } else {
+          isVisible ? this.props.audioData.sound.removeEffect(createEffect)
+          : this.props.audioData.sound.addEffect(createEffect);
+        }
+      }
+    });
+  }
+  render() {
+    const { blocksData } = this.props;
     return (
       <div className="SlidersComponent__main--container">
         <div className="AllSliders">
@@ -30,7 +38,7 @@ class AllBlocks extends Component {
                   type="button"
                   id={name}
                   name={name}
-                  onClick={() => setVisibility(name)}
+                  onClick={() => this.toggleSourceFilters(name)}
                 >
                   {name}
                   {' '}
@@ -65,6 +73,7 @@ AllBlocks.propTypes = {
 
 const mapStateToProps = state => ({
   blocksData: state.blocksData,
+  audioData: state.audioData,
   sound: state.audioData.sound,
   voice: state.audioData.voice,
 });

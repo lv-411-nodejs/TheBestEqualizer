@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-
 import Pizzicato from 'pizzicato';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -50,8 +49,6 @@ class Equalizer extends Component {
     const voice = new Pizzicato.Sound({
       source: 'input',
     }, () => {
-      this.removeVoiceFilters();
-      this.attachFiltersToSource(voice);
       createStreamDataAsProp({ voice });
     });
   }
@@ -68,7 +65,7 @@ class Equalizer extends Component {
       },
     }, () => {
       this.props.audioData.sound && this.removeSoundFilters();
-      this.attachFiltersToSource(sound);
+      !this.props.audioData.onToggle && this.attachFiltersToSource(sound);
       this.createSoundInfoInState(sound, file);
     });
   };
@@ -151,16 +148,9 @@ class Equalizer extends Component {
 
   removeSoundFilters = () => {
     this.props.blocksData.forEach(({ createEffect, isVisible }) =>
-      this.props.audioData.sound.removeEffect(createEffect))
+      this.props.audioData.sound.removeEffect(createEffect));
     this.props.audioData.sound.disconnect();
     delete this.props.audioData.sound;
-  };
-
-  removeVoiceFilters = () => {
-    this.props.blocksData.forEach(({ createEffect, isVisible }) =>
-      this.props.audioData.voice.removeEffect(createEffect))
-    this.props.audioData.voice.disconnect();
-    delete this.props.audioData.voice;
   };
 
   attachFiltersToSource = sourceInput => this.props.blocksData.forEach(({ createEffect, isVisible }) => {
