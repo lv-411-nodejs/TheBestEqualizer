@@ -13,7 +13,7 @@ import {
 const audioContext = Pizzicato.context;
 const analyser = audioContext.createAnalyser();
 
-export const initialState = {
+const initialState = {
   // graphic canvas
   widthCanvas: 980,
   heightCanvas: 150,

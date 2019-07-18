@@ -17,53 +17,53 @@ import {
 } from './audioActions';
 
 describe('TEST AUDIO ACTIONS', () => {
-  it('SHOULD CREATE AUDIO DATA', () => {
+  const dispatch = jest.fn(action => action);
+  it('should dispatch action CREATE AUDIO DATA', () => {
     const expectedAction = {
       type: CREATE_AUDIO_DATA,
       payload: 'audioData',
     };
-    const dispatch = jest.fn(action => action);
     expect(createAudioData('audioData')(dispatch))
       .toEqual(expectedAction);
   });
 
-  it('SHOULD START CREATION AUDIO DATA', () => {
+  it('should dispatch action START CREATION AUDIO DATA', () => {
     const expectedAction = {
       type: START_CREATION_AUDIO_DATA,
     };
-    const dispatch = jest.fn(action => action);
+
     expect(startCreationAudioData()(dispatch))
       .toEqual(expectedAction);
   });
 
-  it('SHOULD PLAY OR PAUSE SOUND FROM FILE', () => {
+  it('should dispatch action PLAY OR PAUSE SOUND FROM FILE', () => {
     const expectedAction = {
       type: PLAY_PAUSE_SOUND_FROM_FILE,
     };
-    const dispatch = jest.fn(action => action);
+
     expect(playPauseSoundFromFile()(dispatch))
       .toEqual(expectedAction);
   });
 
-  it('SHOULD CREATE STREAME DATA', () => {
+  it('should dispatch action CREATE STREAME DATA', () => {
     const expectedAction = {
       type: CREATE_STREAME_DATA,
     };
-    const dispatch = jest.fn(action => action);
+
     expect(createStreamData()(dispatch))
       .toEqual(expectedAction);
   });
 
-  it('SHOULD START MUTE STREAME VOICE', () => {
+  it('should dispatch action START MUTE STREAME VOICE', () => {
     const expectedAction = {
       type: START_MUTE_STREAME_AUDIO,
     };
-    const dispatch = jest.fn(action => action);
+
     expect(startMuteStreamAudio()(dispatch))
       .toEqual(expectedAction);
   });
 
-  it('SHOULD MERGE CANVAS WIDTH', () => {
+  it('should dispatch action MERGE CANVAS WIDTH', () => {
     const event = {
       preventDefault() {},
       target: { value: 500 },
@@ -74,7 +74,6 @@ describe('TEST AUDIO ACTIONS', () => {
       payload: 500,
     };
 
-    const dispatch = jest.fn(action => action);
     expect(mergeCanvasWidth(event)(dispatch))
       .toEqual(expectedAction);
   });

@@ -16,57 +16,54 @@ import {
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
-describe('TEST POST ACTIONS', () => {
-  describe('ASYNC POST ACTION', () => {
-    beforeEach(() => {
-      jest.resetAllMocks();
-      jest.restoreAllMocks();
-    });
+describe('TEST ASYNC POST ACTION', () => {
+  beforeEach(() => {
+    jest.resetAllMocks();
+  });
 
-    it('CREATE POST USER DATA', () => {
-      axios.post = jest.fn()
-        .mockImplementation(() => Promise.resolve());
+  it('should dispatch actions CREATE POST USER DATA', () => {
+    axios.post = jest.fn()
+      .mockImplementation(() => Promise.resolve());
 
-      const expectedActions = [{
-        type: AUTH_START,
+    const expectedActions = [{
+      type: AUTH_START,
+    },
+    {
+      status: 'Success authentification',
+      type: POST_USER_DATA,
+    },
+    ];
+
+    const store = mockStore({});
+
+    return store.dispatch(postUserData(() => {
+      expect(store.getActions()).toEqual(expectedActions);
+    }));
+  });
+
+  it('should dispatch actions CREATE POST USER DATA', () => {
+    const response = {
+      status: 404,
+      response: {
+        data: { error: 'fakeError' },
       },
-      {
-        status: 'Success authentification',
-        type: POST_USER_DATA,
-      },
-      ];
+    };
+    axios.post = jest.fn()
+      .mockImplementation(() => Promise.reject(response));
 
-      const store = mockStore({});
+    const expectedActions = [{
+      type: AUTH_START,
+    },
+    {
+      status: 'Authentification was failed',
+      type: AUTH_FAIL,
+    },
+    ];
 
-      return store.dispatch(postUserData(() => {
-        expect(store.getActions()).toEqual(expectedActions);
-      }));
-    });
+    const store = mockStore({});
 
-    it('CREATE POST USER DATA', () => {
-      const response = {
-        status: 404,
-        response: {
-          data: { error: 'fakeError' },
-        },
-      };
-      axios.post = jest.fn()
-        .mockImplementation(() => Promise.reject(response));
-
-      const expectedActions = [{
-        type: AUTH_START,
-      },
-      {
-        status: 'Authentification was failed',
-        type: AUTH_FAIL,
-      },
-      ];
-
-      const store = mockStore({});
-
-      return store.dispatch(postUserData(() => {
-        expect(store.getActions()).toEqual(expectedActions);
-      }));
-    });
+    return store.dispatch(postUserData(() => {
+      expect(store.getActions()).toEqual(expectedActions);
+    }));
   });
 });
