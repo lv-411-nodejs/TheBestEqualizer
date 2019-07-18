@@ -37,8 +37,8 @@
 }
 
 .Slider--value {
-  color: #ffffff;
-  font-size: var(--fontSize-text);;
+  color: var(--mainText-ordinary-white);
+  font-size: var(--fontSize-text);
 }
 
 .Slider--label {

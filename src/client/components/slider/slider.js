@@ -9,10 +9,10 @@ import './slider.css';
 class OneSlider extends Component {
   constructor(props, context) {
     super(props, context);
-    const { effectValues } = props;
     const {
       value, maxValue, minValue, step,
-    } = effectValues;
+    } = props.effectValues;
+
     this.state = {
       sliderValue: value,
       maxValue,
