@@ -214,7 +214,9 @@ export default function (state = initialState, action) {
       return popPresetArray;
     }
     case SET_USER_PRESET: {
-      return userPresetArray;
+      return state.map((effectFromStore, i) => (
+        { ...effectFromStore, effects: userPresetArray[i].effects }
+      ));
     }
     case SET_VISIBILITY:
       return state.map(block => (block.name === blockName

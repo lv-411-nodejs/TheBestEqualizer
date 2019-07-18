@@ -10,6 +10,7 @@ import fetchRequest from '../../../helpers/fetchRequest';
 class SavePressetesModalWindow extends Component {
   state = {
     valueFromPresetInput: '',
+    savePresetStatusMessage: '',
   }
 
   handleInputChange = (event) => {
@@ -22,7 +23,7 @@ class SavePressetesModalWindow extends Component {
       title: valueFromPresetInput,
       presets: currentValueOfFilters,
     })
-      .then(response => console.log('response is:', response));
+      .then(response => this.setState({ savePresetStatusMessage: response.data.result }));
   };
 
   render() {
@@ -32,7 +33,7 @@ class SavePressetesModalWindow extends Component {
       currentValueOfFilters,
     } = this.props;
 
-    const { valueFromPresetInput } = this.state;
+    const { valueFromPresetInput, savePresetStatusMessage } = this.state;
     return (
       <div
         role="button"
@@ -47,11 +48,13 @@ class SavePressetesModalWindow extends Component {
         </div>
         <div className="textArea">
           <h3>Please type presset&#39;s name</h3>
+          <span className="savePresetStatusMessage">{savePresetStatusMessage}</span>
           <input
             onChange={this.handleInputChange}
             type="text"
             value={valueFromPresetInput}
           />
+          <span className="spanTooltipMessage">write preset-name without space</span>
         </div>
         <div className="SaveCancelButtonsContainer">
           <Button

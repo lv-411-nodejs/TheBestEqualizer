@@ -26,7 +26,8 @@ class ComponentWithSliders extends Component {
     fetchRequest.get('http://localhost:8080/effects',
       {
         params: { title: 'myNewpewsen' },
-      });
+      })
+      .then(response => console.log(response.data.presets));
   };
 
   render() {

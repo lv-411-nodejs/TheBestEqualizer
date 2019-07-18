@@ -25,6 +25,7 @@ module.exports = {
     "no-underscore-dangle": ["error", { "allow": ["__REDUX_DEVTOOLS_EXTENSION__"] }],
     "react/require-default-props": "off",
     "react/no-array-index-key": 'off',
+    "no-cond-assign": 0,
     "no-param-reassign": [2, {"props": false}],
     "jsx-a11y/label-has-for": [ 2, {
       "required": {

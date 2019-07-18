@@ -38,9 +38,9 @@ export const setPresetValue = chosenPresetName => (dispatch) => {
       break;
     default:
       fetchRequest.get('http://localhost:8080/effects',
-        { effects: { title: `${chosenPresetName}` } })
-        .then(presetResponseArray => dispatch(
-          { type: SET_USER_PRESET, userPresetArray: presetResponseArray },
+        { params: { title: chosenPresetName } })
+        .then(response => dispatch(
+          { type: SET_USER_PRESET, userPresetArray: response.data.presets },
         ));
   }
 };
