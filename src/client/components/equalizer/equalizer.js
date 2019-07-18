@@ -114,6 +114,7 @@ class Equalizer extends Component {
          playPauseState,
        }, playPauseSoundFromFileAsProp,
      } = this.props;
+
      if (playPauseState) {
        sound.pause();
      }
@@ -206,8 +207,8 @@ class Equalizer extends Component {
     ctx.fill();
   }
 
-  setCanvasToState = async (canvasEl) => {
-    await this.setState({
+  setCanvasToState = (canvasEl) => {
+    this.setState({
       ctx: canvasEl ? canvasEl.getContext('2d') : null,
     });
   }

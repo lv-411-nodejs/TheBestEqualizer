@@ -7,7 +7,7 @@ import './logout.css';
 import Button from '../button';
 
 class Logout extends Component {
-    SignOut = async () => {
+    SignOut = () => {
       const { sound, voice } = this.props.audioData;
       const { history } = this.props;
       if (sound) {
@@ -18,18 +18,13 @@ class Logout extends Component {
     }
 
     render() {
-      const LogoutButton = (
+      return (
         <Button
           className="ButtonStyleTemplate"
           icon={logoutIcon}
           value="Logout"
           onClick={this.SignOut}
         />
-      );
-      return (
-        <div>
-          { LogoutButton }
-        </div>
       );
     }
 }
