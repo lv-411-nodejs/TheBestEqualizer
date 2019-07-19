@@ -1,5 +1,6 @@
 import {
   CREATE_BASE_AUDIO_CONTEXT_AND_ANALYSER,
+  START_CREATION_AUDIO_DATA,
   CREATE_AUDIO_DATA,
   PLAY_PAUSE_SOUND_FROM_FILE,
   CREATE_STREAME_DATA,
@@ -11,6 +12,9 @@ import {
 export const createBaseAudioContextAndAnalyser = data => dispatch => dispatch({
   type: CREATE_BASE_AUDIO_CONTEXT_AND_ANALYSER,
   payload: data,
+});
+export const startCreationAudioData = () => dispatch => dispatch({
+  type: START_CREATION_AUDIO_DATA,
 });
 export const createAudioData = data => dispatch => dispatch({
   type: CREATE_AUDIO_DATA,
@@ -25,7 +29,7 @@ export const createStreamData = data => dispatch => dispatch({
 export const startMuteStreamAudio = () => dispatch => dispatch({
   type: START_MUTE_STREAME_AUDIO,
 });
-export const mergeCanvasWidth = e => dispatch => dispatch({
+export const mergeCanvasWidth = eventInput => dispatch => dispatch({
   type: MERGE_CANVAS_WIDTH,
-  payload: e.target.value,
+  payload: eventInput.target.value,
 });

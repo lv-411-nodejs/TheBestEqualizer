@@ -4,7 +4,7 @@ import Pizzicato from 'pizzicato';
 import { connect } from 'react-redux';
 import {
   setVisibility,
-} from '../../actions/blocksActions';
+} from '../../store/actions/blocksActions';
 import BlockOfSliders from '../blockOfSliders';
 import Button from '../button';
 import {
@@ -47,16 +47,6 @@ class AllBlocks extends Component {
     this.setState({ isPlaying: false });
     const { sound } = this.state;
     sound.stop();
-  };
-
-  setEffectsValue = (blockName, effectsName, value) => {
-    const { blocksData } = this.props;
-    blocksData.forEach(({ name, effects, createEffect }) => {
-      if (name === blockName) {
-        effects[effectsName] = value;
-        createEffect[effectsName] = effects[effectsName];
-      }
-    });
   };
 
   render() {
@@ -113,16 +103,14 @@ class AllBlocks extends Component {
           </div>
           <div className="Sliders">
             {blocksData.map(({
-              name, effects, createEffect, isVisible,
+              name, effects, isVisible,
             }) => (isVisible
               ? (
                 <BlockOfSliders
                   name={name}
                   effects={effects}
-                  createEffect={createEffect}
                   key={name}
                   sound={sound}
-                  setEffectsValue={this.setEffectsValue}
                 />
               )
               : null))}

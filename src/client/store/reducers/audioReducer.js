@@ -2,6 +2,7 @@ import Pizzicato from 'pizzicato';
 
 import {
   CREATE_BASE_AUDIO_CONTEXT_AND_ANALYSER,
+  START_CREATION_AUDIO_DATA,
   CREATE_AUDIO_DATA,
   PLAY_PAUSE_SOUND_FROM_FILE,
   CREATE_STREAME_DATA,
@@ -11,7 +12,6 @@ import {
 
 const audioContext = Pizzicato.context;
 const analyser = audioContext.createAnalyser();
-analyser.fftSize = 128;
 
 const initialState = {
   // graphic canvas
@@ -19,17 +19,15 @@ const initialState = {
   heightCanvas: 150,
   // audio from file
   trackName: null,
-  trackType: null,
-  trackSize: null,
   audioContext,
   analyser,
   sound: null,
+  loading: false,
   // from stream
   voice: null,
   playPauseState: false,
   startMuteState: false,
 };
-
 
 export default function (state = initialState, action) {
   switch (action.type) {
@@ -37,16 +35,20 @@ export default function (state = initialState, action) {
       return {
         ...state,
       };
+    case START_CREATION_AUDIO_DATA:
+      return {
+        ...state,
+        loading: true,
+      };
     case CREATE_AUDIO_DATA: {
       const {
-        trackName, trackSize, trackType, sound,
+        trackName, sound,
       } = action.payload;
       return {
         ...state,
         trackName,
-        trackType,
-        trackSize,
         sound,
+        loading: false,
       };
     }
     case PLAY_PAUSE_SOUND_FROM_FILE:
@@ -67,7 +69,8 @@ export default function (state = initialState, action) {
         startMuteState: !state.startMuteState,
       };
     case MERGE_CANVAS_WIDTH: {
-      const widthCanvas = parseInt(action.payload, 10);
+      let { widthCanvas } = action.payload;
+      widthCanvas = parseInt(widthCanvas, 10);
       return {
         ...state,
         widthCanvas,

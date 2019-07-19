@@ -5,6 +5,11 @@ module.exports = {
   },
   extends: 'airbnb',
   globals: {
+    describe: false,
+    jest: false,
+    it: false,
+    expect: false,
+    beforeEach: false,
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly',
   },
@@ -39,7 +44,7 @@ module.exports = {
             allow: ['setVisibility'],
         },
     ],
-    "import/prefer-default-export": "off"
-
+    "import/prefer-default-export": "off",
+    "react/no-access-state-in-setstate": 0
   },
 };

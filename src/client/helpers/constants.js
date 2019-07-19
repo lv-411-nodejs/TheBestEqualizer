@@ -18,7 +18,7 @@ export const imageArray = [
   },
 ];
 
-export const formFieldsInfo = [
+export const fieldsInfo = [
   {
     type: 'text',
     name: 'username',
