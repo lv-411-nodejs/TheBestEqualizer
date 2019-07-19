@@ -412,6 +412,7 @@ export default function (state = initialState, action) {
       return jazzPresetArray;
     }
     case SET_ROCK_PRESET: {
+      console.log(rockPresetArray)
       return rockPresetArray;
     }
     case SET_POP_PRESET: {

@@ -53,6 +53,7 @@ class AllBlocks extends Component {
     const { sound, isPlaying } = this.state;
     const { setVisibility, blocksData } = this.props;
 
+    console.log(blocksData)
     const PlayButton = (
       <Button
         className="PlayButton"
