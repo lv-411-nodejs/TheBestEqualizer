@@ -19,11 +19,13 @@ class SavePressetesModalWindow extends Component {
   }
 
   handleFilterDataSend = (valueFromPresetInput, currentValueOfFilters) => {
+    const event = new MouseEvent('click');
     fetchRequest.post('http://localhost:8080/effects', {
       title: valueFromPresetInput,
       presets: currentValueOfFilters,
     })
       .then(response => this.setState({ savePresetStatusMessage: response.data.result }));
+    setTimeout(() => this.props.showHideModalBlock(event), 2000);
   };
 
   render() {

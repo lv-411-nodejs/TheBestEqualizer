@@ -70,6 +70,15 @@ export default class ApiController {
       .catch(err => response(res, err.message, 404));
   }
 
+  static getUserTitles(req, res) {
+    Effects
+      .find({}, 'title')
+      .then(titles => res.status(200).json({
+        userPresets: titles,
+      }))
+      .catch(error => console.log(error));
+  }
+
   /**
    *
    * @param {string} refresh

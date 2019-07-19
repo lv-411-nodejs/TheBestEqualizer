@@ -5,7 +5,6 @@ import AllBlocks from '../allBlocks';
 import SavePressetModalBlock from '../savePressetModalBlock';
 import { saveIcon } from '../../assets/icons/icons';
 import Button from '../button';
-import fetchRequest from '../../helpers/fetchRequest';
 
 class ComponentWithSliders extends Component {
   state = {
@@ -22,14 +21,6 @@ class ComponentWithSliders extends Component {
     }
   }
 
-  handleGetData = () => {
-    fetchRequest.get('http://localhost:8080/effects',
-      {
-        params: { title: 'myNewpewsen' },
-      })
-      .then(response => console.log(response.data.presets));
-  };
-
   render() {
     const { isModalBlockShow } = this.state;
     return (
@@ -42,7 +33,6 @@ class ComponentWithSliders extends Component {
             icon={saveIcon}
             value="Save Preset"
           />
-          <button onClick={this.handleGetData}>get data</button>
           <PresetsDropdownSelector />
         </header>
         <main className="SlidersComponent__main">
