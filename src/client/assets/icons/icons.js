@@ -18,7 +18,11 @@ import {
   faTimes,
   faCloudUploadAlt,
   faCheck,
+<<<<<<< HEAD
   faVolumeUp
+=======
+  faSignOutAlt,
+>>>>>>> 2a271dd251291d03b3eb2aa1fc38cf4ea1ad34e1
 } from '@fortawesome/free-solid-svg-icons';
 
 export const settingsIcon = <FontAwesomeIcon icon={faCog} className="icon" />;
@@ -38,3 +42,5 @@ export const cancelIcon = <FontAwesomeIcon icon={faTimes} className="icon" />;
 export const cloudIcon = <FontAwesomeIcon icon={faCloudUploadAlt} className="icon" />;
 export const volumeIcon = <FontAwesomeIcon icon={faVolumeUp} className="icon" />;
 export const checkTickIcon = <FontAwesomeIcon icon={faCheck} />;
+export const cancelWindowIcon = <FontAwesomeIcon icon={faTimes} />;
+export const logoutIcon = <FontAwesomeIcon icon={faSignOutAlt} />;
