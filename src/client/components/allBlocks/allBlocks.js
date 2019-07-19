@@ -12,6 +12,7 @@ import {
 } from '../../assets/icons/icons';
 import Sound from '../../sounds/sound.mp3';
 import './alllBlocks.css';
+import ToggleZone from '../toggleZone/toggleZone';
 
 class AllBlocks extends Component {
   constructor(props, context) {
@@ -29,7 +30,7 @@ class AllBlocks extends Component {
       sound.addEffect(createEffect);
     });
   }
-  ;
+    ;
 
   play = () => {
     this.setState({ isPlaying: true });
@@ -80,27 +81,31 @@ class AllBlocks extends Component {
       />
     );
 
+    const ListOfEffects = blocksData
+      .map(({ name, isVisible }) => (
+        <button
+          className="Effect"
+          key={name}
+          type="button"
+          id={name}
+          name={name}
+          onClick={() => setVisibility(name)}
+        >
+          {name}
+          {' '}
+          {isVisible ? checkTickIcon : ''}
+        </button>
+      ));
+
     return (
       <div className="SlidersComponent__main--container">
         <div className="AllSliders">
-          <div className="ListOfEffects">
-            {
-              blocksData.map(({ name, isVisible }) => (
-                <button
-                  className="Effect"
-                  key={name}
-                  type="button"
-                  id={name}
-                  name={name}
-                  onClick={() => setVisibility(name)}
-                >
-                  {name}
-                  {' '}
-                  {isVisible ? checkTickIcon : ''}
-                </button>
-              ))
-            }
-          </div>
+          <ToggleZone>
+            <div className="ListOfEffects">
+              {ListOfEffects}
+            </div>
+          </ToggleZone>
+
           <div className="Sliders">
             {blocksData.map(({
               name, effects, isVisible,
