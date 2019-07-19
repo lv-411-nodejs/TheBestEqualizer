@@ -13,17 +13,18 @@ class AllBlocks extends Component {
     const { setVisibility, blocksData } = this.props;
     setVisibility(filterName);
     blocksData.forEach(({ createEffect, isVisible, name }) => {
-      if(filterName === name) {
-        if(this.props.audioData.onToggle) {
+      if (filterName === name) {
+        if (this.props.audioData.onToggle) {
           isVisible ? this.props.audioData.voice.removeEffect(createEffect)
-          : this.props.audioData.voice.addEffect(createEffect);
+            : this.props.audioData.voice.addEffect(createEffect);
         } else {
           isVisible ? this.props.audioData.sound.removeEffect(createEffect)
-          : this.props.audioData.sound.addEffect(createEffect);
+            : this.props.audioData.sound.addEffect(createEffect);
         }
       }
     });
   }
+
   render() {
     const { blocksData } = this.props;
     return (
@@ -67,6 +68,7 @@ class AllBlocks extends Component {
 }
 
 AllBlocks.propTypes = {
+  audioData: PropTypes.instanceOf(Object),
   blocksData: PropTypes.instanceOf(Array),
   setVisibility: PropTypes.func,
 };

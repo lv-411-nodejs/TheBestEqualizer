@@ -3,7 +3,7 @@ import './componentWithSliders.css';
 import PresetsDropdownSelector from '../presetsDropdownSelector';
 import AllBlocks from '../allBlocks';
 import SavePressetModalBlock from './savePressetModalBlock';
-import FilterToggler from './../filterToggler';
+import FilterToggler from '../filterToggler';
 import { saveIcon } from '../../assets/icons/icons';
 import Button from '../button';
 

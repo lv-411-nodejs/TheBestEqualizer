@@ -7,64 +7,6 @@
   margin: 0 5px;
 }
 
-.range[type=range] {
-  position: relative;
-  display: inline-block;
-  width: auto;
-  width: 100px;
-  background: 0 0;
-  -webkit-appearance: none;
-}
-
-.range[type=range]:focus {
-  outline: 0;
-}
-
-.range[type=range]::-ms-track {
-  width: 100px;
-  color: transparent;
-  border-color: transparent;
-  background: 0 0;
-}
-
-.range[type=range]::-webkit-slider-thumb {
-  margin-top: -6px;
-  -webkit-appearance: none;
-}
-
-.range[type=range]::-webkit-slider-runnable-track {
-  height: 10px;
-  border: 1px solid #fafafa;
-  -webkit-border-radius: 15px;
-  -moz-border-radius: 15px;
-  border-radius: 15px;
-  background: #2ECC71;
-  -ms-border-radius: 15px;
-  -o-border-radius: 15px;
-}
-
-.range[type=range]::-webkit-slider-thumb {
-  position: relative;
-  width: 20px;
-  height: 20px;
-  -webkit-transition: background .2s;
-  -moz-transition: background .2s;
-  -ms-transition: background .2s;
-  -o-transition: background .2s;
-  transition: background .2s;
-  border: 1px solid #fafafa;
-  -webkit-border-radius: 50%;
-  -moz-border-radius: 50%;
-  border-radius: 50%;
-  background: #2ECC71;
-  -ms-border-radius: 50%;
-  -o-border-radius: 50%;
-}
-
-.range[type=range]:active::-webkit-slider-thumb {
-  background: #f4eed4;
-}
-
 .switch {
   position: relative;
   display: inline-block;

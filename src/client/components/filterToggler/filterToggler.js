@@ -4,30 +4,34 @@ import { connect } from 'react-redux';
 import './filterToggler.css';
 
 const filterToggler = (props) => {
+  const removeSourceFilters = sourceInput => sourceInput
+  && props.blocksData.forEach(({ createEffect, isVisible }) => isVisible
+    && sourceInput.removeEffect(createEffect));
+
+  const attachFiltersToSource = sourceInput => props.blocksData.forEach((
+    {
+      createEffect,
+      isVisible,
+    },
+  ) => isVisible && sourceInput && sourceInput.addEffect(createEffect));
+
   const onToggler = () => {
     props.audioData.onToggle = !props.audioData.onToggle;
-    if(props.audioData.onToggle) {
+    if (props.audioData.onToggle) {
       removeSourceFilters(props.audioData.sound);
       attachFiltersToSource(props.audioData.voice);
     } else {
       removeSourceFilters(props.audioData.voice);
       attachFiltersToSource(props.audioData.sound);
     }
-  }
-  const removeSourceFilters = sourceInput => {
-    sourceInput && props.blocksData.forEach(({ createEffect, isVisible }) =>
-    isVisible && sourceInput.removeEffect(createEffect));
   };
 
-  const attachFiltersToSource = sourceInput => props.blocksData.forEach(({ createEffect, isVisible }) => {
-    isVisible && sourceInput && sourceInput.addEffect(createEffect);
-  });
   return (
-    <div className='modesElement'>
+    <div className="modesElement">
       <span className="labels">Sound</span>
-      <label className='switch'>
-        <input type="checkbox" onClick={onToggler} />
-        <span className='slider'></span>
+      <label htmlFor="toggler" className="switch">
+        <input id="toggler" type="checkbox" onClick={onToggler} />
+        <span className="slider" />
       </label>
       <span className="labels">Voice</span>
     </div>

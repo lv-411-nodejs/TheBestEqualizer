@@ -8,9 +8,8 @@ import Button from '../button';
 import UploadButton from './upload';
 import InfoAboutTrack from './upload/infoAboutFile';
 import Spinner from '../../assets/images/playSpinner.gif';
-import {
-  startStreamIcon, playIcon, stopIcon, pauseIcon,
-} from '../../assets/icons/icons';
+import { startStreamIcon, playIcon, stopIcon, pauseIcon, } from '../../assets/icons/icons';
+import { uploadSoundInfoFromFile } from '../../helpers/equalizerAuxMethods';
 import './equalizer.css';
 import {
   startCreationAudioData,
@@ -52,32 +51,6 @@ class Equalizer extends Component {
       createStreamDataAsProp({ voice });
     });
   }
-
-  uploadSoundInfoFromFile = (eventFromInputFile) => {
-    this.props.startCreationAudioDataAsProp();
-    const [file] = eventFromInputFile.target.files;
-    const audioFile = new Audio(URL.createObjectURL(file));
-    const sound = new Pizzicato.Sound({
-      source: 'file',
-      options: {
-        path: audioFile.src,
-        loop: true,
-      },
-    }, () => {
-      this.props.audioData.sound && this.removeSoundFilters();
-      !this.props.audioData.onToggle && this.attachFiltersToSource(sound);
-      this.createSoundInfoInState(sound, file);
-    });
-  };
-
-  createSoundInfoInState = (sound, file) => {
-    const { audioData: { analyser } } = this.props;
-    sound.connect(analyser);
-    this.props.createAudioDataAsProp({
-      sound,
-      trackName: file.name,
-    });
-  };
 
   detectStreamSoundFromMicrophone = () => {
     if (navigator.mediaDevices) {
@@ -233,7 +206,6 @@ class Equalizer extends Component {
     const {
       startMuteStream,
       playSoundFromFile,
-      uploadSoundInfoFromFile,
       setCanvasToState,
       stopSoundFromFile,
       pauseSoundFromFile,
@@ -294,11 +266,15 @@ class Equalizer extends Component {
           />
         </div>
         <div style={{ display: sound || startMuteState ? 'none' : 'block' }}>
-          <DragAndDrop uploadSoundInfoFromFile={this.uploadSoundInfoFromFile} attachFiltersToSource={this.attachFiltersToSource} />
+          <DragAndDrop />
         </div>
         <div className="ButtonsContainer">
           {StartStreamButton}
-          <UploadButton handleInfoFromSound={uploadSoundInfoFromFile} />
+          <UploadButton 
+            handleInfoFromSound={
+              eventFromInputFile => uploadSoundInfoFromFile(eventFromInputFile, this.props)
+              }
+          />
           <div style={{ display: playPauseState ? 'none' : 'block' }}>
             {(startMuteState || sound) && PlayButton}
           </div>
@@ -306,23 +282,20 @@ class Equalizer extends Component {
             {(startMuteState || sound) && PauseButton }
           </div>
           {(startMuteState || sound) && StopButton }
+          <InfoAboutTrack
+            trackname={trackName}
+          />
         </div>
-        <InfoAboutTrack
-          trackname={trackName}
-        />
       </div>
     );
   }
 }
 
 Equalizer.propTypes = {
-  startCreationAudioDataAsProp: PropTypes.func.isRequired,
-  createAudioDataAsProp: PropTypes.func.isRequired,
   playPauseSoundFromFileAsProp: PropTypes.func.isRequired,
   createStreamDataAsProp: PropTypes.func.isRequired,
   startMuteStreamAudioAsProp: PropTypes.func.isRequired,
   audioData: PropTypes.instanceOf(Object).isRequired,
-  blocksData: PropTypes.instanceOf(Array).isRequired,
   voice: PropTypes.instanceOf(Object),
   sound: PropTypes.instanceOf(Object),
 };
