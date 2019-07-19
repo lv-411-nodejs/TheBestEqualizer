@@ -5,6 +5,7 @@ import Button from '../../button';
 import './modalSavePressetesWindow.css';
 import { cancelIcon, saveIcon } from '../../../assets/icons/icons';
 import fetchRequest from '../../../helpers/fetchRequest';
+import { addNewPresetFromInput } from '../../../store/actions/presetsAction';
 
 
 class SavePressetesModalWindow extends Component {
@@ -87,4 +88,6 @@ SavePressetesModalWindow.propTypes = {
   currentValueOfFilters: PropTypes.instanceOf(Array),
 };
 
-export default connect(mapStateToProps)(SavePressetesModalWindow);
+export default connect(mapStateToProps, {
+  addNewPresetFromInput,
+})(SavePressetesModalWindow);

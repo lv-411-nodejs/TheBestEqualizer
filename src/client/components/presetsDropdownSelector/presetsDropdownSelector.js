@@ -3,27 +3,19 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import fetchRequest from '../../helpers/fetchRequest';
 import { setPresetValue } from '../../store/actions/blocksActions';
+import { addNewPresetsFromDB } from '../../store/actions/presetsAction';
 
 import './presetsDropdownSelector.css';
 
 class PresetsDropdownSelector extends Component {
-  // state = {
-  //   values: ['Default', 'Jazz', 'Rock', 'Pop'],
-  // }
-
-  // componentDidMount() {
-  //   fetchRequest.get('http://localhost:8080/presets')
-  //   // here I will call action and send the response
-  //     .then(response => response.data.userPresets.map((item) => {
-  //       this.setState((state) => {
-  //         state.values.push(item.title);
-  //         return state;
-  //       });
-  //     }));
-  // }
+  componentDidMount() {
+    const { addNewPresetsFromDB } = this.props;
+    fetchRequest.get('http://localhost:8080/presets')
+      .then(response => addNewPresetsFromDB(response.data.userPresets));
+  }
 
   render() {
-    const {presetsData} = this.props;
+    const { presetsData } = this.props;
     const handleSelectorChange = (event) => {
       this.props.setPresetValue(event.target.value);
     };
@@ -42,8 +34,11 @@ const mapStateToProps = state => ({
 
 PresetsDropdownSelector.propTypes = {
   setPresetValue: PropTypes.func,
+  presetsData: PropTypes.instanceOf(Array),
+  addNewPresetsFromDB: PropTypes.func,
 };
 
 export default connect(mapStateToProps, {
   setPresetValue,
+  addNewPresetsFromDB,
 })(PresetsDropdownSelector);

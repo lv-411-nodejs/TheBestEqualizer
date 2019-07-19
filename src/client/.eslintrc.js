@@ -38,7 +38,7 @@ module.exports = {
     'no-shadow': [
         'error',
         {
-            allow: ['setVisibility'],
+            allow: ['setVisibility', 'addNewPresetsFromDB'],
         },
     ],
     "import/prefer-default-export": "off",
