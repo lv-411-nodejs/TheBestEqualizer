@@ -18,34 +18,56 @@ const generateTokens = (user) => {
   return tokens;
 };
 
-const passwordComparison = (res, foundUser, receivedPassword) => (
-  foundUser.verifyPassword(receivedPassword)
-    .then(comparisonResult => (comparisonResult
-      ? res.status(200).json({ token: generateTokens({ userId: foundUser._id }) })
-      : response(res, { password: 'Wrong password' }, 404)))
-    .catch(err => response(res, err.message, 404))
-);
-
 export default class ApiController {
-  static postRegistrationHandler(req, res) {
+  static async postRegistrationHandler(req, res) {
     const { username, email, password } = req.body;
     const user = new User({ username, email, password });
-    User
-      .findOne({ email })
-      .then(foundUser => (foundUser
-        ? response(res, { email: 'User with this email already exists!' }, 404)
-        : saveDataToDB(res, user, 'User created')))
-      .catch(err => response(res, err.message, 404));
+
+    try {
+      // check if email alredy taken
+      const emailTaken = await User.findOne({ email });
+      console.log(emailTaken);
+
+      if (emailTaken) {
+        throw new Error('User with this email already exists!');
+      }
+
+      const savedUser = await user.save();
+      if (savedUser) {
+        res.status(201).json({ result: 'User created' });
+      }
+    } catch (error) {
+      response(res, error.message, 404);
+    }
   }
 
-  static postLoginHandler(req, res) {
-    const { email, password: receivedPassword } = req.body;
-    User
-      .findOne({ email })
-      .then(foundUser => (foundUser
-        ? passwordComparison(res, foundUser, receivedPassword)
-        : response(res, 'Login failed', 404)))
-      .catch(err => response(res, err.message, 401));
+  // Log in credentials
+  // {
+  //   "username": "Super",
+  //   "email":"super@emial.com",
+  //   "password":"1QWEq"
+  // }
+  static async postLoginHandler(req, res) {
+    const { email, password } = req.body;
+
+    try {
+      const user = await User.findOne({ email });
+
+      if (!user) throw new Error('User not exist');
+
+      const verified = await user.verifyPassword(password);
+
+      if (!verified) {
+        return response(res, { password: 'Wrong password' }, 404);
+      }
+
+      return res.status(200).json({
+        token: generateTokens({ userId: user._id })
+      });
+
+    } catch (error) {
+      return response(res, error.message, 404);
+    }
   }
 
   static postEffectsHandler(req, res) {
