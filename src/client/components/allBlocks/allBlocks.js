@@ -10,16 +10,16 @@ import './alllBlocks.css';
 
 class AllBlocks extends Component {
   toggleSourceFilters = (filterName) => {
-    const { setVisibility, blocksData } = this.props;
+    const { setVisibility, blocksData, audioData } = this.props;
     setVisibility(filterName);
     blocksData.forEach(({ createEffect, isVisible, name }) => {
       if (filterName === name) {
-        if (this.props.audioData.onToggle) {
-          isVisible ? this.props.audioData.voice.removeEffect(createEffect)
-            : this.props.audioData.voice.addEffect(createEffect);
+        if (audioData.onToggle) {
+          isVisible ? audioData.voice.removeEffect(createEffect)
+            : audioData.voice.addEffect(createEffect);
         } else {
-          isVisible ? this.props.audioData.sound.removeEffect(createEffect)
-            : this.props.audioData.sound.addEffect(createEffect);
+          isVisible ? audioData.sound.removeEffect(createEffect)
+            : audioData.sound.addEffect(createEffect);
         }
       }
     });

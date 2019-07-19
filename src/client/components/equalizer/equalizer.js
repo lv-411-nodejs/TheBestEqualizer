@@ -282,10 +282,10 @@ class Equalizer extends Component {
             {(startMuteState || sound) && PauseButton }
           </div>
           {(startMuteState || sound) && StopButton }
+        </div>
           <InfoAboutTrack
             trackname={trackName}
           />
-        </div>
       </div>
     );
   }

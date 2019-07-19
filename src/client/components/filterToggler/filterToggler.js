@@ -4,11 +4,12 @@ import { connect } from 'react-redux';
 import './filterToggler.css';
 
 const filterToggler = (props) => {
+  const { audioData, blocksData } = props;
   const removeSourceFilters = sourceInput => sourceInput
-  && props.blocksData.forEach(({ createEffect, isVisible }) => isVisible
+  && blocksData.forEach(({ createEffect, isVisible }) => isVisible
     && sourceInput.removeEffect(createEffect));
 
-  const attachFiltersToSource = sourceInput => props.blocksData.forEach((
+  const attachFiltersToSource = sourceInput => blocksData.forEach((
     {
       createEffect,
       isVisible,
@@ -16,13 +17,13 @@ const filterToggler = (props) => {
   ) => isVisible && sourceInput && sourceInput.addEffect(createEffect));
 
   const onToggler = () => {
-    props.audioData.onToggle = !props.audioData.onToggle;
-    if (props.audioData.onToggle) {
-      removeSourceFilters(props.audioData.sound);
-      attachFiltersToSource(props.audioData.voice);
+    audioData.onToggle = !audioData.onToggle;
+    if (audioData.onToggle) {
+      removeSourceFilters(audioData.sound);
+      attachFiltersToSource(audioData.voice);
     } else {
-      removeSourceFilters(props.audioData.voice);
-      attachFiltersToSource(props.audioData.sound);
+      removeSourceFilters(audioData.voice);
+      attachFiltersToSource(audioData.sound);
     }
   };
 
