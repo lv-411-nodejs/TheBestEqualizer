@@ -2,30 +2,33 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Slider from 'react-rangeslider';
 import 'react-rangeslider/lib/index.css';
+import { connect } from 'react-redux';
 
 import './slider.css';
 
 class OneSlider extends Component {
   constructor(props, context) {
     super(props, context);
+    const {
+      value, maxValue, minValue, step,
+    } = props.effectValues;
+
     this.state = {
-      sliderValue: props.value,
-      maxValue: 1,
-      minValue: 0,
-      step: 0.01,
+      sliderValue: value,
+      maxValue,
+      minValue,
+      step,
     };
   }
 
-  componentDidUpdate(prevProps) {
-    const { value } = this.props;
-    if (value !== prevProps.value) {
-      this.setState({ sliderValue: value });
-    }
-  }
-
-  handleChange = (sliderValue) => {
-    const { blockName, effectName, setEffectsValue } = this.props;
-    setEffectsValue(blockName, effectName, parseFloat(sliderValue.toFixed(2)));
+  setEffectsValue = (sliderValue) => {
+    const { blocksData, blockName, effectName } = this.props;
+    blocksData.forEach(({ name, effects, createEffect }) => {
+      if (name === blockName) {
+        effects[effectName].value = sliderValue;
+        createEffect[effectName] = effects[effectName].value;
+      }
+    });
     this.setState({ sliderValue: parseFloat(sliderValue.toFixed(2)) });
   };
 
@@ -36,6 +39,7 @@ class OneSlider extends Component {
     const { effectName } = this.props;
     return (
       <div>
+        <span className="Slider--value">{maxValue}</span>
         <Slider
           className="Sliders--slider"
           min={minValue}
@@ -43,9 +47,10 @@ class OneSlider extends Component {
           value={sliderValue}
           step={step}
           orientation="vertical"
-          onChange={this.handleChange}
+          onChange={this.setEffectsValue}
         />
-        <p className="Sliders--label">{effectName}</p>
+        <span className="Slider--value">{sliderValue}</span>
+        <p className="Slider--label">{effectName}</p>
       </div>
     );
   }
@@ -55,7 +60,12 @@ OneSlider.propTypes = {
   value: PropTypes.number,
   blockName: PropTypes.string,
   effectName: PropTypes.string,
-  setEffectsValue: PropTypes.func,
+  effectValues: PropTypes.instanceOf(Object),
+  blocksData: PropTypes.instanceOf(Array),
 };
 
-export default OneSlider;
+const mapStateToProps = state => ({
+  blocksData: state.blocksData,
+});
+
+export default connect(mapStateToProps)(OneSlider);
