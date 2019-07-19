@@ -14,7 +14,7 @@ export default function (state = initialState, action) {
       ];
     }
     case ADD_NEW_USER_PRESET_FROM_INPUT: {
-      return 'ADD_NEW_USER_PRESET_FROM_INPUT';
+      return [...state, action.valueFromPresetInput];
     }
     default:
       return state;
