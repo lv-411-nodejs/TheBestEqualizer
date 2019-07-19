@@ -17,4 +17,5 @@
   font-size: var(--fontSize-title);
   color: var(--mainText-ordinary-white);
   letter-spacing: 2px;
+  margin: 15px 0;
 }
