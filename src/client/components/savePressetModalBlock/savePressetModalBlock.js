@@ -25,7 +25,7 @@ class SavePressetModalBlock extends Component {
 }
 
 SavePressetModalBlock.propTypes = {
-  showHideModalBlock: PropTypes.func.isRequired,
+  showHideModalBlock: PropTypes.func,
 };
 
 export default SavePressetModalBlock;

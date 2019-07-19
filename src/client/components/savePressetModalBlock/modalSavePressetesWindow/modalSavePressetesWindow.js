@@ -87,6 +87,7 @@ const mapStateToProps = state => ({
 });
 
 SavePressetesModalWindow.propTypes = {
+  addNewPresetFromInput: PropTypes.func.isRequired,
   showHideModalBlock: PropTypes.func.isRequired,
   refFocus: PropTypes.func.isRequired,
   currentValueOfFilters: PropTypes.instanceOf(Array),
