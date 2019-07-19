@@ -4,7 +4,6 @@ import {
   MainPageHeader,
   Equalizer,
   TrackDuration,
-  SwitcherSound,
   ComponentWithSliders,
 } from '../../components';
 
@@ -15,7 +14,6 @@ const Main = () => (
     <MainPageHeader />
     <Equalizer />
     <TrackDuration />
-    <SwitcherSound />
     <ComponentWithSliders />
   </div>
 );

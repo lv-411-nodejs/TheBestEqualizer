@@ -3,6 +3,8 @@ import 'react-rangeslider/lib/index.css';
 import './trackDuration.css';
 import Slider from 'react-rangeslider';
 import { connect } from 'react-redux';
+import VolumeComponent from '../volumeComponent/volumeComponent';
+import SwitcherSound from '../switcherSound/switcherSound';
 
 class TrackDuration extends Component {
     
@@ -11,6 +13,7 @@ class TrackDuration extends Component {
         currentTime: null,
         playing: false,
         startPlayTime: null,
+        onToggle: true,
     }
 
     formatingSongTime = (seconds) => {
@@ -24,20 +27,17 @@ class TrackDuration extends Component {
     }
 
     calculateCurrentTime = () => {
-        console.log('calc', this.state.currentTime)
+        if (this.state.currentTime >= this.state.duration){
+            return;
+        }
         let currentTime = new Date();
-        console.log(`currentTime: ${currentTime.getTime()}, startPlayTime: ${this.state.startPlayTime.getTime()}`)
-        let currentDifference = Math.floor((currentTime.getTime() - this.state.startPlayTime.getTime())/1000)
-        console.log(currentDifference)
+        let currentDifference = Math.round((currentTime.getTime() - this.state.startPlayTime.getTime())/1000)
         if(currentDifference !== this.state.currentTime){
-            console.log(this.state.currentTime)
+            console.log("AAA", this.state.playing )
             if (this.state.playing){
                 this.setState({currentTime: currentDifference},
                 () => this.calculateCurrentTime())
-            } else {
-                // let PauseTime = new Date();
-                // this.setState({startPlayTime: this.state.startPlayTime + PauseTime.getTime()})
-            }
+            } 
         } else {
             setTimeout(this.calculateCurrentTime, 1000);
         }
@@ -45,52 +45,80 @@ class TrackDuration extends Component {
 
     static getDerivedStateFromProps(props, state) {
         const { audioData } = props;
-        if (audioData.sound) {
-            if (audioData.sound.sourceNode){
+        if (audioData.sound && audioData.sound.sourceNode) {
                 if(state.startPlayTime === null && audioData.sound.playing) {
                     return {
                         startPlayTime: new Date(),
-                        duration: audioData.sound.sourceNode.buffer.duration,
-                        playing: audioData.sound.playing
+                        duration: Math.round(audioData.sound.sourceNode.buffer.duration),
+                        playing: audioData.sound.playing,
+                        trackName: audioData.trackName,
                     }
                 }
                 return {
-                    duration: audioData.sound.sourceNode.buffer.duration,
-                    playing: audioData.sound.playing
+                    duration: Math.round(audioData.sound.sourceNode.buffer.duration),
+                    playing: audioData.sound.playing,
+                    trackName: audioData.trackName,
                 }
-            } 
-        return null;
         }
+        return null;
     }
 
-    // shouldComponentUpdate(nextProps, nextState) {
-    //     console.log(this.state !== nextState)
-    //     return this.state !== nextState;
-    // }
+    shouldComponentUpdate(nextProps, nextState){
+        console.log(nextState.playing);
+        return true;
+    }
 
-    componentDidUpdate(prevState) {
+    componentDidUpdate(prevProps, prevState) {
+        if (prevState.playing !== undefined && !prevState.playing && this.state.playing){
+            this.setState({startPlayTime: new Date(new Date() - prevState.currentTime*1000)})
+        }
         if(this.state.startPlayTime) {
             this.calculateCurrentTime()
+            console.log(this.state.startPlayTime)
         }
-
-        // let timer;
-        // console.log(this.state.playing)
-        // if (this.state.playing){
-        //     timer = setInterval(() => {
-        //         this.tick();
-        //     }, 1000);
-        //     console.log(timer);
-        // }
+        if(prevState.trackName !== this.state.trackName) {
+            this.setState({startPlayTime: new Date() })
+        }
     }
 
-    // tick() {
-    //     this.setState({
-    //         currentTime: this.state.currentTime + 1,
-    //     })
-    // }
+    setPauseOnSound = () => {
+        const {audioData} = this.props;
+        if(!this.props.audioData.sound.paused) {
+            !audioData.sound.paused && audioData.sound.pause();
+            this.setState({
+                playing: false,
+                onToggle: false,
+            });
+        }
+    }
+
+    setPlayOnSound = () => {
+        const {audioData} = this.props;
+        if(!this.state.onToggle) {
+            !audioData.sound.playing && audioData.sound.play()
+            this.setState({
+                playing: true,
+                onToggle: true,
+            });
+        }
+    }
+
+    changeCurrentTimeOfSong = (time) => {
+        const {audioData} = this.props;
+        if(audioData.sound){
+            audioData.sound.offsetTime = time;
+        }  
+    }
+
+    setCurrentTime = (currentTime) => {
+        this.setState({
+            currentTime: currentTime,
+        }, () => this.changeCurrentTimeOfSong(currentTime))
+    }
 
     render() {
         const {currentTime, duration} = this.state;
+        const { audioData } = this.props
         let formatedDurationTime = '00:00';
         let formatedCurrentTime = '00:00';
         if (duration){
@@ -103,14 +131,24 @@ class TrackDuration extends Component {
         const stepSliderVolume = 0.001;
         return (
             <div className="DurationContainer">
-                <span>{formatedCurrentTime} / {formatedDurationTime}</span>
-                <Slider 
-                    className="DurationContainer--slider"
-                    value={currentTime}
-                    min={minSliderVolume}
-                    max={duration}
-                    step={stepSliderVolume}
-                />
+                <div className="DurationContainerFlexChild">
+                    <div className="Timer">
+                        {formatedCurrentTime} / {formatedDurationTime}
+                    </div>
+                    <Slider 
+                        className="DurationContainer--slider"
+                        value={currentTime}
+                        tooltip={false}
+                        min={minSliderVolume}
+                        max={duration}
+                        step={stepSliderVolume}
+                        onChangeStart={audioData.sound && this.setPauseOnSound}
+                        onChange={audioData.sound && this.setCurrentTime}
+                        onChangeComplete={audioData.sound && this.setPlayOnSound}
+                    />
+                </div>
+                {audioData.sound && (audioData.voice.playing && audioData.sound.playing) ? ( 
+                <SwitcherSound />): (<VolumeComponent />)}
             </div>
         )
     }

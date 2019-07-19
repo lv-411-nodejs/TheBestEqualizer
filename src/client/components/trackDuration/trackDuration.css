@@ -11,19 +11,23 @@
     color: white;
     -webkit-box-pack: justify;
     -ms-flex-pack: justify;
-    justify-content: center;
+    justify-content: space-between;
     -webkit-box-align: center;
     -ms-flex-align: center;
+}
+
+.DurationContainerFlexChild {
+    display: flex;
     align-items: center;
 }
 
-.DurationContainer .icon {
-    color: var(--mainText-accent-blue);
+.Timer {
+    width: 80px;
 }
 
 
 .DurationContainer--slider {
-    width: 850px;
+    width: 550px;
     height: 4px;
     margin: 20px;
 }
@@ -32,10 +36,12 @@
     background-color: var(--rangeSlider-ocean);
 }
 
-.DurationContainer .rangeslider__handle {
-    width: 23px;
-    height: 13px;
-    border-radius: 0;
+.DurationContainer .DurationContainerFlexChild .rangeslider__handle {
+    background-color: var(--mainText-accent-blue);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: none;
     outline: none;
 }
 
@@ -50,3 +56,4 @@
 .DurationContainer--slider .rangeslider__handle:after {
     display: none;
 }
+

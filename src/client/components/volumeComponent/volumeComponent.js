@@ -1,24 +1,27 @@
 import React, { Component, Fragment } from 'react';
 import 'react-rangeslider/lib/index.css';
-import './switcherSound.css';
+import './volumeComponent.css';
 import Slider from 'react-rangeslider';
 import { connect } from 'react-redux';
+import {volumeIcon} from '../../assets/icons/icons'
 
 class SwitcherSound extends Component {
   state = {
-    volumeValueTrack: 0.5,
-    volumeValueVoice: 0.5,
+    volumeValueTrack: 0.25,
+    volumeValueVoice: 0.25,
     track: null,
     voice: null,
   };
 
   static getDerivedStateFromProps(props, state) {
     const { audioData: { sound, voice } } = props;
-    const { volumeValueTrack, volumeValueVoice } = state;
-    if (sound && voice) {
-      sound.volume = volumeValueTrack;
-      voice.volume = volumeValueVoice;
-      return { track: sound, voice };
+    const {volumeValueTrack, volumeValueVoice} = state;
+    if (sound && sound.playing) {
+        sound.volume = volumeValueTrack;
+        return { track: sound };
+    } else if (voice && voice.playing) {
+        voice.volume = volumeValueVoice;
+        return { track: voice };
     }
     return null;
   }
@@ -27,30 +30,30 @@ class SwitcherSound extends Component {
     const {
       volumeValueTrack, volumeValueVoice, track, voice,
     } = this.state;
-    const switcherTrackSound = 1 - volumeValueTrack;
-    const switcherVoiceSound = 1 - volumeValueVoice;
-    track.volume = switcherTrackSound;
-    voice.volume = switcherVoiceSound;
+    if(track) {
+        track.volume = volumeValueTrack;
+    } else if (voice) {
+        voice.volume = volumeValueVoice;
+    }
   }
 
   changeVolume = (volumeValueTrack) => {
-    const revertVolumeValueTrack = 1 - volumeValueTrack;
     this.setState({
       volumeValueTrack: parseFloat(volumeValueTrack.toFixed(2)),
-      volumeValueVoice: parseFloat(revertVolumeValueTrack.toFixed(2)),
+      volumeValueVoice: parseFloat(volumeValueTrack.toFixed(2)),
     }, () => this.changeTracksVolume());
   }
 
   render() {
     const { volumeValueTrack, track, voice } = this.state;
     const minSliderVolume = 0;
-    const maxSliderVolume = 1;
+    const maxSliderVolume = 0.5;
     const stepSliderVolume = 0.001;
     return (
       <div className="SwitcherContainer">
-        {track && (voice.playing && track.playing) && (
+        {
         <Fragment>
-          <span>Track</span>
+          <span>{volumeIcon} Volume</span>
           <Slider
             className="SwitcherContainer--slider"
             value={volumeValueTrack}
@@ -59,9 +62,8 @@ class SwitcherSound extends Component {
             step={stepSliderVolume}
             onChange={this.changeVolume}
           />
-          <span className='voiceText'>Voice</span>
         </Fragment>
-        )}
+        }
       </div>
     );
   }
