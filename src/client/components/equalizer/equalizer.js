@@ -130,6 +130,7 @@ class Equalizer extends Component {
     const {
       analyser, uint8Array, ctx, numPoints,
     } = this.state;
+    analyser.fftSize = 128;
     const { audioData: { playPauseState, startMuteState } } = this.props;
     let isFirstColorForEqualizerUsed = true;
     analyser.getByteFrequencyData(uint8Array);
