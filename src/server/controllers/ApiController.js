@@ -1,5 +1,4 @@
 import User from '../models/user';
-import Effects from '../models/effects';
 import response from '../helpers/errorHandler';
 import { generateTokensPair } from '../helpers/token';
 
@@ -8,7 +7,7 @@ const availableTokens = [];
 const saveDataToDB = (res, data, message) => (
   data
     .save()
-    .then(() => res.status(201).json({ result: message }))
+    .then((user) => res.status(201).json({ result: message, token: generateTokens({ userId: user._id }) }))
     .catch(err => response(res, err.message, 422))
 );
 
@@ -49,23 +48,34 @@ export default class ApiController {
   }
 
   static postEffectsHandler(req, res) {
-    const { title, effects } = req.body;
-    const saveEffects = new Effects({ title, effects });
-    Effects
-      .findOne({ title })
-      .then(foundTitle => (foundTitle
-        ? response(res, 'Effect with this title already exists', 404)
-        : saveDataToDB(res, saveEffects, 'The preset have been saved')))
-      .catch(err => response(res, err.message, 404));
+    const { title, presets } = req.body;
+    const { userId } = req;
+    User
+    .findOneAndUpdate(
+      { _id: userId, 'effects.title': {$ne: title} }, 
+      { $addToSet: { effects: {title: title, presets: presets } }},
+      { new: true , runValidators: true},
+      (err, data) => {
+        err
+          ? res.json({message: 'Something went wrong with your request', error: err})
+          : (data
+            ? res.status(201).json({message: 'The preset have been saved'})
+            : res.status(404).json({error: 'Effect with this title already exists'})
+          )
+        })
   }
 
   static getEffectsHandler(req, res) {
     const { title } = req.body;
-    Effects
-      .findOne({ title })
-      .then(preset => (preset
-        ? res.send(preset)
-        : response(res, 'Preset with this title is not found', 404)))
+    const { userId } = req;
+    User
+      .findOne({ _id: userId })
+      .then(({ effects }) => {
+        const find = effects.find((effect) => effect.title === title)
+        find 
+          ? res.send(find) 
+          : response(res, 'Preset with this title is not found', 404)
+      })
       .catch(err => response(res, err.message, 404));
   }
 
