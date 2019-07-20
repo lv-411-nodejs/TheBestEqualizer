@@ -9,7 +9,7 @@
 import User from '../models/user';
 import response from '../helpers/errorHandler';
 import { generateTokensPair } from '../helpers/token';
-import { ClientError } from '../helpers/error';
+import { ClientError, TeapotError } from '../helpers/error';
 import redisClient, { putInStorage, getFromStorage } from '../helpers/redis';
 
 // internal helpers
@@ -57,9 +57,12 @@ export const loginUser = async (req, res) => {
             return response(res, { password: 'Wrong password' }, 404);
         }
 
-        return res.status(200).json({
-            token: generateTokens({ userId: user._id })
-        });
+        const tokens = generateTokens({ userId: user._id });
+        const result = await putInStorage(user._id, tokens.refresh);
+
+        if(!result) throw new TeapotError;
+        
+        return res.status(200).json({ token: tokens });
 
     } catch (error) {
         return response(res, error.message, 404);
@@ -74,26 +77,30 @@ export const loginUser = async (req, res) => {
 export const refreshToken = (req, res) => {
     const { refresh, userId } = req.body;
 
-    const findedRefreshToken = availableTokens
-        .find(token => token.ref === refresh);
+    // const findedRefreshToken = availableTokens
+    //     .find(token => token.ref === refresh);
 
-    if (findedRefreshToken) {
-        const index = availableTokens.indexOf(findedRefreshToken);
-        availableTokens.splice(index, 1);
+    // if (findedRefreshToken) {
+    //     const index = availableTokens.indexOf(findedRefreshToken);
+    //     availableTokens.splice(index, 1);
 
-        return res.status(200).json({ token: generateTokens({ userId }) });
-    }
+    //     return res.status(200).json({ token: generateTokens({ userId }) });
+    // }
 
-    return response(res, 'Refresh expired', 403);
+    // return response(res, 'Refresh expired', 403);
+
+    
 }
 
-export const redis = (req, res) => {
+export const redis = async (req, res) => {
     // create tokens for user
 
     try {
         const { username } = req.body;
         const tokens = generateTokens({ userId: username });
-        putInStorage(username, tokens.access);
+        const result = await putInStorage(username, tokens.access);
+
+        if(!result) throw new TeapotError;
 
         res.status(200).json({ token: tokens });
     }

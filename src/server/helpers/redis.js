@@ -30,8 +30,58 @@ const getCallback = (err, replay) => {
 };
 
 export const putInStorage = (key, value) => {
-    redisClient.set(key, value, 'EX', DAY, setCallback);
+
+    if ( (typeof value) !== 'string') {
+        value = value.toString();
+    }
+
+    return new Promise((resolve, reject) => {
+        redisClient.set(key, value, 'EX', DAY, (err, replay) => {
+            if(err) return reject(err);
+
+            if(!replay) return reject('Trobles with redis, cant insert');
+
+            if(replay == 'OK') return resolve(true);
+        });
+    });
+    
 };
+
+// export const updateInStorage = (key, value) => {
+
+//     if ( (typeof value) !== 'string') {
+//         value = value.toString();
+//     }
+
+//     return new Promise((resolve, reject) => {
+//         redisClient.set(key, value, 'EX', DAY, (err, replay) => {
+//             if(err) return reject(err);
+
+//             if(!replay) return reject('Trobles with redis, cant insert');
+
+//             if(replay == 'OK') return resolve(true);
+//         });
+//     });
+    
+// };
+
+// export const deleteFromStorage = (key) => {
+
+//     if ( (typeof value) !== 'string') {
+//         value = value.toString();
+//     }
+
+//     return new Promise((resolve, reject) => {
+//         redisClient.set(key, value, 'EX', DAY, (err, replay) => {
+//             if(err) return reject(err);
+
+//             if(!replay) return reject('Trobles with redis, cant insert');
+
+//             if(replay == 'OK') return resolve(true);
+//         });
+//     });
+    
+// };
 
 export const getFromStorage = (key) => {
     redisClient.get(key, getCallback);
