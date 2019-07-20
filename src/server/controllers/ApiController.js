@@ -57,14 +57,12 @@ export default class ApiController {
       .findOneAndUpdate({ _id: userId, 'effects.title': { $in: title } },
         { $pull: { effects: { title: title } } })
       .exec((err, data) => {
-        if(err) {
+        if (err) {
           res.json({ message: err.message });
         } else {
-          if(data) {
-            res.status(204).json({ message: 'The preset have been deleted' });
-          } else {
-            res.status(404).json({ error: 'Effect with this title is not found' });
-          }
+          data
+            ? res.status(204).json({ message: 'The preset have been deleted' })
+            : res.status(404).json({ error: 'Effect with this title is not found' });
         }
       });
   }
@@ -74,17 +72,15 @@ export default class ApiController {
     const { userId } = req;
     User
       .findOneAndUpdate({ _id: userId, 'effects.title': { $ne: title } },
-        { $push: { effects: {title: title, presets: presets } } },
-        { new: true , runValidators: true })
+        { $push: { effects: { title: title, presets: presets } } },
+        { new: true, runValidators: true })
       .exec((err, data) => {
-        if(err) {
+        if (err) {
           res.json({ message: err.message });
         } else {
-          if(data) {
-            res.status(201).json({ message: 'The preset have been saved' });
-          } else {
-            res.status(422).json({ error: 'Effect with this title already exists' });
-          }
+          data 
+            ? res.status(201).json({ message: 'The preset have been saved' })
+            : res.status(422).json({ error: 'Effect with this title already exists' });
         }
       });
   }
