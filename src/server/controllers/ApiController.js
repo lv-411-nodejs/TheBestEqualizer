@@ -96,7 +96,7 @@ export default class ApiController {
           res.send(find);
         } else {
           response(res, 'Preset with this title is not found', 404);
-        } 
+        }
       })
       .catch(err => response(res, err.message, 404));
   }
