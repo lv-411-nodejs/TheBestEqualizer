@@ -74,6 +74,7 @@ OneSlider.propTypes = {
   blocksData: PropTypes.instanceOf(Array).isRequired,
   blockName: PropTypes.string,
   effectName: PropTypes.string,
+  effectValues: PropTypes.instanceOf(Object),
 };
 
 const mapStateToProps = state => ({

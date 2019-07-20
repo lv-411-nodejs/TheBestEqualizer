@@ -8,7 +8,12 @@ import Button from '../button';
 import UploadButton from './upload';
 import InfoAboutTrack from './upload/infoAboutFile';
 import Spinner from '../../assets/images/playSpinner.gif';
-import { startStreamIcon, playIcon, stopIcon, pauseIcon, } from '../../assets/icons/icons';
+import {
+  startStreamIcon,
+  playIcon,
+  stopIcon,
+  pauseIcon,
+} from '../../assets/icons/icons';
 import { uploadSoundInfoFromFile } from '../../helpers/equalizerAuxMethods';
 import './equalizer.css';
 import {
@@ -75,15 +80,11 @@ class Equalizer extends Component {
         playPauseState,
       }, playPauseSoundFromFileAsProp,
     } = this.props;
-    if (!playPauseState) {
-      sound.play();
-    } else {
-      sound.pause();
-    }
+    !playPauseState ? sound.play() : sound.pause();
     await playPauseSoundFromFileAsProp();
     await this.renderEqualizer();
   }
-  
+
   pauseSoundFromFile = async () => {
     const {
       audioData: {
@@ -120,16 +121,18 @@ class Equalizer extends Component {
   }
 
   removeSoundFilters = () => {
-    this.props.blocksData.forEach(({ createEffect, isVisible }) =>
-      this.props.audioData.sound.removeEffect(createEffect));
+    this.props.blocksData.forEach(({ createEffect, isVisible }) => isVisible
+      && this.props.audioData.sound.removeEffect(createEffect));
     this.props.audioData.sound.disconnect();
     delete this.props.audioData.sound;
   };
 
-  attachFiltersToSource = sourceInput => this.props.blocksData.forEach(({ createEffect, isVisible }) => {
-    // console.log(sourceInput);
-    isVisible ? sourceInput.addEffect(createEffect) : null;
-  });
+  attachFiltersToSource = sourceInput => this.props.blocksData.forEach((
+    {
+      createEffect,
+      isVisible,
+    },
+  ) => isVisible && sourceInput.addEffect(createEffect));
 
   startMuteStream = async () => {
     const {
@@ -270,7 +273,7 @@ class Equalizer extends Component {
         </div>
         <div className="ButtonsContainer">
           {StartStreamButton}
-          <UploadButton 
+          <UploadButton
             handleInfoFromSound={
               eventFromInputFile => uploadSoundInfoFromFile(eventFromInputFile, this.props)
               }
@@ -283,9 +286,9 @@ class Equalizer extends Component {
           </div>
           {(startMuteState || sound) && StopButton }
         </div>
-          <InfoAboutTrack
-            trackname={trackName}
-          />
+        <InfoAboutTrack
+          trackname={trackName}
+        />
       </div>
     );
   }
@@ -296,6 +299,7 @@ Equalizer.propTypes = {
   createStreamDataAsProp: PropTypes.func.isRequired,
   startMuteStreamAudioAsProp: PropTypes.func.isRequired,
   audioData: PropTypes.instanceOf(Object).isRequired,
+  blocksData: PropTypes.instanceOf(Array).isRequired,
   voice: PropTypes.instanceOf(Object),
   sound: PropTypes.instanceOf(Object),
 };
