@@ -1,9 +1,7 @@
 module.exports = {
     verbose: true,
     moduleDirectories: ["node_modules"], 
-    transform: {
-      '^.+\\.tsx?$': 'babel-jest',
-    },
+    testMatch: ["**/__tests__/**/*.ts?(x)", "**/?(*.)+(test).ts?(x)"]
   };
 
 
