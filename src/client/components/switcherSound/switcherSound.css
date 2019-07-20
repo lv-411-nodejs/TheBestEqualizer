@@ -6,7 +6,7 @@
     width: 100%;
     max-width: 1024px;
     justify-content: flex-end;
-    color: white;
+    color: var(--authFont-white);
     -webkit-box-pack: justify;
     -ms-flex-pack: justify;
     -webkit-box-align: center;

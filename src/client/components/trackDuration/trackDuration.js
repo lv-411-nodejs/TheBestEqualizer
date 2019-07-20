@@ -19,7 +19,7 @@ class TrackDuration extends Component {
     static getDerivedStateFromProps(props, state) {
       const { audioData: { sound, trackName } } = props;
       if (sound && sound.sourceNode) {
-        if (sound && sound.sourceNode && state.startPlayTime === null && sound.playing) {
+        if (sound && sound.sourceNode && !state.startPlayTime && sound.playing) {
           return {
             startPlayTime: new Date(),
             duration: Math.round(sound.sourceNode.buffer.duration),
@@ -37,7 +37,7 @@ class TrackDuration extends Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-      if (prevState.playing !== undefined && !prevState.playing && this.state.playing) {
+      if (!prevState.playing && this.state.playing) {
         this.setState({ startPlayTime: new Date(new Date() - prevState.currentTime * 1000) });
         if (prevState.trackName !== this.state.trackName) {
           this.setState({ startPlayTime: new Date() });
