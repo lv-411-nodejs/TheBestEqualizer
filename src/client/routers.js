@@ -9,7 +9,7 @@ import Authentication from './containers/authentication/authentication';
 const Routers = () => (
   <BrowserRouter>
     <Switch>
-      <Route path="/authentication" exact component={Authentication} />
+      <Route path="/" exact component={Authentication} />
       <Route path="/main" component={Auth(Main)} />
     </Switch>
   </BrowserRouter>

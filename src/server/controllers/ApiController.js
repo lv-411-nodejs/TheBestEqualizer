@@ -47,17 +47,34 @@ export default class ApiController {
       .catch(err => response(res, err.message, 401));
   }
 
+  static deleteEffectsHandler( req, res ){
+    const { title } = req.body;
+    const { userId } = req;
+    User
+    .findOneAndUpdate(
+      { _id: userId , 'effects.title': {$in: title} }, 
+      { $pull: { effects: { title: title } } },
+      (err, data) => {
+        err
+          ? res.json({message: err.message})
+          : (data
+            ? res.status(201).json({message: 'The preset have been deleted'})
+            : res.status(404).json({error: 'Effect with this title is not found'})
+          )
+        })
+  }
+
   static postEffectsHandler(req, res) {
     const { title, presets } = req.body;
     const { userId } = req;
     User
     .findOneAndUpdate(
       { _id: userId, 'effects.title': {$ne: title} }, 
-      { $addToSet: { effects: {title: title, presets: presets } }},
+      { $push: { effects: {title: title, presets: presets } }},
       { new: true , runValidators: true},
       (err, data) => {
         err
-          ? res.json({message: 'Something went wrong with your request', error: err})
+          ? res.json({message: err.message})
           : (data
             ? res.status(201).json({message: 'The preset have been saved'})
             : res.status(404).json({error: 'Effect with this title already exists'})

@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom';
 const Auth = (ComponentToProtect) => {
   const AuthWrapper = () => {
     const token = localStorage.getItem('_token');
-    return token ? <ComponentToProtect /> : <Redirect to="/authentication" />;
+    return token ? <ComponentToProtect /> : <Redirect to="/" />;
   };
   return AuthWrapper;
 };
