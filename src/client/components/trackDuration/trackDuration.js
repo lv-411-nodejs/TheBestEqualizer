@@ -39,11 +39,12 @@ class TrackDuration extends Component {
     componentDidUpdate(prevProps, prevState) {
       if (!prevState.playing && this.state.playing) {
         this.setState({ startPlayTime: new Date(new Date() - prevState.currentTime * 1000) });
-        if (prevState.trackName !== this.state.trackName) {
-          this.setState({ startPlayTime: new Date() });
-        }
-      } else if (this.state.startPlayTime) {
+      }
+      if (this.state.startPlayTime) {
         this.calculateCurrentTime();
+      }
+      if (prevState.trackName !== this.state.trackName) {
+        this.setState({ startPlayTime: new Date() });
       }
     }
 
