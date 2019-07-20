@@ -30,6 +30,9 @@
   height: 30px;
   text-align: center;
   color: var(--bodyBackground-dark-light);
+  font-family: var(--font-ordinary);
+  font-weight: 600;
+  letter-spacing: 1px;
 }
 
 .Effect:hover{
