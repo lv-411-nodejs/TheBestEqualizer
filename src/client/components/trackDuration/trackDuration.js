@@ -17,7 +17,8 @@ class TrackDuration extends Component {
     }
 
     static getDerivedStateFromProps(props, state) {
-      const { audioData: { sound, trackName } } = props;
+      console.log(props.audioData)
+      const { audioData: { loading, sound, trackName } } = props;
       if (sound && sound.sourceNode) {
         if (sound && sound.sourceNode && !state.startPlayTime && sound.playing) {
           return {
@@ -26,6 +27,10 @@ class TrackDuration extends Component {
             playing: sound.playing,
             trackName,
           };
+        } else if (loading) {
+          return {
+            playing: false,
+          }
         }
         return {
           duration: Math.round(sound.sourceNode.buffer.duration),
@@ -59,6 +64,10 @@ class TrackDuration extends Component {
     }
 
     calculateCurrentTime = () => {
+      const currentTime = new Date();
+      const currentDifference = Math.round(
+        (currentTime.getTime() - this.state.startPlayTime.getTime()) / 1000,
+      );
       const { audioData: { sound } } = this.props;
       if (this.state.currentTime >= this.state.duration) {
         sound.stop();
@@ -68,15 +77,9 @@ class TrackDuration extends Component {
           playing: false,
         });
       } else {
-        const currentTime = new Date();
-        const currentDifference = Math.round(
-          (currentTime.getTime() - this.state.startPlayTime.getTime()) / 1000,
-        );
-        if (currentDifference !== this.state.currentTime) {
-          if (this.state.playing) {
+        if (currentDifference !== this.state.currentTime && this.state.playing) {
             this.setState({ currentTime: currentDifference },
-              () => this.calculateCurrentTime());
-          }
+              () => this.calculateCurrentTime())
         } else {
           setTimeout(this.calculateCurrentTime, 1000);
         }
