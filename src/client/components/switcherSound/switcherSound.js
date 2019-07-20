@@ -42,7 +42,7 @@ class SwitcherSound extends Component {
   }
 
   render() {
-    const { volumeValueTrack, track, voice } = this.state;
+    const { volumeValueTrack } = this.state;
     const minSliderVolume = 0;
     const maxSliderVolume = 1;
     const stepSliderVolume = 0.001;
@@ -58,7 +58,7 @@ class SwitcherSound extends Component {
             step={stepSliderVolume}
             onChange={this.changeVolume}
           />
-          <span className='voiceText'>Voice</span>
+          <span className="voiceText">Voice</span>
         </Fragment>
       </div>
     );

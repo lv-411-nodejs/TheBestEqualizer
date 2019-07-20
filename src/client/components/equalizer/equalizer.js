@@ -10,7 +10,7 @@ import UploadButton from './upload';
 import InfoAboutTrack from './upload/infoAboutFile';
 import Spinner from '../../assets/images/playSpinner.gif';
 import {
-  startStreamIcon, playIcon, stopIcon, pauseIcon,
+  startStreamIcon, playIcon, pauseIcon,
 } from '../../assets/icons/icons';
 import './equalizer.css';
 import {
@@ -219,7 +219,6 @@ class Equalizer extends Component {
       playSoundFromFile,
       uploadSoundInfoFromFile,
       setCanvasToState,
-      stopSoundFromFile,
       pauseSoundFromFile,
     } = this;
 
@@ -251,14 +250,6 @@ class Equalizer extends Component {
       />
     );
 
-    const StopButton = (
-      <Button
-        className="ButtonStyleTemplate"
-        onClick={stopSoundFromFile}
-        icon={stopIcon}
-        value="Stop"
-      />
-    );
     const PauseButton = (
       <Button
         className="ButtonStyleTemplate"

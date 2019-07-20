@@ -3,7 +3,7 @@ import 'react-rangeslider/lib/index.css';
 import './volumeComponent.css';
 import Slider from 'react-rangeslider';
 import { connect } from 'react-redux';
-import { volumeIcon } from '../../assets/icons/icons'
+import { volumeIcon } from '../../assets/icons/icons';
 
 class SwitcherSound extends Component {
   state = {
@@ -15,13 +15,13 @@ class SwitcherSound extends Component {
 
   static getDerivedStateFromProps(props, state) {
     const { audioData: { sound, voice } } = props;
-    const {volumeValueTrack, volumeValueVoice} = state;
+    const { volumeValueTrack, volumeValueVoice } = state;
     if (sound && sound.playing) {
-        sound.volume = volumeValueTrack;
-        return { track: sound };
-    } else if (voice && voice.playing) {
-        voice.volume = volumeValueVoice;
-        return { track: voice };
+      sound.volume = volumeValueTrack;
+      return { track: sound };
+    } if (voice && voice.playing) {
+      voice.volume = volumeValueVoice;
+      return { track: voice };
     }
     return null;
   }
@@ -30,10 +30,10 @@ class SwitcherSound extends Component {
     const {
       volumeValueTrack, volumeValueVoice, track, voice,
     } = this.state;
-    if(track) {
-        track.volume = volumeValueTrack;
+    if (track) {
+      track.volume = volumeValueTrack;
     } else if (voice) {
-        voice.volume = volumeValueVoice;
+      voice.volume = volumeValueVoice;
     }
   }
 
@@ -45,24 +45,28 @@ class SwitcherSound extends Component {
   }
 
   render() {
-    const { volumeValueTrack} = this.state;
+    const { volumeValueTrack } = this.state;
     const minSliderVolume = 0;
     const maxSliderVolume = 0.5;
     const stepSliderVolume = 0.001;
     return (
       <div className="SwitcherContainer">
         {
-        <Fragment>
-          <span>{volumeIcon} Volume</span>
-          <Slider
-            className="SwitcherContainer--slider"
-            value={volumeValueTrack}
-            min={minSliderVolume}
-            max={maxSliderVolume}
-            step={stepSliderVolume}
-            onChange={this.changeVolume}
-          />
-        </Fragment>
+          <Fragment>
+            <span>
+              {volumeIcon}
+              {' '}
+Volume
+            </span>
+            <Slider
+              className="SwitcherContainer--slider"
+              value={volumeValueTrack}
+              min={minSliderVolume}
+              max={maxSliderVolume}
+              step={stepSliderVolume}
+              onChange={this.changeVolume}
+            />
+          </Fragment>
         }
       </div>
     );
