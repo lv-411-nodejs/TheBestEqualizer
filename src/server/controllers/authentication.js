@@ -10,6 +10,7 @@ import User from '../models/user';
 import response from '../helpers/errorHandler';
 import { generateTokensPair } from '../helpers/token';
 import { ClientError } from '../helpers/error';
+import redisClient, { putInStorage, getFromStorage } from '../helpers/redis';
 
 // internal helpers
 const availableTokens = [];
@@ -84,4 +85,36 @@ export const refreshToken = (req, res) => {
     }
 
     return response(res, 'Refresh expired', 403);
+}
+
+export const redis = (req, res) => {
+    // create tokens for user
+
+    try {
+        const { username } = req.body;
+        const tokens = generateTokens({ userId: username });
+        putInStorage(username, tokens.access);
+
+        res.status(200).json({ token: tokens });
+    }
+    catch (err) {
+        return response(res, err.message, err.code);
+    }
+    
+}
+
+export const getFromRedis = (req, res) => {
+    // create tokens for user
+
+    try {
+        const { username } = req.body;
+
+        getFromStorage(username);
+
+        res.status(200).json({ token: tokens });
+    }
+    catch (err) {
+        return response(res, err.message, err.code);
+    }
+    
 }
