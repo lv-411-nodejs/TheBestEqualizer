@@ -39,10 +39,11 @@ class TrackDuration extends Component {
     componentDidUpdate(prevProps, prevState) {
       if (prevState.playing !== undefined && !prevState.playing && this.state.playing) {
         this.setState({ startPlayTime: new Date(new Date() - prevState.currentTime * 1000) });
+        if (prevState.trackName !== this.state.trackName) {
+          this.setState({ startPlayTime: new Date() });
+        }
       } else if (this.state.startPlayTime) {
         this.calculateCurrentTime();
-      } else if (prevState.trackName !== this.state.trackName) {
-        this.setState({ startPlayTime: new Date() });
       }
     }
 
@@ -119,16 +120,12 @@ class TrackDuration extends Component {
     render() {
       const { currentTime, duration } = this.state;
       const { audioData: { sound, voice } } = this.props;
-      let formatedDurationTime = '00:00';
-      let formatedCurrentTime = '00:00';
-      if (duration) {
-        formatedDurationTime = this.formatingSongTime(duration);
-      }
-      if (currentTime) {
-        formatedCurrentTime = this.formatingSongTime(currentTime);
-      }
       const minSliderVolume = 0;
       const stepSliderVolume = 0.001;
+      let formatedDurationTime = '00:00';
+      let formatedCurrentTime = '00:00';
+      formatedDurationTime = this.formatingSongTime(duration) || formatedDurationTime;
+      formatedCurrentTime = this.formatingSongTime(currentTime) || formatedCurrentTime;
       return (
         <div className="DurationContainer">
           <div className="DurationContainerFlexChild">
