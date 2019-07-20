@@ -1,7 +1,7 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 
-const Auth = (ComponentToProtect) => {
+const CheckAuth = (ComponentToProtect) => {
   const AuthWrapper = () => {
     const token = localStorage.getItem('_token');
     return token ? <ComponentToProtect /> : <Redirect to="/" />;
@@ -9,4 +9,4 @@ const Auth = (ComponentToProtect) => {
   return AuthWrapper;
 };
 
-export default Auth;
+export default CheckAuth;

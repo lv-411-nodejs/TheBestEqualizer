@@ -4,18 +4,21 @@ import { generateTokensPair } from '../helpers/token';
 
 const availableTokens = [];
 
-const saveDataToDB = (res, data, message) => (
-  data
-    .save()
-    .then((user) => res.status(201).json({ result: message, token: generateTokens({ userId: user._id }) }))
-    .catch(err => response(res, err.message, 422))
-);
-
 const generateTokens = (user) => {
   const tokens = generateTokensPair(user);
   availableTokens.push({ ref: tokens.refresh, userId: user.userId });
   return tokens;
 };
+
+const saveUserToDB = (res, data) => (
+  data
+    .save()
+    .then(user => res.status(201).json({
+      result: 'User created',
+      token: generateTokens({ userId: user._id }),
+    }))
+    .catch(err => response(res, err.message, 422))
+);
 
 const passwordComparison = (res, foundUser, receivedPassword) => (
   foundUser.verifyPassword(receivedPassword)
@@ -33,7 +36,7 @@ export default class ApiController {
       .findOne({ email })
       .then(foundUser => (foundUser
         ? response(res, { email: 'User with this email already exists!' }, 404)
-        : saveDataToDB(res, user, 'User created')))
+        : saveUserToDB(res, user)))
       .catch(err => response(res, err.message, 404));
   }
 
@@ -48,38 +51,38 @@ export default class ApiController {
   }
 
   static deleteEffectsHandler( req, res ){
-    const { title } = req.body;
-    const { userId } = req;
+    const {title} = req.body;
+    const {userId} = req;
     User
-    .findOneAndUpdate(
-      { _id: userId , 'effects.title': {$in: title} }, 
-      { $pull: { effects: { title: title } } },
-      (err, data) => {
-        err
-          ? res.json({message: err.message})
-          : (data
-            ? res.status(201).json({message: 'The preset have been deleted'})
-            : res.status(404).json({error: 'Effect with this title is not found'})
-          )
-        })
+      .findOneAndUpdate(
+        { _id: userId , 'effects.title': { $in: title } }, 
+        { $pull: { effects: { title: title } } },
+        (err, data) => {
+          err
+            ? res.json({ message: err.message })
+            : (data
+              ? res.status(201).json({ message: 'The preset have been deleted' })
+              : res.status(404).json({ error: 'Effect with this title is not found' })
+            )
+          })
   }
 
   static postEffectsHandler(req, res) {
     const { title, presets } = req.body;
     const { userId } = req;
     User
-    .findOneAndUpdate(
-      { _id: userId, 'effects.title': {$ne: title} }, 
-      { $push: { effects: {title: title, presets: presets } }},
-      { new: true , runValidators: true},
-      (err, data) => {
-        err
-          ? res.json({message: err.message})
-          : (data
-            ? res.status(201).json({message: 'The preset have been saved'})
-            : res.status(404).json({error: 'Effect with this title already exists'})
-          )
-        })
+      .findOneAndUpdate(
+        { _id: userId, 'effects.title': { $ne: title } }, 
+        { $push: { effects: {title: title, presets: presets } } },
+        { new: true , runValidators: true },
+        (err, data) => {
+          err
+            ? res.json({ message: err.message })
+            : (data
+              ? res.status(201).json({ message: 'The preset have been saved' })
+              : res.status(422).json({ error: 'Effect with this title already exists' })
+            )
+          })
   }
 
   static getEffectsHandler(req, res) {
