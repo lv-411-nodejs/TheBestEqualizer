@@ -12,7 +12,6 @@ import {
 
 const audioContext = Pizzicato.context;
 const analyser = audioContext.createAnalyser();
-analyser.fftSize = 128;
 
 const initialState = {
   // graphic canvas
@@ -28,6 +27,8 @@ const initialState = {
   voice: null,
   playPauseState: false,
   startMuteState: false,
+  // switcher source
+  onToggle: false,
 };
 
 export default function (state = initialState, action) {
