@@ -5,46 +5,53 @@ dotenv.config();
 
 const DAY = 3600 * 24;
 
+// const redisClient = redis.createClient({
+//     host: process.env.REDIS_ENDPOINT,
+//     port: process.env.REDIS_PORT,
+//     expire: DAY
+// });
+
 const redisClient = redis.createClient({
-    host: process.env.REDIS_ENDPOINT,
-    port: process.env.REDIS_PORT,
+    url: process.env.REDIS_URL,
     expire: DAY
 });
 
 redisClient.on("error", err => console.log("Redis error -> " + err));
+redisClient.on("connect", () => console.log("redis connected "));
 
-const setCallback = (err, replay) => {
-    if(err) {
-        console.log(err);
-        return;
+export const getFromRedis = (key) => {
+
+    if ((typeof key) !== 'string') {
+        key = key.toString();
     }
 
-    console.log(replay);
+    return new Promise((resolve, reject) => {
+        redisClient.get(key, (err, replay) => {
+            if (err) return reject(err);
+
+            if (!replay) return reject('Trobles with redis, can not get value by key');
+
+            if (replay) return resolve(replay);
+        });
+    });
 };
 
-const getCallback = (err, replay) => {
-    if(err) {
-        console.log(err);
-        return;
-    }
-};
+export const putInRedis = (key, value) => {
 
-export const putInStorage = (key, value) => {
-
-    if ( (typeof value) !== 'string') {
+    if ((typeof value) !== 'string') {
         value = value.toString();
     }
 
     return new Promise((resolve, reject) => {
         redisClient.set(key, value, 'EX', DAY, (err, replay) => {
-            if(err) return reject(err);
+            if (err) return reject(err);
 
-            if(!replay) return reject('Trobles with redis, cant insert');
+            if (!replay) return reject('Trobles with redis, cant insert');
 
-            if(replay == 'OK') return resolve(true);
+            if (replay == 'OK') return resolve(true);
         });
     });
-    
+
 };
 
 // export const updateInStorage = (key, value) => {
@@ -62,7 +69,7 @@ export const putInStorage = (key, value) => {
 //             if(replay == 'OK') return resolve(true);
 //         });
 //     });
-    
+
 // };
 
 // export const deleteFromStorage = (key) => {
@@ -80,11 +87,9 @@ export const putInStorage = (key, value) => {
 //             if(replay == 'OK') return resolve(true);
 //         });
 //     });
-    
+
 // };
 
-export const getFromStorage = (key) => {
-    redisClient.get(key, getCallback);
-};
+
 
 export default redisClient;

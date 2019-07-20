@@ -10,14 +10,16 @@ import User from '../models/user';
 import response from '../helpers/errorHandler';
 import { generateTokensPair } from '../helpers/token';
 import { ClientError, TeapotError } from '../helpers/error';
-import redisClient, { putInStorage, getFromStorage } from '../helpers/redis';
+import redisClient, { putInRedis, getFromRedis } from '../helpers/redis';
 
 // internal helpers
-const availableTokens = [];
 
-const generateTokens = (user) => {
+const generateTokens = async (user) => {
     const tokens = generateTokensPair(user);
-    availableTokens.push({ ref: tokens.refresh, userId: user.userId });
+    const result = await putInRedis(user._id, tokens.refresh);
+
+    if (!result) throw new TeapotError;
+
     return tokens;
 };
 
@@ -36,7 +38,8 @@ export const registerUser = async (req, res) => {
 
         const savedUser = await user.save();
         if (savedUser) {
-            res.status(201).json({ result: 'User created' });
+            const tokens = generateTokens({ userId: user._id });
+            res.status(201).json({ token: tokens });
         }
     } catch (error) {
         response(res, error.message, 404);
@@ -54,14 +57,11 @@ export const loginUser = async (req, res) => {
         const verified = await user.verifyPassword(password);
 
         if (!verified) {
-            return response(res, { password: 'Wrong password' }, 404);
+            throw new ClientError('Wrong password', 404);
         }
 
         const tokens = generateTokens({ userId: user._id });
-        const result = await putInStorage(user._id, tokens.refresh);
 
-        if(!result) throw new TeapotError;
-        
         return res.status(200).json({ token: tokens });
 
     } catch (error) {
@@ -74,8 +74,25 @@ export const loginUser = async (req, res) => {
  * @param {string} refresh
  * @param {string} userId
  */
-export const refreshToken = (req, res) => {
+export const refreshToken = async (req, res) => {
     const { refresh, userId } = req.body;
+
+    try {
+        const refreshToken = await getFromRedis(userId);
+        
+        if (refresh === refreshToken) {
+            const newTokensPair = await generateTokens(userId);
+            const replaced = putInRedis(userId, newTokensPair.refresh);
+
+            if (!replaced) throw new ClientError('Problem with refresh token action', 401);
+
+            return res.status(200).json({ token: newTokensPair });
+        }
+
+        throw new ClientError('Tokens not matched', 401);
+    } catch (err) {
+        return response(res, err.message, err.code);
+    }
 
     // const findedRefreshToken = availableTokens
     //     .find(token => token.ref === refresh);
@@ -89,7 +106,7 @@ export const refreshToken = (req, res) => {
 
     // return response(res, 'Refresh expired', 403);
 
-    
+
 }
 
 export const redis = async (req, res) => {
@@ -98,30 +115,34 @@ export const redis = async (req, res) => {
     try {
         const { username } = req.body;
         const tokens = generateTokens({ userId: username });
-        const result = await putInStorage(username, tokens.access);
+        const result = await putInRedis(username, tokens.refresh);
 
-        if(!result) throw new TeapotError;
+        if (!result) throw new TeapotError;
 
         res.status(200).json({ token: tokens });
     }
     catch (err) {
         return response(res, err.message, err.code);
     }
-    
+
 }
 
-export const getFromRedis = (req, res) => {
+export const getDataRedis = async (req, res) => {
     // create tokens for user
 
     try {
         const { username } = req.body;
 
-        getFromStorage(username);
+        const token = await getFromRedis(username);
 
-        res.status(200).json({ token: tokens });
+        res.status(200).json({ token: token });
     }
     catch (err) {
         return response(res, err.message, err.code);
     }
-    
+
+}
+
+export const client = (req, res) => {
+    console.log(redisClient);
 }
