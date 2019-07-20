@@ -6,6 +6,7 @@ import {
   SET_JAZZ_PRESET,
   SET_POP_PRESET,
   SET_USER_PRESET,
+  SET_DEFAULT_PRESET,
 } from './types';
 
 import {
@@ -18,6 +19,11 @@ export const setVisibility = blockName => ({ type: SET_VISIBILITY, blockName });
 
 export const setPresetValue = chosenPresetName => (dispatch) => {
   switch (chosenPresetName) {
+    case 'Default':
+      dispatch({
+        type: SET_DEFAULT_PRESET,
+      });
+      break;
     case 'Jazz':
       dispatch({
         type: SET_JAZZ_PRESET,

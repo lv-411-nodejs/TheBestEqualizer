@@ -5,6 +5,7 @@ import {
   SET_JAZZ_PRESET,
   SET_POP_PRESET,
   SET_USER_PRESET,
+  SET_DEFAULT_PRESET,
 } from '../actions/types';
 
 const initialState = [
@@ -408,11 +409,13 @@ export default function (state = initialState, action) {
   } = action;
 
   switch (action.type) {
+    case SET_DEFAULT_PRESET: {
+      return initialState;
+    }
     case SET_JAZZ_PRESET: {
       return jazzPresetArray;
     }
     case SET_ROCK_PRESET: {
-      console.log(rockPresetArray)
       return rockPresetArray;
     }
     case SET_POP_PRESET: {

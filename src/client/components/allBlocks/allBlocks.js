@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Pizzicato from 'pizzicato';
 import { connect } from 'react-redux';
-import {
-  setVisibility,
-} from '../../store/actions/blocksActions';
+import { setVisibility } from '../../store/actions/blocksActions';
 import BlockOfSliders from '../blockOfSliders';
 import Button from '../button';
 import {
-  pauseIcon, playIcon, stopIcon, checkTickIcon,
+  pauseIcon,
+  playIcon,
+  stopIcon,
+  checkTickIcon,
 } from '../../assets/icons/icons';
 import Sound from '../../sounds/sound.mp3';
 import './alllBlocks.css';
@@ -28,8 +29,7 @@ class AllBlocks extends Component {
       const { sound } = this.state;
       sound.addEffect(createEffect);
     });
-  }
-  ;
+  };
 
   play = () => {
     this.setState({ isPlaying: true });
@@ -53,7 +53,6 @@ class AllBlocks extends Component {
     const { sound, isPlaying } = this.state;
     const { setVisibility, blocksData } = this.props;
 
-    console.log(blocksData)
     const PlayButton = (
       <Button
         className="PlayButton"
@@ -85,36 +84,30 @@ class AllBlocks extends Component {
       <div className="SlidersComponent__main--container">
         <div className="AllSliders">
           <div className="ListOfEffects">
-            {
-              blocksData.map(({ name, isVisible }) => (
-                <button
-                  className="Effect"
-                  key={name}
-                  type="button"
-                  id={name}
-                  name={name}
-                  onClick={() => setVisibility(name)}
-                >
-                  {name}
-                  {' '}
-                  {isVisible ? checkTickIcon : ''}
-                </button>
-              ))
-            }
+            {blocksData.map(({ name, isVisible }) => (
+              <button
+                className="Effect"
+                key={name}
+                type="button"
+                id={name}
+                name={name}
+                onClick={() => setVisibility(name)}
+              >
+                {name}
+                {' '}
+                {isVisible ? checkTickIcon : ''}
+              </button>
+            ))}
           </div>
           <div className="Sliders">
-            {blocksData.map(({
-              name, effects, isVisible,
-            }) => (isVisible
-              ? (
-                <BlockOfSliders
-                  name={name}
-                  effects={effects}
-                  key={name}
-                  sound={sound}
-                />
-              )
-              : null))}
+            {blocksData.map(({ name, effects, isVisible }) => (isVisible ? (
+              <BlockOfSliders
+                name={name}
+                effects={effects}
+                key={name}
+                sound={sound}
+              />
+            ) : null))}
           </div>
         </div>
         <div className="Buttons">
@@ -135,6 +128,9 @@ const mapStateToProps = state => ({
   blocksData: state.blocksData,
 });
 
-export default connect(mapStateToProps, {
-  setVisibility,
-})(AllBlocks);
+export default connect(
+  mapStateToProps,
+  {
+    setVisibility,
+  },
+)(AllBlocks);

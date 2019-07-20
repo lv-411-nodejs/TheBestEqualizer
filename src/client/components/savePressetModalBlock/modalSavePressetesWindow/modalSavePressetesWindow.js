@@ -7,39 +7,33 @@ import { cancelIcon, saveIcon } from '../../../assets/icons/icons';
 import fetchRequest from '../../../helpers/fetchRequest';
 import { addNewPresetFromInput } from '../../../store/actions/presetsAction';
 
-
 class SavePressetesModalWindow extends Component {
   state = {
     valueFromPresetInput: '',
     savePresetStatusMessage: '',
-  }
+  };
 
   handleInputChange = (event) => {
-    event.stopPropagation();
     this.setState({ valueFromPresetInput: event.target.value });
-  }
+  };
 
   handleFilterDataSend = (valueFromPresetInput, currentValueOfFilters) => {
-    const { addNewPresetFromInput } = this.props;
+    const { addNewPresetFromInput, showHideModalBlock } = this.props;
     const event = new MouseEvent('click');
-    fetchRequest.post('http://localhost:8080/effects', {
-      title: valueFromPresetInput,
-      presets: currentValueOfFilters,
-    })
+    fetchRequest
+      .post('http://localhost:8080/effects', {
+        title: valueFromPresetInput,
+        presets: currentValueOfFilters,
+      })
       .then(response => this.setState(() => {
+        setTimeout(() => showHideModalBlock(event), 1500);
         addNewPresetFromInput(valueFromPresetInput);
         return { savePresetStatusMessage: response.data.result };
       }));
-    setTimeout(() => this.props.showHideModalBlock(event), 2000);
   };
 
   render() {
-    const {
-      showHideModalBlock,
-      refFocus,
-      currentValueOfFilters,
-    } = this.props;
-
+    const { showHideModalBlock, refFocus, currentValueOfFilters } = this.props;
     const { valueFromPresetInput, savePresetStatusMessage } = this.state;
     return (
       <div
@@ -51,22 +45,30 @@ class SavePressetesModalWindow extends Component {
         ref={refFocus}
       >
         <div className="headerModalWindow">
-          {cancelIcon}
+          <span onClick={showHideModalBlock} role="none">{cancelIcon}</span>
         </div>
         <div className="textArea">
           <h3>Please type presset&#39;s name</h3>
-          <span className="savePresetStatusMessage">{savePresetStatusMessage}</span>
+          <span className="savePresetStatusMessage">
+            {savePresetStatusMessage}
+          </span>
           <input
             onChange={this.handleInputChange}
             type="text"
             value={valueFromPresetInput}
           />
-          <span className="spanTooltipMessage">write preset-name without space</span>
+          <span className="spanTooltipMessage">
+            write preset-name without space
+          </span>
         </div>
         <div className="SaveCancelButtonsContainer">
           <Button
             className="ButtonStyleTemplate"
-            onClick={() => this.handleFilterDataSend(valueFromPresetInput, currentValueOfFilters)}
+            onClick={() => this.handleFilterDataSend(
+              valueFromPresetInput,
+              currentValueOfFilters,
+            )
+            }
             icon={saveIcon}
             value="Save"
           />
@@ -93,6 +95,9 @@ SavePressetesModalWindow.propTypes = {
   currentValueOfFilters: PropTypes.instanceOf(Array),
 };
 
-export default connect(mapStateToProps, {
-  addNewPresetFromInput,
-})(SavePressetesModalWindow);
+export default connect(
+  mapStateToProps,
+  {
+    addNewPresetFromInput,
+  },
+)(SavePressetesModalWindow);

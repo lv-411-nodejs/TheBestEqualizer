@@ -3,7 +3,7 @@ import {
   ADD_NEW_USER_PRESET_FROM_DB,
 } from '../actions/types';
 
-const initialState = ['Jazz', 'Rock', 'Pop'];
+const initialState = ['Default', 'Jazz', 'Rock', 'Pop'];
 
 export default function (state = initialState, action) {
   switch (action.type) {
