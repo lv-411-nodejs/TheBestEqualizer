@@ -3,6 +3,7 @@ import './componentWithSliders.css';
 import PresetsDropdownSelector from '../presetsDropdownSelector';
 import AllBlocks from '../allBlocks';
 import SavePressetModalBlock from '../savePressetModalBlock';
+import FilterToggler from '../filterToggler';
 import { saveIcon } from '../../assets/icons/icons';
 import Button from '../button';
 
@@ -33,6 +34,7 @@ class ComponentWithSliders extends Component {
             icon={saveIcon}
             value="Save Preset"
           />
+          <FilterToggler />
           <PresetsDropdownSelector />
         </header>
         <main className="SlidersComponent__main">

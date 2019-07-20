@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Slider from 'react-rangeslider';
-import 'react-rangeslider/lib/index.css';
 import { connect } from 'react-redux';
+import 'react-rangeslider/lib/index.css';
 
 import './slider.css';
 
@@ -28,6 +28,18 @@ class OneSlider extends Component {
       this.setState({ sliderValue: parseFloat(value.toFixed(2)) });
     }
   }
+  setEffectsValue = (blockName, effectsName, value) => this.props.blocksData.forEach((
+    {
+      name,
+      effects,
+      createEffect,
+    },
+  ) => {
+    if (name === blockName) {
+      effects[effectsName] = value;
+      createEffect[effectsName] = effects[effectsName];
+    }
+  });
 
   setEffectsValue = (sliderValue) => {
     const { blocksData, blockName, effectName } = this.props;
@@ -66,10 +78,10 @@ class OneSlider extends Component {
 
 OneSlider.propTypes = {
   value: PropTypes.number,
+  blocksData: PropTypes.instanceOf(Array).isRequired,
   blockName: PropTypes.string,
   effectName: PropTypes.string,
   effectValues: PropTypes.instanceOf(Object),
-  blocksData: PropTypes.instanceOf(Array),
 };
 
 const mapStateToProps = state => ({
