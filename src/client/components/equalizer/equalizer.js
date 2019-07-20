@@ -9,7 +9,9 @@ import Button from '../button';
 import UploadButton from './upload';
 import InfoAboutTrack from './upload/infoAboutFile';
 import Spinner from '../../assets/images/playSpinner.gif';
-import { startStreamIcon, playIcon, stopIcon } from '../../assets/icons/icons';
+import {
+  startStreamIcon, playIcon, stopIcon, pauseIcon,
+} from '../../assets/icons/icons';
 import './equalizer.css';
 import {
   startCreationAudioData,
@@ -100,11 +102,44 @@ class Equalizer extends Component {
      } = this.props;
      if (!playPauseState) {
        sound.play();
-     } else {
+     }
+     await playPauseSoundFromFileAsProp();
+     await this.renderEqualizer();
+   }
+
+   pauseSoundFromFile = async () => {
+     const {
+       audioData: {
+         sound,
+         playPauseState,
+       }, playPauseSoundFromFileAsProp,
+     } = this.props;
+
+     if (playPauseState) {
        sound.pause();
      }
      await playPauseSoundFromFileAsProp();
      await this.renderEqualizer();
+   }
+
+   stopSoundFromFile = async () => {
+     const { ctx } = this.state;
+     const { width, height } = ctx.canvas;
+     const {
+       audioData: {
+         sound,
+         playPauseState,
+         voice,
+       }, playPauseSoundFromFileAsProp,
+     } = this.props;
+     if (playPauseState) {
+       await playPauseSoundFromFileAsProp();
+       sound.stop();
+       voice.stop();
+     }
+     sound.stop();
+     voice.stop();
+     ctx.clearRect(0, 0, width, height);
    }
 
   startMuteStream = async () => {
@@ -174,7 +209,7 @@ class Equalizer extends Component {
 
   setCanvasToState = (canvasEl) => {
     this.setState({
-      ctx: canvasEl.getContext('2d'),
+      ctx: canvasEl ? canvasEl.getContext('2d') : null,
     });
   }
 
@@ -184,6 +219,8 @@ class Equalizer extends Component {
       playSoundFromFile,
       uploadSoundInfoFromFile,
       setCanvasToState,
+      stopSoundFromFile,
+      pauseSoundFromFile,
     } = this;
 
     const {
@@ -217,9 +254,17 @@ class Equalizer extends Component {
     const StopButton = (
       <Button
         className="ButtonStyleTemplate"
-        onClick={playSoundFromFile}
+        onClick={stopSoundFromFile}
         icon={stopIcon}
         value="Stop"
+      />
+    );
+    const PauseButton = (
+      <Button
+        className="ButtonStyleTemplate"
+        onClick={pauseSoundFromFile}
+        icon={pauseIcon}
+        value="Pause"
       />
     );
 
@@ -239,11 +284,12 @@ class Equalizer extends Component {
           {StartStreamButton}
           <UploadButton handleInfoFromSound={uploadSoundInfoFromFile} />
           <div style={{ display: playPauseState ? 'none' : 'block' }}>
-            {sound && PlayButton}
+            {(startMuteState || sound) && PlayButton}
           </div>
           <div style={{ display: playPauseState ? 'block' : 'none' }}>
-            {sound && StopButton}
+            {(startMuteState || sound) && PauseButton }
           </div>
+          {(startMuteState || sound) && StopButton }
         </div>
         <InfoAboutTrack
           trackname={trackName}
