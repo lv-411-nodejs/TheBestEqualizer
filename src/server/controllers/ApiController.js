@@ -55,16 +55,14 @@ export default class ApiController {
     const { userId } = req;
     User
       .findOneAndUpdate({ _id: userId, 'effects.title': { $in: title } },
-        { $pull: { effects: { title: title } } })
+        { $pull: { effects: { title } } })
       .exec((err, data) => {
         if (err) {
           res.status(400).json({ message: err.message });
+        } else if (data) {
+          res.status(200).json({ message: 'The preset have been deleted' });
         } else {
-          if (data) {
-            res.status(200).json({ message: 'The preset have been deleted' });
-          } else {
-            res.status(404).json({ error: 'Effect with this title is not found' });
-          }
+          res.status(404).json({ error: 'Effect with this title is not found' });
         }
       });
   }
@@ -74,17 +72,15 @@ export default class ApiController {
     const { userId } = req;
     User
       .findOneAndUpdate({ _id: userId, 'effects.title': { $ne: title } },
-        { $push: { effects: { title: title, presets: presets } } },
+        { $push: { effects: { title, presets } } },
         { new: true, runValidators: true })
       .exec((err, data) => {
         if (err) {
           res.status(400).json({ message: err.message });
+        } else if (data) {
+          res.status(201).json({ message: 'The preset have been saved' });
         } else {
-          if (data) {
-            res.status(201).json({ message: 'The preset have been saved' });
-          } else {
-            res.status(422).json({ error: 'Effect with this title already exists' });
-          }
+          res.status(422).json({ error: 'Effect with this title already exists' });
         }
       });
   }
@@ -96,9 +92,11 @@ export default class ApiController {
       .findOne({ _id: userId })
       .then(({ effects }) => {
         const find = effects.find(effect => effect.title === title);
-        find
-          ? res.send(find)
-          : response(res, 'Preset with this title is not found', 404);
+        if (find) {
+          res.send(find);
+        } else {
+          response(res, 'Preset with this title is not found', 404);
+        } 
       })
       .catch(err => response(res, err.message, 404));
   }
