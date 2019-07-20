@@ -29,8 +29,8 @@ export const postUserData = (path, newUser, history) => async (dispatch) => {
       history.push('/main');
     })
     .catch(({ response: { data: { error } } }) => {
-        dispatch(authFail(error));
-        response = error;
+      dispatch(authFail(error));
+      response = error;
     });
 
   return response;
