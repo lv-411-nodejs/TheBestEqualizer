@@ -30,5 +30,5 @@ export const regExpPatterns = confirmPattern => ({
   username: /^[a-zA-Z].*/,
   email: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/,
   password: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&]{1,}$/,
-  passwordConfirmation: new RegExp(confirmPattern),
+  passwordConfirmation: new RegExp("/^" + confirmPattern + "$/"),
 });

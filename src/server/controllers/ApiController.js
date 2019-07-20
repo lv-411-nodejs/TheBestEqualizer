@@ -58,11 +58,13 @@ export default class ApiController {
         { $pull: { effects: { title: title } } })
       .exec((err, data) => {
         if (err) {
-          res.json({ message: err.message });
+          res.status(400).json({ message: err.message });
         } else {
-          data
-            ? res.status(204).json({ message: 'The preset have been deleted' })
-            : res.status(404).json({ error: 'Effect with this title is not found' });
+          if (data) {
+            res.status(200).json({ message: 'The preset have been deleted' });
+          } else {
+            res.status(404).json({ error: 'Effect with this title is not found' });
+          }
         }
       });
   }
@@ -76,11 +78,13 @@ export default class ApiController {
         { new: true, runValidators: true })
       .exec((err, data) => {
         if (err) {
-          res.json({ message: err.message });
+          res.status(400).json({ message: err.message });
         } else {
-          data 
-            ? res.status(201).json({ message: 'The preset have been saved' })
-            : res.status(422).json({ error: 'Effect with this title already exists' });
+          if (data) {
+            res.status(201).json({ message: 'The preset have been saved' });
+          } else {
+            res.status(422).json({ error: 'Effect with this title already exists' });
+          }
         }
       });
   }
@@ -91,10 +95,10 @@ export default class ApiController {
     User
       .findOne({ _id: userId })
       .then(({ effects }) => {
-        const find = effects.find((effect) => effect.title === title)
-        find 
+        const find = effects.find(effect => effect.title === title);
+        find
           ? res.send(find)
-          : response(res, 'Preset with this title is not found', 404)
+          : response(res, 'Preset with this title is not found', 404);
       })
       .catch(err => response(res, err.message, 404));
   }
