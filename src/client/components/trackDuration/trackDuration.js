@@ -27,64 +27,62 @@ class TrackDuration extends Component {
     }
 
     calculateCurrentTime = () => {
+        const {audioData: {sound}} = this.props;
         if (this.state.currentTime >= this.state.duration){
-            return;
-        }
-        let currentTime = new Date();
-        let currentDifference = Math.round((currentTime.getTime() - this.state.startPlayTime.getTime())/1000)
-        if(currentDifference !== this.state.currentTime){
-            console.log("AAA", this.state.playing )
-            if (this.state.playing){
-                this.setState({currentTime: currentDifference},
-                () => this.calculateCurrentTime())
-            } 
+            sound.stop()
+            sound.playing = false;
+            this.setState( {
+                currentTime: 0,
+                playing: false,
+            })
         } else {
-            setTimeout(this.calculateCurrentTime, 1000);
+            let currentTime = new Date();
+            let currentDifference = Math.round((currentTime.getTime() - this.state.startPlayTime.getTime())/1000)
+            if(currentDifference !== this.state.currentTime){
+                if (this.state.playing){
+                    this.setState({currentTime: currentDifference},
+                    () => this.calculateCurrentTime())
+                } 
+            } else {
+                setTimeout(this.calculateCurrentTime, 1000);
+            }
         }
     }
 
     static getDerivedStateFromProps(props, state) {
-        const { audioData } = props;
-        if (audioData.sound && audioData.sound.sourceNode) {
-                if(state.startPlayTime === null && audioData.sound.playing) {
+        const { audioData: {sound, trackName} } = props;
+        if (sound && sound.sourceNode) {
+                if(sound && sound.sourceNode && state.startPlayTime === null && sound.playing) {
                     return {
                         startPlayTime: new Date(),
-                        duration: Math.round(audioData.sound.sourceNode.buffer.duration),
-                        playing: audioData.sound.playing,
-                        trackName: audioData.trackName,
+                        duration: Math.round(sound.sourceNode.buffer.duration),
+                        playing: sound.playing,
+                        trackName: trackName,
                     }
                 }
                 return {
-                    duration: Math.round(audioData.sound.sourceNode.buffer.duration),
-                    playing: audioData.sound.playing,
-                    trackName: audioData.trackName,
+                    duration: Math.round(sound.sourceNode.buffer.duration),
+                    playing: sound.playing,
+                    trackName: trackName,
                 }
         }
         return null;
     }
 
-    shouldComponentUpdate(nextProps, nextState){
-        console.log(nextState.playing);
-        return true;
-    }
-
     componentDidUpdate(prevProps, prevState) {
         if (prevState.playing !== undefined && !prevState.playing && this.state.playing){
             this.setState({startPlayTime: new Date(new Date() - prevState.currentTime*1000)})
-        }
-        if(this.state.startPlayTime) {
+        } else if (this.state.startPlayTime) {
             this.calculateCurrentTime()
-            console.log(this.state.startPlayTime)
-        }
-        if(prevState.trackName !== this.state.trackName) {
+        } else if (prevState.trackName !== this.state.trackName) {
             this.setState({startPlayTime: new Date() })
         }
     }
 
     setPauseOnSound = () => {
-        const {audioData} = this.props;
-        if(!this.props.audioData.sound.paused) {
-            !audioData.sound.paused && audioData.sound.pause();
+        const {audioData: {sound}} = this.props;
+        if(!sound.paused) {
+            !sound.paused && sound.pause();
             this.setState({
                 playing: false,
                 onToggle: false,
@@ -93,9 +91,9 @@ class TrackDuration extends Component {
     }
 
     setPlayOnSound = () => {
-        const {audioData} = this.props;
+        const {audioData: {sound}} = this.props;
         if(!this.state.onToggle) {
-            !audioData.sound.playing && audioData.sound.play()
+            !sound.playing && sound.play()
             this.setState({
                 playing: true,
                 onToggle: true,
@@ -104,9 +102,9 @@ class TrackDuration extends Component {
     }
 
     changeCurrentTimeOfSong = (time) => {
-        const {audioData} = this.props;
-        if(audioData.sound){
-            audioData.sound.offsetTime = time;
+        const {audioData: {sound}} = this.props;
+        if(sound){
+            sound.offsetTime = time;
         }  
     }
 
@@ -118,7 +116,7 @@ class TrackDuration extends Component {
 
     render() {
         const {currentTime, duration} = this.state;
-        const { audioData } = this.props
+        const { audioData: {sound, voice} } = this.props
         let formatedDurationTime = '00:00';
         let formatedCurrentTime = '00:00';
         if (duration){
@@ -142,13 +140,13 @@ class TrackDuration extends Component {
                         min={minSliderVolume}
                         max={duration}
                         step={stepSliderVolume}
-                        onChangeStart={audioData.sound && this.setPauseOnSound}
-                        onChange={audioData.sound && this.setCurrentTime}
-                        onChangeComplete={audioData.sound && this.setPlayOnSound}
+                        onChangeStart={sound && this.setPauseOnSound}
+                        onChange={sound && this.setCurrentTime}
+                        onChangeComplete={sound && this.setPlayOnSound}
                     />
                 </div>
-                {audioData.sound && (audioData.voice.playing && audioData.sound.playing) ? ( 
-                <SwitcherSound />): (<VolumeComponent />)}
+                {sound && (voice.playing && sound.playing) ? ( 
+                <SwitcherSound />) : (<VolumeComponent />)}
             </div>
         )
     }

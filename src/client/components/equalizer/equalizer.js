@@ -63,7 +63,7 @@ class Equalizer extends Component {
       source: 'file',
       options: {
         path: audioFile.src,
-        loop: true,
+        loop: false,
       },
     }, () => this.createSoundInfoInState(sound, file));
   };
@@ -289,7 +289,6 @@ class Equalizer extends Component {
           <div style={{ display: playPauseState ? 'block' : 'none' }}>
             {(startMuteState || sound) && PauseButton }
           </div>
-          {(startMuteState || sound) && StopButton }
         </div>
         <InfoAboutTrack
           trackname={trackName}

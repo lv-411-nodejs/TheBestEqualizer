@@ -48,7 +48,6 @@ class SwitcherSound extends Component {
     const stepSliderVolume = 0.001;
     return (
       <div className="SwitcherContainer">
-        {track && (voice.playing && track.playing) && (
         <Fragment>
           <span>Track</span>
           <Slider
@@ -61,7 +60,6 @@ class SwitcherSound extends Component {
           />
           <span className='voiceText'>Voice</span>
         </Fragment>
-        )}
       </div>
     );
   }

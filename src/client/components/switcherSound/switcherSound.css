@@ -54,3 +54,16 @@
 .SwitcherContainer--slider .rangeslider__handle:after {
     display: none;
 }
+
+@media only screen and (max-width: 1020px) {
+    .SwitcherContainer--slider {
+        width: 100px;
+    }
+}
+
+@media only screen and (max-width: 720px) {
+    .SwitcherContainer {
+        justify-content: center;
+    }
+}
+  

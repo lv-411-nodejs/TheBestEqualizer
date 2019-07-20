@@ -3,7 +3,7 @@ import 'react-rangeslider/lib/index.css';
 import './volumeComponent.css';
 import Slider from 'react-rangeslider';
 import { connect } from 'react-redux';
-import {volumeIcon} from '../../assets/icons/icons'
+import { volumeIcon } from '../../assets/icons/icons'
 
 class SwitcherSound extends Component {
   state = {
@@ -26,7 +26,7 @@ class SwitcherSound extends Component {
     return null;
   }
 
-  changeTracksVolume = () => {
+  changeTracksOrVoiceVolume = () => {
     const {
       volumeValueTrack, volumeValueVoice, track, voice,
     } = this.state;
@@ -41,11 +41,11 @@ class SwitcherSound extends Component {
     this.setState({
       volumeValueTrack: parseFloat(volumeValueTrack.toFixed(2)),
       volumeValueVoice: parseFloat(volumeValueTrack.toFixed(2)),
-    }, () => this.changeTracksVolume());
+    }, () => this.changeTracksOrVoiceVolume());
   }
 
   render() {
-    const { volumeValueTrack, track, voice } = this.state;
+    const { volumeValueTrack} = this.state;
     const minSliderVolume = 0;
     const maxSliderVolume = 0.5;
     const stepSliderVolume = 0.001;
