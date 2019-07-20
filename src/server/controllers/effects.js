@@ -6,10 +6,10 @@
  */
 
 import Effects from '../models/effects';
-import { response } from '../helpers/errorHandler';
+import { ClientError } from '../helpers/error';
 
 
-export const effects = async (req, res) => {
+export const getEffect = async (req, res) => {
 
     const { title } = req.body;
 
@@ -17,10 +17,10 @@ export const effects = async (req, res) => {
         const preset = await Effects.findOne({ title });  
 
         if (!preset) {
-            throw new Error('Preset with this title not found');
+            throw new ClientError('Preset with this title not found', 401);
         }
 
     } catch (error) {
-        response(res, error.message, 404);
+        return res.status(error.code || 500).json({ "error": error.message });
     }
 }

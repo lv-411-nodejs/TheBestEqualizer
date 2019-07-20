@@ -3,9 +3,12 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 import routes from './routes/api';
 import dbConnect from './helpers/database';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT;
 
 app.use(bodyParser.json({ limit: '2mb' }));
 app.use(bodyParser.urlencoded({ extended: true }));
