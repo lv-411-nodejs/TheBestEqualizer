@@ -37,6 +37,7 @@ class Equalizer extends Component {
   }
 
   static getDerivedStateFromProps({ audioData: { analyser, audioContext } }) {
+    analyser.fftSize = 128;
     const howManyFrequancyCut = 20;
     const numPoints = analyser.frequencyBinCount - howManyFrequancyCut;
     const uint8Array = new Uint8Array(numPoints);
