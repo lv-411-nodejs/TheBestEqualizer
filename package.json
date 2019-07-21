@@ -13,6 +13,8 @@
     "dev:server-debug": "DEBUG=express:* nodemon --exec babel-node ./src/server/app.js",
     "lint:client": "./node_modules/.bin/eslint ./src/client",
     "lint:client-fix": "./node_modules/.bin/eslint ./src/client --fix",
+    "lint:server": "./node_modules/.bin/eslint ./src/server",
+    "lint:server-fix": "./node_modules/.bin/eslint ./src/server --fix",
     "heroku-prebuild": "npm install --dev",
     "heroku-app": "webpack-dev-server --port $PORT --host 0.0.0.0 --mode development --devtool inline-source-map --hot --open"
   },
@@ -42,6 +44,7 @@
     "react-router-dom": "^5.0.1",
     "redis": "^2.8.0",
     "redux": "^4.0.1",
+    "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
