@@ -48,6 +48,7 @@ export const middleware = (req, res, next) => {
     }
 
     req.userId = decoded.userId;
+    req.refresToken = decoded._refresh;
     return next();
   });
   return null;

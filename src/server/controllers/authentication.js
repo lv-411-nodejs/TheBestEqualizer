@@ -85,11 +85,23 @@ export const refreshToken = async (req, res) => {
 
         const newTokensPair = await generateTokens({ userId });
         if (newTokensPair) {
-            deleteFromRedis(refresh);
+            await deleteFromRedis(refresh);
         }
 
         return res.status(200).json({ token: newTokensPair });
 
+    } catch (error) {
+        return response(res, error.message, error.code);
+    }
+}
+
+export const logOut = async (req, res) => {
+    const { refresToken } = req;
+
+    try {
+        await deleteFromRedis(refresToken);
+        
+        return res.status(200).json({ success: true });
     } catch (error) {
         return response(res, error.message, error.code);
     }
