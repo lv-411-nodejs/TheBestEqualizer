@@ -10,6 +10,7 @@
     "dev:client": "webpack-dev-server --mode development --devtool inline-source-map --hot --open",
     "test": "jest --coverage --config jest.config.js --watchAll ",
     "dev:server": "nodemon --exec babel-node ./src/server/app.js",
+    "dev:server-debug": "DEBUG=express:* nodemon --exec babel-node ./src/server/app.js",
     "lint:client": "./node_modules/.bin/eslint ./src/client",
     "lint:client-fix": "./node_modules/.bin/eslint ./src/client --fix",
     "heroku-prebuild": "npm install --dev",

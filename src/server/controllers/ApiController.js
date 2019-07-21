@@ -3,7 +3,7 @@ import Effects from '../models/effects';
 import response from '../helpers/errorHandler';
 import { generateTokensPair } from '../helpers/token';
 
-// const availableTokens = [];
+const availableTokens = [];
 
 const saveDataToDB = (res, data, message) => (
   data
@@ -12,63 +12,41 @@ const saveDataToDB = (res, data, message) => (
     .catch(err => response(res, err.message, 422))
 );
 
-// const generateTokens = (user) => {
-//   const tokens = generateTokensPair(user);
-//   availableTokens.push({ ref: tokens.refresh, userId: user.userId });
-//   return tokens;
-// };
+const generateTokens = (user) => {
+  const tokens = generateTokensPair(user);
+  availableTokens.push({ ref: tokens.refresh, userId: user.userId });
+  return tokens;
+};
+
+const passwordComparison = (res, foundUser, receivedPassword) => (
+  foundUser.verifyPassword(receivedPassword)
+    .then(comparisonResult => (comparisonResult
+      ? res.status(200).json({ token: generateTokens({ userId: foundUser._id }) })
+      : response(res, { password: 'Wrong password' }, 404)))
+    .catch(err => response(res, err.message, 404))
+);
 
 export default class ApiController {
-  // static async postRegistrationHandler(req, res) {
-  //   const { username, email, password } = req.body;
-  //   const user = new User({ username, email, password });
+  static postRegistrationHandler(req, res) {
+    const { username, email, password } = req.body;
+    const user = new User({ username, email, password });
+    User
+      .findOne({ email })
+      .then(foundUser => (foundUser
+        ? response(res, { email: 'User with this email already exists!' }, 404)
+        : saveDataToDB(res, user, 'User created')))
+      .catch(err => response(res, err.message, 404));
+  }
 
-  //   try {
-  //     // check if email alredy taken
-  //     const emailTaken = await User.findOne({ email });
-  //     console.log(emailTaken);
-
-  //     if (emailTaken) {
-  //       throw new Error('User with this email already exists!');
-  //     }
-
-  //     const savedUser = await user.save();
-  //     if (savedUser) {
-  //       res.status(201).json({ result: 'User created' });
-  //     }
-  //   } catch (error) {
-  //     response(res, error.message, 404);
-  //   }
-  // }
-
-  // Log in credentials
-  // {
-  //   "username": "Super",
-  //   "email":"super@emial.com",
-  //   "password":"1QWEq"
-  // }
-  // static async postLoginHandler(req, res) {
-  //   const { email, password } = req.body;
-
-  //   try {
-  //     const user = await User.findOne({ email });
-
-  //     if (!user) throw new Error('User not exist');
-
-  //     const verified = await user.verifyPassword(password);
-
-  //     if (!verified) {
-  //       return response(res, { password: 'Wrong password' }, 404);
-  //     }
-
-  //     return res.status(200).json({
-  //       token: generateTokens({ userId: user._id })
-  //     });
-
-  //   } catch (error) {
-  //     return response(res, error.message, 404);
-  //   }
-  // }
+  static postLoginHandler(req, res) {
+    const { email, password: receivedPassword } = req.body;
+    User
+      .findOne({ email })
+      .then(foundUser => (foundUser
+        ? passwordComparison(res, foundUser, receivedPassword)
+        : response(res, 'Login failed', 404)))
+      .catch(err => response(res, err.message, 401));
+  }
 
   static postEffectsHandler(req, res) {
     const { title, effects } = req.body;
@@ -81,34 +59,34 @@ export default class ApiController {
       .catch(err => response(res, err.message, 404));
   }
 
-  // static getEffectsHandler(req, res) {
-  //   const { title } = req.body;
-  //   Effects
-  //     .findOne({ title })
-  //     .then(preset => (preset
-  //       ? res.send(preset)
-  //       : response(res, 'Preset with this title is not found', 404)))
-  //     .catch(err => response(res, err.message, 404));
-  // }
+  static getEffectsHandler(req, res) {
+    const { title } = req.body;
+    Effects
+      .findOne({ title })
+      .then(preset => (preset
+        ? res.send(preset)
+        : response(res, 'Preset with this title is not found', 404)))
+      .catch(err => response(res, err.message, 404));
+  }
 
-  // /**
-  //  *
-  //  * @param {string} refresh
-  //  * @param {string} userId
-  //  */
-  // static refreshTokenHandler(req, res) {
-  //   const { refresh, userId } = req.body;
+  /**
+   *
+   * @param {string} refresh
+   * @param {string} userId
+   */
+  static refreshTokenHandler(req, res) {
+    const { refresh, userId } = req.body;
 
-  //   const findedRefreshToken = availableTokens
-  //     .find(token => token.ref === refresh);
+    const findedRefreshToken = availableTokens
+      .find(token => token.ref === refresh);
 
-  //   if (findedRefreshToken) {
-  //     const index = availableTokens.indexOf(findedRefreshToken);
-  //     availableTokens.splice(index, 1);
+    if (findedRefreshToken) {
+      const index = availableTokens.indexOf(findedRefreshToken);
+      availableTokens.splice(index, 1);
 
-  //     return res.status(200).json({ token: generateTokens({ userId }) });
-  //   }
+      return res.status(200).json({ token: generateTokens({ userId }) });
+    }
 
-  //   return response(res, { err: 'Refresh expired' }, 403);
-  // }
+    return response(res, { err: 'Refresh expired' }, 403);
+  }
 }

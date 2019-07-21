@@ -11,36 +11,36 @@ export class ClientError extends Error {
 
 export class BadRequestError extends Error {
 
-    constructor(msg, code = 400) {
+    constructor(msg) {
         super(msg);
-        this.code = code;
+        this.code = 400;
     }
 
 }
 
 export class UnauthorizedError extends Error {
 
-    constructor(msg, code = 401) {
+    constructor(msg) {
         super(msg);
-        this.code = code;
+        this.code = 401;
     }
 
 }
 
 export class ForbiddenError extends Error {
 
-    constructor(msg, code = 403) {
+    constructor(msg) {
         super(msg);
-        this.code = code;
+        this.code = 403;
     }
 
 }
 
 export class NotFoundError extends Error {
 
-    constructor(msg, code = 404) {
+    constructor(msg) {
         super(msg);
-        this.code = code;
+        this.code = 404;
     }
 
 }
@@ -58,9 +58,9 @@ export class TeapotError extends Error {
 
 export class InternalServerError extends Error {
 
-    constructor(msg, code = 500) {
+    constructor(msg) {
         super(msg);
-        this.code = code;
+        this.code = 500;
     }
 
 }
