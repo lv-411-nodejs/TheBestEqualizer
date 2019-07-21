@@ -28,6 +28,16 @@ const passwordComparison = (res, foundUser, receivedPassword) => (
     .catch(err => response(res, err.message, 404))
 );
 
+const updateEffects = (error, data, response, message, status) => {
+  if (error) {
+    response.status(400).json({ message: err.message });
+  } else if (data) {
+    response.status(status).json({ success: message.success });
+  } else {
+    response.status(404).json({ error: message.error });
+  }
+}
+
 export default class ApiController {
   static postRegistrationHandler(req, res) {
     const { username, email, password } = req.body;
@@ -53,36 +63,28 @@ export default class ApiController {
   static deleteEffectsHandler(req, res) {
     const { title } = req.body;
     const { userId } = req;
+    const messages = {
+      success: 'The preset have been deleted',
+      error: 'Effect with this title is not found',
+    };
     User
       .findOneAndUpdate({ _id: userId, 'effects.title': { $in: title } },
-        { $pull: { effects: { title } } })
-      .exec((err, data) => {
-        if (err) {
-          res.status(400).json({ message: err.message });
-        } else if (data) {
-          res.status(200).json({ message: 'The preset have been deleted' });
-        } else {
-          res.status(404).json({ error: 'Effect with this title is not found' });
-        }
-      });
+        { $pull: { effects: { title } } },
+        (err, data) => updateEffects(err, data, res, messages, 200));
   }
 
   static postEffectsHandler(req, res) {
     const { title, presets } = req.body;
     const { userId } = req;
+    const messages = {
+      success: 'The preset have been saved',
+      error: 'Effect with this title already exists',
+    };
     User
       .findOneAndUpdate({ _id: userId, 'effects.title': { $ne: title } },
         { $push: { effects: { title, presets } } },
-        { new: true, runValidators: true })
-      .exec((err, data) => {
-        if (err) {
-          res.status(400).json({ message: err.message });
-        } else if (data) {
-          res.status(201).json({ message: 'The preset have been saved' });
-        } else {
-          res.status(422).json({ error: 'Effect with this title already exists' });
-        }
-      });
+        { new: true, runValidators: true },
+        (err, data) => updateEffects(err, data, res, messages, 201));
   }
 
   static getEffectsHandler(req, res) {
