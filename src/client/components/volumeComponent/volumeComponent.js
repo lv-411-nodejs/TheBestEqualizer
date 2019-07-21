@@ -19,7 +19,8 @@ class SwitcherSound extends Component {
     if (sound && sound.playing) {
       sound.volume = volumeValueTrack;
       return { track: sound };
-    } if (voice && voice.playing) {
+    }
+    if (voice && voice.playing) {
       voice.volume = volumeValueVoice;
       return { track: voice };
     }

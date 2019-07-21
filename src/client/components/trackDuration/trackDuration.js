@@ -19,14 +19,14 @@ class TrackDuration extends Component {
     static getDerivedStateFromProps(props, state) {
       const { audioData: { loading, sound, trackName } } = props;
       if (sound && sound.sourceNode) {
-        if (sound && sound.sourceNode && !state.startPlayTime && sound.playing) {
+        if (!state.startPlayTime && sound.playing) {
           return {
             startPlayTime: new Date(),
             duration: Math.round(sound.sourceNode.buffer.duration),
             playing: sound.playing,
             trackName,
           };
-        } 
+        }
         if (loading) {
           return {
             playing: false,
