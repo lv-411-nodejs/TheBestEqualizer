@@ -51,23 +51,21 @@ class SwitcherSound extends Component {
     const stepSliderVolume = 0.001;
     return (
       <div className="SwitcherContainer">
-        {
-          <Fragment>
-            <span>
-              {volumeIcon}
-              {' '}
-Volume
-            </span>
-            <Slider
-              className="SwitcherContainer--slider"
-              value={volumeValueTrack}
-              min={minSliderVolume}
-              max={maxSliderVolume}
-              step={stepSliderVolume}
-              onChange={this.changeVolume}
-            />
-          </Fragment>
-        }
+        <Fragment>
+          <span>
+            {volumeIcon}
+            {' '}
+  Volume
+          </span>
+          <Slider
+            className="SwitcherContainer--slider"
+            value={volumeValueTrack}
+            min={minSliderVolume}
+            max={maxSliderVolume}
+            step={stepSliderVolume}
+            onChange={this.changeVolume}
+          />
+        </Fragment>
       </div>
     );
   }
