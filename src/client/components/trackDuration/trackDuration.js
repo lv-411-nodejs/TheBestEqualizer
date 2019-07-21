@@ -26,7 +26,8 @@ class TrackDuration extends Component {
             playing: sound.playing,
             trackName,
           };
-        } if (loading) {
+        } 
+        if (loading) {
           return {
             playing: false,
           };
