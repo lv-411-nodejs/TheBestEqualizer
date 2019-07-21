@@ -28,15 +28,15 @@ const passwordComparison = (res, foundUser, receivedPassword) => (
     .catch(err => response(res, err.message, 404))
 );
 
-const updateEffects = (error, data, response, message, status) => {
+const updateEffects = (error, data, res, message, status) => {
   if (error) {
-    response.status(400).json({ message: err.message });
+    res.status(400).json({ message: error.message });
   } else if (data) {
-    response.status(status).json({ success: message.success });
+    res.status(status).json({ success: message.success });
   } else {
-    response.status(404).json({ error: message.error });
+    res.status(404).json({ error: message.error });
   }
-}
+};
 
 export default class ApiController {
   static postRegistrationHandler(req, res) {
