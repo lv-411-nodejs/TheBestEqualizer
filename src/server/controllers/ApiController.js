@@ -24,10 +24,10 @@ const saveUserToDB = (res, data) => (
 const passwordComparison = (res, foundUser, receivedPassword) => (
   foundUser.verifyPassword(receivedPassword)
     .then(comparisonResult => (comparisonResult
-      ? res.status(200).json({ 
+      ? res.status(200).json({
         username: foundUser.username,
         token: generateTokens({ userId: foundUser._id }),
-       })
+      })
       : response(res, { password: 'Wrong password' }, 404)))
     .catch(err => response(res, err.message, 404))
 );
