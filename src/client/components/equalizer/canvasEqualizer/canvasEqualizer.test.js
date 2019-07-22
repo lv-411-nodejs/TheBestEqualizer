@@ -26,7 +26,7 @@ describe('Grafic equaliser', () => {
     />);
     expect(nextContainer.find('canvas')).toHaveLength(1);
   });
-  
+
   it('should RENDER COMPONENT PROPERLY', () => {
     const nextProps = {
       ...props,
