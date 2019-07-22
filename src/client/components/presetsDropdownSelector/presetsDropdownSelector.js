@@ -27,15 +27,15 @@ class PresetsDropdownSelector extends Component {
     }
   }
 
+  handleSelectorChange = (event) => {
+    const { setPresetValue } = this.props;
+    setPresetValue(event.target.value);
+  };
+
   render() {
     const { presetsData } = this.props;
-    const handleSelectorChange = (event) => {
-      const { setPresetValue } = this.props;
-      setPresetValue(event.target.value);
-    };
-
     return (
-      <select className="SlidersComponent__header--selector" onChange={handleSelectorChange}>
+      <select className="SlidersComponent__header--selector" onChange={this.handleSelectorChange}>
         {presetsData.map((value, i) => <option className="option" key={i} value={value}>{value}</option>)}
       </select>
     );
@@ -51,8 +51,8 @@ const mapStateToProps = state => ({
 PresetsDropdownSelector.propTypes = {
   blocksData: PropTypes.instanceOf(Array),
   audioData: PropTypes.instanceOf(Object),
-  setPresetValue: PropTypes.func,
   presetsData: PropTypes.instanceOf(Array),
+  setPresetValue: PropTypes.func,
   addNewPresetsFromDB: PropTypes.func,
 };
 

@@ -18,7 +18,11 @@ class SavePressetesModalWindow extends Component {
   };
 
   handleFilterDataSend = (valueFromPresetInput, currentValueOfFilters) => {
-    const { addNewPresetFromInput, showHideModalBlock } = this.props;
+    const {
+      addNewPresetFromInput,
+      showHideModalBlock,
+    } = this.props;
+
     const event = new MouseEvent('click');
     fetchRequest
       .post('http://localhost:8080/effects', {
@@ -64,11 +68,7 @@ class SavePressetesModalWindow extends Component {
         <div className="SaveCancelButtonsContainer">
           <Button
             className="ButtonStyleTemplate"
-            onClick={() => this.handleFilterDataSend(
-              valueFromPresetInput,
-              currentValueOfFilters,
-            )
-            }
+            onClick={() => this.handleFilterDataSend(valueFromPresetInput, currentValueOfFilters)}
             icon={saveIcon}
             value="Save"
           />
@@ -97,7 +97,5 @@ SavePressetesModalWindow.propTypes = {
 
 export default connect(
   mapStateToProps,
-  {
-    addNewPresetFromInput,
-  },
+  { addNewPresetFromInput },
 )(SavePressetesModalWindow);
