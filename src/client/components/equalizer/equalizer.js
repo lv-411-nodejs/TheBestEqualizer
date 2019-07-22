@@ -255,8 +255,10 @@ class Equalizer extends Component {
       <Button
         className="ButtonStyleTemplate"
         onClick={pauseSoundFromFile}
-        icon={pauseIcon}
-        value="Pause"
+        icon={this.props.audioData.loading ? null : pauseIcon}
+        value={this.props.audioData.loading
+          ? <img src={Spinner} alt="Play music spinner" /> : 'Pause'}
+        disabled={this.props.audioData.loading ? 'disabled' : null}
       />
     );
 

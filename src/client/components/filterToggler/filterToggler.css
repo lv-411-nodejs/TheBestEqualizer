@@ -29,7 +29,7 @@
   -ms-transform: translateX(26px);
   -o-transform: translateX(26px);
   transform: translateX(26px);
-  background: var(--togglerSliderOn-green);
+  background: var(--mainText-accent-blue);
 }
 
 .slider {
@@ -48,11 +48,10 @@
   -o-transition: .4s;
   transition: .4s;
   vertical-align: middle;
-  border: 1px solid var(--togglerSliderBorderOff-grey);
   -webkit-border-radius: 34px;
   -moz-border-radius: 34px;
   border-radius: 34px;
-  background-color: var(--togglerSliderBorderOff-grey);
+  background-color: var(--rangeSlider-ocean);
   -ms-border-radius: 34px;
   -o-border-radius: 34px;
 }
@@ -60,7 +59,7 @@
 .slider:before {
   position: absolute;
   bottom: 3px;
-  left: 2px;
+  left: 4px;
   width: 13px;
   height: 13px;
   content: '';

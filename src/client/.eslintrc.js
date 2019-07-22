@@ -52,6 +52,7 @@ module.exports = {
           'setVisibility',
           'addNewPresetsFromDB',
           'addNewPresetFromInput',
+          'setPresetValue',
         ],
       },
     ],

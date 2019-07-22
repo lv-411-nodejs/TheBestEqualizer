@@ -163,7 +163,7 @@ const initialState = [
       highGain: 0,
       mix: 0,
     }),
-    isVisible: false,
+    isVisible: true,
   },
   {
     name: 'Flanger',
@@ -264,7 +264,7 @@ const initialState = [
       depth: 0,
       mix: 0,
     }),
-    isVisible: true,
+    isVisible: false,
   },
   {
     name: 'Stereo panner',
