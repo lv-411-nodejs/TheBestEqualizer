@@ -15,6 +15,7 @@ const saveUserToDB = (res, data) => (
     .save()
     .then(user => res.status(201).json({
       result: 'User created',
+      username: user.username,
       token: generateTokens({ userId: user._id }),
     }))
     .catch(err => response(res, err.message, 422))
@@ -23,7 +24,10 @@ const saveUserToDB = (res, data) => (
 const passwordComparison = (res, foundUser, receivedPassword) => (
   foundUser.verifyPassword(receivedPassword)
     .then(comparisonResult => (comparisonResult
-      ? res.status(200).json({ token: generateTokens({ userId: foundUser._id }) })
+      ? res.status(200).json({ 
+        username: foundUser.username,
+        token: generateTokens({ userId: foundUser._id }),
+       })
       : response(res, { password: 'Wrong password' }, 404)))
     .catch(err => response(res, err.message, 404))
 );

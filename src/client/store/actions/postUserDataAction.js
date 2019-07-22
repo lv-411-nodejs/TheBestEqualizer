@@ -21,9 +21,10 @@ export const postUserData = (path, newUser, history) => async (dispatch) => {
   dispatch(authStart());
   let response;
   await axios.post(`${baseUrl}${path}`, newUser)
-    .then(({ data: { token: { access }, username } }) => {
+    .then(({data: { username, token: { access } } }) => {
       dispatch(authSuccess(username));
       localStorage.setItem('_token', access);
+      localStorage.setItem('username', username);
     })
     .then(() => {
       history.push('/main');
