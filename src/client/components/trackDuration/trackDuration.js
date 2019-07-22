@@ -72,6 +72,7 @@ class TrackDuration extends Component {
       if (this.state.currentTime >= this.state.duration) {
         sound.stop();
         sound.playing = false;
+        sound.paused = true;
         this.setState({
           currentTime: 0,
           playing: false,

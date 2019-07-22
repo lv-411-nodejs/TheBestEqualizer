@@ -220,6 +220,8 @@ class Equalizer extends Component {
       playPauseState,
     } = this.props.audioData;
 
+    console.log(playPauseState)
+
     const StartStreamButton = (
       <Button
         className="ButtonStyleTemplate StartStreamButton"
