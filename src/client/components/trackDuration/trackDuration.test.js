@@ -1,16 +1,39 @@
 import React from 'react';
-import { shallow, configure } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import Enzyme, { shallow, render, mount } from 'enzyme';
+import Adapter from  'enzyme-adapter-react-16';
 import TrackDuration from './trackDuration';
 
-configure({ adapter: new Adapter() });
-
+Enzyme.configure({
+  adapter: new Adapter(),
+});
 
 describe('TEST TRACK DURATION', () => {
-  it('should format seconds in normal type', () => {
-    const wrapper = shallow(<TrackDuration />);
-    expect(wrapper.state('playing')).toBe(false);
-    wrapper.find('button').simulate('click');
-    expect(wrapper.state('playing')).toBe(true);
+  const props = {
+    value: 0,
+    tooltip: false,
+    min: 0,
+    max: 1,
+    step: 0.001,
+  }
+
+  it('is render component', () => {
+    const nextProps = {
+      ...props,
+    };
+    const TrackDurationContainer = shallow(<TrackDuration {
+                                  ...nextProps, { context: {...} }
+                                }
+    />);
+    expect(TrackDurationContainer.find('slider')).toHaveLength(1);
   });
+
+  it('render component correctly', () => {
+    const nextProps = {
+      ...props,
+    };
+
+    const TrackDurationContainer = shallow(<TrackDuration {...nextProps}, { context: {...} }/>);
+    expect(TrackDurationContainer).toMatchSnapshot();
+  });
+
 });
