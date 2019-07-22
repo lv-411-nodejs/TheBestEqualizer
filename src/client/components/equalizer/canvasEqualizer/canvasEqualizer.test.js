@@ -16,7 +16,6 @@ describe('Grafic equaliser', () => {
     getCanvasEl: () => {},
   };
 
-
   it('should RENDER CANVAS ELEMENT', () => {
     const nextProps = {
       ...props,
@@ -27,6 +26,7 @@ describe('Grafic equaliser', () => {
     />);
     expect(nextContainer.find('canvas')).toHaveLength(1);
   });
+  
   it('should RENDER COMPONENT PROPERLY', () => {
     const nextProps = {
       ...props,
