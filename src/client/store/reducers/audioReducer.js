@@ -27,6 +27,8 @@ const initialState = {
   voice: null,
   playPauseState: false,
   startMuteState: false,
+  // switcher source
+  onToggle: false,
 };
 
 export default function (state = initialState, action) {
