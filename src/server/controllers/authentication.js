@@ -18,14 +18,16 @@ const generateTokens = async (user) => {
   const tokens = generateTokensPair(user);
   const result = await putInRedis(tokens.refresh, user.userId);
 
-  if (!result) throw new TeapotError();
+  if (!result) {
+    throw new TeapotError();
+  }
 
   return tokens;
 };
 
 // actions
 
-export const registerUser = async (req, res) => {
+export async function registerUser(req, res) {
   const { username, email, password } = req.body;
   const user = new User({ username, email, password });
 
@@ -37,16 +39,17 @@ export const registerUser = async (req, res) => {
     }
 
     const savedUser = await user.save();
+    let tokens = {};
+
     if (savedUser) {
-      const tokens = await generateTokens({ userId: user._id });
-      return res.status(201).json({ token: tokens });
+      tokens = await generateTokens({ userId: user._id });
     }
+
+    return res.status(201).json({ token: tokens });
   } catch (error) {
     return response(res, error.message, 404);
   }
-
-  return null;
-};
+}
 
 export const loginUser = async (req, res) => {
   const { email, password } = req.body;
@@ -80,9 +83,11 @@ export const refreshToken = async (req, res) => {
   const { userId } = req;
 
   try {
-    const storedUserId = await getFromRedis(refresh);
+    const storedUserId = await getFromRedis(refresh.toString());
 
-    if (storedUserId !== userId) throw new ClientError('Tokens not matched', 401);
+    if (storedUserId !== userId) {
+      throw new ClientError('Tokens not matched', 401);
+    }
 
     const newTokensPair = await generateTokens({ userId });
     if (newTokensPair) {

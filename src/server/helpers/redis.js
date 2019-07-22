@@ -26,7 +26,7 @@ redisClient.on('connect', () => process.env.DEV_MODE && console.log('redis conne
  * @return {Promise} with data (userId)
  * @throws {ClientError}
  */
-export function getFromRedis(key) {
+export async function getFromRedis(key) {
   // if ((typeof key) !== 'string') {
   //   key = key.toString();
   // }
@@ -49,7 +49,7 @@ export function getFromRedis(key) {
  * @return {Promise} (boolean) true/false
  * @throws {ClientError}
  */
-export function putInRedis(key, value) {
+export async function putInRedis(key, value) {
   // if ((typeof value) !== 'string') {
   //   value = value.toString();
   // }
@@ -69,7 +69,7 @@ export function putInRedis(key, value) {
  * @return {Promise} (boolean) true/false
  * @throws {ClientError}
  */
-export function deleteFromRedis(key) {
+export async function deleteFromRedis(key) {
   // if ((typeof key) !== 'string') {
   //   key = key.toString();
   // }
