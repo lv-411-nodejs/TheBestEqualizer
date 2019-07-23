@@ -17,14 +17,19 @@ class TrackDuration extends Component {
     }
 
     static getDerivedStateFromProps(props, state) {
-      const { audioData: { sound, trackName } } = props;
+      const { audioData: { loading, sound, trackName } } = props;
       if (sound && sound.sourceNode) {
-        if (sound && sound.sourceNode && state.startPlayTime === null && sound.playing) {
+        if (!state.startPlayTime && sound.playing) {
           return {
             startPlayTime: new Date(),
             duration: Math.round(sound.sourceNode.buffer.duration),
             playing: sound.playing,
             trackName,
+          };
+        }
+        if (loading) {
+          return {
+            playing: false,
           };
         }
         return {
@@ -37,13 +42,14 @@ class TrackDuration extends Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-      if (prevState.playing !== undefined && !prevState.playing && this.state.playing) {
+      if (!prevState.playing && this.state.playing) {
         this.setState({ startPlayTime: new Date(new Date() - prevState.currentTime * 1000) });
-        if (prevState.trackName !== this.state.trackName) {
-          this.setState({ startPlayTime: new Date() });
-        }
-      } else if (this.state.startPlayTime) {
+      }
+      if (this.state.startPlayTime) {
         this.calculateCurrentTime();
+      }
+      if (prevState.trackName !== this.state.trackName) {
+        this.setState({ startPlayTime: new Date() });
       }
     }
 
@@ -58,27 +64,24 @@ class TrackDuration extends Component {
     }
 
     calculateCurrentTime = () => {
+      const currentTime = new Date();
+      const currentDifference = Math.round(
+        (currentTime.getTime() - this.state.startPlayTime.getTime()) / 1000,
+      );
       const { audioData: { sound } } = this.props;
       if (this.state.currentTime >= this.state.duration) {
         sound.stop();
         sound.playing = false;
+        sound.paused = true;
         this.setState({
           currentTime: 0,
           playing: false,
         });
+      } else if (currentDifference !== this.state.currentTime && this.state.playing) {
+        this.setState({ currentTime: currentDifference },
+          () => this.calculateCurrentTime());
       } else {
-        const currentTime = new Date();
-        const currentDifference = Math.round(
-          (currentTime.getTime() - this.state.startPlayTime.getTime()) / 1000,
-        );
-        if (currentDifference !== this.state.currentTime) {
-          if (this.state.playing) {
-            this.setState({ currentTime: currentDifference },
-              () => this.calculateCurrentTime());
-          }
-        } else {
-          setTimeout(this.calculateCurrentTime, 1000);
-        }
+        setTimeout(this.calculateCurrentTime, 1000);
       }
     }
 

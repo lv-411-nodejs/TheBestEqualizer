@@ -26,8 +26,7 @@ describe('TEST SOUND SWITCHER', () => {
       ...props,
     };
     const switcherSoundComponent = shallow(<Provider store={store}><SwitcherSound {...nextProps} /></Provider>);
-    console.log(switcherSoundComponent.debug())
-    expect(switcherSoundComponent.find('slider')).toHaveLength(1);
+    expect(switcherSoundComponent.find('ContextProvider')).toHaveLength(1);
   });
 
   it('render component correctly', () => {
@@ -36,8 +35,22 @@ describe('TEST SOUND SWITCHER', () => {
     };
 
     const switcherSoundComponent = shallow(<Provider store={store}><SwitcherSound {...nextProps} /></Provider>);
-    console.log(switcherSoundComponent.debug())
     expect(switcherSoundComponent).toMatchSnapshot();
+  });
+
+  it("check the onChange callback", () => {
+    const onChange = jest.fn(),
+        nextProps = {
+          ...props,
+          volumeValueTrack: 0.5,
+          onChange,
+          audioData: {}
+        },
+        switcherSoundComponent = mount(<Provider store={store}><SwitcherSound {...nextProps} /></Provider>).find("input");
+      switcherSoundComponent.simulate("change", {
+        target: { value: moment(0.7) }
+    });
+    expect(onChange).toHaveBeenCalledWith(0.7);
   });
 
 });
