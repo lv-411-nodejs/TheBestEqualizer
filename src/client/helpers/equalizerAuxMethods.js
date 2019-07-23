@@ -44,7 +44,7 @@ export const uploadSoundInfoFromFile = (eventFromInputFile, props) => {
     source: 'file',
     options: {
       path: audioFile.src,
-      loop: false,
+      loop: true,
     },
   }, () => {
     storeSound && removeSoundFilters(props);
