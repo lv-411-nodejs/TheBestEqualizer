@@ -3,7 +3,7 @@ import React from 'react';
 import {
   MainPageHeader,
   Equalizer,
-  SwitcherSound,
+  TrackDuration,
   ComponentWithSliders,
 } from '../../components';
 
@@ -13,7 +13,7 @@ const Main = () => (
   <div className="main">
     <MainPageHeader />
     <Equalizer />
-    <SwitcherSound />
+    <TrackDuration />
     <ComponentWithSliders />
   </div>
 );
