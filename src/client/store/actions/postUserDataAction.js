@@ -1,7 +1,7 @@
 import axios from 'axios';
 import * as actionTypes from './types';
 
-const baseUrl = 'https://thebestaqualizer.herokuapp.com';
+const baseUrl = 'http://localhost:8080';
 
 export const authStart = () => ({
   type: actionTypes.AUTH_START,
