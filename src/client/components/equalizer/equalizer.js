@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-
 import Pizzicato from 'pizzicato';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -9,7 +8,13 @@ import Button from '../button';
 import UploadButton from './upload';
 import InfoAboutTrack from './upload/infoAboutFile';
 import Spinner from '../../assets/images/playSpinner.gif';
-import { startStreamIcon, playIcon, stopIcon } from '../../assets/icons/icons';
+import {
+  startStreamIcon,
+  playIcon,
+  stopIcon,
+  pauseIcon,
+} from '../../assets/icons/icons';
+import { uploadSoundInfoFromFile } from '../../helpers/equalizerAuxMethods';
 import './equalizer.css';
 import {
   startCreationAudioData,
@@ -32,6 +37,7 @@ class Equalizer extends Component {
   }
 
   static getDerivedStateFromProps({ audioData: { analyser, audioContext } }) {
+    analyser.fftSize = 128;
     const howManyFrequancyCut = 20;
     const numPoints = analyser.frequencyBinCount - howManyFrequancyCut;
     const uint8Array = new Uint8Array(numPoints);
@@ -44,36 +50,13 @@ class Equalizer extends Component {
   }
 
   createSoundStream = () => {
+    const { createStreamDataAsProp } = this.props;
     const voice = new Pizzicato.Sound({
       source: 'input',
-    });
-    const { createStreamDataAsProp } = this.props;
-    createStreamDataAsProp({
-      voice,
+    }, () => {
+      createStreamDataAsProp({ voice });
     });
   }
-
-  uploadSoundInfoFromFile = (eventFromInputFile) => {
-    this.props.startCreationAudioDataAsProp();
-    const [file] = eventFromInputFile.target.files;
-    const audioFile = new Audio(URL.createObjectURL(file));
-    const sound = new Pizzicato.Sound({
-      source: 'file',
-      options: {
-        path: audioFile.src,
-        loop: true,
-      },
-    }, () => this.createSoundInfoInState(sound, file));
-  };
-
-  createSoundInfoInState = (sound, file) => {
-    const { audioData: { analyser } } = this.props;
-    sound.connect(analyser);
-    this.props.createAudioDataAsProp({
-      sound,
-      trackName: file.name,
-    });
-  };
 
   detectStreamSoundFromMicrophone = () => {
     if (navigator.mediaDevices) {
@@ -91,21 +74,66 @@ class Equalizer extends Component {
     }
   }
 
-   playSoundFromFile = async () => {
-     const {
-       audioData: {
-         sound,
-         playPauseState,
-       }, playPauseSoundFromFileAsProp,
-     } = this.props;
-     if (!playPauseState) {
-       sound.play();
-     } else {
-       sound.pause();
-     }
-     await playPauseSoundFromFileAsProp();
-     await this.renderEqualizer();
-   }
+  playSoundFromFile = async () => {
+    const {
+      audioData: {
+        sound,
+        playPauseState,
+      }, playPauseSoundFromFileAsProp,
+    } = this.props;
+    !playPauseState ? sound.play() : sound.pause();
+    await playPauseSoundFromFileAsProp();
+    await this.renderEqualizer();
+  }
+
+  pauseSoundFromFile = async () => {
+    const {
+      audioData: {
+        sound,
+        playPauseState,
+      }, playPauseSoundFromFileAsProp,
+    } = this.props;
+
+    if (playPauseState) {
+      sound.pause();
+    }
+    await playPauseSoundFromFileAsProp();
+    await this.renderEqualizer();
+  }
+
+  stopSoundFromFile = async () => {
+    const { ctx } = this.state;
+    const { width, height } = ctx.canvas;
+    const {
+      audioData: {
+        sound,
+        playPauseState,
+        voice,
+      }, playPauseSoundFromFileAsProp,
+    } = this.props;
+    if (playPauseState) {
+      await playPauseSoundFromFileAsProp();
+      sound.stop();
+      voice.stop();
+    }
+    sound.stop();
+    voice.stop();
+    ctx.clearRect(0, 0, width, height);
+  }
+
+  removeSoundFilters = () => {
+    this.props.blocksData.forEach(({ createEffect, isVisible }) => isVisible
+      && this.props.audioData.sound.removeEffect(createEffect));
+    this.props.audioData.sound.disconnect();
+    delete this.props.audioData.sound;
+  };
+
+  attachFiltersToSource = sourceInput => this.props.blocksData.forEach((
+    {
+      createEffect,
+      isVisible,
+    },
+  ) => isVisible && sourceInput.addEffect(createEffect));
 
   startMuteStream = async () => {
     const {
@@ -174,7 +202,7 @@ class Equalizer extends Component {
 
   setCanvasToState = (canvasEl) => {
     this.setState({
-      ctx: canvasEl.getContext('2d'),
+      ctx: canvasEl ? canvasEl.getContext('2d') : null,
     });
   }
 
@@ -182,8 +210,9 @@ class Equalizer extends Component {
     const {
       startMuteStream,
       playSoundFromFile,
-      uploadSoundInfoFromFile,
       setCanvasToState,
+      stopSoundFromFile,
+      pauseSoundFromFile,
     } = this;
 
     const {
@@ -192,6 +221,7 @@ class Equalizer extends Component {
       trackName,
       sound,
       startMuteState,
+      playPauseState,
     } = this.props.audioData;
 
     const StartStreamButton = (
@@ -216,8 +246,17 @@ class Equalizer extends Component {
     const StopButton = (
       <Button
         className="ButtonStyleTemplate"
+        onClick={stopSoundFromFile}
         icon={stopIcon}
         value="Stop"
+      />
+    );
+    const PauseButton = (
+      <Button
+        className="ButtonStyleTemplate"
+        onClick={pauseSoundFromFile}
+        icon={pauseIcon}
+        value="Pause"
       />
     );
 
@@ -235,9 +274,18 @@ class Equalizer extends Component {
         </div>
         <div className="ButtonsContainer">
           {StartStreamButton}
-          <UploadButton handleInfoFromSound={uploadSoundInfoFromFile} />
-          {sound && PlayButton}
-          {sound && StopButton}
+          <UploadButton
+            handleInfoFromSound={
+              eventFromInputFile => uploadSoundInfoFromFile(eventFromInputFile, this.props)
+              }
+          />
+          <div style={{ display: playPauseState ? 'none' : 'block' }}>
+            {(startMuteState || sound) && PlayButton}
+          </div>
+          <div style={{ display: playPauseState ? 'block' : 'none' }}>
+            {(startMuteState || sound) && PauseButton }
+          </div>
+          {(startMuteState || sound) && StopButton }
         </div>
         <InfoAboutTrack
           trackname={trackName}
@@ -248,16 +296,18 @@ class Equalizer extends Component {
 }
 
 Equalizer.propTypes = {
-  startCreationAudioDataAsProp: PropTypes.func.isRequired,
-  createAudioDataAsProp: PropTypes.func.isRequired,
   playPauseSoundFromFileAsProp: PropTypes.func.isRequired,
   createStreamDataAsProp: PropTypes.func.isRequired,
   startMuteStreamAudioAsProp: PropTypes.func.isRequired,
   audioData: PropTypes.instanceOf(Object).isRequired,
+  blocksData: PropTypes.instanceOf(Array).isRequired,
+  voice: PropTypes.instanceOf(Object),
+  sound: PropTypes.instanceOf(Object),
 };
 
 const mapStateToProps = state => ({
   audioData: state.audioData,
+  blocksData: state.blocksData,
 });
 
 export default connect(mapStateToProps, {

@@ -5,6 +5,11 @@ module.exports = {
   },
   extends: 'airbnb',
   globals: {
+    describe: false,
+    jest: false,
+    it: false,
+    expect: false,
+    beforeEach: false,
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly',
   },
@@ -40,6 +45,7 @@ module.exports = {
         },
     ],
     "import/prefer-default-export": "off",
-    "react/no-access-state-in-setstate": 0
+    "react/no-access-state-in-setstate": 0,
+    "no-unused-expressions": ["error", { "allowTernary": true, "allowShortCircuit": true }]
   },
 };
