@@ -24,9 +24,9 @@ export const postUserData = (path, newUser, history) => async (dispatch) => {
     if (response) {
       dispatch(authSuccess('Success authentification'));
       history.push('/main');
-      return response;
     }
-  } catch ({ response: { data: { error} } }) {
+    return response;
+  } catch ({ response: { data: { error } } }) {
     dispatch(authFail('Authentification was failed', error));
     return error;
   }
