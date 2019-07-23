@@ -9,10 +9,7 @@ import UploadButton from './upload';
 import InfoAboutTrack from './upload/infoAboutFile';
 import Spinner from '../../assets/images/playSpinner.gif';
 import {
-  startStreamIcon,
-  playIcon,
-  stopIcon,
-  pauseIcon,
+  startStreamIcon, playIcon, pauseIcon,
 } from '../../assets/icons/icons';
 import { uploadSoundInfoFromFile } from '../../helpers/equalizerAuxMethods';
 import './equalizer.css';
@@ -211,7 +208,6 @@ class Equalizer extends Component {
       startMuteStream,
       playSoundFromFile,
       setCanvasToState,
-      stopSoundFromFile,
       pauseSoundFromFile,
     } = this;
 
@@ -243,14 +239,6 @@ class Equalizer extends Component {
       />
     );
 
-    const StopButton = (
-      <Button
-        className="ButtonStyleTemplate"
-        onClick={stopSoundFromFile}
-        icon={stopIcon}
-        value="Stop"
-      />
-    );
     const PauseButton = (
       <Button
         className="ButtonStyleTemplate"
@@ -286,7 +274,6 @@ class Equalizer extends Component {
           <div style={{ display: playPauseState ? 'block' : 'none' }}>
             {(startMuteState || sound) && PauseButton }
           </div>
-          {(startMuteState || sound) && StopButton }
         </div>
         <InfoAboutTrack
           trackname={trackName}
