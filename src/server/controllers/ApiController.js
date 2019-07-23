@@ -60,7 +60,7 @@ export default class ApiController {
       .findOne({ email })
       .then(foundUser => (foundUser
         ? passwordComparison(res, foundUser, receivedPassword)
-        : response(res, 'Login failed', 404)))
+        : response(res, { email: 'User not found' }, 404)))
       .catch(err => response(res, err.message, 401));
   }
 
