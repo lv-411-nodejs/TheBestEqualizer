@@ -13,4 +13,5 @@
 
 #detailstrack .icon {
   color: var(--mainText-accent-blue);
+  margin-right: 5px;
 }
