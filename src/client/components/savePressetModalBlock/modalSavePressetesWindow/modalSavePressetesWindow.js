@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Button from '../../button';
 import './modalSavePressetesWindow.css';
+import { HOST } from '../../../helpers/constants';
 import { cancelIcon, saveIcon } from '../../../assets/icons/icons';
 import fetchRequest from '../../../helpers/fetchRequest';
 import { addNewPresetFromInput } from '../../../store/actions/presetsAction';
@@ -23,14 +24,15 @@ class SavePressetesModalWindow extends Component {
       showHideModalBlock,
     } = this.props;
 
+    const closeModalTimeout = 1500;
     const event = new MouseEvent('click');
     fetchRequest
-      .post('http://localhost:8080/effects', {
+      .post(`${HOST}/effects`, {
         title: valueFromPresetInput,
         presets: currentValueOfFilters,
       })
       .then(response => this.setState(() => {
-        setTimeout(() => showHideModalBlock(event), 1500);
+        setTimeout(() => showHideModalBlock(event), closeModalTimeout);
         addNewPresetFromInput(valueFromPresetInput);
         return { savePresetStatusMessage: response.data.result };
       }));
@@ -49,7 +51,12 @@ class SavePressetesModalWindow extends Component {
         ref={refFocus}
       >
         <div className="headerModalWindow">
-          <span onClick={showHideModalBlock} role="none">{cancelIcon}</span>
+          <span
+            onClick={showHideModalBlock}
+            role="none"
+          >
+            {cancelIcon}
+          </span>
         </div>
         <div className="textArea">
           <h3>Please type presset&#39;s name</h3>

@@ -76,7 +76,7 @@ export default class ApiController {
       .then(titles => res.status(200).json({
         userPresets: titles,
       }))
-      .catch(error => console.log(error));
+      .catch(err => response(res, err.message, 404));
   }
 
   /**

@@ -222,6 +222,7 @@ class Equalizer extends Component {
       sound,
       startMuteState,
       playPauseState,
+      loading,
     } = this.props.audioData;
 
     const StartStreamButton = (
@@ -236,10 +237,9 @@ class Equalizer extends Component {
       <Button
         className="ButtonStyleTemplate"
         onClick={playSoundFromFile}
-        icon={this.props.audioData.loading ? null : playIcon}
-        value={this.props.audioData.loading
-          ? <img src={Spinner} alt="Play music spinner" /> : 'Play'}
-        disabled={this.props.audioData.loading ? 'disabled' : null}
+        icon={loading ? null : playIcon}
+        value={loading ? <img src={Spinner} alt="Play music spinner" /> : 'Play'}
+        disabled={loading ? 'disabled' : null}
       />
     );
 
@@ -255,10 +255,9 @@ class Equalizer extends Component {
       <Button
         className="ButtonStyleTemplate"
         onClick={pauseSoundFromFile}
-        icon={this.props.audioData.loading ? null : pauseIcon}
-        value={this.props.audioData.loading
-          ? <img src={Spinner} alt="Play music spinner" /> : 'Pause'}
-        disabled={this.props.audioData.loading ? 'disabled' : null}
+        icon={loading ? null : pauseIcon}
+        value={loading ? <img src={Spinner} alt="Play music spinner" /> : 'Pause'}
+        disabled={loading ? 'disabled' : null}
       />
     );
 

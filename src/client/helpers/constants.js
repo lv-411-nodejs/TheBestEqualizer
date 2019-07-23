@@ -1,5 +1,7 @@
 import Pizzicato from 'pizzicato';
 
+export const HOST = 'http://localhost:8080';
+
 export const fieldsInfo = [
   {
     type: 'text',

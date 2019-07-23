@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import fetchRequest from '../../helpers/fetchRequest';
+import { HOST } from '../../helpers/constants';
 import { setPresetValue } from '../../store/actions/blocksActions';
 import { addNewPresetsFromDB } from '../../store/actions/presetsAction';
 
@@ -10,7 +11,7 @@ import './presetsDropdownSelector.css';
 class PresetsDropdownSelector extends Component {
   componentDidMount() {
     const { addNewPresetsFromDB } = this.props;
-    fetchRequest.get('http://localhost:8080/presets')
+    fetchRequest.get(`${HOST}/presets`)
       .then(response => addNewPresetsFromDB(response.data.userPresets));
   }
 
