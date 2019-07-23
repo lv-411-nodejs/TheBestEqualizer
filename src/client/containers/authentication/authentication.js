@@ -37,7 +37,6 @@ class Authentication extends Component {
       if (Object.keys(validationRes).length === 0) {
         const serverError = await onAuth(path, data, history);
         if (typeof serverError === 'object') {
-          console.log('dsdfdsf')
           this.setState({ validationErrors: serverError });
         }
       } else {

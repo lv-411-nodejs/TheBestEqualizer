@@ -25,7 +25,7 @@ export const postUserData = (path, newUser, history) => async (dispatch) => {
     if (access) {
       dispatch(authSuccess(username));
       localStorage.setItem('_token', access);
-      localStorage.setItem('username', username)
+      localStorage.setItem('username', username);
       history.push('/main');
     }
     return username;
