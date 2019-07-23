@@ -21,11 +21,14 @@ export const postUserData = (path, newUser, history) => async (dispatch) => {
   try {
     dispatch(authStart());
     const response = await axios.post(`${baseUrl}${path}`, newUser);
-    if (response) {
-      dispatch(authSuccess('Success authentification'));
+    const { data: { username, token: { access } } } = response;
+    if (access) {
+      dispatch(authSuccess(username));
+      localStorage.setItem('_token', access);
+      localStorage.setItem('username', username)
       history.push('/main');
     }
-    return response;
+    return username;
   } catch ({ response: { data: { error } } }) {
     dispatch(authFail('Authentification was failed', error));
     return error;
