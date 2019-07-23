@@ -58,7 +58,9 @@ const loginUser = async (req, res) => {
   try {
     const user = await User.findOne({ email });
 
-    if (!user) throw new ClientError('User not exist');
+    if (!user) {
+      throw new ClientError('User not exist');
+    }
 
     const verified = await user.verifyPassword(password);
 
