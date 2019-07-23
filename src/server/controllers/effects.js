@@ -1,25 +1,50 @@
 /**
- * Common routes module
+ * Effects routes module
  *
  * @request  {post} /protected
  * @request  {post} /
  */
 
-import Effects from '../models/effects';
-import { ClientError } from '../helpers/error';
+import User from '../models/user';
+import response from '../helpers/errorHandler';
+import { NotFoundError, ClientError } from '../helpers/error';
 
-
-export default async (req, res) => {
+export const getEffect = async (req, res) => {
   const { title } = req.body;
+  const { userId } = req;
 
   try {
-    const preset = await Effects.findOne({ title });
-
-    if (!preset) {
-      throw new ClientError('Preset with this title not found', 401);
+    const effects = await User.findOne({ _id: userId }, 'effects');
+    const finded = effects.find(effect => effect.title === title);
+    if (!finded) {
+      throw new NotFoundError('Preset with this title is not found');
     }
+
+    return res.status(200).json({
+      preset: finded,
+    });
   } catch (error) {
-    return res.status(error.code || 500).json({ error: error.message });
+    return response(res, error.message, error.code);
   }
-  return null;
+};
+
+
+export const updateEffect = async (req, res) => {
+  const { title, presets } = req.body;
+  const { userId } = req;
+
+  try {
+    const filterExpression = { _id: userId, 'effects.title': { $ne: title } };
+    const updateExpression = { $addToSet: { effects: { title, presets } } };
+    const config = { new: true, runValidators: true };
+
+    const result = User.findOneAndUpdate(filterExpression, updateExpression, config);
+    if (!result) {
+      throw new ClientError('Effect with this title already exists', 404);
+    }
+
+    return res.status(201).json({ message: 'The preset have been saved' });
+  } catch (error) {
+    return response(res, error.message, error.code);
+  }
 };

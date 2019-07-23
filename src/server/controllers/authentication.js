@@ -4,19 +4,20 @@
  * @request  {post} /login
  * @request  {post} /registration
  * @request  {post} /token/refresh
+ * @request  {post} /logout
  */
 
 import User from '../models/user';
 import response from '../helpers/errorHandler';
 import { generateTokensPair } from '../helpers/token';
 import { ClientError, TeapotError } from '../helpers/error';
-import { putInRedis, getFromRedis, deleteFromRedis } from '../helpers/redis';
+import * as redis from '../helpers/redis';
 
 // internal helpers
 
 const generateTokens = async (user) => {
   const tokens = generateTokensPair(user);
-  const result = await putInRedis(tokens.refresh, user.userId);
+  const result = await redis.putToken(tokens.refresh, user.userId);
 
   if (!result) {
     throw new TeapotError();
@@ -27,7 +28,7 @@ const generateTokens = async (user) => {
 
 // actions
 
-export async function registerUser(req, res) {
+const registerUser = async (req, res) => {
   const { username, email, password } = req.body;
   const user = new User({ username, email, password });
 
@@ -49,9 +50,9 @@ export async function registerUser(req, res) {
   } catch (error) {
     return response(res, error.message, 404);
   }
-}
+};
 
-export const loginUser = async (req, res) => {
+const loginUser = async (req, res) => {
   const { email, password } = req.body;
 
   try {
@@ -78,12 +79,12 @@ export const loginUser = async (req, res) => {
  * @param {string} refresh
  * @param {string} userId
  */
-export const refreshToken = async (req, res) => {
+const refreshToken = async (req, res) => {
   const { refresh } = req.body;
   const { userId } = req;
 
   try {
-    const storedUserId = await getFromRedis(refresh.toString());
+    const storedUserId = await redis.getToken(refresh.toString());
 
     if (storedUserId !== userId) {
       throw new ClientError('Tokens not matched', 401);
@@ -91,7 +92,7 @@ export const refreshToken = async (req, res) => {
 
     const newTokensPair = await generateTokens({ userId });
     if (newTokensPair) {
-      await deleteFromRedis(refresh);
+      await redis.deleteToken(refresh);
     }
 
     return res.status(200).json({ token: newTokensPair });
@@ -100,14 +101,21 @@ export const refreshToken = async (req, res) => {
   }
 };
 
-export const logOut = async (req, res) => {
+const logOut = async (req, res) => {
   const { refresToken } = req;
 
   try {
-    await deleteFromRedis(refresToken);
+    await redis.deleteToken(refresToken);
 
     return res.status(200).json({ success: true });
   } catch (error) {
     return response(res, error.message, error.code);
   }
+};
+
+export default {
+  registerUser,
+  loginUser,
+  refreshToken,
+  logOut,
 };

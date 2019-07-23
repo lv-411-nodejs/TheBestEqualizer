@@ -20,27 +20,23 @@ const redisClient = redis.createClient({
 redisClient.on('error', err => console.log(`Redis error -> ${err}`));
 redisClient.on('connect', () => process.env.DEV_MODE && console.log('redis connected '));
 
+function injectMethod(method, methodArgs) {
+  return new Promise((resolve, reject) => {
+    redisClient[method].apply(redisClient, [...methodArgs, (err, replay) => {
+      if (err) {
+        return reject(new ClientError(err));
+      }
+      return resolve(replay);
+    }]);
+  });
+}
 /**
  * return value (user id in this case) from redis storage finded by token (key)
  * @param {string} key
  * @return {Promise} with data (userId)
  * @throws {ClientError}
  */
-export async function getFromRedis(key) {
-  // if ((typeof key) !== 'string') {
-  //   key = key.toString();
-  // }
-
-  return new Promise((resolve, reject) => {
-    redisClient.get(key, (err, replay) => {
-      if (err) return reject(err);
-      if (!replay) return reject(new ClientError('Refresh Token expired!'));
-
-      return resolve(replay);
-    });
-  });
-}
-
+export const getToken = async token => injectMethod('get', [token], 'eror message');
 /**
  * put token in redis storage key = refresh-token, value = userId
  * this methodology can work with multiple sessions (multi device)
@@ -49,41 +45,14 @@ export async function getFromRedis(key) {
  * @return {Promise} (boolean) true/false
  * @throws {ClientError}
  */
-export async function putInRedis(key, value) {
-  // if ((typeof value) !== 'string') {
-  //   value = value.toString();
-  // }
-
-  return new Promise((resolve, reject) => {
-    redisClient.set(key, value, 'EX', DAY, (err, replay) => {
-      if (err) return reject(err);
-      if (!replay) return reject(new ClientError('Trobles with redis, cant insert'));
-
-      return resolve(true);
-    });
-  });
-}
+export const putToken = async (token, value) => injectMethod('set', [token, value, 'EX', DAY]);
 /**
  * delete token (record) from redis storage
  * @param {string} key
  * @return {Promise} (boolean) true/false
  * @throws {ClientError}
  */
-export async function deleteFromRedis(key) {
-  // if ((typeof key) !== 'string') {
-  //   key = key.toString();
-  // }
-
-  return new Promise((resolve, reject) => {
-    redisClient.del(key, (err, replay) => {
-      if (err) return reject(err);
-      if (!replay) return reject(new ClientError('Trobles with redis, cant delete item'));
-
-      return resolve(true);
-    });
-  });
-}
-
+export const deleteToken = async token => injectMethod('del', [token]);
 /**
  * default redis export - to work with redis directly if it need
  */

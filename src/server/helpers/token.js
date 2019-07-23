@@ -6,7 +6,7 @@ import response from './errorHandler';
 dotenv.config();
 
 const { SECRET } = process.env;
-const tokenLife = '5h';
+const tokenLife = process.env.TOKEN_LIFE || '30m';
 
 /**
  *
