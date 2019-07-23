@@ -5,12 +5,10 @@
     display: flex;
     width: 100%;
     max-width: 1024px;
-    margin: 0 auto;
-    padding: 0 25px;
-    color: white;
+    justify-content: flex-end;
+    color: var(--authFont-white);
     -webkit-box-pack: justify;
     -ms-flex-pack: justify;
-    justify-content: start;
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
@@ -18,13 +16,18 @@
 
 .SwitcherContainer .icon {
     color: var(--mainText-accent-blue);
+    margin-right: 5px;
+}
+
+.SwitcherContainer .voiceText {
+    margin-left: 10px;
 }
 
 
 .SwitcherContainer--slider {
+    margin-left: 10px;
     width: 200px;
     height: 4px;
-    margin: 20px;
 }
 
 .SwitcherContainer--slider .rangeslider__fill {
@@ -36,6 +39,8 @@
     height: 17px;
     border-radius: 50%;
     outline: none;
+    border: none;
+    background-color: var(--mainText-accent-blue);
 }
 
 .SwitcherContainer--slider .rangeslider__handle .rangeslider__handle-tooltip {
@@ -49,3 +54,16 @@
 .SwitcherContainer--slider .rangeslider__handle:after {
     display: none;
 }
+
+@media only screen and (max-width: 1020px) {
+    .SwitcherContainer--slider {
+        width: 100px;
+    }
+}
+
+@media only screen and (max-width: 720px) {
+    .SwitcherContainer {
+        justify-content: center;
+    }
+}
+
