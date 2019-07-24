@@ -15,13 +15,13 @@ export const getEffect = async (req, res) => {
 
   try {
     const effects = await User.findOne({ _id: userId }, 'effects');
-    const finded = effects.find(effect => effect.title === title);
-    if (!finded) {
+    const findedEffect = effects.find(effect => effect.title === title);
+    if (!findedEffect) {
       throw new NotFoundError('Preset with this title is not found');
     }
 
     return res.status(200).json({
-      preset: finded,
+      preset: findedEffect,
     });
   } catch (error) {
     return response(res, error.message, error.code);

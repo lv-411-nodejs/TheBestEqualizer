@@ -62,9 +62,9 @@ const loginUser = async (req, res) => {
       throw new ClientError('User not exist');
     }
 
-    const verified = await user.verifyPassword(password);
+    const verifiedPassword = await user.verifyPassword(password);
 
-    if (!verified) {
+    if (!verifiedPassword) {
       throw new ClientError('Wrong password', 404);
     }
 
