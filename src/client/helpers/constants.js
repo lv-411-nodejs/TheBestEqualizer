@@ -2,7 +2,7 @@ import {
   headsetIcon, rssIcon, thIcon, podcastIcon,
 } from '../assets/icons/icons';
 
-export const baseUrl = 'https://thebestaqualizer.herokuapp.com';
+export const baseUrl = process.env.baseURL || 'http://localhost:8080';
 //http://localhost:8080
 export const imageArray = [
   {
