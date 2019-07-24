@@ -1,13 +1,7 @@
 import React from 'react';
-import Enzyme, {
-  shallow,
-} from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
-import CanvasEqualizer from './canvasEqualizer';
+import { shallow } from 'enzyme';
 
-Enzyme.configure({
-  adapter: new Adapter(),
-});
+import CanvasEqualizer from './canvasEqualizer';
 
 describe('Grafic equaliser', () => {
   const props = {
@@ -16,7 +10,7 @@ describe('Grafic equaliser', () => {
     getCanvasEl: () => {},
   };
 
-  it('should RENDER CANVAS ELEMENT', () => {
+  it('should render canvas element', () => {
     const nextProps = {
       ...props,
     };
@@ -27,7 +21,7 @@ describe('Grafic equaliser', () => {
     expect(nextContainer.find('canvas')).toHaveLength(1);
   });
 
-  it('should RENDER COMPONENT PROPERLY', () => {
+  it('should render component properly', () => {
     const nextProps = {
       ...props,
     };
