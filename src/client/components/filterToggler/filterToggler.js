@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import './filterToggler.css';
 
-const filterToggler = (props) => {
+export const FilterToggler = (props) => {
   const { audioData, blocksData } = props;
   const removeSourceFilters = sourceInput => sourceInput
   && blocksData.forEach(({ createEffect, isVisible }) => isVisible
@@ -38,7 +38,8 @@ const filterToggler = (props) => {
     </div>
   );
 };
-filterToggler.propTypes = {
+
+FilterToggler.propTypes = {
   audioData: PropTypes.instanceOf(Object).isRequired,
   blocksData: PropTypes.instanceOf(Array).isRequired,
   voice: PropTypes.instanceOf(Object),
@@ -50,4 +51,4 @@ const mapStateToProps = state => ({
   blocksData: state.blocksData,
 });
 
-export default connect(mapStateToProps)(filterToggler);
+export default connect(mapStateToProps)(FilterToggler);

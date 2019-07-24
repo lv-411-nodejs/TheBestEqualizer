@@ -27,6 +27,7 @@ class AllBlocks extends Component {
 
   render() {
     const { blocksData } = this.props;
+    console.dir(typeof blocksData[0]['createEffect']);
     return (
       <div className="SlidersComponent__main--container">
         <div className="AllSliders">
