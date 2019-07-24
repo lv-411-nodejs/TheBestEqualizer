@@ -26,7 +26,7 @@ export const fieldsInfo = [
     isMember: false,
   },
   {
-    type: 'email',
+    type: 'text',
     name: 'email',
     label: 'Email',
     isMember: true,
