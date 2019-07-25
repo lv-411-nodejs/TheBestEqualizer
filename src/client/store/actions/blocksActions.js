@@ -1,4 +1,10 @@
 import fetchRequest from '../../helpers/fetchRequest';
+import {
+  HOST,
+  JAZZ_PRESET_ARRAY,
+  ROCK_PRESET_ARRAY,
+  POP_PRESET_ARRAY,
+} from '../../helpers/constants';
 
 import {
   SET_VISIBILITY,
@@ -9,15 +15,9 @@ import {
   SET_DEFAULT_PRESET,
 } from './types';
 
-import {
-  JAZZ_PRESET_ARRAY,
-  ROCK_PRESET_ARRAY,
-  POP_PRESET_ARRAY,
-} from '../../helpers/constants';
-
 export const setVisibility = blockName => ({ type: SET_VISIBILITY, blockName });
 
-export const setPresetValue = chosenPresetName => (dispatch) => {
+export const setPresetValue = (chosenPresetName, blocksData) => (dispatch) => {
   switch (chosenPresetName) {
     case 'Default':
       dispatch({
@@ -43,10 +43,11 @@ export const setPresetValue = chosenPresetName => (dispatch) => {
       });
       break;
     default:
-      fetchRequest.get('http://localhost:8080/effects',
-        { params: { title: chosenPresetName } })
-        .then(response => dispatch(
-          { type: SET_USER_PRESET, userPresetArray: response.data.presets },
-        ));
+      fetchRequest
+        .get(`${HOST}/effects`, { params: { title: chosenPresetName } })
+        .then(response => dispatch({
+          type: SET_USER_PRESET,
+          userPresetArray: response.data.presets,
+        }));
   }
 };

@@ -29,15 +29,22 @@ class PresetsDropdownSelector extends Component {
   }
 
   handleSelectorChange = (event) => {
-    const { setPresetValue } = this.props;
-    setPresetValue(event.target.value);
+    const { setPresetValue, blocksData } = this.props;
+    setPresetValue(event.target.value, blocksData);
   };
 
   render() {
     const { presetsData } = this.props;
+    const listOfPresets = (
+      presetsData.map((value, i) => <option className="option" key={i} value={value}>{value}</option>)
+    );
+
     return (
-      <select className="SlidersComponent__header--selector" onChange={this.handleSelectorChange}>
-        {presetsData.map((value, i) => <option className="option" key={i} value={value}>{value}</option>)}
+      <select
+        className="SlidersComponent__header--selector"
+        onChange={this.handleSelectorChange}
+      >
+        {listOfPresets}
       </select>
     );
   }

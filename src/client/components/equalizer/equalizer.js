@@ -243,7 +243,7 @@ class Equalizer extends Component {
       <Button
         className="ButtonStyleTemplate"
         onClick={pauseSoundFromFile}
-        icon={loading ? null : pauseIcon}
+        icon={!loading && pauseIcon}
         value={loading ? <img src={Spinner} alt="Play music spinner" /> : 'Pause'}
         disabled={loading ? 'disabled' : null}
       />

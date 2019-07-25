@@ -3,13 +3,12 @@ import PropTypes from 'prop-types';
 import ModalSavePressetesWindow from './modalSavePressetesWindow';
 import BackgroundUnderModelWindow from './backgroundUnderModelWindow';
 
-const SavePressetModalBlock = (props) => {
+const SavePressetModalBlock = ({ showHideModalBlock }) => {
   const autoFocusModalSavePressetesWindow = (elementFromRef) => {
     if (elementFromRef) {
       elementFromRef.focus();
     }
   };
-  const { showHideModalBlock } = props;
 
   return (
     <Fragment>
