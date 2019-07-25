@@ -7,33 +7,32 @@ export const authStart = () => ({
   type: actionTypes.AUTH_START,
 });
 
-export const authSuccess = status => ({
+export const authSuccess = username => ({
   type: actionTypes.POST_USER_DATA,
-  status,
+  username,
 });
 
-export const authFail = (status, error) => ({
+export const authFail = error => ({
   type: actionTypes.AUTH_FAIL,
-  status,
   error,
 });
 
 export const postUserData = (path, newUser, history) => async (dispatch) => {
-  dispatch(authStart());
-  let response;
-  await axios.post(`${baseUrl}${path}`, newUser)
-    .then(() => {
-      dispatch(authSuccess('Success authentification'));
-    })
-    .then(() => {
+  try {
+    dispatch(authStart());
+    const response = await axios.post(`${baseUrl}${path}`, newUser);
+    const { data: { username, token: { access } } } = response;
+    if (access) {
+      dispatch(authSuccess(username));
+      localStorage.setItem('_token', access);
+      localStorage.setItem('username', username);
       history.push('/main');
-    })
-    .catch(({ response: { data: { error } } }) => {
-      dispatch(authFail('Authentification was failed', error));
-      response = error;
-    });
-
-  return response;
+    }
+    return username;
+  } catch ({ response: { data: { error } } }) {
+    dispatch(authFail('Authentification was failed', error));
+    return error;
+  }
 };
 
 export default postUserData;

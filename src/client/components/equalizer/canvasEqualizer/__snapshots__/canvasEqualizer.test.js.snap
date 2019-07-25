@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Grafic equaliser should RENDER COMPONENT PROPERLY 1`] = `ShallowWrapper {}`;
+
+exports[`Grafic equaliser should render component properly 1`] = `ShallowWrapper {}`;
