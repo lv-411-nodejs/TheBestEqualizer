@@ -19,8 +19,8 @@ class PresetsDropdownSelector extends Component {
     const { blocksData, audioData } = this.props;
     if (audioData.trackName !== null && blocksData !== prevProps.blocksData) {
       const prevBlocksData = prevProps.blocksData;
-      prevBlocksData.forEach(({ createEffect, isVisible }) => {
-        isVisible && audioData.sound.removeEffect(createEffect);
+      prevBlocksData.forEach(({ createEffect }) => {
+        audioData.sound.removeEffect(createEffect)
       });
       blocksData.forEach(({ createEffect, isVisible }) => {
         isVisible && audioData.sound.addEffect(createEffect);
