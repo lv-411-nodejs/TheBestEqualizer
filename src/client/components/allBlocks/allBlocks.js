@@ -19,8 +19,8 @@ class AllBlocks extends Component {
           isVisible ? audioData.voice.removeEffect(createEffect)
             : audioData.voice.addEffect(createEffect);
         } else {
-          isVisible ? audioData.sound.removeEffect(createEffect)
-            : audioData.sound.addEffect(createEffect);
+          isVisible ? audioData.sound && audioData.sound.removeEffect(createEffect)
+            : audioData.sound && audioData.sound.addEffect(createEffect);
         }
       }
     });
