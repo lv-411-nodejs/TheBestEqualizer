@@ -5,6 +5,7 @@ import { setVisibility } from '../../store/actions/blocksActions';
 import BlockOfSliders from '../blockOfSliders';
 import { checkTickIcon } from '../../assets/icons/icons';
 import './alllBlocks.css';
+import ToggleZone from '../toggleZone/toggleZone';
 
 class AllBlocks extends Component {
   toggleSourceFilters = (filterName) => {
@@ -28,24 +29,27 @@ class AllBlocks extends Component {
     return (
       <div className="SlidersComponent__main--container">
         <div className="AllSliders">
-          <div className="ListOfEffects">
-            {
-              blocksData.map(({ name, isVisible }) => (
-                <button
-                  className="Effect"
-                  key={name}
-                  type="button"
-                  id={name}
-                  name={name}
-                  onClick={() => this.toggleSourceFilters(name)}
-                >
-                  {name}
-                  {' '}
-                  {isVisible ? checkTickIcon : ''}
-                </button>
-              ))
-            }
-          </div>
+          <ToggleZone>
+            <div className="ListOfEffects">
+
+              {
+                blocksData.map(({ name, isVisible }) => (
+                  <button
+                    className="Effect"
+                    key={name}
+                    type="button"
+                    id={name}
+                    name={name}
+                    onClick={() => this.toggleSourceFilters(name)}
+                  >
+                    {name}
+                    {' '}
+                    {isVisible ? checkTickIcon : ''}
+                  </button>
+                ))
+              }
+            </div>
+          </ToggleZone>
           <div className="Sliders">
             {blocksData.map(({
               name, effects, isVisible,

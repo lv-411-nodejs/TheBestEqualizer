@@ -6,6 +6,6 @@ export default (app) => {
   app.post('/login', ApiController.postLoginHandler);
   app.post('/effects', middleware, ApiController.postEffectsHandler);
   app.get('/effects', middleware, ApiController.getEffectsHandler);
-  app.post('/token/refresh', ApiController.refreshTokenHandler);
-  app.get('/presets', middleware, ApiController.getUserTitles);
+  app.delete('/effects', middleware, ApiController.deleteEffectsHandler);
+  app.post('/token/refresh', middleware, ApiController.refreshTokenHandler);
 };

@@ -8,6 +8,7 @@ const effectsSchema = new Schema({
     validate: {
       validator: title => /^[a-zA-Z0-9_.-]{1,}$/.test(title),
       message: 'Please, name your title with one word.',
+      required: [true, 'Title is required'],
     },
   },
   presets: [{
@@ -38,4 +39,4 @@ const effectsSchema = new Schema({
   }],
 });
 
-export default mongoose.model('Effects', effectsSchema);
+export default effectsSchema;
