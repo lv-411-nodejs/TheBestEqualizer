@@ -1,10 +1,20 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { userIcon } from '../../assets/icons/icons';
 import logo from './logo.svg';
 import Logout from '../logout';
 import './mainPageHeader.css';
 
-const MainPageHeader = () => (
+class MainPageHeader extends Component {
+  state = {
+    userName: '',
+  }
+  
+  componentDidMount(){
+    const userName = localStorage.getItem('username');
+    this.setState({ userName });
+  }
+
+  render = () => (    
   <section className="MainPageHeaderContainer">
     <div className="AppLogoContainer">
       <img src={logo} alt="logo" />
@@ -14,11 +24,12 @@ const MainPageHeader = () => (
     <div className="UserNameAndLogout">
       <div className="UserName">
         {userIcon}
-        <span>Billie Eilish</span>
+        <span>{this.state.userName}</span>
       </div>
       <Logout />
     </div>
   </section>
-);
+    )
+};
 
 export default MainPageHeader;
