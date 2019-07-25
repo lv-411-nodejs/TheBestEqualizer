@@ -100,7 +100,9 @@ export default class ApiController {
         const find = effects.find(effect => effect.title === title);
         if (find) {
           res.send(find);
-        } else 3
+        } else {
+          response(res, 'Preset with this title is not found', 404);
+        }
       })
       .catch(err => response(res, err.message, 404));
   }
