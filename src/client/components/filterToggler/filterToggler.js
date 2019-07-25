@@ -17,6 +17,7 @@ export const FilterToggler = (props) => {
   ) => isVisible && sourceInput && sourceInput.addEffect(createEffect));
 
   const onToggler = () => {
+    console.log(audioData.voice);
     audioData.onToggle = !audioData.onToggle;
     if (audioData.onToggle) {
       removeSourceFilters(audioData.sound);
