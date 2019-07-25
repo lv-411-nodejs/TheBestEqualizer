@@ -45,7 +45,7 @@ class OneSlider extends Component {
     const { blocksData, blockName, effectName } = this.props;
     blocksData.forEach(({ name, effects, createEffect }) => {
       if (name === blockName) {
-        effects[effectName].value = sliderValue;
+        effects[effectName].value = parseFloat(sliderValue.toFixed(2));
         createEffect[effectName] = effects[effectName].value;
       }
     });
