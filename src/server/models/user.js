@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import mongooseBcrypt from 'mongoose-bcrypt';
+import effectsSchema from './effects';
 
 const { Schema } = mongoose;
 
@@ -33,6 +34,7 @@ const userSchema = new Schema({
       message: props => `${props.value} is not a valid password! It must contain at least one upper&lower case letter and digit.`,
     },
   },
+  effects: [effectsSchema],
 });
 
 userSchema.plugin(mongooseBcrypt);

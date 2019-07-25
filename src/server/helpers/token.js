@@ -6,7 +6,7 @@ import response from './errorHandler';
 dotenv.config();
 
 const { SECRET } = process.env;
-const tokenLife = '15m';
+const tokenLife = process.env.TOKEN_LIFE || '30m';
 
 /**
  *
@@ -48,6 +48,7 @@ export const middleware = (req, res, next) => {
     }
 
     req.userId = decoded.userId;
+    req.refresToken = decoded._refresh;
     return next();
   });
   return null;
