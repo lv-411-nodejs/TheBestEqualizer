@@ -34,9 +34,13 @@ class SavePressetesModalWindow extends Component {
       .then(response => this.setState(() => {
         setTimeout(() => showHideModalBlock(event), closeModalTimeout);
         addNewPresetFromInput(valueFromPresetInput);
-        return { savePresetStatusMessage: response.data.result };
-      }));
-  };
+        return { savePresetStatusMessage: response.data.success };
+      }))
+
+      .catch(({ response }) => {
+        this.setState(() => ({ savePresetStatusMessage: response.data.error }));
+      });
+  }
 
   render() {
     const { showHideModalBlock, refFocus, currentValueOfFilters } = this.props;

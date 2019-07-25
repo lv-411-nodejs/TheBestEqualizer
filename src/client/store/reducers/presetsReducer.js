@@ -10,7 +10,7 @@ export default function (state = initialState, action) {
     case ADD_NEW_USER_PRESET_FROM_DB: {
       return [
         ...state,
-        ...action.userPresets.map(currentObject => currentObject.title),
+        ...action.userPresets,
       ];
     }
     case ADD_NEW_USER_PRESET_FROM_INPUT: {

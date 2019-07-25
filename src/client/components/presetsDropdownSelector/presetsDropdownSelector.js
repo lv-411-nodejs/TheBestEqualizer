@@ -11,8 +11,9 @@ import './presetsDropdownSelector.css';
 class PresetsDropdownSelector extends Component {
   componentDidMount() {
     const { addNewPresetsFromDB } = this.props;
-    fetchRequest.get(`${HOST}/effects`)
-      .then(response => addNewPresetsFromDB(response.data.userPresets));
+    fetchRequest.get(`${HOST}/titles`)
+      .then(response => addNewPresetsFromDB(response.data.userPresets))
+      
   }
 
   componentDidUpdate(prevProps) {

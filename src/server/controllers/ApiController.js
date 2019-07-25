@@ -100,9 +100,7 @@ export default class ApiController {
         const find = effects.find(effect => effect.title === title);
         if (find) {
           res.send(find);
-        } else {
-          response(res, 'Preset with this title is not found', 404);
-        }
+        } else 3
       })
       .catch(err => response(res, err.message, 404));
   }
@@ -112,7 +110,7 @@ export default class ApiController {
     User
       .findOne({ _id: userId })
       .then(({ effects }) => {
-        const titles = effects.map(({ effect: { title } }) => title);
+        const titles = effects.map(effect => effect.title);
         return res.status(200).json({
           userPresets: titles,
         });
