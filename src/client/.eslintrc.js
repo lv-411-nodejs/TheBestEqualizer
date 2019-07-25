@@ -33,6 +33,7 @@ module.exports = {
     'react/no-array-index-key': 'off',
     'no-cond-assign': 0,
     'arrow-pens': 0,
+    "one-var": 0,
     'no-param-reassign': [2, { props: false }],
     'jsx-a11y/label-has-for': [
       2,
