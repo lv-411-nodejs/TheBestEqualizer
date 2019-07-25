@@ -8,28 +8,28 @@ class MainPageHeader extends Component {
   state = {
     userName: '',
   }
-  
-  componentDidMount(){
+
+  componentDidMount() {
     const userName = localStorage.getItem('username');
     this.setState({ userName });
   }
 
-  render = () => (    
-  <section className="MainPageHeaderContainer">
-    <div className="AppLogoContainer">
-      <img src={logo} alt="logo" />
-      <span className="Node">nodes</span>
+  render = () => (
+    <section className="MainPageHeaderContainer">
+      <div className="AppLogoContainer">
+        <img src={logo} alt="logo" />
+        <span className="Node">nodes</span>
       Equalizer
-    </div>
-    <div className="UserNameAndLogout">
-      <div className="UserName">
-        {userIcon}
-        <span>{this.state.userName}</span>
       </div>
-      <Logout />
-    </div>
-  </section>
-    )
-};
+      <div className="UserNameAndLogout">
+        <div className="UserName">
+          {userIcon}
+          <span>{this.state.userName}</span>
+        </div>
+        <Logout />
+      </div>
+    </section>
+  )
+}
 
 export default MainPageHeader;
