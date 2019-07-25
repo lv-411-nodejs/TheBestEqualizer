@@ -45,9 +45,14 @@ export const setPresetValue = (chosenPresetName, blocksData) => (dispatch) => {
     default:
       fetchRequest
         .get(`${HOST}/effects`, { params: { title: chosenPresetName } })
-        .then(response => dispatch({
-          type: SET_USER_PRESET,
-          userPresetArray: response.data.presets,
-        }));
+        .then((response) => {
+          const userPresetArray = blocksData.map((effectFromStore, i) => (
+            { ...effectFromStore, effects: response.data.presets[i].effects }
+          ));
+          dispatch({
+            type: SET_USER_PRESET,
+            userPresetArray,
+          });
+        });
   }
 };

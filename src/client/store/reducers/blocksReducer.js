@@ -120,7 +120,7 @@ const initialState = [
     createEffect: new Pizzicato.Effects.Distortion({
       gain: 0,
     }),
-    isVisible: true,
+    isVisible: false,
   },
   {
     name: 'Quadrafuzz',
@@ -279,7 +279,7 @@ const initialState = [
     createEffect: new Pizzicato.Effects.StereoPanner({
       pan: 0,
     }),
-    isVisible: false,
+    isVisible: true,
   },
   {
     name: 'Compressor',
@@ -422,9 +422,7 @@ export default function (state = initialState, action) {
       return popPresetArray;
     }
     case SET_USER_PRESET: {
-      return state.map((effectFromStore, i) => (
-        { ...effectFromStore, effects: userPresetArray[i].effects }
-      ));
+      return userPresetArray;
     }
     case SET_VISIBILITY:
       return state.map(block => (block.name === blockName
