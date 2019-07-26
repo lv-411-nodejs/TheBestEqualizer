@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import {
-  setVisibility,
-} from '../../store/actions/blocksActions';
+import { setVisibility } from '../../store/actions/blocksActions';
 import BlockOfSliders from '../blockOfSliders';
 import { checkTickIcon } from '../../assets/icons/icons';
 import './alllBlocks.css';

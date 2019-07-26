@@ -14,3 +14,12 @@ export const MERGE_CANVAS_WIDTH = 'MERGE_CANVAS_WIDTH';
 
 // blocks data types
 export const SET_VISIBILITY = 'SET_VISIBILITY';
+
+// Presets data types
+export const SET_DEFAULT_PRESET = 'SET_DEFAULT_PRESET';
+export const SET_JAZZ_PRESET = 'SET_JAZZ_PRESET';
+export const SET_ROCK_PRESET = 'SET_ROCK_PRESET';
+export const SET_POP_PRESET = 'SET_POP_PRESET';
+export const SET_USER_PRESET = 'SET_USER_PRESET';
+export const ADD_NEW_USER_PRESET_FROM_INPUT = 'ADD_NEW_USER_PRESET_FROM_INPUT';
+export const ADD_NEW_USER_PRESET_FROM_DB = 'ADD_NEW_USER_PRESET_FROM_DB';

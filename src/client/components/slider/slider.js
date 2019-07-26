@@ -21,6 +21,13 @@ class OneSlider extends Component {
     };
   }
 
+  componentDidUpdate(prevProps) {
+    const { value } = this.props.effectValues;
+    if (value !== prevProps.effectValues.value) {
+      this.setState({ sliderValue: parseFloat(value.toFixed(2)) });
+    }
+  }
+
   setEffectsValue = (blockName, effectsName, value) => this.props.blocksData.forEach((
     {
       name,
@@ -38,7 +45,7 @@ class OneSlider extends Component {
     const { blocksData, blockName, effectName } = this.props;
     blocksData.forEach(({ name, effects, createEffect }) => {
       if (name === blockName) {
-        effects[effectName].value = sliderValue;
+        effects[effectName].value = parseFloat(sliderValue.toFixed(2));
         createEffect[effectName] = effects[effectName].value;
       }
     });
