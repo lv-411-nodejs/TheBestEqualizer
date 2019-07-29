@@ -14,6 +14,7 @@ class Logout extends Component {
         sound.stop();
         voice.stop();
       }
+      localStorage.clear();
       history.push('/');
     }
 
