@@ -34,6 +34,7 @@ export class SwitcherSound extends Component {
   }
 
   changeVolume = (volumeValueTrack) => {
+    console.log(volumeValueTrack)
     const revertVolumeValueTrack = 1 - volumeValueTrack;
     this.setState({
       volumeValueTrack: parseFloat(volumeValueTrack.toFixed(2)),
@@ -46,6 +47,7 @@ export class SwitcherSound extends Component {
     const minSliderVolume = 0;
     const maxSliderVolume = 1;
     const stepSliderVolume = 0.001;
+    console.log("AAAAAAAAAAAAAAAAAAAAAAAAA")
     return (
       <div className="SwitcherContainer">
         <Fragment>

@@ -10,17 +10,17 @@ Enzyme.configure({
 
 describe('TEST SOUND SWITCHER', () => {
   const props = {
-    value: 0,
     min: 0,
     max: 1,
     step: 0.001,
     audioData: {sound: {}, voice: {}},
-    onChange: () => {}
   }
 
   it('is render component', () => {
     const nextProps = {
       ...props,
+      value: 0,
+      onChange: () => {},
     };
     const switcherSoundComponent = shallow(<SwitcherSound {...nextProps} />);
     expect(switcherSoundComponent.find(".SwitcherContainer")).toHaveLength(1);
@@ -29,26 +29,24 @@ describe('TEST SOUND SWITCHER', () => {
   it('render component correctly', () => {
     const nextProps = {
       ...props,
+      value: 0,
+      onChange: () => {},
     };
 
     const switcherSoundComponent = shallow(<SwitcherSound {...nextProps} />);
-    console.log(switcherSoundComponent.debug())
     expect(switcherSoundComponent).toMatchSnapshot();
   });
 
-  // it("check the onChange callback", () => {
-  //   const onChange = jest.fn(),
-  //       nextProps = {
-  //         ...props,
-  //         volumeValueTrack: 0.5,
-  //         onChange,
-  //         audioData: {}
-  //       },
-  //       switcherSoundComponent = mount(<Provider store={store}><SwitcherSound {...nextProps} /></Provider>).find("input");
-  //     switcherSoundComponent.simulate("change", {
-  //       target: { value: moment(0.7) }
-  //   });
-  //   expect(onChange).toHaveBeenCalledWith(0.7);
-  // });
+  it("check the onChange callback", () => {
+      const nextProps = {
+          ...props,
+          value: 0.5,
+        },
+        switcherSoundComponent = mount(<SwitcherSound {...nextProps} />).find("Slider");
+      switcherSoundComponent.simulate("change",  {target: {value: 0.7}});
+    
+    console.log(switcherSoundComponent.debug())
+    expect(switcherSoundComponent.value).toEqual(0.7);
+  });
 
 });
