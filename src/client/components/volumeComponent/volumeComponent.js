@@ -5,7 +5,7 @@ import Slider from 'react-rangeslider';
 import { connect } from 'react-redux';
 import { volumeIcon } from '../../assets/icons/icons';
 
-export class VolumeComponent extends Component {
+class VolumeComponent extends Component {
   state = {
     volumeValueTrack: 0.25,
     volumeValueVoice: 0.25,
