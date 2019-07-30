@@ -82,7 +82,7 @@ export default function (state = initialState, action) {
     case CLEAR_AUDIODATA_STATE: {
       return {
         ...initialState,
-      }
+      };
     }
     default: return state;
   }

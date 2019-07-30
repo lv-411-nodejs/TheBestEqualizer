@@ -9,7 +9,7 @@ import { clearAudioDataState } from '../../store/actions/audioActions';
 
 class Logout extends Component {
     SignOut = () => {
-      const {history, clearAudioDataStateAsProp, audioData: {sound, voice}} = this.props;
+      const { history, clearAudioDataStateAsProp, audioData: { sound, voice } } = this.props;
       if (sound) {
         sound.stop();
         voice.stop();
