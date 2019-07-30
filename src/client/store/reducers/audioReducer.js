@@ -8,6 +8,7 @@ import {
   CREATE_STREAME_DATA,
   START_MUTE_STREAME_AUDIO,
   MERGE_CANVAS_WIDTH,
+  CLEAR_AUDIODATA_STATE,
 } from '../actions/types';
 
 const audioContext = Pizzicato.context;
@@ -77,6 +78,11 @@ export default function (state = initialState, action) {
         ...state,
         widthCanvas,
       };
+    }
+    case CLEAR_AUDIODATA_STATE: {
+      return {
+        ...initialState,
+      }
     }
     default: return state;
   }
