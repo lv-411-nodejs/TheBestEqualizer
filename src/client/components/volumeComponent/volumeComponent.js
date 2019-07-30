@@ -5,7 +5,7 @@ import Slider from 'react-rangeslider';
 import { connect } from 'react-redux';
 import { volumeIcon } from '../../assets/icons/icons';
 
-class SwitcherSound extends Component {
+class VolumeComponent extends Component {
   state = {
     volumeValueTrack: 0.25,
     volumeValueVoice: 0.25,
@@ -76,4 +76,4 @@ const mapStateToProps = state => ({
   audioData: state.audioData,
 });
 
-export default connect(mapStateToProps)(SwitcherSound);
+export default connect(mapStateToProps)(VolumeComponent);
