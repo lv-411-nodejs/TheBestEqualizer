@@ -6,6 +6,7 @@ import {
   CREATE_STREAME_DATA,
   START_MUTE_STREAME_AUDIO,
   MERGE_CANVAS_WIDTH,
+  CLEAR_AUDIODATA_STATE,
 } from './types';
 
 // audio data actions
@@ -32,4 +33,7 @@ export const startMuteStreamAudio = () => dispatch => dispatch({
 export const mergeCanvasWidth = eventInput => dispatch => dispatch({
   type: MERGE_CANVAS_WIDTH,
   payload: eventInput.target.value,
+});
+export const clearAudioDataState = () => dispatch => dispatch({
+  type: CLEAR_AUDIODATA_STATE,
 });
