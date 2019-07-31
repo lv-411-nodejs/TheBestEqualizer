@@ -1,30 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import './filterToggler.css';
+import './filterToggler.css'; 
+import { attachFiltersToSource, removeSourceFilters } from './../../helpers/equalizerAuxMethods';
 
 export const FilterToggler = (props) => {
+  const [toggler, setToggler] = useState(false);
   const { audioData, blocksData } = props;
-  const removeSourceFilters = sourceInput => sourceInput
-  && blocksData.forEach(({ createEffect, isVisible }) => isVisible
-    && sourceInput.removeEffect(createEffect));
-
-  const attachFiltersToSource = sourceInput => blocksData.forEach((
-    {
-      createEffect,
-      isVisible,
-    },
-  ) => isVisible && sourceInput && sourceInput.addEffect(createEffect));
-
   const onToggler = () => {
-    console.log(audioData.voice);
-    audioData.onToggle = !audioData.onToggle;
-    if (audioData.onToggle) {
-      removeSourceFilters(audioData.sound);
-      attachFiltersToSource(audioData.voice);
+    setToggler(!toggler);
+    if (toggler) {
+      removeSourceFilters(audioData.voice, blocksData);
+      attachFiltersToSource(audioData.sound, blocksData);
     } else {
-      removeSourceFilters(audioData.voice);
-      attachFiltersToSource(audioData.sound);
+      removeSourceFilters(audioData.sound, blocksData);
+      attachFiltersToSource(audioData.voice, blocksData);
     }
   };
 

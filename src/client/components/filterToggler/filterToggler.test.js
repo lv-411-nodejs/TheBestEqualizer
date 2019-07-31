@@ -1,26 +1,19 @@
 import React from 'react';
-import {
-    shallow,
-    render,
-    mount
-} from 'enzyme';
+import { shallow } from 'enzyme';
 import { FilterToggler } from './filterToggler';
-// import configureMockStore from "redux-mock-store";
-
 
 describe('Filter Toggler', () => {
     const props = {
         audioData: {
-            onToggle: false,
             sound: {
-                effects: [],
-                attachFiltersToSource: jest.fn(),
-                removeSourceFilters: jest.fn(),
+                effects: ['Delay', 'Flanger', 'Reverb', 'Tremolo', 'Stereo panner'],
+                removeEffect: jest.fn(),
+                addEffect: jest.fn(),
             },
             voice: {
                 effects: [],
-                attachFiltersToSource: jest.fn(),
-                removeSourceFilters: jest.fn(),
+                removeEffect: jest.fn(),
+                addEffect: jest.fn(),
             },
         },
         blocksData: [
@@ -38,7 +31,7 @@ describe('Filter Toggler', () => {
             },
             {
                 name: 'Distortion',
-                isVisible: true,
+                isVisible: false,
             },
             {
                 name: 'Quadrafuzz',
@@ -58,7 +51,7 @@ describe('Filter Toggler', () => {
             },
             {
                 name: 'Stereo panner',
-                isVisible: false,
+                isVisible: true,
             },
             {
                 name: 'Compressor',
@@ -96,25 +89,22 @@ describe('Filter Toggler', () => {
         expect(wrapper).toMatchSnapshot();
     });
 
-    // it('should change onToggler from props to true', () => {
-    //     const nextProps = {
-    //         ...props,
-    //     };
-
-    //     const mockAttachFiltersToSource = jest.fn();
-    //     // const mockRemoveSourceFilters = jest.fn();
-
-    //     const wrapper = shallow(<FilterToggler {...nextProps} attachFiltersToSource={mockAttachFiltersToSource} />);
-    //     wrapper.props().attachFiltersToSource(nextProps.audioData.sound)
-    //     expect(nextProps.audioData.sound.effects).toHaveLength(5);
-    // });
-
-    it('should invoke onToggler function that remove sound and attach voice filters', () => {
+    it('should invoke onToggler function that attach voice filters', () => {
         const nextProps = {
             ...props,
         };
         const wrapper = shallow(<FilterToggler {...nextProps} />);
         wrapper.find('#toggler').simulate('click');
-        expect(nextProps.audioData.voice.effects).toHaveLength(5);
+        expect(nextProps.audioData.voice.addEffect).toHaveBeenCalled();
+    });
+
+    it('should invoke onToggler function that attach sound filters', () => {
+        const nextProps = {
+            ...props,
+        };
+        const wrapper = shallow(<FilterToggler {...nextProps} />);
+        wrapper.find('#toggler').simulate('click');
+        wrapper.find('#toggler').simulate('click');
+        expect(nextProps.audioData.sound.addEffect).toHaveBeenCalled();
     });
 });

@@ -103,4 +103,4 @@ describe('blocks reducer', () => {
         }
         expect(reducer(initialState, action)).toEqual([...initialState]);
     });
-})
+});
