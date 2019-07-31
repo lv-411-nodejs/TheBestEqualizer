@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import './filterToggler.css'; 
-import { attachFiltersToSource, removeSourceFilters } from './../../helpers/equalizerAuxMethods';
+import './filterToggler.css';
+import { attachFiltersToSource, removeSourceFilters } from '../../helpers/equalizerAuxMethods';
 
 export const FilterToggler = (props) => {
   const [toggler, setToggler] = useState(false);
