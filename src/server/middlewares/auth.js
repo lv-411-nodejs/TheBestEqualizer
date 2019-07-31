@@ -35,7 +35,7 @@ const refresTokens = async ({ userId, _refresh: refresh }) => {
   }
 };
 
-export default async (req, res, next) => {
+const authMiddleware = async (req, res, next) => {
   const token = req.headers['x-access-token'];
 
   try {
@@ -44,7 +44,7 @@ export default async (req, res, next) => {
     }
 
     setEnvironmentToRequest(req, {
-      ...await Token.verify(token),
+      ...Token.verify(token),
       token,
     });
 
@@ -52,7 +52,7 @@ export default async (req, res, next) => {
   } catch (error) {
     if (error.name === 'TokenExpiredError') {
       try {
-        const decodeTokens = await Token.decode(token);
+        const decodeTokens = Token.decode(token);
         const newTokens = await refresTokens(decodeTokens);
 
         const requestEnvirment = {
@@ -72,3 +72,5 @@ export default async (req, res, next) => {
     return response(res, error.message, error.code);
   }
 };
+
+export default authMiddleware;
