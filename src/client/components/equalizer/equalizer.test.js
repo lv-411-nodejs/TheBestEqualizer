@@ -42,6 +42,8 @@ const setup = (initialState={}) => {
 }  
 
 describe('Test equalizer', () => {
+
+  describe('should make snapsjot', ()=>{
   it('should render component properly', () => {   
     const initialState={audioData: 
       { analyser:{}, audioContext:{} ,
@@ -52,6 +54,8 @@ describe('Test equalizer', () => {
       wrapper = setup(initialState)   
     expect(wrapper).toMatchSnapshot();
   });
+})
+
   describe('Test equlizer when sound is uploaded', ()=> {
     const initialState={audioData: 
       { analyser:{}, audioContext:{} ,
@@ -62,7 +66,8 @@ describe('Test equalizer', () => {
     }  
     let wrapper;
     beforeEach(()=>{  
-      wrapper = setup(initialState)  
+      wrapper = setup(initialState) 
+      // wrapper.instance().playSoundFromFile = () => Promise.resolve();   
     })
     it('should render `play` button', () => { 
         expect(wrapper.find('Button[value="Play"]').length).toBe(1)
@@ -72,20 +77,33 @@ describe('Test equalizer', () => {
       expect(wrapper.find('Button[value="Pause"]').length).toBe(1)
     
   });
-    it('should call function after click on play/pause button', () => { 
+    it('should call function after click on `play` button', () => { 
       const instance = wrapper.instance();
-      console.log(wrapper.instance())
-        
-      console.log(wrapper.debug())
-      wrapper.find('Button[value="Play"]').simulate('click');        
 
-      const spy = jest.spyOn(instance, 'playSoundFromFile');
-      console.log(spy)
-      wrapper.find('Button[value="Play"]').simulate('click');
-
-      expect(spy).toHaveBeenCalled();     
-
+      const spyPlay = jest.spyOn(instance, 'playSoundFromFile');
+      wrapper.instance().forceUpdate()
+      wrapper.find('Button[value="Play"]').simulate('click');         
+      expect(spyPlay).toHaveBeenCalled();     
 });
+    it('should call function after click on `pause` button', () => { 
+      const instance = wrapper.instance();
+      
+      const spyPause = jest.spyOn(instance, 'pauseSoundFromFile');
+      wrapper.instance().forceUpdate()
+      wrapper.find('Button[value="Pause"]').simulate('click');         
+      expect(spyPause).toHaveBeenCalled();     
+    });
+    it('should call function after click on `startStreamButton` button', () => { 
+      const instance = wrapper.instance();
+      
+      const spyPause = jest.spyOn(instance, 'startMuteStream');
+      wrapper.instance().forceUpdate()
+      wrapper.find('Button[value="Start stream"]').simulate('click');         
+      expect(spyPause).toHaveBeenCalled();     
+    });
+  })  
+  
+  desc
 
-  })    
+
 });
