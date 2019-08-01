@@ -26,15 +26,13 @@ jest.mock('pizzicato', () => {
   };
 });
 
-// const initialStore = {
-//   audioData: { analyser:{}, audioContext:{} },
-//   blocksData: [],
-//   presetsData: ()=>{},    
-// }; 
+const initialStore = {
+  playPauseSoundFromFileAsProp: jest.fn(()=>'fakePlayPauseSoundFromFile'),   
+}; 
 
 const setup = (initialState={}) => {
     const store = storeFactory(initialState);    
-    const wrapper = shallow(<Equalizer  store={store} />, { disableLifecycleMethods: true }).dive().dive();    
+    const wrapper = shallow(<Equalizer store={store} />, { disableLifecycleMethods: true }).dive().dive();    
     // const instance = wrapper.instance();
     // instance.prototype.getDerivedStateFromProps = jest.fn(); 
     // console.log(wrapper.debug(), '-----', wrapper.instance())  
@@ -66,8 +64,7 @@ describe('test equalizer', () => {
     }  
     let wrapper;
     beforeEach(()=>{  
-      wrapper = setup(initialState) 
-      // wrapper.instance().playSoundFromFile = () => Promise.resolve();   
+      wrapper = setup(initialState)       
     })
     it('should render `play` button', () => { 
         expect(wrapper.find('Button[value="Play"]').length).toBe(1)
@@ -103,37 +100,51 @@ describe('test equalizer', () => {
     });
   })  
   
-  describe('test if there are no grafic equaliser comp when is no sound or voice', ()=>{
+  describe('test component methods', ()=>{
     const initialState={audioData: 
       { analyser:{}, audioContext:{} ,
       widthCanvas: 100,
       heightCanvas: 200,      
       sound: null,  
-      startMuteState: false,  
-    }
+      startMuteState: false, 
+      playPauseState: false,       
+    },
+    
     }  
     let wrapper;
     beforeEach(()=>{  
       wrapper = setup(initialState)     
     })
 
-    it('should not render `grafic equaliser` component', () => { 
-
+    it('should set in state reference on canvas element', () => { 
       const paramForTest = document.createElement('canvas');
       paramForTest.getContext = jest.fn(()=>'fakeCanvas');
       const testedFunction= wrapper.instance().setCanvasToState;
       testedFunction(paramForTest);
-      console.log(wrapper.instance())
-      expect(wrapper.instance().state.ctx).toEqual('fakeCanvas')
-
-
-    
+      // console.log(wrapper.instance())
+      expect(wrapper.instance().state.ctx).toEqual('fakeCanvas')   
+    });
+    it('should call own method is sound is playing', () => { 
+      const instance = wrapper.instance();
+      const testedFunction = wrapper.instance().pauseSoundFromFile;
+      wrapper.instance().renderEqualizer = jest.fn();        
+      
+      const spyRendEqul = jest.spyOn(instance, 'renderEqualizer');
+      wrapper.setProps({playPauseSoundFromFileAsProp: jest.fn(()=>'fakePlayPauseSoundFromFile')})
+        const spyPlPasSound = jest.spyOn(instance.props, 'playPauseSoundFromFileAsProp');
+      wrapper.instance().forceUpdate()
+      return testedFunction()
+      .then(()=>{        
+        // instance.props.audioData.playPauseSoundFromFileAsProp = jest.fn();
+        
+        console.log(instance)
+       
+        expect(spyPlPasSound).toHaveBeenCalled()
+      })
+      .then(()=>{expect(spyRendEqul).toHaveBeenCalled()})
     });
 
 
-
-
   })
-
 
 });

@@ -1,10 +1,13 @@
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+import thunk from "redux-thunk";
+const middleware = [thunk];
 
+const enhancers = [applyMiddleware(...middleware)];
 
 import rootReducer from '../store/reducers'
 
 export const storeFactory = (initialState) => {
-    return createStore(rootReducer, initialState);
+    return createStore(rootReducer, initialState,  ...enhancers );
 }
 
 export const mockPizzicato = () => {   
