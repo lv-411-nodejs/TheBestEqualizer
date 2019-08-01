@@ -6,15 +6,21 @@ import { attachFiltersToSource, removeSourceFilters } from '../../helpers/equali
 
 export const FilterToggler = (props) => {
   const [toggler, setToggler] = useState(false);
-  const { audioData, blocksData } = props;
+  const {
+    audioData: {
+      voice,
+      sound,
+    },
+    blocksData,
+  } = props;
   const onToggler = () => {
     setToggler(!toggler);
     if (toggler) {
-      removeSourceFilters(audioData.voice, blocksData);
-      attachFiltersToSource(audioData.sound, blocksData);
+      removeSourceFilters(voice, blocksData);
+      attachFiltersToSource(sound, blocksData);
     } else {
-      removeSourceFilters(audioData.sound, blocksData);
-      attachFiltersToSource(audioData.voice, blocksData);
+      removeSourceFilters(sound, blocksData);
+      attachFiltersToSource(voice, blocksData);
     }
   };
 

@@ -72,24 +72,26 @@ describe('Filter Toggler', () => {
     ],
   };
 
+  let wrapper;
+
+  beforeEach(() => {
+    wrapper = shallow(<FilterToggler {...props} />);
+  });
+
   it('should render filterToggler element', () => {
-    const wrapper = shallow(<FilterToggler {...props} />);
     expect(wrapper.find('.modesElement')).toHaveLength(1);
   });
 
   it('should render filterToggler properly', () => {
-    const wrapper = shallow(<FilterToggler {...props} />);
     expect(wrapper).toMatchSnapshot();
   });
 
   it('should invoke onToggler function that attach voice filters', () => {
-    const wrapper = shallow(<FilterToggler {...props} />);
     wrapper.find('#toggler').simulate('click');
     expect(props.audioData.voice.addEffect).toHaveBeenCalled();
   });
 
   it('should invoke onToggler function that attach sound filters', () => {
-    const wrapper = shallow(<FilterToggler {...props} />);
     wrapper.find('#toggler').simulate('click');
     wrapper.find('#toggler').simulate('click');
     expect(props.audioData.sound.addEffect).toHaveBeenCalled();
