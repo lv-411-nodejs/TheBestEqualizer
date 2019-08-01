@@ -1,5 +1,3 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Test equalizer should make snapsjot should render component properly 1`] = `ShallowWrapper {}`;
-
-exports[`Test equalizer should render component properly 1`] = `ShallowWrapper {}`;
+exports[`test equalizer test to make snapshot should render component properly 1`] = `ShallowWrapper {}`;

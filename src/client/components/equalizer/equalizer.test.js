@@ -41,9 +41,9 @@ const setup = (initialState={}) => {
     return wrapper;
 }  
 
-describe('Test equalizer', () => {
+describe('test equalizer', () => {
 
-  describe('should make snapsjot', ()=>{
+  describe('test to make snapshot', ()=>{
   it('should render component properly', () => {   
     const initialState={audioData: 
       { analyser:{}, audioContext:{} ,
@@ -56,7 +56,7 @@ describe('Test equalizer', () => {
   });
 })
 
-  describe('Test equlizer when sound is uploaded', ()=> {
+  describe('test equlizer when sound is uploaded', ()=> {
     const initialState={audioData: 
       { analyser:{}, audioContext:{} ,
       widthCanvas: 100,
@@ -103,7 +103,37 @@ describe('Test equalizer', () => {
     });
   })  
   
-  desc
+  describe('test if there are no grafic equaliser comp when is no sound or voice', ()=>{
+    const initialState={audioData: 
+      { analyser:{}, audioContext:{} ,
+      widthCanvas: 100,
+      heightCanvas: 200,      
+      sound: null,  
+      startMuteState: false,  
+    }
+    }  
+    let wrapper;
+    beforeEach(()=>{  
+      wrapper = setup(initialState)     
+    })
+
+    it('should not render `grafic equaliser` component', () => { 
+
+      const paramForTest = document.createElement('canvas');
+      paramForTest.getContext = jest.fn(()=>'fakeCanvas');
+      const testedFunction= wrapper.instance().setCanvasToState;
+      testedFunction(paramForTest);
+      console.log(wrapper.instance())
+      expect(wrapper.instance().state.ctx).toEqual('fakeCanvas')
+
+
+    
+    });
+
+
+
+
+  })
 
 
 });
