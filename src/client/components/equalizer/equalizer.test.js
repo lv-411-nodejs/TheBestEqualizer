@@ -11,10 +11,10 @@ jest.mock('pizzicato', () => {
   mockPizzicato.Effects = jest.fn(()=>{})
   const effects = ['Delay', 'PingPongDelay', 'DubDelay', 'Distortion', 'Quadrafuzz', 'Flanger',
                    'Reverb', 'Tremolo',  'StereoPanner', 'Compressor', 'LowPassFilter', 'HighPassFilter', 'RingModulator' ];
-  effects.forEach((effect)=>{
+  effects.forEach((effect,el)=>{
     mockPizzicato.Effects[effect] = jest.fn(() => {
       return function() {
-        return {effect: () => {}};
+        return {effect: () => (`fakeEffect${el}`)};
       };
     });
   })  
@@ -91,7 +91,7 @@ describe('test equalizer', () => {
     });
   }) 
   
-  describe('test component methods when sound is uploaded', ()=>{
+  describe('test component methods', ()=>{
     const initialState={audioData: 
       { analyser:{getByteFrequencyData: jest.fn()}, audioContext:{} ,
       widthCanvas: 100,
@@ -101,7 +101,12 @@ describe('test equalizer', () => {
         'pause':()=>{console.log('fakePauseMethod')},
         'play':()=>{console.log('fakePlayMethod')},
         'stop':()=>('fakePauseMethod')},
-      voice: {'stop':()=>('fakePauseMethod')},  
+      voice: {
+        'play':()=>('fakePlayMethod'),
+        'stop':()=>('fakeStopMethod'),
+        'pause':()=>('fakePauseMethod'),
+        'connect':()=>('fakeConnectMethod'),
+    },  
       startMuteState: false, 
       playPauseState: false,       
     },
@@ -109,7 +114,8 @@ describe('test equalizer', () => {
     }  
     let wrapper;
     let instance
-    beforeEach(()=>{  
+    beforeEach(()=>{
+      jest.resetAllMocks();  
       wrapper = setup(initialState);
       instance = wrapper.instance();     
     })
@@ -136,7 +142,51 @@ describe('test equalizer', () => {
       testedFunction()       
       await expect(spyPlPasSound).toHaveBeenCalled()      
       await expect(spyRendEqul).toHaveBeenCalled()      
-    })    
+    });
+    
+    it('will test own method `attachFiltersToSource` which should attech five visible effects to input source', () => {     
+      const fakeSourceInput = {
+        howMuchEffectsAttached: 0,
+        'addEffect': ()=>{fakeSourceInput.howMuchEffectsAttached++},
+      };      
+      const testedFunction = instance.attachFiltersToSource;            
+      
+      testedFunction(fakeSourceInput);       
+      expect(fakeSourceInput.howMuchEffectsAttached).toEqual(5); 
+    }); 
+
+    it('will test own method `startMuteStream` which should call action and function', async () => {
+      instance.renderEqualizer = jest.fn();
+      wrapper.setProps({
+        startMuteStreamAudioAsProp: jest.fn(()=>('fakeStartMuteStream'))
+      });      
+      instance.forceUpdate();      
+
+      const testedFunction = instance.startMuteStream;
+      const spyStMtStream = jest.spyOn(instance.props, 'startMuteStreamAudioAsProp');      
+      const spyRendEqul =  jest.spyOn(instance, 'renderEqualizer');       
+      
+      testedFunction();       
+      await expect(spyStMtStream).toHaveBeenCalled();      
+      await expect(spyRendEqul).toHaveBeenCalled();      
+    });    
+
+    it('will test own method `startMuteStream` which should call action and function (if statement)', async () => {
+      instance.renderEqualizer = jest.fn();
+      wrapper.setProps({
+        audioData: {...initialState.audioData, startMuteState: true},
+        startMuteStreamAudioAsProp: jest.fn(()=>('fakeStartMuteStream'))
+      });      
+      instance.forceUpdate();      
+
+      const testedFunction = instance.startMuteStream;
+      const spyStMtStream = jest.spyOn(instance.props, 'startMuteStreamAudioAsProp');      
+      const spyRendEqul =  jest.spyOn(instance, 'renderEqualizer');       
+      
+      testedFunction();       
+      await expect(spyStMtStream).toHaveBeenCalled();      
+      await expect(spyRendEqul).toHaveBeenCalled();      
+    });
 
     it('will test own method `pauseSoundFromFile` which should call action and function', async () => {       
       instance.renderEqualizer = jest.fn();
