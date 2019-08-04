@@ -8,6 +8,7 @@ import {
   CREATE_STREAME_DATA,
   START_MUTE_STREAME_AUDIO,
   MERGE_CANVAS_WIDTH,
+  CLEAR_AUDIODATA_STATE,
 } from '../actions/types';
 
 const audioContext = Pizzicato.context;
@@ -27,8 +28,6 @@ const initialState = {
   voice: null,
   playPauseState: false,
   startMuteState: false,
-  // switcher source
-  onToggle: false,
 };
 
 export default function (state = initialState, action) {
@@ -76,6 +75,11 @@ export default function (state = initialState, action) {
       return {
         ...state,
         widthCanvas,
+      };
+    }
+    case CLEAR_AUDIODATA_STATE: {
+      return {
+        ...initialState,
       };
     }
     default: return state;
