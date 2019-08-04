@@ -6,7 +6,6 @@ import Equalizer from './Equalizer';
 
 import {
   storeFactory,
-  mockPizzicato
 } from '../../test/testUtils';
 
 jest.mock('pizzicato', () => {
@@ -41,7 +40,7 @@ const setup = (initialState = {}) => {
       return wrapper;
     }
 
-    describe('test equalizer', () => {
+describe('test equalizer', () => {
 
       describe('test to make snapshot', () => {
         it('should render component properly', () => {
@@ -70,39 +69,46 @@ const setup = (initialState = {}) => {
           }
         }
         let wrapper;
+        let instance;
         beforeEach(() => {
-          wrapper = setup(initialState)
+          wrapper = setup(initialState);
+          instance = wrapper.instance();
         })
+
         it('should render `play` button', () => {
           expect(wrapper.find('Button[value="Play"]').length).toBe(1)
 
         });
+
         it('should render `pause` button', () => {
           expect(wrapper.find('Button[value="Pause"]').length).toBe(1)
 
         });
-        it('should call function after click on `play` button', () => {
-          const instance = wrapper.instance();
 
+        it('should call function after click on `play` button', () => {          
           const spyPlay = jest.spyOn(instance, 'playSoundFromFile');
+
           wrapper.instance().forceUpdate()
           wrapper.find('Button[value="Play"]').simulate('click');
+
           expect(spyPlay).toHaveBeenCalled();
         });
-        it('should call function after click on `pause` button', () => {
-          const instance = wrapper.instance();
 
+        it('should call function after click on `pause` button', () => {         
           const spyPause = jest.spyOn(instance, 'pauseSoundFromFile');
+
           wrapper.instance().forceUpdate()
           wrapper.find('Button[value="Pause"]').simulate('click');
+
           expect(spyPause).toHaveBeenCalled();
         });
-        it('should call function after click on `startStreamButton` button', () => {
-          const instance = wrapper.instance();
 
+        it('should call function after click on `startStreamButton` button', () => {          
           const spyPause = jest.spyOn(instance, 'startMuteStream');
+
           wrapper.instance().forceUpdate()
           wrapper.find('Button[value="Start stream"]').simulate('click');
+
           expect(spyPause).toHaveBeenCalled();
         });
       })
@@ -118,25 +124,25 @@ const setup = (initialState = {}) => {
             heightCanvas: 200,
             cxt: {},
             sound: {
-              'pause': () => {
-                console.log('fakePauseMethod')
-              },
-              'play': () => {
-                console.log('fakePlayMethod')
-              },
-              'stop': () => ('fakePauseMethod')
+              'pause': () => (
+                'fakePauseMethod'
+              ),
+              'play': () => (
+                'fakePlayMethod'
+              ),
+              'stop': () => 'fakePauseMethod',
             },
             voice: {
-              'play': () => ('fakePlayMethod'),
-              'stop': () => ('fakeStopMethod'),
-              'pause': () => ('fakePauseMethod'),
-              'connect': () => ('fakeConnectMethod'),
+              'play': () => 'fakePlayMethod',
+              'stop': () => 'fakeStopMethod',
+              'pause': () => 'fakePauseMethod',
+              'connect': () => 'fakeConnectMethod',
             },
             startMuteState: false,
             playPauseState: false,
           },
+        };
 
-        }
         let wrapper;
         let instance
         beforeEach(() => {
@@ -155,6 +161,42 @@ const setup = (initialState = {}) => {
           expect(wrapper.instance().state.ctx).toEqual('fakeCanvas')
         });
 
+        it('will test own method `detectStreamSoundFromMicrophone` with resolved mediaDevices', () => {                             
+          Object.defineProperty(window.navigator, 'mediaDevices', { value: {}, writable: true });
+          Object.defineProperty(window.navigator.mediaDevices, 'getUserMedia', { value: '', writable: true });
+          navigator.mediaDevices.getUserMedia = ()=>Promise.resolve();
+          instance.createSoundStream=jest.fn();
+
+          const testedFunction = instance.detectStreamSoundFromMicrophone;          
+          const spyRendEqul = jest.spyOn(instance, 'createSoundStream');
+
+          testedFunction();          
+          expect(spyRendEqul).toHaveBeenCalled();
+        });
+
+        it('will test own method `detectStreamSoundFromMicrophone` with rejected `getUserMedia`', () => {                             
+          Object.defineProperty(window.navigator, 'mediaDevices', { value: {}, writable: true });
+          Object.defineProperty(window.navigator.mediaDevices, 'getUserMedia', { value: '', writable: true });
+          navigator.mediaDevices.getUserMedia = () => Promise.reject();
+          instance.createSoundStream=jest.fn();
+
+          const testedFunction = instance.detectStreamSoundFromMicrophone; 
+          
+          testedFunction(); 
+                      
+          expect(() => {
+            throw new Error()
+          }).toThrow(); 
+        });
+
+        it('will test own method `detectStreamSoundFromMicrophone` with rejected mediaDevices', () => {                             
+          Object.defineProperty(window.navigator, 'mediaDevices', { value: null, writable: true });
+         
+          const testedFunction = instance.detectStreamSoundFromMicrophone; 
+          
+          expect(testedFunction).toThrow();            
+        });
+
         it('will test own method `playSoundFromFile` which should call action and function', async () => {
           wrapper.setProps({
             playPauseSoundFromFileAsProp: jest.fn(() => ('fakePlayPauseSoundFromFile'))
@@ -167,8 +209,8 @@ const setup = (initialState = {}) => {
           const spyRendEqul = jest.spyOn(instance, 'renderEqualizer');
 
           testedFunction()
-          await expect(spyPlPasSound).toHaveBeenCalled()
-          await expect(spyRendEqul).toHaveBeenCalled()
+          await expect(spyPlPasSound).toHaveBeenCalled();
+          await expect(spyRendEqul).toHaveBeenCalled();
         });
 
         it('will test own method `attachFiltersToSource` which should attech five visible effects to input source', () => {
@@ -406,12 +448,6 @@ const setup = (initialState = {}) => {
           expect(spyRoundedRectdMethod).toHaveBeenCalled();
           expect(spyRenderEqualizer).toHaveBeenCalledTimes(1);
         });
-
-
-
-
-
       });
-
-
     });
+    
