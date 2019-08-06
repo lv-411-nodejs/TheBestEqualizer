@@ -99,12 +99,12 @@ describe('test equalizer', () => {
     });
 
     it('should call function after click on `startStreamButton` button', () => {
-      const spyPause = jest.spyOn(instance, 'startMuteStream');
+      const spyPauseMethod = jest.spyOn(instance, 'startMuteStream');
 
       wrapper.instance().forceUpdate();
       wrapper.find('Button[value="Start stream"]').simulate('click');
 
-      expect(spyPause).toHaveBeenCalled();
+      expect(spyPauseMethod).toHaveBeenCalled();
     });
   });
 
@@ -153,7 +153,7 @@ describe('test equalizer', () => {
       paramForTest.getContext = jest.fn(() => 'fakeCanvas');
 
       testedFunction(paramForTest);
-      expect(wrapper.instance().state.ctx).toEqual('fakeCanvas');
+      expect(instance.state.ctx).toEqual('fakeCanvas');
     });
 
     it('will test own method `detectStreamSoundFromMicrophone` with resolved mediaDevices', () => {
@@ -396,7 +396,7 @@ describe('test equalizer', () => {
       wrapper.setProps({
         playPauseSoundFromFileAsProp: jest.fn(() => 'fakePlayPauseSoundFromFile'),
       });
-      wrapper.instance().forceUpdate();
+      instance.forceUpdate();
 
       const testedFunction = instance.stopSoundFromFile;
       const spyPlPasSound = jest.spyOn(instance.props, 'playPauseSoundFromFileAsProp');
