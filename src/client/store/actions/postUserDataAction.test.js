@@ -19,8 +19,10 @@ jest.mock('axios');
 
 describe('test async post action', () => {
   let mockAxiosPost;
+  let store;
   beforeEach(() => {
     mockAxiosPost = jest.spyOn(axios, 'post');
+    store = mockStore();
     jest.resetAllMocks();
   });
 
@@ -41,13 +43,11 @@ describe('test async post action', () => {
       type: POST_USER_DATA,
       username: 'fakeName',
     },
-    ];
-    const store = mockStore({});
+    ];   
 
     mockAxiosPost.mockImplementationOnce(() => response);
 
     await store.dispatch(postUserData('fakepPath', 'fakeUser', []));
-
     expect(store.getActions()).toEqual(expectedActions);
   });
 
@@ -65,12 +65,10 @@ describe('test async post action', () => {
       type: AUTH_START,
     },
     ];
-    const store = mockStore({});
-
+    
     mockAxiosPost.mockImplementationOnce(() => response);
 
     await store.dispatch(postUserData('fakepPath', 'fakeUser', []));
-
     expect(store.getActions()).toEqual(expectedActions);
   });
 
@@ -95,12 +93,10 @@ describe('test async post action', () => {
         error: 'fakeError',
       },
     ];
-    const store = mockStore({});
-
+    
     mockAxiosPost.mockRejectedValueOnce(response);
 
     await store.dispatch(postUserData('fakepPath', 'fakeUser', []));
-
     expect(store.getActions()).toEqual(expectedActions);
   });
 });
