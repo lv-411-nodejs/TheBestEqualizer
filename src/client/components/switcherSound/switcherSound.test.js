@@ -3,6 +3,7 @@ import { shallow } from 'enzyme';
 import { SwitcherSound } from './switcherSound';
 
 describe('TEST SOUND SWITCHER', () => {
+  let switcherSoundComponent;
   const props = {
     min: 0,
     max: 1,
@@ -10,21 +11,23 @@ describe('TEST SOUND SWITCHER', () => {
     onChange: () => {},
     audioData: { sound: {}, voice: {} },
   };
+
+  beforeEach(() => {
+    switcherSoundComponent = shallow(<SwitcherSound {...props} />);
+  });
+
   it('is render component', () => {
-    const switcherSoundComponent = shallow(<SwitcherSound {...props} />);
     switcherSoundComponent.setState({ volumeValueTrack: 0 });
     expect(switcherSoundComponent).toHaveLength(1);
   });
 
   it('render component correctly', () => {
-    const switcherSoundComponent = shallow(<SwitcherSound {...props} />);
     switcherSoundComponent.setState({ volumeValueTrack: 0 });
     switcherSoundComponent.find('Slider');
     expect(switcherSoundComponent).toMatchSnapshot();
   });
 
   it('should call function after change', () => {
-    const switcherSoundComponent = shallow(<SwitcherSound {...props} />);
     switcherSoundComponent.setState({ volumeValueTrack: 0.8 });
     const instance = switcherSoundComponent.instance();
 
@@ -35,11 +38,7 @@ describe('TEST SOUND SWITCHER', () => {
   });
 
   it('should we return null in getDerivedStateFromProps', () => {
-    const nextProps = {
-      ...props,
-      audioData: { sound: null, voice: {} },
-    };
-    const switcherSoundComponent = shallow(<SwitcherSound {...nextProps} />);
+    switcherSoundComponent.setProps({ audioData: { sound: null, voice: {} } });
     switcherSoundComponent.setState({ volumeValueTrack: 0 });
     expect(switcherSoundComponent).toHaveLength(1);
   });

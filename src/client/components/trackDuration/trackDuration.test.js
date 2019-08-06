@@ -3,6 +3,7 @@ import { shallow } from 'enzyme';
 import { TrackDuration } from './trackDuration';
 
 describe('TEST DURATION SLIDER', () => {
+  let TrackDurationWrapper;
   const props = {
     tooltip: false,
     min: 0,
@@ -31,26 +32,22 @@ describe('TEST DURATION SLIDER', () => {
     onChangeStart: () => {},
     onChange: () => {},
     onChangeComplete: () => {},
+    value: 0,
   };
 
-  it('is render component', () => {
-    const nextProps = {
-      ...props,
-      value: 0,
-    };
-    const TrackDurationWrapper = shallow(<TrackDuration {...nextProps} />);
+  beforeEach(() => {
+    TrackDurationWrapper = shallow(<TrackDuration {...props} />);
+  });
 
+  it('is render component', () => {
     expect(TrackDurationWrapper.find('.DurationContainer')).toHaveLength(1);
   });
 
   it('render component correctly', () => {
-    const TrackDurationWrapper = shallow(<TrackDuration {...props} />);
-
     expect(TrackDurationWrapper).toMatchSnapshot();
   });
 
   it('should call function after change', () => {
-    const TrackDurationWrapper = shallow(<TrackDuration {...props} />);
     const instance = TrackDurationWrapper.instance();
     const spySwitching = jest.spyOn(instance, 'setCurrentTime');
 
@@ -61,7 +58,6 @@ describe('TEST DURATION SLIDER', () => {
   });
 
   it('should song play again if onToggle will false', () => {
-    const TrackDurationWrapper = shallow(<TrackDuration {...props} />);
     const instance = TrackDurationWrapper.instance();
     const spySwitching = jest.spyOn(instance, 'setPlayOnSound');
 
@@ -72,7 +68,6 @@ describe('TEST DURATION SLIDER', () => {
   });
 
   it('should song pause if onToggle will true', () => {
-    const TrackDurationWrapper = shallow(<TrackDuration {...props} />);
     const instance = TrackDurationWrapper.instance();
     const spySwitching = jest.spyOn(instance, 'setPauseOnSound');
 
@@ -83,13 +78,7 @@ describe('TEST DURATION SLIDER', () => {
   });
 
   it('should song stop if current time will more then duration', () => {
-    const nextProps = {
-      ...props,
-      currentDifference: 100,
-      currentTime: 200,
-    };
-
-    const TrackDurationWrapper = shallow(<TrackDuration {...nextProps} />);
+    TrackDurationWrapper.setProps({ currentDifference: 100, currentTime: 200 });
     const instance = TrackDurationWrapper.instance();
     const spySwitching = jest.spyOn(instance, 'calculateCurrentTime');
 
@@ -100,7 +89,7 @@ describe('TEST DURATION SLIDER', () => {
   });
 
   it('should duration from audio Data will assign in state', () => {
-    const nextProps = {
+    TrackDurationWrapper.setProps({
       audioData: {
         sound: {
           sourceNode: {
@@ -111,17 +100,13 @@ describe('TEST DURATION SLIDER', () => {
         },
         voice: {},
       },
-    };
-
-    const TrackDurationWrapper = shallow(<TrackDuration {...nextProps} />);
-
+    });
     TrackDurationWrapper.setState({ startPlayTime: new Date(), loading: false });
 
     expect(TrackDurationWrapper.state().duration).toEqual(200);
   });
 
   it('should time start from zero if we load another song', () => {
-    const TrackDurationWrapper = shallow(<TrackDuration {...props} />);
     const instance = TrackDurationWrapper.instance();
     const spySwitching = jest.spyOn(instance, 'calculateCurrentTime');
 
@@ -133,11 +118,6 @@ describe('TEST DURATION SLIDER', () => {
   });
 
   it('should startPlayTime setting again if song will changed', () => {
-    const nextProps = {
-      ...props,
-    };
-    const TrackDurationWrapper = shallow(<TrackDuration {...nextProps} />);
-
     TrackDurationWrapper.setState({ trackName: 'Song1', currentTime: 0, duration: 200 });
     TrackDurationWrapper.setState({
       trackName: 'Song2', currentTime: 0, duration: 200, timeForTest: new Date(),
