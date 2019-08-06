@@ -3,13 +3,6 @@ import * as Redis from '../helpers/redis';
 import response from '../helpers/errorHandler';
 import { ClientError, ForbiddenError } from '../helpers/error';
 
-const setEnvironmentToRequest = (req, { _refresh, userId, token }) => {
-  req.refresToken = _refresh;
-  req.userId = userId;
-  req.token = token;
-  return req;
-};
-
 const refresTokens = async ({ userId, _refresh: refresh }) => {
   try {
     if (!refresh) {
@@ -43,25 +36,19 @@ const authMiddleware = async (req, res, next) => {
       throw new ForbiddenError('No Token provided');
     }
 
-    setEnvironmentToRequest(req, {
-      ...Token.verify(token),
-      token,
-    });
+    const validTokens = Token.verify(token);
+    req.token = token;
+    req.userId = validTokens.userId;
 
     return next();
   } catch (error) {
     if (error.name === 'TokenExpiredError') {
       try {
-        const decodeTokens = Token.decode(token);
-        const newTokens = await refresTokens(decodeTokens);
+        const decodedTokens = Token.decode(token);
+        const newTokens = await refresTokens(decodedTokens);
 
-        const requestEnvirment = {
-          _refresh: newTokens.refresh,
-          userId: decodeTokens.userId,
-          token: newTokens.access,
-        };
-
-        setEnvironmentToRequest(req, requestEnvirment);
+        req.token = newTokens.access;
+        req.userId = decodedTokens.userId;
 
         return next();
       } catch (err) {
