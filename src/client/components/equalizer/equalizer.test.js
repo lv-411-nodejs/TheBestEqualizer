@@ -81,21 +81,21 @@ describe('test equalizer', () => {
     });
 
     it('should call function after click on `play` button', () => {
-      const spyPlay = jest.spyOn(instance, 'playSoundFromFile');
+      const spyPlayMethod = jest.spyOn(instance, 'playSoundFromFile');
 
       wrapper.instance().forceUpdate();
       wrapper.find('Button[value="Play"]').simulate('click');
 
-      expect(spyPlay).toHaveBeenCalled();
+      expect(spyPlayMethod).toHaveBeenCalled();
     });
 
     it('should call function after click on `pause` button', () => {
-      const spyPause = jest.spyOn(instance, 'pauseSoundFromFile');
+      const spyPauseMethod = jest.spyOn(instance, 'pauseSoundFromFile');
 
       wrapper.instance().forceUpdate();
       wrapper.find('Button[value="Pause"]').simulate('click');
 
-      expect(spyPause).toHaveBeenCalled();
+      expect(spyPauseMethod).toHaveBeenCalled();
     });
 
     it('should call function after click on `startStreamButton` button', () => {
