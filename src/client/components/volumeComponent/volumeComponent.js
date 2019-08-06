@@ -5,48 +5,43 @@ import Slider from 'react-rangeslider';
 import { connect } from 'react-redux';
 import { volumeIcon } from '../../assets/icons/icons';
 
-class VolumeComponent extends Component {
+export class VolumeComponent extends Component {
   state = {
-    volumeValueTrack: 0.25,
-    volumeValueVoice: 0.25,
-    track: null,
-    voice: null,
+    volumeValueSound: 0.25,
+    sound: null,
   };
 
   static getDerivedStateFromProps(props, state) {
     const { audioData: { sound, voice } } = props;
-    const { volumeValueTrack, volumeValueVoice } = state;
+    const { volumeValueSound } = state;
     if (sound && sound.playing) {
-      sound.volume = volumeValueTrack;
-      return { track: sound };
+      sound.volume = volumeValueSound;
+      return { sound };
     }
     if (voice && voice.playing) {
-      voice.volume = volumeValueVoice;
-      return { track: voice };
+      voice.volume = volumeValueSound;
+      return { sound: voice };
     }
     return null;
   }
 
   changeTracksOrVoiceVolume = () => {
     const {
-      volumeValueTrack, volumeValueVoice, track, voice,
+      volumeValueSound, sound,
     } = this.state;
-    if (track) {
-      track.volume = volumeValueTrack;
-    } else if (voice) {
-      voice.volume = volumeValueVoice;
+    if (sound) {
+      sound.volume = volumeValueSound;
     }
   }
 
-  changeVolume = (volumeValueTrack) => {
+  changeVolume = (volumeValueSound) => {
     this.setState({
-      volumeValueTrack: parseFloat(volumeValueTrack.toFixed(2)),
-      volumeValueVoice: parseFloat(volumeValueTrack.toFixed(2)),
+      volumeValueSound: parseFloat(volumeValueSound.toFixed(2)),
     }, () => this.changeTracksOrVoiceVolume());
   }
 
   render() {
-    const { volumeValueTrack } = this.state;
+    const { volumeValueSound } = this.state;
     const minSliderVolume = 0;
     const maxSliderVolume = 0.5;
     const stepSliderVolume = 0.001;
@@ -60,7 +55,7 @@ Volume
           </span>
           <Slider
             className="SwitcherContainer--slider"
-            value={volumeValueTrack}
+            value={volumeValueSound}
             min={minSliderVolume}
             max={maxSliderVolume}
             step={stepSliderVolume}
