@@ -10,16 +10,14 @@ import {
 } from './types';
 
 import {
-  authSuccess,
   postUserData,
-  authStart,
 } from './postUserDataAction';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 jest.mock('axios');
 
-describe('TEST ASYNC POST ACTION', () => {
+describe('test async post action', () => {
   let mockAxiosPost;
   beforeEach(() => {
     mockAxiosPost = jest.spyOn(axios, 'post');
@@ -31,28 +29,26 @@ describe('TEST ASYNC POST ACTION', () => {
       data: {
         username: 'fakeName',
         token: {
-          access: 'fakeToken1234'
-        }
+          access: 'fakeToken1234',
+        },
       },
-      error: 'fakeError'
-    };      
-
+      error: 'fakeError',
+    };
     const expectedActions = [{
-        type: AUTH_START,
-      },
-      {
-        type: POST_USER_DATA,
-        username: 'fakeName',
-      },
+      type: AUTH_START,
+    },
+    {
+      type: POST_USER_DATA,
+      username: 'fakeName',
+    },
     ];
-    
     const store = mockStore({});
 
-    mockAxiosPost.mockImplementationOnce(() => response)
+    mockAxiosPost.mockImplementationOnce(() => response);
 
     await store.dispatch(postUserData('fakepPath', 'fakeUser', []));
 
-    expect(store.getActions()).toEqual(expectedActions);    
+    expect(store.getActions()).toEqual(expectedActions);
   });
 
   it('should dispatch actions `create post user data` which recieve denny access', async () => {
@@ -61,54 +57,51 @@ describe('TEST ASYNC POST ACTION', () => {
         username: 'fakeName',
         token: {
           access: null,
-        }
+        },
       },
-      error: 'fakeError'
-    };      
-
+      error: 'fakeError',
+    };
     const expectedActions = [{
-        type: AUTH_START,
-      },     
+      type: AUTH_START,
+    },
     ];
-    
     const store = mockStore({});
 
-    mockAxiosPost.mockImplementationOnce(() => response)
+    mockAxiosPost.mockImplementationOnce(() => response);
 
     await store.dispatch(postUserData('fakepPath', 'fakeUser', []));
 
-    expect(store.getActions()).toEqual(expectedActions);    
+    expect(store.getActions()).toEqual(expectedActions);
   });
 
   it('should dispatch actions `create post user data` which recieve denny access', async () => {
     const response = {
       response: {
-      data: {
-        username: 'fakeName',
-        token: {
-          access: 'fakeToken1234',
+        data: {
+          username: 'fakeName',
+          token: {
+            access: 'fakeToken1234',
+          },
+          error: 'fakeError',
         },
-        error: 'fakeError',
-      },
-      
-    }};      
 
+      },
+    };
     const expectedActions = [
       {
-              type: AUTH_START,
-            },
-            {
+        type: AUTH_START,
+      },
+      {
         type: AUTH_FAIL,
         error: 'fakeError',
-      },     
+      },
     ];
-    
     const store = mockStore({});
 
-    mockAxiosPost.mockRejectedValueOnce(response)
+    mockAxiosPost.mockRejectedValueOnce(response);
 
     await store.dispatch(postUserData('fakepPath', 'fakeUser', []));
 
-    expect(store.getActions()).toEqual(expectedActions);    
-  }); 
+    expect(store.getActions()).toEqual(expectedActions);
+  });
 });
