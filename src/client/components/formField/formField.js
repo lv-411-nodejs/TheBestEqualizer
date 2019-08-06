@@ -5,8 +5,8 @@ import './formField.css';
 const FormField = ({
   field: { name, label, type }, onInputChange, value, error,
 }) => (
-  <div>
-    <label htmlFor="field" className="label">{label}</label>
+  <div className="formField">
+    <label className="label">{label}</label>
     <div className="field">
       <input onChange={onInputChange} name={name} type={type} value={value} />
     </div>
@@ -18,7 +18,11 @@ FormField.propTypes = {
   onInputChange: PropTypes.func.isRequired,
   value: PropTypes.string.isRequired,
   error: PropTypes.string,
-  field: PropTypes.instanceOf(Object).isRequired,
+  field: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+}).isRequired,
 };
 
 export default FormField;

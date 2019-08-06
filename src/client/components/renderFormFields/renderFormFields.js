@@ -17,7 +17,13 @@ const RenderFormFields = ({
 );
 
 RenderFormFields.propTypes = {
-  fieldsToRender: PropTypes.instanceOf(Array).isRequired,
+  fieldsToRender: PropTypes.arrayOf(
+    PropTypes.shape({
+          name: PropTypes.string.isRequired,
+          label: PropTypes.string.isRequired,
+          type: PropTypes.string.isRequired,
+      })
+  ).isRequired,
   onInputChange: PropTypes.func.isRequired,
   userData: PropTypes.instanceOf(Object).isRequired,
   validationErrors: PropTypes.instanceOf(Object),

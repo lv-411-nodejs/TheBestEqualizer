@@ -7,9 +7,9 @@ export const authStart = () => ({
   type: actionTypes.AUTH_START,
 });
 
-export const authSuccess = username => ({
+export const authSuccess = error => ({
   type: actionTypes.POST_USER_DATA,
-  username,
+  error,
 });
 
 export const authFail = error => ({
@@ -23,14 +23,14 @@ export const postUserData = (path, newUser, history) => async (dispatch) => {
     const response = await axios.post(`${baseUrl}${path}`, newUser);
     const { data: { username, token: { access } } } = response;
     if (access) {
-      dispatch(authSuccess(username));
+      dispatch(authSuccess(null));
       localStorage.setItem('_token', access);
       localStorage.setItem('username', username);
       history.push('/main');
     }
-    return username;
+    return;
   } catch ({ response: { data: { error } } }) {
-    dispatch(authFail('Authentification was failed', error));
+    dispatch(authFail(error));
     return error;
   }
 };

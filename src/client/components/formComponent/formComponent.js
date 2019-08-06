@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import RenderFormFields from '../renderFormFields';
 import Button from '../button';
@@ -7,7 +6,7 @@ import Spinner from '../../assets/images/spinner.gif';
 import './formComponent.css';
 
 const FormComponent = props => (
-  <form onSubmit={props.onFormSubmit} className="form-body" autoComplete="off">
+  <div className="form-body" autoComplete="off">
     <RenderFormFields
       fieldsToRender={props.fieldsToRender}
       onInputChange={props.onInputChange}
@@ -16,13 +15,14 @@ const FormComponent = props => (
     />
     <div className="field">
       <Button
+        onClick={props.onFormSubmit}
         className="submit"
         value={props.loading ? <img src={Spinner} alt="Authentication spinner" /> : 'Submit'}
         type="submit"
         disabled={props.loading ? 'disabled' : null}
       />
     </div>
-  </form>
+  </div>
 );
 
 FormComponent.propTypes = {
@@ -34,8 +34,4 @@ FormComponent.propTypes = {
   loading: PropTypes.bool.isRequired,
 };
 
-const mapStateToProps = state => ({
-  loading: state.authStatus.loading,
-});
-
-export default connect(mapStateToProps)(FormComponent);
+export default FormComponent;
