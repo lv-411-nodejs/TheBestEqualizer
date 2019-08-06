@@ -31,8 +31,8 @@ describe('test async post action', () => {
         token: {
           access: 'fakeToken1234',
         },
+        error: 'fakeError',
       },
-      error: 'fakeError',
     };
     const expectedActions = [{
       type: AUTH_START,
@@ -58,8 +58,8 @@ describe('test async post action', () => {
         token: {
           access: null,
         },
+        error: 'fakeError',
       },
-      error: 'fakeError',
     };
     const expectedActions = [{
       type: AUTH_START,
@@ -84,7 +84,6 @@ describe('test async post action', () => {
           },
           error: 'fakeError',
         },
-
       },
     };
     const expectedActions = [
