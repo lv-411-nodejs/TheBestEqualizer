@@ -74,7 +74,7 @@ describe('test async post action', () => {
     expect(store.getActions()).toEqual(expectedActions);
   });
 
-  it('should dispatch actions `create post user data` which recieve denny access', async () => {
+  it('should dispatch actions `create post user data` which call exception', async () => {
     const response = {
       response: {
         data: {
