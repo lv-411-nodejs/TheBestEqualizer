@@ -21,24 +21,18 @@ class OneSlider extends Component {
     };
   }
 
-  setEffectsValue = (blockName, effectsName, value) => this.props.blocksData.forEach((
-    {
-      name,
-      effects,
-      createEffect,
-    },
-  ) => {
-    if (name === blockName) {
-      effects[effectsName] = value;
-      createEffect[effectsName] = effects[effectsName];
+  componentDidUpdate(prevProps) {
+    const { value } = this.props.effectValues;
+    if (value !== prevProps.effectValues.value) {
+      this.setState({ sliderValue: parseFloat(value.toFixed(2)) });
     }
-  });
+  }
 
   setEffectsValue = (sliderValue) => {
     const { blocksData, blockName, effectName } = this.props;
     blocksData.forEach(({ name, effects, createEffect }) => {
       if (name === blockName) {
-        effects[effectName].value = sliderValue;
+        effects[effectName].value = parseFloat(sliderValue.toFixed(2));
         createEffect[effectName] = effects[effectName].value;
       }
     });
@@ -71,7 +65,7 @@ class OneSlider extends Component {
 
 OneSlider.propTypes = {
   value: PropTypes.number,
-  blocksData: PropTypes.instanceOf(Array).isRequired,
+  blocksData: PropTypes.instanceOf(Array),
   blockName: PropTypes.string,
   effectName: PropTypes.string,
   effectValues: PropTypes.instanceOf(Object),
@@ -80,5 +74,6 @@ OneSlider.propTypes = {
 const mapStateToProps = state => ({
   blocksData: state.blocksData,
 });
+
 
 export default connect(mapStateToProps)(OneSlider);

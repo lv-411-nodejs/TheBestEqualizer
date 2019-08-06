@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import {
-  setVisibility,
-} from '../../store/actions/blocksActions';
+import { setVisibility } from '../../store/actions/blocksActions';
 import BlockOfSliders from '../blockOfSliders';
 import { checkTickIcon } from '../../assets/icons/icons';
 import './alllBlocks.css';
@@ -19,12 +17,12 @@ class AllBlocks extends Component {
           isVisible ? audioData.voice.removeEffect(createEffect)
             : audioData.voice.addEffect(createEffect);
         } else {
-          isVisible ? audioData.sound.removeEffect(createEffect)
-            : audioData.sound.addEffect(createEffect);
+          isVisible ? audioData.sound && audioData.sound.removeEffect(createEffect)
+            : audioData.sound && audioData.sound.addEffect(createEffect);
         }
       }
     });
-  }
+  };
 
   render() {
     const { blocksData } = this.props;

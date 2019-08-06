@@ -5,15 +5,17 @@ import { PropTypes } from 'prop-types';
 import { logoutIcon } from '../../assets/icons/icons';
 import './logout.css';
 import Button from '../button';
+import { clearAudioDataState } from '../../store/actions/audioActions';
 
 class Logout extends Component {
     SignOut = () => {
-      const { sound, voice } = this.props.audioData;
-      const { history } = this.props;
+      const { history, clearAudioDataStateAsProp, audioData: { sound, voice } } = this.props;
       if (sound) {
         sound.stop();
         voice.stop();
       }
+      clearAudioDataStateAsProp();
+      localStorage.clear();
       history.push('/');
     }
 
@@ -32,10 +34,13 @@ class Logout extends Component {
 Logout.propTypes = {
   history: PropTypes.instanceOf(Object).isRequired,
   audioData: PropTypes.instanceOf(Object).isRequired,
+  clearAudioDataStateAsProp: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
   audioData: state.audioData,
 });
 
-export default connect(mapStateToProps)(withRouter(Logout));
+export default connect(mapStateToProps, {
+  clearAudioDataStateAsProp: clearAudioDataState,
+})(withRouter(Logout));

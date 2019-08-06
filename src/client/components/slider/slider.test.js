@@ -1,14 +1,15 @@
+import React from 'react';
+import { shallow, configure, mount } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
+import { Provider } from 'react-redux';
+import toJson from 'enzyme-to-json';
+import configureMockStore from 'redux-mock-store';
 import Pizzicato from 'pizzicato';
-import {
-  SET_VISIBILITY,
-  SET_ROCK_PRESET,
-  SET_JAZZ_PRESET,
-  SET_POP_PRESET,
-  SET_USER_PRESET,
-  SET_DEFAULT_PRESET,
-} from '../actions/types';
+import OneSlider from './slider';
 
-const initialState = [
+configure({ adapter: new Adapter() });
+const mockStore = configureMockStore();
+const blocksData = [
   {
     name: 'Delay',
     effects: {
@@ -398,38 +399,71 @@ const initialState = [
     isVisible: false,
   },
 ];
+const store = mockStore({ blocksData });
 
-export default function (state = initialState, action) {
-  const {
-    blockName,
-    jazzPresetArray,
-    rockPresetArray,
-    popPresetArray,
-    userPresetArray,
-  } = action;
+jest.mock('pizzicato', () => {
+  const mockPizzicato = jest.fn(() => 'Pizzicato');
+  mockPizzicato.Effects = jest.fn(() => 'Effects');
+  const effects = ['Delay', 'PingPongDelay', 'DubDelay', 'Distortion', 'Quadrafuzz', 'Flanger',
+    'Reverb', 'Tremolo', 'StereoPanner', 'Compressor', 'LowPassFilter', 'HighPassFilter', 'RingModulator'];
+  effects.forEach((effect) => {
+    mockPizzicato.Effects[effect] = jest.fn(() => ({ effect: () => {} }));
+  });
+  return {
+    __esModule: true,
+    default: mockPizzicato,
+  };
+});
 
-  switch (action.type) {
-    case SET_DEFAULT_PRESET: {
-      return initialState;
-    }
-    case SET_JAZZ_PRESET: {
-      return jazzPresetArray;
-    }
-    case SET_ROCK_PRESET: {
-      return rockPresetArray;
-    }
-    case SET_POP_PRESET: {
-      return popPresetArray;
-    }
-    case SET_USER_PRESET: {
-      return userPresetArray;
-    }
-    case SET_VISIBILITY:
-      return state.map(block => (block.name === blockName
-        ? { ...block, isVisible: !block.isVisible }
-        : block));
 
-    default:
-      return state;
-  }
-}
+describe('<OneSlider />', () => {
+  const props = {
+    blockName: 'Delay',
+    effectName: 'feedback',
+    effectValues: {
+      value: 0,
+      minValue: 0,
+      maxValue: 1,
+      step: 0.01,
+    },
+  };
+
+  it('loads pressets', () => {
+    const wrapper = mount(
+      <Provider store={store}>
+        <OneSlider {...props} />
+      </Provider>,
+    );
+    const newProps = {
+      effectValues: {
+        value: 0.5,
+        minValue: 0,
+        maxValue: 1,
+        step: 0.01,
+      },
+    };
+    wrapper.setProps({ children: <OneSlider {...newProps} /> });
+    wrapper.update();
+    expect(wrapper.find('OneSlider').instance().state.sliderValue).toEqual(0.5);
+  });
+
+  it('should change value on slider', () => {
+    const wrapper = mount(
+      <Provider store={store}>
+        <OneSlider {...props} />
+      </Provider>,
+    ).find('OneSlider');
+    wrapper.instance().setEffectsValue(0.3);
+    expect(wrapper.instance().state.sliderValue).toEqual(0.3);
+  });
+
+  it('matches snapshot', () => {
+    const wrapper = shallow(
+      <Provider store={store}>
+        <OneSlider {...props} />
+      </Provider>,
+    ).dive();
+
+    expect(toJson(wrapper)).toMatchSnapshot();
+  });
+});
