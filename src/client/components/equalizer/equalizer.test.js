@@ -83,7 +83,7 @@ describe('test equalizer', () => {
     it('should call function after click on `play` button', () => {
       const spyPlayMethod = jest.spyOn(instance, 'playSoundFromFile');
 
-      wrapper.instance().forceUpdate();
+      instance.forceUpdate();
       wrapper.find('Button[value="Play"]').simulate('click');
 
       expect(spyPlayMethod).toHaveBeenCalled();
@@ -92,7 +92,7 @@ describe('test equalizer', () => {
     it('should call function after click on `pause` button', () => {
       const spyPauseMethod = jest.spyOn(instance, 'pauseSoundFromFile');
 
-      wrapper.instance().forceUpdate();
+      instance.forceUpdate();
       wrapper.find('Button[value="Pause"]').simulate('click');
 
       expect(spyPauseMethod).toHaveBeenCalled();
@@ -101,7 +101,7 @@ describe('test equalizer', () => {
     it('should call function after click on `startStreamButton` button', () => {
       const spyPauseMethod = jest.spyOn(instance, 'startMuteStream');
 
-      wrapper.instance().forceUpdate();
+      instance.forceUpdate();
       wrapper.find('Button[value="Start stream"]').simulate('click');
 
       expect(spyPauseMethod).toHaveBeenCalled();
@@ -148,7 +148,7 @@ describe('test equalizer', () => {
 
     it('will test own method `setCanvasToState` which should set in state reference on canvas element', () => {
       const paramForTest = document.createElement('canvas');
-      const testedFunction = wrapper.instance().setCanvasToState;
+      const testedFunction = instance.setCanvasToState;
 
       paramForTest.getContext = jest.fn(() => 'fakeCanvas');
 
@@ -333,7 +333,7 @@ describe('test equalizer', () => {
     });
 
     it('will test own method `pauseSoundFromFile` which should call action and function (tested if statement)', async () => {
-      wrapper.instance().renderEqualizer = jest.fn();
+      instance.renderEqualizer = jest.fn();
       wrapper.setProps({
         audioData: {
           ...initialState.audioData,
@@ -370,7 +370,7 @@ describe('test equalizer', () => {
         },
         playPauseSoundFromFileAsProp: jest.fn(() => 'fakePlayPauseSoundFromFile'),
       });
-      wrapper.instance().forceUpdate();
+      instance.forceUpdate();
 
       const testedFunction = instance.stopSoundFromFile;
       const spyPlPasSound = jest.spyOn(instance.props, 'playPauseSoundFromFileAsProp');
