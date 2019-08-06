@@ -1,11 +1,6 @@
 import Pizzicato from 'pizzicato';
 import {
   SET_VISIBILITY,
-  SET_ROCK_PRESET,
-  SET_JAZZ_PRESET,
-  SET_POP_PRESET,
-  SET_USER_PRESET,
-  SET_DEFAULT_PRESET,
 } from '../actions/types';
 
 const initialState = [
@@ -120,7 +115,7 @@ const initialState = [
     createEffect: new Pizzicato.Effects.Distortion({
       gain: 0,
     }),
-    isVisible: false,
+    isVisible: true,
   },
   {
     name: 'Quadrafuzz',
@@ -163,7 +158,7 @@ const initialState = [
       highGain: 0,
       mix: 0,
     }),
-    isVisible: true,
+    isVisible: false,
   },
   {
     name: 'Flanger',
@@ -264,7 +259,7 @@ const initialState = [
       depth: 0,
       mix: 0,
     }),
-    isVisible: false,
+    isVisible: true,
   },
   {
     name: 'Stereo panner',
@@ -279,7 +274,7 @@ const initialState = [
     createEffect: new Pizzicato.Effects.StereoPanner({
       pan: 0,
     }),
-    isVisible: true,
+    isVisible: false,
   },
   {
     name: 'Compressor',
@@ -400,30 +395,9 @@ const initialState = [
 ];
 
 export default function (state = initialState, action) {
-  const {
-    blockName,
-    jazzPresetArray,
-    rockPresetArray,
-    popPresetArray,
-    userPresetArray,
-  } = action;
+  const { blockName } = action;
 
   switch (action.type) {
-    case SET_DEFAULT_PRESET: {
-      return initialState;
-    }
-    case SET_JAZZ_PRESET: {
-      return jazzPresetArray;
-    }
-    case SET_ROCK_PRESET: {
-      return rockPresetArray;
-    }
-    case SET_POP_PRESET: {
-      return popPresetArray;
-    }
-    case SET_USER_PRESET: {
-      return userPresetArray;
-    }
     case SET_VISIBILITY:
       return state.map(block => (block.name === blockName
         ? { ...block, isVisible: !block.isVisible }

@@ -92,7 +92,7 @@ export default class ApiController {
   }
 
   static getEffectsHandler(req, res) {
-    const { title } = req.query;
+    const { title } = req.body;
     const { userId } = req;
     User
       .findOne({ _id: userId })
@@ -103,19 +103,6 @@ export default class ApiController {
         } else {
           response(res, 'Preset with this title is not found', 404);
         }
-      })
-      .catch(err => response(res, err.message, 404));
-  }
-
-  static getUserTitles(req, res) {
-    const { userId } = req;
-    User
-      .findOne({ _id: userId })
-      .then(({ effects }) => {
-        const titles = effects.map(effect => effect.title);
-        return res.status(200).json({
-          userPresets: titles,
-        });
       })
       .catch(err => response(res, err.message, 404));
   }

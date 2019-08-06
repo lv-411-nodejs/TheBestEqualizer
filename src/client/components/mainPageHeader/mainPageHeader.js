@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { userIcon } from '../../assets/icons/icons';
-import logo from '../../assets/images/logo.svg';
+import logo from './logo.svg';
 import Logout from '../logout';
 import './mainPageHeader.css';
 

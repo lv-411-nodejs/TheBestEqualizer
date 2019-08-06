@@ -3,6 +3,7 @@ import axios from 'axios';
 const getTokens = () => localStorage.getItem('_token') || false;
 
 const fetchRequest = axios.create({
+  timeout: 1000,
   headers: { 'Content-Type': 'application/json' },
 });
 
