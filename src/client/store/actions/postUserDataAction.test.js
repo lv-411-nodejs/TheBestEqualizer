@@ -43,7 +43,7 @@ describe('test async post action', () => {
       type: POST_USER_DATA,
       username: 'fakeName',
     },
-    ];   
+    ];
 
     mockAxiosPost.mockImplementationOnce(() => response);
 
@@ -65,7 +65,7 @@ describe('test async post action', () => {
       type: AUTH_START,
     },
     ];
-    
+
     mockAxiosPost.mockImplementationOnce(() => response);
 
     await store.dispatch(postUserData('fakepPath', 'fakeUser', []));
@@ -93,7 +93,7 @@ describe('test async post action', () => {
         error: 'fakeError',
       },
     ];
-    
+
     mockAxiosPost.mockRejectedValueOnce(response);
 
     await store.dispatch(postUserData('fakepPath', 'fakeUser', []));
