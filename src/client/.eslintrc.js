@@ -46,6 +46,7 @@ module.exports = {
     ],
     "import/prefer-default-export": "off",
     'react/no-did-update-set-state': 0,
+    "import/no-named-as-default": 0,
     "react/no-access-state-in-setstate": 0,
     "no-unused-expressions": ["error", { "allowTernary": true, "allowShortCircuit": true }]
   },
