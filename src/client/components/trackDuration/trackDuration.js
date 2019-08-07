@@ -158,6 +158,7 @@ export class TrackDuration extends Component {
 
 TrackDuration.propTypes = {
   audioData: PropTypes.instanceOf(Object).isRequired,
+  playPauseSoundFromFileAsProp: PropTypes.instanceOf(Object).isRequired,
 };
 
 const mapStateToProps = state => ({
