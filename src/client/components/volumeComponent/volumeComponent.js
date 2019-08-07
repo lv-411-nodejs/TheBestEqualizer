@@ -7,7 +7,7 @@ import { volumeIcon } from '../../assets/icons/icons';
 
 export class VolumeComponent extends Component {
   state = {
-    volumeValueSound: 0.5,
+    volumeValueSound: 0.25,
     sound: null,
   };
 
