@@ -9,7 +9,7 @@ const Routers = () => (
   <BrowserRouter>
     <Switch>
       <Route path="/" exact component={ConnectedAuthentication} />
-      <Route path="/main" component={CheckAuth(Main, history)} />
+      <Route path="/main" component={CheckAuth(Main)} />
     </Switch>
   </BrowserRouter>
 );
