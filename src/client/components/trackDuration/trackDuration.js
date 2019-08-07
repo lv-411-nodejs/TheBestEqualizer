@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import VolumeComponent from '../volumeComponent/volumeComponent';
 import SwitcherSound from '../switcherSound/switcherSound';
 
-class TrackDuration extends Component {
+export class TrackDuration extends Component {
     state = {
       duration: null,
       currentTime: null,

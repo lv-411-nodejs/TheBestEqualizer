@@ -9,12 +9,17 @@ const createSoundInfoInState = (sound, file, props) => {
   });
 };
 
-const attachFiltersToSource = (sourceInput, blocksData) => blocksData.forEach((
-  {
-    createEffect,
-    isVisible,
-  },
-) => isVisible && sourceInput.addEffect(createEffect));
+export const attachFiltersToSource = (sourceInput, blocksData) => sourceInput
+  && blocksData.forEach((
+    {
+      createEffect,
+      isVisible,
+    },
+  ) => isVisible && sourceInput.addEffect(createEffect));
+
+export const removeSourceFilters = (sourceInput, blocksData) => sourceInput
+&& blocksData.forEach(({ createEffect, isVisible }) => isVisible
+  && sourceInput.removeEffect(createEffect));
 
 const removeSoundFilters = (props) => {
   const { audioData: { sound }, playPauseSoundFromFileAsProp } = props;
