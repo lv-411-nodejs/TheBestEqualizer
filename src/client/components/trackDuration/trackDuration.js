@@ -70,15 +70,15 @@ export class TrackDuration extends Component {
         (currentTime.getTime() - this.state.startPlayTime.getTime()) / 1000,
       );
       const { audioData: { sound }, playPauseSoundFromFileAsProp } = this.props;
-      if (this.state.currentTime >= this.state.duration) {
+      if (currentDifference !== this.state.currentTime && this.state.playing) {
+        this.setState({ currentTime: currentDifference });
+      } else if (this.state.currentTime >= this.state.duration) {
         sound.stop();
         playPauseSoundFromFileAsProp();
         this.setState({
           currentTime: 0,
           playing: false,
         });
-      } else if (currentDifference !== this.state.currentTime && this.state.playing) {
-        this.setState({ currentTime: currentDifference });
       } else {
         setTimeout(this.calculateCurrentTime, 1000);
       }
