@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import FormComponent from '../../components/formComponent';
 import { fieldsInfo } from '../../helpers/constants';
 import { formValidation } from '../../helpers/formValidation';
-import { postUserData } from '../../store/actions/postUserDataAction';
+import { postUserData, authFail } from '../../store/actions/postUserDataAction';
 import authImage from '../../assets/images/authImage.png';
 import './authentication.css';
 
@@ -15,13 +15,13 @@ export class Authentication extends Component {
       validationErrors: {},
     };
 
-    static getDerivedStateFromProps(props){
-      if(props.error){
+    static getDerivedStateFromProps(props) {
+      if (props.error) {
         return {
-          validationErrors: props.error
-        } 
+          validationErrors: props.error,
+        };
       }
-      return null
+      return null;
     }
 
     onInputChange = ({ target: { name, value } }) => {
@@ -33,6 +33,7 @@ export class Authentication extends Component {
     onLinkClick = () => {
       const { isMember } = this.state;
       this.setState({ isMember: !isMember, userData: {}, validationErrors: {} });
+      this.props.authFailAction(null);
     };
 
     onFormSubmit = () => {
@@ -44,31 +45,34 @@ export class Authentication extends Component {
         onAuth(path, data, history);
       } else {
         this.setState({ validationErrors: validationRes });
-      };
+      }
     };
 
-    isMemberInfo = (info=[]) => {
-      const { userData: {username, email, password, passwordConfirmation},
-             isMember } = this.state;
-      if(isMember){
+    isMemberInfo = (info = []) => {
+      const {
+        userData: {
+          username, email, password, passwordConfirmation,
+        },
+        isMember,
+      } = this.state;
+      if (isMember) {
         return {
           fildsToRender: info.filter(el => isMember === el.isMember),
           formTitle: 'Login',
           message: 'Dont have an account? Register!',
           path: '/login',
           data: { email, password },
-        }
-      } else {
-        return {
-          fildsToRender: info,
-          formTitle: 'Registration',
-          message: 'Already have an account? Login!',
-          path: '/registration',
-          data: {
-            username, email, password, passwordConfirmation,
-          },
-        }
+        };
       }
+      return {
+        fildsToRender: info,
+        formTitle: 'Registration',
+        message: 'Already have an account? Login!',
+        path: '/registration',
+        data: {
+          username, email, password, passwordConfirmation,
+        },
+      };
     }
 
     render() {
@@ -107,15 +111,18 @@ export class Authentication extends Component {
 Authentication.propTypes = {
   history: PropTypes.instanceOf(Object).isRequired,
   onAuth: PropTypes.func,
+  loading: PropTypes.bool,
+  authFailAction: PropTypes.func,
 };
 
 const mapDispatchToProps = {
   onAuth: postUserData,
+  authFailAction: authFail,
 };
 
 const mapStateToProps = state => ({
   loading: state.authStatus.loading,
-  error: state.authStatus.error
+  error: state.authStatus.error,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Authentication);

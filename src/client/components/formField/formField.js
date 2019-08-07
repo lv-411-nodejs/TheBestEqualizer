@@ -6,7 +6,7 @@ const FormField = ({
   field: { name, label, type }, onInputChange, value, error,
 }) => (
   <div className="formField">
-    <label className="label">{label}</label>
+    <label htmlFor="field" className="label">{label}</label>
     <div className="field">
       <input onChange={onInputChange} name={name} type={type} value={value} />
     </div>
@@ -22,7 +22,7 @@ FormField.propTypes = {
     name: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
-}).isRequired,
+  }).isRequired,
 };
 
 export default FormField;
