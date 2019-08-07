@@ -58,7 +58,7 @@ const mapStateToProps = state => ({
 
 PresetsDropdownSelector.propTypes = {
   blocksData: PropTypes.instanceOf(Array),
- // audioData: PropTypes.instanceOf(Object),
+  // audioData: PropTypes.instanceOf(Object),
   presetsData: PropTypes.instanceOf(Array),
   setPresetValue: PropTypes.func,
   addNewPresetsFromDB: PropTypes.func,
