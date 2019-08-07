@@ -1,11 +1,6 @@
 import React from 'react';
-import Enzyme, { shallow } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
-import toJson from 'enzyme-to-json';
-
+import { shallow } from 'enzyme';
 import ToggleZone from './toggleZone';
-
-Enzyme.configure({ adapter: new Adapter() });
 
 describe('Toggle Zone Component', () => {
   let wrapper;
@@ -19,7 +14,7 @@ describe('Toggle Zone Component', () => {
   });
 
   it('should render ToggleZone component properly', () => {
-    expect(toJson(wrapper)).toMatchSnapshot();
+    expect(wrapper).toMatchSnapshot();
   });
 
   it('should handle onClick action on ToggleZone button', () => {
