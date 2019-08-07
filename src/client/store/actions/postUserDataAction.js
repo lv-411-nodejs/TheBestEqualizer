@@ -30,7 +30,7 @@ export const postUserData = (path, newUser, history) => async (dispatch) => {
     }
     return username;
   } catch ({ response: { data: { error } } }) {
-    dispatch(authFail('Authentification was failed', error));
+    dispatch(authFail(error));
     return error;
   }
 };
