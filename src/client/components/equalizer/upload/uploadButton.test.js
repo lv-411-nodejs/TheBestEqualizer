@@ -42,7 +42,7 @@ describe('test `infoAboutUploadFile` component', () => {
   });
 
   it('should render component properly', () => {
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.debug()).toMatchSnapshot();
   });
 
   it('should handle event change on input element', () => {
