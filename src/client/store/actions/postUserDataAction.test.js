@@ -13,6 +13,27 @@ import {
   postUserData,
 } from './postUserDataAction';
 
+jest.mock('pizzicato', () => {
+  const mockPizzicato = jest.fn();
+  mockPizzicato.context = jest.fn(() => ({}));
+  mockPizzicato.context.createAnalyser = jest.fn(() => 'analyser');
+  mockPizzicato.Effects = jest.fn(() => {});
+  const effects = ['Delay', 'PingPongDelay', 'DubDelay', 'Distortion', 'Quadrafuzz', 'Flanger',
+    'Reverb', 'Tremolo', 'StereoPanner', 'Compressor', 'LowPassFilter', 'HighPassFilter', 'RingModulator',
+  ];
+  effects.forEach((effect, el) => {
+    mockPizzicato.Effects[effect] = jest.fn(() => function Effect() {
+      return {
+        effect: () => (`fakeEffect${el}`),
+      };
+    });
+  });
+  return {
+    __esModule: true,
+    default: mockPizzicato,
+  };
+});
+
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 jest.mock('axios');
@@ -33,7 +54,6 @@ describe('test async post action', () => {
         token: {
           access: 'fakeToken1234',
         },
-        error: 'fakeError',
       },
     };
     const expectedActions = [{
@@ -41,7 +61,7 @@ describe('test async post action', () => {
     },
     {
       type: POST_USER_DATA,
-      username: 'fakeName',
+      error: null,
     },
     ];
 
