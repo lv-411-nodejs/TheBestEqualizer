@@ -36,7 +36,6 @@ describe('render Auth', () => {
   let wrapper;
   beforeEach(() => {
     wrapper = shallow(<Authentication {...defaultProps} />);
-    return wrapper;
   });
 
   describe('render <Auth />', () => {

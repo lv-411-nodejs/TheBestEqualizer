@@ -20,7 +20,6 @@ describe('testing render', () => {
   let wrapper;
   beforeEach(() => {
     wrapper = shallow(<FormComponent {...defaultProps} />);
-    return wrapper;
   });
   it('should render FormComponent properly', () => {
     expect(wrapper.debug()).toMatchSnapshot();

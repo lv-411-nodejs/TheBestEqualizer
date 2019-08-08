@@ -24,7 +24,6 @@ describe('testing render', () => {
 
   beforeEach(() => {
     wrapper = shallow(<FormField {...defaultProps} />);
-    return wrapper;
   });
   it('should render formField properly', () => {
     expect(wrapper.debug()).toMatchSnapshot();
