@@ -8,7 +8,7 @@ import ConnectedAuthentication from './containers/authentication/authentication'
 const Routers = () => (
   <BrowserRouter>
     <Switch>
-      <Route path="/" exact component={ConnectedAuthentication} />
+      <Route path="/" exact component={CheckAuth(ConnectedAuthentication)} />
       <Route path="/main" component={CheckAuth(Main)} />
     </Switch>
   </BrowserRouter>

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import FormComponent from '../../components/formComponent';
@@ -125,4 +126,4 @@ const mapStateToProps = state => ({
   error: state.authStatus.error,
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Authentication);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Authentication));
