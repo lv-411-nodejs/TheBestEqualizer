@@ -29,6 +29,6 @@ describe('Grafic equaliser', () => {
                             ...nextProps
                         }
     />);
-    expect(nextContainer).toMatchSnapshot();
+    expect(nextContainer.debug()).toMatchSnapshot();
   });
 });

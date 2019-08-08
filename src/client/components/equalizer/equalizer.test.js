@@ -51,7 +51,7 @@ describe('test equalizer', () => {
       };
 
       const wrapper = setup(initialState);
-      expect(wrapper).toMatchSnapshot();
+      expect(wrapper.instance()).toMatchSnapshot();
     });
   });
 
