@@ -36,7 +36,6 @@ class SavePressetesModalWindow extends Component {
         addNewPresetFromInput(valueFromPresetInput);
         return { savePresetStatusMessage: response.data.success };
       }))
-
       .catch(({ response }) => {
         this.setState(() => ({ savePresetStatusMessage: response.data.error }));
       });
