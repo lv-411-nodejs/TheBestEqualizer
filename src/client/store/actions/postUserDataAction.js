@@ -1,15 +1,14 @@
 import axios from 'axios';
 import * as actionTypes from './types';
-
-const baseUrl = 'http://localhost:8080';
+import { HOST } from '../../helpers/constants';
 
 export const authStart = () => ({
   type: actionTypes.AUTH_START,
 });
 
-export const authSuccess = username => ({
+export const authSuccess = error => ({
   type: actionTypes.POST_USER_DATA,
-  username,
+  error,
 });
 
 export const authFail = error => ({
@@ -20,17 +19,17 @@ export const authFail = error => ({
 export const postUserData = (path, newUser, history) => async (dispatch) => {
   try {
     dispatch(authStart());
-    const response = await axios.post(`${baseUrl}${path}`, newUser);
+    const response = await axios.post(`${HOST}${path}`, newUser);
     const { data: { username, token: { access } } } = response;
     if (access) {
-      dispatch(authSuccess(username));
+      dispatch(authSuccess(null));
       localStorage.setItem('_token', access);
       localStorage.setItem('username', username);
       history.push('/main');
     }
     return username;
   } catch ({ response: { data: { error } } }) {
-    dispatch(authFail('Authentification was failed', error));
+    dispatch(authFail(error));
     return error;
   }
 };

@@ -36,8 +36,13 @@ export class VolumeComponent extends Component {
 
   changeVolume = (volumeValueSound) => {
     this.setState({
-      volumeValueSound: parseFloat(volumeValueSound.toFixed(2)),
+      volumeValueSound: parseFloat(volumeValueSound),
     }, () => this.changeTracksOrVoiceVolume());
+  }
+
+  formatValue = (volumeValueSound) => {
+    const numberForFormatingVolume = 200;
+    return Math.round(volumeValueSound * numberForFormatingVolume);
   }
 
   render() {
@@ -56,6 +61,7 @@ Volume
           <Slider
             className="SwitcherContainer--slider"
             value={volumeValueSound}
+            format={this.formatValue}
             min={minSliderVolume}
             max={maxSliderVolume}
             step={stepSliderVolume}

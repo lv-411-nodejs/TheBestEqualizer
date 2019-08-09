@@ -18,7 +18,7 @@ const redisClient = redis.createClient({
 });
 
 redisClient.on('error', err => console.log(`Redis error -> ${err}`));
-redisClient.on('connect', () => process.env.DEV_MODE && console.log('redis connected '));
+redisClient.on('connect', () => process.env.DEV_MODE && console.log('redis connected ', process.env.REDIS_URL));
 
 function injectMethod(method, methodArgs) {
   return new Promise((resolve, reject) => {

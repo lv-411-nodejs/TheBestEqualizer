@@ -6,6 +6,7 @@ import Slider from 'react-rangeslider';
 import { connect } from 'react-redux';
 import VolumeComponent from '../volumeComponent/volumeComponent';
 import SwitcherSound from '../switcherSound/switcherSound';
+import { playPauseSoundFromFile } from '../../store/actions/audioActions';
 
 export class TrackDuration extends Component {
     state = {
@@ -68,18 +69,16 @@ export class TrackDuration extends Component {
       const currentDifference = Math.round(
         (currentTime.getTime() - this.state.startPlayTime.getTime()) / 1000,
       );
-      const { audioData: { sound } } = this.props;
-      if (this.state.currentTime >= this.state.duration) {
+      const { audioData: { sound }, playPauseSoundFromFileAsProp } = this.props;
+      if (currentDifference !== this.state.currentTime && this.state.playing) {
+        this.setState({ currentTime: currentDifference });
+      } else if (this.state.currentTime >= this.state.duration) {
         sound.stop();
-        sound.playing = false;
-        sound.paused = true;
+        playPauseSoundFromFileAsProp();
         this.setState({
           currentTime: 0,
           playing: false,
         });
-      } else if (currentDifference !== this.state.currentTime && this.state.playing) {
-        this.setState({ currentTime: currentDifference },
-          () => this.calculateCurrentTime());
       } else {
         setTimeout(this.calculateCurrentTime, 1000);
       }
@@ -159,10 +158,13 @@ export class TrackDuration extends Component {
 
 TrackDuration.propTypes = {
   audioData: PropTypes.instanceOf(Object).isRequired,
+  playPauseSoundFromFileAsProp: PropTypes.instanceOf(Object).isRequired,
 };
 
 const mapStateToProps = state => ({
   audioData: state.audioData,
 });
 
-export default connect(mapStateToProps)(TrackDuration);
+export default connect(mapStateToProps, {
+  playPauseSoundFromFileAsProp: playPauseSoundFromFile,
+})(TrackDuration);

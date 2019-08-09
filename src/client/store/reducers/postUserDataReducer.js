@@ -2,14 +2,13 @@ import * as actionTypes from '../actions/types';
 import { updateObject } from '../../helpers/utility';
 
 const initialState = {
-  username: null,
   loading: false,
   error: null,
 };
 
 const authStart = state => updateObject(state, { loading: true });
 const authSuccess = (state, action) => updateObject(state,
-  { username: action.username, loading: false });
+  { error: action.error, loading: false });
 const authFail = (state, action) => updateObject(state,
   { error: action.error, loading: false });
 
