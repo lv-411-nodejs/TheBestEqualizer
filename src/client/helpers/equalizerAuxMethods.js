@@ -45,8 +45,8 @@ export const uploadSoundInfoFromFile = (eventFromInputFile, props) => {
   startCreationAudioDataAsProp && startCreationAudioDataAsProp();
   const [file] = eventFromInputFile.length ? eventFromInputFile : eventFromInputFile.target.files;
   const fileName = file.name;
-  const ext = fileName.substring((fileName.lastIndexOf('.')) + 1);
-  if (ext === 'mp3') {
+  const fileExtension = fileName.substring((fileName.lastIndexOf('.')) + 1);
+  if (fileExtension === 'mp3') {
     const audioFile = new Audio(URL.createObjectURL(file));
     const sound = new Pizzicato.Sound({
       source: 'file',
