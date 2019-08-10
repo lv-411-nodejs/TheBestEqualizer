@@ -13,6 +13,7 @@ const effectsSchema = new Schema({
   },
   presets: [{
     name: String,
+    isVisible: Boolean,
     effects: {
       attack: Object,
       cutoff: Object,

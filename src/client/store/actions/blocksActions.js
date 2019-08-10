@@ -17,7 +17,7 @@ import {
 
 export const setVisibility = blockName => ({ type: SET_VISIBILITY, blockName });
 
-export const setPresetValue = (chosenPresetName, blocksData) => (dispatch) => {
+export const setPresetValue = (chosenPresetName, blocksData) => async (dispatch) => {
   switch (chosenPresetName) {
     case 'Default':
       dispatch({
@@ -37,22 +37,34 @@ export const setPresetValue = (chosenPresetName, blocksData) => (dispatch) => {
       });
       break;
     case 'Pop':
+        console.log(POP_PRESET_ARRAY);
       dispatch({
         type: SET_POP_PRESET,
         popPresetArray: POP_PRESET_ARRAY,
       });
       break;
     default:
-      fetchRequest
+      const response = await fetchRequest
         .get(`${HOST}/effects`, { params: { title: chosenPresetName } })
-        .then((response) => {
-          const userPresetArray = blocksData.map((effectFromStore, i) => (
-            { ...effectFromStore, effects: response.data.presets[i].effects }
-          ));
-          dispatch({
-            type: SET_USER_PRESET,
-            userPresetArray,
-          });
+      const userPresetArray = blocksData.map((effectFromStore, i) => {
+        const { effects, createEffect } = effectFromStore;
+        const eff = { ...effects };
+        Object.keys(effects).forEach(effectsName => {
+          eff[effectsName].value = response.data.presets[i].effects[effectsName].value;
         });
+        // const ceff = { ...createEffect };
+        Object.keys(effects).forEach(effectsName => {
+          effects[effectsName].value = response.data.presets[i].effects[effectsName].value;
+          createEffect[effectsName] = response.data.presets[i].effects[effectsName].value;
+        });
+        // const f = { ...response.data.presets[i] };
+        // console.log(f);
+        return { ...effectFromStore, effects: { ...eff }, isVisible: response.data.presets[i].isVisible };
+      });
+      console.log(userPresetArray);
+      dispatch({
+        type: SET_USER_PRESET,
+        userPresetArray,
+      });
   }
 };

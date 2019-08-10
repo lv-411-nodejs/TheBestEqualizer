@@ -410,6 +410,7 @@ export default function (state = initialState, action) {
 
   switch (action.type) {
     case SET_DEFAULT_PRESET: {
+      console.log(initialState);
       return initialState;
     }
     case SET_JAZZ_PRESET: {

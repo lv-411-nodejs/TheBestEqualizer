@@ -15,22 +15,18 @@ class PresetsDropdownSelector extends Component {
       .then(response => addNewPresetsFromDB(response.data.userPresets));
   }
 
-  // componentDidUpdate(prevProps) {
-  //   const { blocksData, audioData } = this.props;
-  //   if (audioData.trackName !== null && blocksData !== prevProps.blocksData) {
-  //     const prevBlocksData = prevProps.blocksData;
-  //     prevBlocksData.forEach(({ createEffect }) => {
-  //       audioData.sound.removeEffect(createEffect);
-  //     });
-  //     blocksData.forEach(({ createEffect, isVisible }) => {
-  //       isVisible && audioData.sound.addEffect(createEffect);
-  //     });
-  //   }
-  // }
-
-  handleSelectorChange = (event) => {
-    const { setPresetValue, blocksData } = this.props;
-    setPresetValue(event.target.value, blocksData);
+  handleSelectorChange = async (event) => {
+    const { setPresetValue, blocksData, audioData } = this.props;
+    if (audioData.sound) {
+      blocksData.forEach(({ createEffect, isVisible }) => {
+        isVisible && audioData.sound.removeEffect(createEffect);
+      });
+      await setPresetValue(event.target.value, blocksData);
+      const { blocksData: newBlocksData } = this.props;
+      newBlocksData.forEach(({ createEffect, isVisible }) => {
+        isVisible && audioData.sound.addEffect(createEffect);
+      });
+    }
   };
 
   render() {
@@ -58,7 +54,7 @@ const mapStateToProps = state => ({
 
 PresetsDropdownSelector.propTypes = {
   blocksData: PropTypes.instanceOf(Array),
-  // audioData: PropTypes.instanceOf(Object),
+  audioData: PropTypes.instanceOf(Object),
   presetsData: PropTypes.instanceOf(Array),
   setPresetValue: PropTypes.func,
   addNewPresetsFromDB: PropTypes.func,
