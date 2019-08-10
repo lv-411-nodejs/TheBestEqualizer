@@ -16,7 +16,7 @@ class Logout extends Component {
       }
       clearAudioDataStateAsProp();
       localStorage.clear();
-      history.push('/');
+      window.location = '/';
     }
 
     render() {

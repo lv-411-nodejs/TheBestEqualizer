@@ -49,17 +49,21 @@ export const setPresetValue = (chosenPresetName, blocksData) => async (dispatch)
       const userPresetArray = blocksData.map((effectFromStore, i) => {
         const { effects, createEffect } = effectFromStore;
         const eff = { ...effects };
-        Object.keys(effects).forEach(effectsName => {
-          eff[effectsName].value = response.data.presets[i].effects[effectsName].value;
-        });
-        // const ceff = { ...createEffect };
+        
+        const ceff = { ...createEffect };
+        
+        // let ff = Object.keys(effects).map(effectsName => {
+        //   сeff[effectsName] = response.data.presets[i].effects[effectsName].value;
+        //   return { ...ceff };
+        // });
+        // console.log(ff);
         Object.keys(effects).forEach(effectsName => {
           effects[effectsName].value = response.data.presets[i].effects[effectsName].value;
           createEffect[effectsName] = response.data.presets[i].effects[effectsName].value;
         });
         // const f = { ...response.data.presets[i] };
         // console.log(f);
-        return { ...effectFromStore, effects: { ...eff }, isVisible: response.data.presets[i].isVisible };
+        return { ...effectFromStore, effects: { ...eff }, createEffect: { ...ceff }, isVisible: response.data.presets[i].isVisible };
       });
       console.log(userPresetArray);
       dispatch({
