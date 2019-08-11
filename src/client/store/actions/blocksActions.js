@@ -17,7 +17,7 @@ import {
 
 export const setVisibility = blockName => ({ type: SET_VISIBILITY, blockName });
 
-export const setPresetValue = (chosenPresetName, blocksData) => async (dispatch) => {
+export const setPresetValue = (chosenPresetName) => async (dispatch) => {
   switch (chosenPresetName) {
     case 'Default':
       dispatch({
@@ -37,7 +37,6 @@ export const setPresetValue = (chosenPresetName, blocksData) => async (dispatch)
       });
       break;
     case 'Pop':
-        console.log(POP_PRESET_ARRAY);
       dispatch({
         type: SET_POP_PRESET,
         popPresetArray: POP_PRESET_ARRAY,
@@ -45,27 +44,8 @@ export const setPresetValue = (chosenPresetName, blocksData) => async (dispatch)
       break;
     default:
       const response = await fetchRequest
-        .get(`${HOST}/effects`, { params: { title: chosenPresetName } })
-      const userPresetArray = blocksData.map((effectFromStore, i) => {
-        const { effects, createEffect } = effectFromStore;
-        const eff = { ...effects };
-        
-        const ceff = { ...createEffect };
-        
-        // let ff = Object.keys(effects).map(effectsName => {
-        //   сeff[effectsName] = response.data.presets[i].effects[effectsName].value;
-        //   return { ...ceff };
-        // });
-        // console.log(ff);
-        Object.keys(effects).forEach(effectsName => {
-          effects[effectsName].value = response.data.presets[i].effects[effectsName].value;
-          createEffect[effectsName] = response.data.presets[i].effects[effectsName].value;
-        });
-        // const f = { ...response.data.presets[i] };
-        // console.log(f);
-        return { ...effectFromStore, effects: { ...eff }, createEffect: { ...ceff }, isVisible: response.data.presets[i].isVisible };
-      });
-      console.log(userPresetArray);
+        .get(`${HOST}/effects`, { params: { title: chosenPresetName } });
+        const { data: { presets:  userPresetArray}} = response;
       dispatch({
         type: SET_USER_PRESET,
         userPresetArray,

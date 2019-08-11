@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import fetchRequest from '../../helpers/fetchRequest';
-import { HOST } from '../../helpers/constants';
+import { HOST, createEffect } from '../../helpers/constants';
 import { setPresetValue } from '../../store/actions/blocksActions';
 import { addNewPresetsFromDB } from '../../store/actions/presetsAction';
 
@@ -18,13 +18,17 @@ class PresetsDropdownSelector extends Component {
   handleSelectorChange = async (event) => {
     const { setPresetValue, blocksData, audioData } = this.props;
     if (audioData.sound) {
-      blocksData.forEach(({ createEffect, isVisible }) => {
-        isVisible && audioData.sound.removeEffect(createEffect);
+      blocksData.forEach(({ name, isVisible }) => {
+        isVisible && audioData.sound.removeEffect(createEffect[name]);
       });
       await setPresetValue(event.target.value, blocksData);
       const { blocksData: newBlocksData } = this.props;
-      newBlocksData.forEach(({ createEffect, isVisible }) => {
-        isVisible && audioData.sound.addEffect(createEffect);
+      newBlocksData.forEach(({ name, isVisible, effects}) => {
+        let newPreset = createEffect[name];
+        Object.keys(effects).map((effectName)=>{
+          newPreset[effectName] = effects[effectName];
+        });
+        isVisible && audioData.sound.addEffect(newPreset);
       });
     }
   };
