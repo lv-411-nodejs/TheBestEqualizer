@@ -35,7 +35,7 @@ class SavePressetesModalWindow extends Component {
         }
       })
     });
-    console.log(dataToSend);
+    
     try {
       const response = await fetchRequest.post(`${HOST}/effects`, {
         title: valueFromPresetInput,
