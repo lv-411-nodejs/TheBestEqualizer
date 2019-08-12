@@ -1,6 +1,7 @@
 import fetchRequest from '../../helpers/fetchRequest';
 import {
   HOST,
+  DEFAULT_PRESET_ARRAY,
   JAZZ_PRESET_ARRAY,
   ROCK_PRESET_ARRAY,
   POP_PRESET_ARRAY,
@@ -22,6 +23,7 @@ export const setPresetValue = (chosenPresetName) => async (dispatch) => {
     case 'Default':
       dispatch({
         type: SET_DEFAULT_PRESET,
+        defaultPresetArray: DEFAULT_PRESET_ARRAY,
       });
       break;
     case 'Jazz':

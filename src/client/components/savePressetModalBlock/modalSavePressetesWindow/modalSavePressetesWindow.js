@@ -26,21 +26,20 @@ class SavePressetesModalWindow extends Component {
 
     const closeModalTimeout = 1500;
     const event = new MouseEvent('click');
-    let dataToSend = []
-    currentValueOfFilters.forEach((preset) => {
-      let {effects} = preset;
-      Object.keys(effects).forEach((effect) => {
-        if(effects[effect] !== 0){
-          dataToSend.push(preset);
-        }
-      })
-    });
+    // let dataToSend = []
+    // currentValueOfFilters.forEach((preset) => {
+    //   let {effects} = preset;
+    //   Object.keys(effects).forEach((effect) => {
+    //     if(effects[effect] !== 0){
+    //       dataToSend.push(preset);
+    //     }
+    //   })
+    // });
     
     try {
       const response = await fetchRequest.post(`${HOST}/effects`, {
         title: valueFromPresetInput,
-        presets: dataToSend,
-        isVisible: true,
+        presets: currentValueOfFilters,
       });
       if(response) {
         await this.setState({savePresetStatusMessage: response.data.success});

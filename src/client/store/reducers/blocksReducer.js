@@ -131,6 +131,7 @@ const initialState = [
 export default function (state = initialState, action) {
   const {
     blockName,
+    defaultPresetArray,
     jazzPresetArray,
     rockPresetArray,
     popPresetArray,
@@ -139,7 +140,7 @@ export default function (state = initialState, action) {
 
   switch (action.type) {
     case SET_DEFAULT_PRESET: {
-      return initialState;
+      return defaultPresetArray;
     }
     case SET_JAZZ_PRESET: {
       return jazzPresetArray;
