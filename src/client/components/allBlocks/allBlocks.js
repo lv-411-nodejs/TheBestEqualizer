@@ -14,7 +14,7 @@ class AllBlocks extends Component {
     setVisibility(filterName);
     blocksData.forEach(({ isVisible, name }) => {
       if (filterName === name) {
-        if (audioData.onToggle) {
+        if (audioData.filtersToggler) {
           isVisible ? audioData.voice.removeEffect(createEffect[name])
             : audioData.voice.addEffect(createEffect[name]);
         } else {

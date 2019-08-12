@@ -23,7 +23,7 @@ class PresetsDropdownSelector extends Component {
       Object.keys(effects).forEach((effectName) => {
         newPreset[effectName] = effects[effectName];
       });
-      isVisible && source.addEffect(newPreset);
+      source && isVisible && source.addEffect(newPreset);
     });
   }
 
