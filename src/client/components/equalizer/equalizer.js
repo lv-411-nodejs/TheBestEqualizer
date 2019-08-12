@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Pizzicato from 'pizzicato';
 import PropTypes from 'prop-types';
+import { createEffect } from '../../helpers/constants'
 import { connect } from 'react-redux';
 import GraphicEqualiser from './canvasEqualizer';
 import DragAndDrop from '../dragAndDrop';
@@ -119,18 +120,24 @@ class Equalizer extends Component {
   }
 
   removeSoundFilters = () => {
-    this.props.blocksData.forEach(({ createEffect, isVisible }) => isVisible
-      && this.props.audioData.sound.removeEffect(createEffect));
+    this.props.blocksData.forEach(({ name, isVisible }) => isVisible
+      && this.props.audioData.sound.removeEffect(createEffect[name]));
     this.props.audioData.sound.disconnect();
     delete this.props.audioData.sound;
   };
 
-  attachFiltersToSource = sourceInput => this.props.blocksData.forEach((
-    {
-      createEffect,
+  attachFiltersToSource = sourceInput => this.props.blocksData.forEach(({
+      name,
       isVisible,
-    },
-  ) => isVisible && sourceInput.addEffect(createEffect));
+      effects,
+    }) => {
+      const newPreset = createEffect[name];
+      Object.keys(effects).forEach((effectName) => {
+        newPreset[effectName] = effects[effectName];
+      });
+      isVisible && sourceInput.addEffect(newPreset);
+    });
+    
 
   startMuteStream = async () => {
     const {
