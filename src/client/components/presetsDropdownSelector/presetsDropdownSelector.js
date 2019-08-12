@@ -5,6 +5,7 @@ import fetchRequest from '../../helpers/fetchRequest';
 import { HOST, createEffect } from '../../helpers/constants';
 import { setPresetValue } from '../../store/actions/blocksActions';
 import { addNewPresetsFromDB } from '../../store/actions/presetsAction';
+import { removeSourceFilters } from '../../helpers/equalizerAuxMethods';
 
 import './presetsDropdownSelector.css';
 
@@ -15,21 +16,27 @@ class PresetsDropdownSelector extends Component {
       .then(response => addNewPresetsFromDB(response.data.userPresets));
   }
 
+  applyFilters = (source) => {
+    const { blocksData } = this.props;
+    blocksData.forEach(({ name, isVisible, effects }) => {
+      const newPreset = createEffect[name];
+      Object.keys(effects).forEach((effectName) => {
+        newPreset[effectName] = effects[effectName];
+      });
+      isVisible && source.addEffect(newPreset);
+    });
+  }
+
   handleSelectorChange = async (event) => {
-    const { setPresetValue, blocksData, audioData } = this.props;
-    if (audioData.sound) {
-      blocksData.forEach(({ name, isVisible }) => {
-        isVisible && audioData.sound.removeEffect(createEffect[name]);
-      });
+    const { setPresetValue, blocksData, audioData: { voice, sound, filterToggler } } = this.props;
+    if (filterToggler) {
+      removeSourceFilters(voice, blocksData);
       await setPresetValue(event.target.value, blocksData);
-      const { blocksData: newBlocksData } = this.props;
-      newBlocksData.forEach(({ name, isVisible, effects}) => {
-        let newPreset = createEffect[name];
-        Object.keys(effects).map((effectName)=>{
-          newPreset[effectName] = effects[effectName];
-        });
-        isVisible && audioData.sound.addEffect(newPreset);
-      });
+      this.applyFilters(voice);
+    } else {
+      removeSourceFilters(sound, blocksData);
+      await setPresetValue(event.target.value, blocksData);
+      this.applyFilters(sound);
     }
   };
 

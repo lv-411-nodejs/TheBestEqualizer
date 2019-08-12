@@ -1,5 +1,5 @@
 import Pizzicato from 'pizzicato';
-import { createEffect } from '../helpers/constants';
+import { createEffect } from './constants';
 
 const createSoundInfoInState = (sound, file, props) => {
   const { audioData: { analyser } } = props;
