@@ -7,8 +7,8 @@ import { uploadSoundInfoFromFile } from '../../helpers/equalizerAuxMethods';
 
 import './dragAndDrop.css';
 
-const dragAndDrop = (props) => {
-  const maxSize = 1000000000;
+const DragAndDrop = (props) => {
+  const maxSize = 10000000;
   return (
     <div className="container">
       <Dropzone
@@ -33,7 +33,7 @@ const dragAndDrop = (props) => {
   );
 };
 
-dragAndDrop.propTypes = {
+DragAndDrop.propTypes = {
   createAudioDataAsProp: PropTypes.func.isRequired,
   playPauseSoundFromFileAsProp: PropTypes.func.isRequired,
   audioData: PropTypes.instanceOf(Object).isRequired,
@@ -49,4 +49,4 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps, {
   createAudioDataAsProp: createAudioData,
   playPauseSoundFromFileAsProp: playPauseSoundFromFile,
-})(dragAndDrop);
+})(DragAndDrop);

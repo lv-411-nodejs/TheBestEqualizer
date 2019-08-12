@@ -23,7 +23,7 @@ class AllBlocks extends Component {
         }
       }
     });
-  }
+  };
 
   render() {
     const { blocksData } = this.props;

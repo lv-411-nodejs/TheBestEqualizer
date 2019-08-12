@@ -5,16 +5,25 @@ import PropTypes from 'prop-types';
 import FormComponent from '../../components/formComponent';
 import { fieldsInfo } from '../../helpers/constants';
 import { formValidation } from '../../helpers/formValidation';
-import { postUserData } from '../../store/actions/postUserDataAction';
+import { postUserData, authFail } from '../../store/actions/postUserDataAction';
 import authImage from '../../assets/images/authImage.png';
 import './authentication.css';
 
-class Authentication extends Component {
+export class Authentication extends Component {
     state = {
       isMember: true,
       userData: {},
       validationErrors: {},
     };
+
+    static getDerivedStateFromProps(props) {
+      if (props.error) {
+        return {
+          validationErrors: props.error,
+        };
+      }
+      return null;
+    }
 
     onInputChange = ({ target: { name, value } }) => {
       const userData = { ...this.state.userData };
@@ -25,46 +34,51 @@ class Authentication extends Component {
     onLinkClick = () => {
       const { isMember } = this.state;
       this.setState({ isMember: !isMember, userData: {}, validationErrors: {} });
+      this.props.authFailAction(null);
     };
 
-    onFormSubmit = async (submit) => {
-      submit.preventDefault();
-      const { userData, isMember } = this.state;
+    onFormSubmit = () => {
       const { history, onAuth } = this.props;
-      const { data, path } = this.isMemberInfo([], isMember, userData);
+      const { data, path } = this.isMemberInfo();
       const validationRes = formValidation(data);
 
       if (Object.keys(validationRes).length === 0) {
-        const serverError = await onAuth(path, data, history);
-        if (typeof serverError === 'object') {
-          this.setState({ validationErrors: serverError });
-        }
+        onAuth(path, data, history);
       } else {
         this.setState({ validationErrors: validationRes });
       }
     };
 
-    isMemberInfo = (info, status, {
-      username, email, password, passwordConfirmation,
-    }) => (status ? {
-      fildsToRender: info.filter(el => status === el.isMember),
-      formTitle: 'Login',
-      message: 'Dont have an account? Register!',
-      path: '/login',
-      data: { email, password },
-    } : {
-      fildsToRender: info,
-      formTitle: 'Registration',
-      message: 'Already have an account? Login!',
-      path: '/registration',
-      data: {
-        username, email, password, passwordConfirmation,
-      },
-    });
+    isMemberInfo = (info = []) => {
+      const {
+        userData: {
+          username, email, password, passwordConfirmation,
+        },
+        isMember,
+      } = this.state;
+      if (isMember) {
+        return {
+          fildsToRender: info.filter(el => isMember === el.isMember),
+          formTitle: 'Login',
+          message: 'Dont have an account? Register!',
+          path: '/login',
+          data: { email, password },
+        };
+      }
+      return {
+        fildsToRender: info,
+        formTitle: 'Registration',
+        message: 'Already have an account? Login!',
+        path: '/registration',
+        data: {
+          username, email, password, passwordConfirmation,
+        },
+      };
+    }
 
     render() {
-      const { isMember, userData, validationErrors } = this.state;
-      const { fildsToRender, formTitle, message } = this.isMemberInfo(fieldsInfo, isMember, {});
+      const { userData, validationErrors } = this.state;
+      const { fildsToRender, formTitle, message } = this.isMemberInfo(fieldsInfo);
       return (
         <div className="authentication">
           <img
@@ -81,6 +95,7 @@ class Authentication extends Component {
               onFormSubmit={this.onFormSubmit}
               userData={userData}
               validationErrors={validationErrors}
+              loading={this.props.loading}
             />
             <input
               type="button"
@@ -97,10 +112,18 @@ class Authentication extends Component {
 Authentication.propTypes = {
   history: PropTypes.instanceOf(Object).isRequired,
   onAuth: PropTypes.func,
+  loading: PropTypes.bool,
+  authFailAction: PropTypes.func,
 };
 
 const mapDispatchToProps = {
   onAuth: postUserData,
+  authFailAction: authFail,
 };
 
-export default connect(null, mapDispatchToProps)(withRouter(Authentication));
+const mapStateToProps = state => ({
+  loading: state.authStatus.loading,
+  error: state.authStatus.error,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Authentication));

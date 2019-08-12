@@ -8,6 +8,10 @@ dotenv.config();
 const { SECRET } = process.env;
 const tokenLife = process.env.TOKEN_LIFE || '30m';
 
+export const verify = token => jwt.verify(token, SECRET);
+
+export const decode = token => jwt.decode(token);
+
 /**
  *
  * @param {object} payload { userId }

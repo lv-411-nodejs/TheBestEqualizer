@@ -46,7 +46,7 @@ const registerUser = async (req, res) => {
       tokens = await generateTokens({ userId: user._id });
     }
 
-    return res.status(201).json({ token: tokens });
+    return res.status(201).json({ username: savedUser.username, token: tokens });
   } catch (error) {
     return response(res, error.message, 404);
   }
@@ -70,7 +70,7 @@ const loginUser = async (req, res) => {
 
     const tokens = await generateTokens({ userId: user._id });
 
-    return res.status(200).json({ token: tokens });
+    return res.status(200).json({ username: user.username, token: tokens });
   } catch (error) {
     return response(res, error.message, 404);
   }
