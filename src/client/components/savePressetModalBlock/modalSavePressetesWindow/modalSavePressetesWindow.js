@@ -26,28 +26,20 @@ class SavePressetesModalWindow extends Component {
 
     const closeModalTimeout = 1500;
     const event = new MouseEvent('click');
-    // let dataToSend = []
-    // currentValueOfFilters.forEach((preset) => {
-    //   let {effects} = preset;
-    //   Object.keys(effects).forEach((effect) => {
-    //     if(effects[effect] !== 0){
-    //       dataToSend.push(preset);
-    //     }
-    //   })
-    // });
-    
+
     try {
       const response = await fetchRequest.post(`${HOST}/effects`, {
         title: valueFromPresetInput,
         presets: currentValueOfFilters,
       });
-      if(response) {
-        await this.setState({savePresetStatusMessage: response.data.success});
+      if (response) {
+        await this.setState({ savePresetStatusMessage: response.data.success });
         setTimeout(() => showHideModalBlock(event), closeModalTimeout);
         addNewPresetFromInput(valueFromPresetInput);
       }
-    } catch (error) {
-      this.setState({savePresetStatusMessage: response.data.error});
+    } catch ({ response }) {
+      console.log(response);
+      this.setState({ savePresetStatusMessage: response.data.message });
     }
   }
 

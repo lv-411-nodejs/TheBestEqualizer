@@ -16,8 +16,8 @@
     "lint:client-fix": "./node_modules/.bin/eslint ./src/client --fix",
     "lint:server": "./node_modules/.bin/eslint ./src/server",
     "lint:server-fix": "./node_modules/.bin/eslint ./src/server --fix",
-    "heroku-prebuild": "npm install --dev",
-    "heroku-app": "webpack-dev-server --port $PORT --host 0.0.0.0 --mode development --devtool inline-source-map --hot --open"
+    "heroku-prebuild": "npm install --dev & npm run build:client",
+    "heroku-app": "npm run dev:server"
   },
   "author": "Lv 411",
   "license": "ISC",

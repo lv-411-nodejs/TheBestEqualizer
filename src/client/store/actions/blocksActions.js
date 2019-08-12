@@ -1,3 +1,5 @@
+/* eslint no-case-declarations: "error" */
+
 import fetchRequest from '../../helpers/fetchRequest';
 import {
   HOST,
@@ -18,7 +20,7 @@ import {
 
 export const setVisibility = blockName => ({ type: SET_VISIBILITY, blockName });
 
-export const setPresetValue = (chosenPresetName) => async (dispatch) => {
+export const setPresetValue = chosenPresetName => async (dispatch) => {
   switch (chosenPresetName) {
     case 'Default':
       dispatch({
@@ -44,13 +46,14 @@ export const setPresetValue = (chosenPresetName) => async (dispatch) => {
         popPresetArray: POP_PRESET_ARRAY,
       });
       break;
-    default:
+    default: {
       const response = await fetchRequest
         .get(`${HOST}/effects`, { params: { title: chosenPresetName } });
-        const { data: { presets:  userPresetArray}} = response;
+      const { data: { presets: userPresetArray } } = response;
       dispatch({
         type: SET_USER_PRESET,
         userPresetArray,
       });
+    }
   }
 };

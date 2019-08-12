@@ -1,21 +1,23 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import './filterToggler.css';
+import { filterHandler } from '../../store/actions/audioActions';
 import { attachFiltersToSource, removeSourceFilters } from '../../helpers/equalizerAuxMethods';
 
 export const FilterToggler = (props) => {
-  const [toggler, setToggler] = useState(false);
   const {
     audioData: {
       voice,
       sound,
+      filtersToggler,
     },
     blocksData,
+    filterHandlerAsProp,
   } = props;
   const onToggler = () => {
-    setToggler(!toggler);
-    if (toggler) {
+    filterHandlerAsProp();
+    if (filtersToggler) {
       removeSourceFilters(voice, blocksData);
       attachFiltersToSource(sound, blocksData);
     } else {
@@ -41,6 +43,7 @@ FilterToggler.propTypes = {
   blocksData: PropTypes.instanceOf(Array).isRequired,
   voice: PropTypes.instanceOf(Object),
   sound: PropTypes.instanceOf(Object),
+  filterHandlerAsProp: PropTypes.func,
 };
 
 const mapStateToProps = state => ({
@@ -48,4 +51,4 @@ const mapStateToProps = state => ({
   blocksData: state.blocksData,
 });
 
-export default connect(mapStateToProps)(FilterToggler);
+export default connect(mapStateToProps, { filterHandlerAsProp: filterHandler })(FilterToggler);

@@ -15,7 +15,7 @@ const BlockOfSliders = ({ name, effects }) => (
         <OneSlider
           blockName={name}
           effectName={effect}
-          effectValues={{...efValues[name][effect], value: effects[effect]}}
+          effectValues={{ ...efValues[name][effect], value: effects[effect] }}
           key={effect}
         />
       ))
