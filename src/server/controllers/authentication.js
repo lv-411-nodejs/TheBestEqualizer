@@ -36,7 +36,9 @@ const registerUser = async (req, res) => {
     const emailTaken = await User.findOne({ email });
 
     if (emailTaken) {
-      throw new ClientError('User with this email already exists!');
+      res.status(400).json({
+        error: { email: 'User with this email already exists!' },
+      });
     }
 
     const savedUser = await user.save();
@@ -59,13 +61,17 @@ const loginUser = async (req, res) => {
     const user = await User.findOne({ email });
 
     if (!user) {
-      throw new ClientError('User not exist');
+      res.status(400).json({
+        error: { email: 'User not found!' },
+      });
     }
 
     const verifiedPassword = await user.verifyPassword(password);
 
     if (!verifiedPassword) {
-      throw new ClientError('Wrong password', 404);
+      res.status(400).json({
+        error: { password: 'Wrong password' },
+      });
     }
 
     const tokens = await generateTokens({ userId: user._id });
