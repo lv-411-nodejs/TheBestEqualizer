@@ -66,7 +66,7 @@ class OneSlider extends Component {
 
 OneSlider.propTypes = {
   value: PropTypes.number,
-  blocksData: PropTypes.instanceOf(Array).isRequired,
+  blocksData: PropTypes.instanceOf(Array),
   blockName: PropTypes.string,
   effectName: PropTypes.string,
   effectValues: PropTypes.instanceOf(Object),
@@ -75,5 +75,6 @@ OneSlider.propTypes = {
 const mapStateToProps = state => ({
   blocksData: state.blocksData,
 });
+
 
 export default connect(mapStateToProps)(OneSlider);

@@ -45,16 +45,20 @@ export const uploadSoundInfoFromFile = (eventFromInputFile, props) => {
   } = props;
   startCreationAudioDataAsProp && startCreationAudioDataAsProp();
   const [file] = eventFromInputFile.length ? eventFromInputFile : eventFromInputFile.target.files;
-  const audioFile = new Audio(URL.createObjectURL(file));
-  const sound = new Pizzicato.Sound({
-    source: 'file',
-    options: {
-      path: audioFile.src,
-      loop: true,
-    },
-  }, () => {
-    storeSound && removeSoundFilters(props);
-    !onToggle && attachFiltersToSource(sound, blocksData);
-    createSoundInfoInState(sound, file, props);
-  });
+  const fileName = file.name;
+  const fileExtension = fileName.substring((fileName.lastIndexOf('.')) + 1);
+  if (fileExtension === 'mp3') {
+    const audioFile = new Audio(URL.createObjectURL(file));
+    const sound = new Pizzicato.Sound({
+      source: 'file',
+      options: {
+        path: audioFile.src,
+        loop: true,
+      },
+    }, () => {
+      storeSound && removeSoundFilters(props);
+      !onToggle && attachFiltersToSource(sound, blocksData);
+      createSoundInfoInState(sound, file, props);
+    });
+  }
 };

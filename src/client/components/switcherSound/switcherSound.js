@@ -4,7 +4,7 @@ import './switcherSound.css';
 import Slider from 'react-rangeslider';
 import { connect } from 'react-redux';
 
-class SwitcherSound extends Component {
+export class SwitcherSound extends Component {
   state = {
     volumeValueTrack: 0.5,
     volumeValueVoice: 0.5,
