@@ -7,7 +7,8 @@
 
 import User from '../models/user';
 import response from '../helpers/errorHandler';
-import { NotFoundError, ClientError } from '../helpers/error';
+
+const aproximateValidatorError = message => message.substr(message.lastIndexOf(':') + 1);
 
 const getEffectsList = async (req, res) => {
   const { title } = req.query;
@@ -18,7 +19,9 @@ const getEffectsList = async (req, res) => {
     const findedEffect = effects.find(effect => effect.title === title);
 
     if (!findedEffect) {
-      throw new NotFoundError('Preset with this title is not found');
+      res.status(404).json({
+        error: 'Preset with this title is not found!',
+      });
     }
 
     return res.status(200).json(findedEffect);
@@ -38,12 +41,18 @@ const saveEffect = async (req, res) => {
 
     const result = await User.findOneAndUpdate(filterExpression, updateExpression, config);
     if (!result) {
-      throw new ClientError('Effect with this title already exists', 404);
+      res.status(400).json({
+        error: 'Effect with this title already exists',
+      });
     }
 
     return res.status(201).json({ success: 'The preset have been saved', token });
   } catch (error) {
-    return response(res, error.message, error.code);
+    return response(
+      res,
+      aproximateValidatorError(error.message),
+      error.code,
+    );
   }
 };
 
@@ -57,7 +66,9 @@ const deleteEffect = async (req, res) => {
     const result = await User.findOneAndUpdate(filterExpression, updateExpression);
 
     if (!result) {
-      throw new ClientError('Effect with this title is not found', 401);
+      res.status(404).json({
+        error: 'Effect with this title is not found',
+      });
     }
 
     return res.status(200).json('The preset have been deleted');
@@ -68,15 +79,18 @@ const deleteEffect = async (req, res) => {
 
 const getUserTitles = async (req, res) => {
   try {
-    const { userId } = req;
+    const { userId, token } = req;
     const { effects } = await User.findOne({ _id: userId });
 
     if (!effects) {
-      throw new NotFoundError('Effect not found');
+      res.status(404).json({
+        error: 'Effect not found',
+      });
     }
 
     return res.status(200).json({
       userPresets: effects.map(effect => effect.title),
+      token,
     });
   } catch (error) {
     return response(res, error.message, error.code);
