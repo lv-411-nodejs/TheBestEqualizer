@@ -7,6 +7,7 @@ import {
   START_MUTE_STREAME_AUDIO,
   MERGE_CANVAS_WIDTH,
   CLEAR_AUDIODATA_STATE,
+  FILTER_TOGGLER,
 } from './types';
 
 // audio data actions
@@ -36,4 +37,7 @@ export const mergeCanvasWidth = eventInput => dispatch => dispatch({
 });
 export const clearAudioDataState = () => dispatch => dispatch({
   type: CLEAR_AUDIODATA_STATE,
+});
+export const filterHandler = () => dispatch => dispatch({
+  type: FILTER_TOGGLER,
 });

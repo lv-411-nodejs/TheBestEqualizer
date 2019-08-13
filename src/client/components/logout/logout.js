@@ -9,14 +9,14 @@ import { clearAudioDataState } from '../../store/actions/audioActions';
 
 class Logout extends Component {
     SignOut = () => {
-      const { history, clearAudioDataStateAsProp, audioData: { sound, voice } } = this.props;
+      const { clearAudioDataStateAsProp, audioData: { sound, voice } } = this.props;
       if (sound) {
         sound.stop();
         voice.stop();
       }
       clearAudioDataStateAsProp();
       localStorage.clear();
-      history.push('/');
+      window.location = '/';
     }
 
     render() {
@@ -32,7 +32,6 @@ class Logout extends Component {
 }
 
 Logout.propTypes = {
-  history: PropTypes.instanceOf(Object).isRequired,
   audioData: PropTypes.instanceOf(Object).isRequired,
   clearAudioDataStateAsProp: PropTypes.func.isRequired,
 };

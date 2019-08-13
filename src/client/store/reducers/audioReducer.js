@@ -9,6 +9,7 @@ import {
   START_MUTE_STREAME_AUDIO,
   MERGE_CANVAS_WIDTH,
   CLEAR_AUDIODATA_STATE,
+  FILTER_TOGGLER,
 } from '../actions/types';
 
 const audioContext = Pizzicato.context;
@@ -28,6 +29,7 @@ const initialState = {
   voice: null,
   playPauseState: false,
   startMuteState: false,
+  filtersToggler: false,
 };
 
 export default function (state = initialState, action) {
@@ -80,6 +82,12 @@ export default function (state = initialState, action) {
     case CLEAR_AUDIODATA_STATE: {
       return {
         ...initialState,
+      };
+    }
+    case FILTER_TOGGLER: {
+      return {
+        ...state,
+        filtersToggler: !state.filtersToggler,
       };
     }
     default: return state;

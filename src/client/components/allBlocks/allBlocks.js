@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { setVisibility } from '../../store/actions/blocksActions';
 import BlockOfSliders from '../blockOfSliders';
+import { createEffect } from '../../helpers/constants';
 import { checkTickIcon } from '../../assets/icons/icons';
 import './alllBlocks.css';
 import ToggleZone from '../toggleZone/toggleZone';
@@ -11,14 +12,14 @@ class AllBlocks extends Component {
   toggleSourceFilters = (filterName) => {
     const { setVisibility, blocksData, audioData } = this.props;
     setVisibility(filterName);
-    blocksData.forEach(({ createEffect, isVisible, name }) => {
+    blocksData.forEach(({ isVisible, name }) => {
       if (filterName === name) {
-        if (audioData.onToggle) {
-          isVisible ? audioData.voice.removeEffect(createEffect)
-            : audioData.voice.addEffect(createEffect);
+        if (audioData.filtersToggler) {
+          isVisible ? audioData.voice.removeEffect(createEffect[name])
+            : audioData.voice.addEffect(createEffect[name]);
         } else {
-          isVisible ? audioData.sound && audioData.sound.removeEffect(createEffect)
-            : audioData.sound && audioData.sound.addEffect(createEffect);
+          isVisible ? audioData.sound && audioData.sound.removeEffect(createEffect[name])
+            : audioData.sound && audioData.sound.addEffect(createEffect[name]);
         }
       }
     });

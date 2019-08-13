@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './blockOfSliders.css';
 import OneSlider from '../slider';
+import { efValues } from '../../helpers/constants';
 
 
 const BlockOfSliders = ({ name, effects }) => (
@@ -14,7 +15,7 @@ const BlockOfSliders = ({ name, effects }) => (
         <OneSlider
           blockName={name}
           effectName={effect}
-          effectValues={effects[effect]}
+          effectValues={{ ...efValues[name][effect], value: effects[effect] }}
           key={effect}
         />
       ))

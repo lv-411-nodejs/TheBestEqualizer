@@ -2,6 +2,25 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { FilterToggler } from './filterToggler';
 
+jest.mock('pizzicato', () => {
+  const mockPizzicato = jest.fn();
+  mockPizzicato.Effects = jest.fn(() => {});
+  const effects = ['Delay', 'PingPongDelay', 'DubDelay', 'Distortion', 'Quadrafuzz', 'Flanger',
+    'Reverb', 'Tremolo', 'StereoPanner', 'Compressor', 'LowPassFilter', 'HighPassFilter', 'RingModulator',
+  ];
+  effects.forEach((effect, el) => {
+    mockPizzicato.Effects[effect] = jest.fn(() => function Effect() {
+      return {
+        effect: () => (`fakeEffect${el}`),
+      };
+    });
+  });
+  return {
+    __esModule: true,
+    default: mockPizzicato,
+  };
+});
+
 describe('Filter Toggler', () => {
   const props = {
     audioData: {

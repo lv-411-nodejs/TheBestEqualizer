@@ -1,4 +1,5 @@
 import Pizzicato from 'pizzicato';
+import { createEffect } from './constants';
 
 const createSoundInfoInState = (sound, file, props) => {
   const { audioData: { analyser } } = props;
@@ -12,23 +13,23 @@ const createSoundInfoInState = (sound, file, props) => {
 export const attachFiltersToSource = (sourceInput, blocksData) => sourceInput
   && blocksData.forEach((
     {
-      createEffect,
+      name,
       isVisible,
     },
-  ) => isVisible && sourceInput.addEffect(createEffect));
+  ) => isVisible && sourceInput.addEffect(createEffect[name]));
 
 export const removeSourceFilters = (sourceInput, blocksData) => sourceInput
-&& blocksData.forEach(({ createEffect, isVisible }) => isVisible
-  && sourceInput.removeEffect(createEffect));
+&& blocksData.forEach(({ name, isVisible }) => isVisible
+  && sourceInput.removeEffect(createEffect[name]));
 
 const removeSoundFilters = (props) => {
   const { audioData: { sound }, playPauseSoundFromFileAsProp } = props;
   sound.effects.length && props.blocksData.forEach((
     {
-      createEffect,
+      name,
       isVisible,
     },
-  ) => isVisible && sound.removeEffect(createEffect));
+  ) => isVisible && sound.removeEffect(createEffect[name]));
   sound.playing && playPauseSoundFromFileAsProp();
   sound.stop();
 };

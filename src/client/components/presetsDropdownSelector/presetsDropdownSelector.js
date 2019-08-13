@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import fetchRequest from '../../helpers/fetchRequest';
-import { HOST } from '../../helpers/constants';
+import { HOST, createEffect } from '../../helpers/constants';
 import { setPresetValue } from '../../store/actions/blocksActions';
 import { addNewPresetsFromDB } from '../../store/actions/presetsAction';
+import { removeSourceFilters } from '../../helpers/equalizerAuxMethods';
 
 import './presetsDropdownSelector.css';
 
@@ -15,22 +16,28 @@ class PresetsDropdownSelector extends Component {
       .then(response => addNewPresetsFromDB(response.data.userPresets));
   }
 
-  // componentDidUpdate(prevProps) {
-  //   const { blocksData, audioData } = this.props;
-  //   if (audioData.trackName !== null && blocksData !== prevProps.blocksData) {
-  //     const prevBlocksData = prevProps.blocksData;
-  //     prevBlocksData.forEach(({ createEffect }) => {
-  //       audioData.sound.removeEffect(createEffect);
-  //     });
-  //     blocksData.forEach(({ createEffect, isVisible }) => {
-  //       isVisible && audioData.sound.addEffect(createEffect);
-  //     });
-  //   }
-  // }
+  applyFilters = (source) => {
+    const { blocksData } = this.props;
+    blocksData.forEach(({ name, isVisible, effects }) => {
+      const newPreset = createEffect[name];
+      Object.keys(effects).forEach((effectName) => {
+        newPreset[effectName] = effects[effectName];
+      });
+      source && isVisible && source.addEffect(newPreset);
+    });
+  }
 
-  handleSelectorChange = (event) => {
-    const { setPresetValue, blocksData } = this.props;
-    setPresetValue(event.target.value, blocksData);
+  handleSelectorChange = async (event) => {
+    const { setPresetValue, blocksData, audioData: { voice, sound, filterToggler } } = this.props;
+    if (filterToggler) {
+      removeSourceFilters(voice, blocksData);
+      await setPresetValue(event.target.value, blocksData);
+      this.applyFilters(voice);
+    } else {
+      removeSourceFilters(sound, blocksData);
+      await setPresetValue(event.target.value, blocksData);
+      this.applyFilters(sound);
+    }
   };
 
   render() {
@@ -58,7 +65,7 @@ const mapStateToProps = state => ({
 
 PresetsDropdownSelector.propTypes = {
   blocksData: PropTypes.instanceOf(Array),
-  // audioData: PropTypes.instanceOf(Object),
+  audioData: PropTypes.instanceOf(Object),
   presetsData: PropTypes.instanceOf(Array),
   setPresetValue: PropTypes.func,
   addNewPresetsFromDB: PropTypes.func,

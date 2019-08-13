@@ -1,6 +1,9 @@
+/* eslint no-case-declarations: "error" */
+
 import fetchRequest from '../../helpers/fetchRequest';
 import {
   HOST,
+  DEFAULT_PRESET_ARRAY,
   JAZZ_PRESET_ARRAY,
   ROCK_PRESET_ARRAY,
   POP_PRESET_ARRAY,
@@ -17,11 +20,12 @@ import {
 
 export const setVisibility = blockName => ({ type: SET_VISIBILITY, blockName });
 
-export const setPresetValue = (chosenPresetName, blocksData) => (dispatch) => {
+export const setPresetValue = chosenPresetName => async (dispatch) => {
   switch (chosenPresetName) {
     case 'Default':
       dispatch({
         type: SET_DEFAULT_PRESET,
+        defaultPresetArray: DEFAULT_PRESET_ARRAY,
       });
       break;
     case 'Jazz':
@@ -42,17 +46,14 @@ export const setPresetValue = (chosenPresetName, blocksData) => (dispatch) => {
         popPresetArray: POP_PRESET_ARRAY,
       });
       break;
-    default:
-      fetchRequest
-        .get(`${HOST}/effects`, { params: { title: chosenPresetName } })
-        .then((response) => {
-          const userPresetArray = blocksData.map((effectFromStore, i) => (
-            { ...effectFromStore, effects: response.data.presets[i].effects }
-          ));
-          dispatch({
-            type: SET_USER_PRESET,
-            userPresetArray,
-          });
-        });
+    default: {
+      const response = await fetchRequest
+        .get(`${HOST}/effects`, { params: { title: chosenPresetName } });
+      const { data: { presets: userPresetArray } } = response;
+      dispatch({
+        type: SET_USER_PRESET,
+        userPresetArray,
+      });
+    }
   }
 };

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Slider from 'react-rangeslider';
 import { connect } from 'react-redux';
+import { createEffect } from '../../helpers/constants';
 import 'react-rangeslider/lib/index.css';
 
 import './slider.css';
@@ -30,10 +31,10 @@ class OneSlider extends Component {
 
   setEffectsValue = (sliderValue) => {
     const { blocksData, blockName, effectName } = this.props;
-    blocksData.forEach(({ name, effects, createEffect }) => {
+    blocksData.forEach(({ name, effects }) => {
       if (name === blockName) {
-        effects[effectName].value = parseFloat(sliderValue.toFixed(2));
-        createEffect[effectName] = effects[effectName].value;
+        effects[effectName] = parseFloat(sliderValue.toFixed(2));
+        createEffect[name][effectName] = effects[effectName];
       }
     });
     this.setState({ sliderValue: parseFloat(sliderValue.toFixed(2)) });
